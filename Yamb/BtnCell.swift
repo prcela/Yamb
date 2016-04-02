@@ -10,4 +10,9 @@ import UIKit
 
 class BtnCell: UICollectionViewCell {
     
+    @IBOutlet weak var btn: UIButton!
+    
+    override func awakeFromNib() {
+        layer.borderWidth = 0.5
+    }
 }

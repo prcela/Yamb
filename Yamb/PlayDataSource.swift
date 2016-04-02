@@ -10,9 +10,15 @@ import UIKit
 
 enum PlaySection: Int {
     case Header = 0
-    case Numbers // 1..6
+    case One
+    case Two
+    case Three
+    case Four
+    case Five
+    case Six
     case SumNumbers
-    case MaxMin // max, min
+    case Max
+    case Min
     case SumMaxMin
     case Skala
     case Full
@@ -24,44 +30,26 @@ enum PlaySection: Int {
 class PlayDataSource: NSObject, UICollectionViewDataSource
 {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 10
+        return 16
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let ctItemsInRow = 5 // ili 4
-        switch PlaySection(rawValue: section)! {
-        case .Header:
-            return 1 * ctItemsInRow
-        case .Numbers:
-            return 6 * ctItemsInRow
-        case .SumNumbers:
-            return ctItemsInRow
-        case .MaxMin:
-            return 2 * ctItemsInRow
-        case .SumMaxMin:
-            return ctItemsInRow
-        case .Skala:
-            return ctItemsInRow
-        case .Full:
-            return ctItemsInRow
-        case .Poker:
-            return ctItemsInRow
-        case .Yamb:
-            return ctItemsInRow
-        case .SumSFPY:
-            return ctItemsInRow
-        }
+        return ctItemsInRow
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         switch PlaySection(rawValue: indexPath.section)! {
         case .Header:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+            let titles = ["","↓","↑","⇅","N"]
+            cell.lbl.text = titles[indexPath.item]
             return cell
-        case .Numbers:
+        case .One, .Two, .Three, .Four, .Five, .Six:
             if indexPath.item == 0
             {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = String(indexPath.section)
                 return cell
             }
             else
@@ -69,8 +57,107 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
                 return cell
             }
-        default:
+        case .SumNumbers:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+            if indexPath.item == 0
+            {
+                cell.lbl.text = "∑"
+            }
+            else
+            {
+            }
+            return cell
+        case .Max:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Max"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .Min:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Min"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .SumMaxMin:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+            if indexPath.item == 0
+            {
+                cell.lbl.text = "∑"
+            }
+            else
+            {
+            }
+            return cell
+        case .Skala:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Skala"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .Full:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Full"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .Poker:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Poker"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .Yamb:
+            if indexPath.item == 0
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+                cell.lbl.text = "Yamb"
+                return cell
+            }
+            else
+            {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                return cell
+            }
+        case .SumSFPY:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
+            if indexPath.item == 0
+            {
+                cell.lbl.text = "∑"
+            }
+            else
+            {
+            }
             return cell
         }
     }

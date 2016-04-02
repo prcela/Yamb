@@ -9,5 +9,9 @@
 import UIKit
 
 class LblCell: UICollectionViewCell {
+    @IBOutlet weak var lbl: UILabel!
     
+    override func awakeFromNib() {
+        layer.borderWidth = 0.5
+    }
 }

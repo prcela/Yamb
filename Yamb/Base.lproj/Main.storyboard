@@ -260,7 +260,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F5v-dm-JYu">
-                                <rect key="frame" x="20" y="38" width="560" height="391"/>
+                                <rect key="frame" x="20" y="38" width="560" height="452"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="a31-XH-ueD" customClass="PlayFlowLayout" customModule="Yamb" customModuleProvider="target"/>
                                 <cells>
@@ -271,9 +271,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="von-WO-KVi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="von-WO-KVi">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -287,6 +287,9 @@
                                             <constraint firstItem="von-WO-KVi" firstAttribute="top" secondItem="knV-qf-aSS" secondAttribute="top" id="dWb-ml-huw"/>
                                             <constraint firstAttribute="trailing" secondItem="von-WO-KVi" secondAttribute="trailing" id="sby-is-0Ob"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="lbl" destination="von-WO-KVi" id="ixg-ZG-ocr"/>
+                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BtnCell" id="xlV-I5-aVh" customClass="BtnCell" customModule="Yamb" customModuleProvider="target">
                                         <rect key="frame" x="64" y="0.0" width="50" height="50"/>
@@ -296,7 +299,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBd-Rg-Ep4">
-                                                    <rect key="frame" x="8" y="8" width="34" height="34"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <state key="normal" title="10"/>
                                                 </button>
                                             </subviews>
@@ -305,10 +308,25 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottomMargin" secondItem="UBd-Rg-Ep4" secondAttribute="bottom" id="HsU-Eh-Trn"/>
+                                            <constraint firstItem="UBd-Rg-Ep4" firstAttribute="top" secondItem="xlV-I5-aVh" secondAttribute="top" id="Lfm-K8-Wnj"/>
+                                            <constraint firstItem="UBd-Rg-Ep4" firstAttribute="leading" secondItem="xlV-I5-aVh" secondAttribute="leading" id="LlM-2I-Hwj"/>
                                             <constraint firstItem="UBd-Rg-Ep4" firstAttribute="top" secondItem="xlV-I5-aVh" secondAttribute="topMargin" id="Qv4-mk-YaO"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="UBd-Rg-Ep4" secondAttribute="trailing" id="i7h-eo-Eqx"/>
+                                            <constraint firstAttribute="bottom" secondItem="UBd-Rg-Ep4" secondAttribute="bottom" id="kbX-zy-5xt"/>
                                             <constraint firstItem="UBd-Rg-Ep4" firstAttribute="leading" secondItem="xlV-I5-aVh" secondAttribute="leadingMargin" id="o7R-E0-mVV"/>
+                                            <constraint firstAttribute="trailing" secondItem="UBd-Rg-Ep4" secondAttribute="trailing" id="t2Y-Wq-WBL"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="HsU-Eh-Trn"/>
+                                                <exclude reference="Qv4-mk-YaO"/>
+                                                <exclude reference="i7h-eo-Eqx"/>
+                                                <exclude reference="o7R-E0-mVV"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="btn" destination="UBd-Rg-Ep4" id="sIL-eE-XNn"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -320,7 +338,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="F5v-dm-JYu" secondAttribute="trailing" id="B7j-Qd-lO6"/>
                             <constraint firstAttribute="leadingMargin" secondItem="F5v-dm-JYu" secondAttribute="leading" id="aj2-Fz-C8E"/>
-                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="111" id="ftw-nX-kFh"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="50" id="ftw-nX-kFh"/>
                             <constraint firstItem="F5v-dm-JYu" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" constant="38" id="i0c-5y-faq"/>
                         </constraints>
                     </view>
