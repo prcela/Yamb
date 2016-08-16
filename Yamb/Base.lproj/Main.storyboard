@@ -277,15 +277,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYH-H4-IEJ">
-                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <action selector="back:" destination="PEx-0D-RyI" eventType="touchUpInside" id="PYg-uE-Vhm"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F5v-dm-JYu">
-                                <rect key="frame" x="20" y="58" width="560" height="442"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="500"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="a31-XH-ueD" customClass="PlayFlowLayout" customModule="Yamb" customModuleProvider="target"/>
                                 <cells>
@@ -363,7 +356,7 @@
                                 </connections>
                             </collectionView>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="" translatesAutoresizingMaskIntoConstraints="NO" id="36W-Ca-VAm">
-                                <rect key="frame" x="20" y="505" width="492" height="87"/>
+                                <rect key="frame" x="100" y="505" width="412" height="87"/>
                             </sceneKitView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOz-Xm-yYs">
                                 <rect key="frame" x="520" y="505" width="60" height="87"/>
@@ -377,9 +370,23 @@
                                     <action selector="roll:" destination="PEx-0D-RyI" eventType="touchUpInside" id="U4U-o4-6Xz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYH-H4-IEJ">
+                                <rect key="frame" x="20" y="505" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="aeJ-g0-Q5X"/>
+                                    <constraint firstAttribute="width" constant="30" id="c8X-iy-8LH"/>
+                                </constraints>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="PEx-0D-RyI" eventType="touchUpInside" id="PYg-uE-Vhm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BYH-H4-IEJ" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="4Kr-nT-ta3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="F5v-dm-JYu" secondAttribute="trailing" id="B7j-Qd-lO6"/>
                             <constraint firstAttribute="trailing" secondItem="dOz-Xm-yYs" secondAttribute="trailing" constant="20" id="BoL-9Y-uYs"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="5" id="DXa-Rk-ewP"/>
@@ -387,18 +394,22 @@
                             <constraint firstItem="dOz-Xm-yYs" firstAttribute="leading" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="8" id="Qbf-Ke-nIp"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="dOz-Xm-yYs" secondAttribute="bottom" constant="8" id="TVd-d7-Q87"/>
                             <constraint firstItem="dOz-Xm-yYs" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="U3D-A8-D7h"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="BYH-H4-IEJ" secondAttribute="leading" id="ado-oa-dh2"/>
                             <constraint firstAttribute="leadingMargin" secondItem="F5v-dm-JYu" secondAttribute="leading" id="aj2-Fz-C8E"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="100" id="ftw-nX-kFh"/>
-                            <constraint firstItem="F5v-dm-JYu" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" constant="38" id="i0c-5y-faq"/>
-                            <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="20" id="lh7-ZW-1Pg"/>
+                            <constraint firstAttribute="topMargin" secondItem="F5v-dm-JYu" secondAttribute="top" id="gcb-EA-TF9"/>
+                            <constraint firstItem="F5v-dm-JYu" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" id="i0c-5y-faq"/>
+                            <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="100" id="lh7-ZW-1Pg"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" constant="8" id="wJ1-mb-gP7"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="i0c-5y-faq"/>
                                 <exclude reference="EAg-cA-CKP"/>
                             </mask>
                         </variation>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="F5v-dm-JYu" id="zj7-b6-IZT"/>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>

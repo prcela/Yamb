@@ -29,8 +29,7 @@ class PlayViewController: UIViewController {
     
     @IBAction func back(sender: AnyObject)
     {
-        navigationController?.popViewControllerAnimated(true)
-        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func roll(sender: AnyObject)
     {

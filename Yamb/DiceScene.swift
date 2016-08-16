@@ -47,7 +47,7 @@ class DiceScene: SCNScene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.usesOrthographicProjection = true
-        cameraNode.camera?.orthographicScale = 1.2
+        cameraNode.camera?.orthographicScale = 1.5
         cameraNode.position = SCNVector3Make(2, 0.5*Float(side) + 0.5*delta, 30)
         
         rootNode.addChildNode(cameraNode)

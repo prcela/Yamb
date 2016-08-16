@@ -15,11 +15,11 @@ class PlayFlowLayout: UICollectionViewFlowLayout
         
         let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
         
-        if w > 320 {
-            itemSize = CGSizeMake(70, 25)
-        } else {
-            itemSize = CGSizeMake(57.5, 25)
-        }
+        
+        
+        
+        itemSize = CGSizeMake((w-40)/5, 25)
+        
         
         sectionInset = UIEdgeInsetsZero
         minimumInteritemSpacing = 0
