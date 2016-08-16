@@ -10,4 +10,7 @@ import UIKit
 
 class MenuViewController: UIViewController
 {
+    @IBOutlet weak var trainingBtn: UIButton!
+    @IBOutlet weak var nearbyBtn: UIButton!
+    @IBOutlet weak var offlineBtn: UIButton!
 }

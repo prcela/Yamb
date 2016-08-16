@@ -32,6 +32,11 @@ class PrepareViewController: UIViewController {
     }
     */
 
+    @IBAction func play(sender: AnyObject)
+    {
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.play, object: nil)
+    }
+    
     @IBAction func back(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }

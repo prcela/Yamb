@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
-		977D97F91CAEA35700AD9EF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F81CAEA35700AD9EF8 /* ViewController.swift */; };
+		977D97F91CAEA35700AD9EF8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F81CAEA35700AD9EF8 /* RootViewController.swift */; };
 		977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FA1CAEA35700AD9EF8 /* Main.storyboard */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
 		977D98011CAEA35700AD9EF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FF1CAEA35700AD9EF8 /* LaunchScreen.storyboard */; };
@@ -24,7 +24,7 @@
 /* Begin PBXFileReference section */
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		977D97F81CAEA35700AD9EF8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		977D97F81CAEA35700AD9EF8 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		977D97FB1CAEA35700AD9EF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		977D98001CAEA35700AD9EF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 			children = (
 				977D97FA1CAEA35700AD9EF8 /* Main.storyboard */,
 				977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */,
-				977D97F81CAEA35700AD9EF8 /* ViewController.swift */,
+				977D97F81CAEA35700AD9EF8 /* RootViewController.swift */,
 				977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */,
 				977D97FF1CAEA35700AD9EF8 /* LaunchScreen.storyboard */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
@@ -159,7 +159,7 @@
 				977D980F1CAFFD0A00AD9EF8 /* PlayDataSource.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
-				977D97F91CAEA35700AD9EF8 /* ViewController.swift in Sources */,
+				977D97F91CAEA35700AD9EF8 /* RootViewController.swift in Sources */,
 				977D98131CB0022800AD9EF8 /* BtnCell.swift in Sources */,
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,
 				977D98111CB0021700AD9EF8 /* LblCell.swift in Sources */,
@@ -280,6 +280,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Yamb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.100kas.Yamb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,6 +292,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Yamb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.100kas.Yamb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
