@@ -32,4 +32,8 @@ class PlayViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
         
     }
+    @IBAction func roll(sender: AnyObject)
+    {
+        DiceScene.shared.roll()
+    }
 }

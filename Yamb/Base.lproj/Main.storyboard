@@ -362,21 +362,42 @@
                                     <outlet property="dataSource" destination="aQ4-bk-OWM" id="hD9-BL-cvt"/>
                                 </connections>
                             </collectionView>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="" translatesAutoresizingMaskIntoConstraints="NO" id="36W-Ca-VAm" customClass="DiceSceneView" customModule="Yamb" customModuleProvider="target">
-                                <rect key="frame" x="20" y="505" width="480" height="87"/>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="" translatesAutoresizingMaskIntoConstraints="NO" id="36W-Ca-VAm">
+                                <rect key="frame" x="20" y="505" width="492" height="87"/>
                             </sceneKitView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOz-Xm-yYs">
+                                <rect key="frame" x="520" y="505" width="60" height="87"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="uaX-AF-Za2"/>
+                                </constraints>
+                                <state key="normal" title="Roll">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="roll:" destination="PEx-0D-RyI" eventType="touchUpInside" id="U4U-o4-6Xz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="F5v-dm-JYu" secondAttribute="trailing" id="B7j-Qd-lO6"/>
+                            <constraint firstAttribute="trailing" secondItem="dOz-Xm-yYs" secondAttribute="trailing" constant="20" id="BoL-9Y-uYs"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="5" id="DXa-Rk-ewP"/>
                             <constraint firstAttribute="trailing" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="100" id="EAg-cA-CKP"/>
+                            <constraint firstItem="dOz-Xm-yYs" firstAttribute="leading" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="8" id="Qbf-Ke-nIp"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="dOz-Xm-yYs" secondAttribute="bottom" constant="8" id="TVd-d7-Q87"/>
+                            <constraint firstItem="dOz-Xm-yYs" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="U3D-A8-D7h"/>
                             <constraint firstAttribute="leadingMargin" secondItem="F5v-dm-JYu" secondAttribute="leading" id="aj2-Fz-C8E"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="100" id="ftw-nX-kFh"/>
                             <constraint firstItem="F5v-dm-JYu" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" constant="38" id="i0c-5y-faq"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="20" id="lh7-ZW-1Pg"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" constant="8" id="wJ1-mb-gP7"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="EAg-cA-CKP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="F5v-dm-JYu" id="zj7-b6-IZT"/>

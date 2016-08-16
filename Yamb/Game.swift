@@ -7,3 +7,22 @@
 //
 
 import Foundation
+
+enum DiceNum: Int
+{
+    case Five = 5
+    case Six = 6
+}
+
+class Game
+{
+    static let shared = Game()
+    
+    var diceNum = DiceNum.Five
+    var useNajava = true
+    
+    func start()
+    {
+        DiceScene.shared.start()
+    }
+}
