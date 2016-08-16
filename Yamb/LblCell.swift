@@ -13,5 +13,6 @@ class LblCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGrayColor().CGColor
     }
 }

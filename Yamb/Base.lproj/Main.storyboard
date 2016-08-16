@@ -139,7 +139,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="invite friends Fb, SMS, Mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVB-7H-UKI">
-                                <rect key="frame" x="217.5" y="339" width="165" height="21"/>
+                                <rect key="frame" x="218" y="339" width="165" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4Z9-sX-Tj9"/>
                                     <constraint firstAttribute="width" constant="165" id="yrt-dq-gjg"/>
@@ -248,6 +248,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QzA-iw-gJQ" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="88" id="2IU-no-u0A"/>
                             <constraint firstItem="ib0-TW-g6Z" firstAttribute="top" secondItem="UHt-NN-I8E" secondAttribute="bottom" constant="34" id="IxF-M3-plJ"/>
@@ -284,7 +285,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F5v-dm-JYu">
-                                <rect key="frame" x="20" y="58" width="560" height="492"/>
+                                <rect key="frame" x="20" y="58" width="560" height="442"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="a31-XH-ueD" customClass="PlayFlowLayout" customModule="Yamb" customModuleProvider="target"/>
                                 <cells>
@@ -297,8 +298,9 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="von-WO-KVi">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" red="0.76584726572036743" green="0.84954738616943359" blue="0.94532924890518188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -324,7 +326,10 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBd-Rg-Ep4">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <state key="normal" title="10"/>
+                                                    <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
+                                                    <state key="normal" title="10">
+                                                        <color key="titleColor" red="0.33642855286598206" green="0.36124515533447266" blue="0.91179203987121582" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -357,17 +362,25 @@
                                     <outlet property="dataSource" destination="aQ4-bk-OWM" id="hD9-BL-cvt"/>
                                 </connections>
                             </collectionView>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="" translatesAutoresizingMaskIntoConstraints="NO" id="36W-Ca-VAm" customClass="DiceSceneView" customModule="Yamb" customModuleProvider="target">
+                                <rect key="frame" x="20" y="505" width="480" height="87"/>
+                            </sceneKitView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.44313725490196076" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="F5v-dm-JYu" secondAttribute="trailing" id="B7j-Qd-lO6"/>
+                            <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="5" id="DXa-Rk-ewP"/>
+                            <constraint firstAttribute="trailing" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="100" id="EAg-cA-CKP"/>
                             <constraint firstAttribute="leadingMargin" secondItem="F5v-dm-JYu" secondAttribute="leading" id="aj2-Fz-C8E"/>
-                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="50" id="ftw-nX-kFh"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="F5v-dm-JYu" secondAttribute="bottom" constant="100" id="ftw-nX-kFh"/>
                             <constraint firstItem="F5v-dm-JYu" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" constant="38" id="i0c-5y-faq"/>
+                            <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="20" id="lh7-ZW-1Pg"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" constant="8" id="wJ1-mb-gP7"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="F5v-dm-JYu" id="zj7-b6-IZT"/>
+                        <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>

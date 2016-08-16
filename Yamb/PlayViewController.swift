@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import SceneKit
 
 class PlayViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var sceneView: SCNView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        sceneView.scene = DiceScene.shared
 
     }
 
