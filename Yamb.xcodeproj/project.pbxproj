@@ -18,7 +18,6 @@
 		977D980F1CAFFD0A00AD9EF8 /* PlayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */; };
 		977D98111CB0021700AD9EF8 /* LblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98101CB0021700AD9EF8 /* LblCell.swift */; };
 		977D98131CB0022800AD9EF8 /* BtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98121CB0022800AD9EF8 /* BtnCell.swift */; };
-		977D98151CB005E600AD9EF8 /* PlayFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98141CB005E600AD9EF8 /* PlayFlowLayout.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AEC31D632670001640F7 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC21D632670001640F7 /* 1.png */; };
 		9787AEC91D6329C0001640F7 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC41D6329C0001640F7 /* 2.png */; };
@@ -43,7 +42,6 @@
 		977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayDataSource.swift; sourceTree = "<group>"; };
 		977D98101CB0021700AD9EF8 /* LblCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LblCell.swift; sourceTree = "<group>"; };
 		977D98121CB0022800AD9EF8 /* BtnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BtnCell.swift; sourceTree = "<group>"; };
-		977D98141CB005E600AD9EF8 /* PlayFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayFlowLayout.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AEC21D632670001640F7 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = Yamb/Resources/1.png; sourceTree = "<group>"; };
 		9787AEC41D6329C0001640F7 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = Yamb/Resources/2.png; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 				977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */,
 				977D98101CB0021700AD9EF8 /* LblCell.swift */,
 				977D98121CB0022800AD9EF8 /* BtnCell.swift */,
-				977D98141CB005E600AD9EF8 /* PlayFlowLayout.swift */,
 				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				9787AECE1D6330E3001640F7 /* Game.swift */,
 			);
@@ -203,7 +200,6 @@
 				9787AECF1D6330E3001640F7 /* Game.swift in Sources */,
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,
 				977D98111CB0021700AD9EF8 /* LblCell.swift in Sources */,
-				977D98151CB005E600AD9EF8 /* PlayFlowLayout.swift in Sources */,
 				977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
