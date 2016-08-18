@@ -23,10 +23,6 @@ class PlayViewController: UIViewController {
         
         collectionView.reloadData()
     }
-
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
     
     @IBAction func back(sender: AnyObject)
     {
@@ -47,7 +43,9 @@ extension PlayViewController: UICollectionViewDelegateFlowLayout
 {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let collectionSize = collectionView.frame.size
-        return CGSizeMake(collectionSize.width/5, collectionSize.height/16)
+        let ctRows = collectionView.numberOfItemsInSection(0)
+        let ctSections = collectionView.numberOfSections()
+        return CGSizeMake(collectionSize.width/CGFloat(ctRows), collectionSize.height/CGFloat(ctSections))
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {

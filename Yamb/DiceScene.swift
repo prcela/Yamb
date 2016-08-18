@@ -13,6 +13,8 @@ class DiceScene: SCNScene
 {
     static let shared = DiceScene()
     
+    var playSoundAction: SCNAction?
+    
     override init() {
         super.init()
         
@@ -59,6 +61,21 @@ class DiceScene: SCNScene
         let lightNode = SCNNode()
         lightNode.light = light
         cameraNode.addChildNode(lightNode)
+        
+        
+        if #available(iOS 9.0, *) {
+            
+            let dieNode = rootNode.childNodeWithName("3", recursively: false)!
+            let audioSource = SCNAudioSource(fileNamed: "Shake And Roll Dice.wav")!
+            let audioPlayer = SCNAudioPlayer(source: audioSource)
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                dieNode.addAudioPlayer(audioPlayer)
+            })
+            
+            
+            playSoundAction = SCNAction.playAudioSource(audioSource, waitForCompletion: false)
+        }
 
     }
     
@@ -89,6 +106,12 @@ class DiceScene: SCNScene
             {
                 node.runAction(action)
             }
+        }
+        
+        if playSoundAction != nil
+        {
+            let dieNode = rootNode.childNodeWithName("2", recursively: false)
+            dieNode?.runAction(playSoundAction!)
         }
     }
 

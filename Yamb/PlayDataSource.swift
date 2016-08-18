@@ -34,16 +34,19 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let ctItemsInRow = 5 // ili 4
+        let ctItemsInRow = Game.shared.useNajava ? 5:4
         return ctItemsInRow
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        
         switch PlaySection(rawValue: indexPath.section)! {
         case .Header:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
             let titles = ["","↓","↑","⇅","N"]
             cell.lbl.text = titles[indexPath.item]
+            cell.lbl.font = UIFont.boldSystemFontOfSize(24)
             return cell
         case .One, .Two, .Three, .Four, .Five, .Six:
             if indexPath.item == 0

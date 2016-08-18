@@ -26,6 +26,7 @@
 		9787AECC1D6329C0001640F7 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC71D6329C0001640F7 /* 5.png */; };
 		9787AECD1D6329C0001640F7 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC81D6329C0001640F7 /* 6.png */; };
 		9787AECF1D6330E3001640F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Game.swift */; };
+		97C4EF4E1D6669AE00A1E7CD /* Shake And Roll Dice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		9787AEC71D6329C0001640F7 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5.png; path = Yamb/Resources/5.png; sourceTree = "<group>"; };
 		9787AEC81D6329C0001640F7 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6.png; path = Yamb/Resources/6.png; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Shake And Roll Dice.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		9787AEC11D632661001640F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */,
 				9787AEC21D632670001640F7 /* 1.png */,
 				9787AEC41D6329C0001640F7 /* 2.png */,
 				9787AEC51D6329C0001640F7 /* 3.png */,
@@ -146,6 +149,7 @@
 				TargetAttributes = {
 					977D97F21CAEA35700AD9EF8 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = X5F8D2MNQ7;
 					};
 				};
 			};
@@ -176,6 +180,7 @@
 				9787AECB1D6329C0001640F7 /* 4.png in Resources */,
 				9787AEC31D632670001640F7 /* 1.png in Resources */,
 				9787AECD1D6329C0001640F7 /* 6.png in Resources */,
+				97C4EF4E1D6669AE00A1E7CD /* Shake And Roll Dice.wav in Resources */,
 				9787AEC91D6329C0001640F7 /* 2.png in Resources */,
 				9787AECA1D6329C0001640F7 /* 3.png in Resources */,
 				9787AECC1D6329C0001640F7 /* 5.png in Resources */,
@@ -315,11 +320,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Yamb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.100kas.Yamb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -327,11 +335,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Yamb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.100kas.Yamb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
