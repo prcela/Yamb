@@ -194,7 +194,7 @@
                         <viewControllerLayoutGuide type="top" id="E0a-0a-aZv"/>
                         <viewControllerLayoutGuide type="bottom" id="o9K-6y-Yup"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bP6-BX-tkt">
+                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="249" id="bP6-BX-tkt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

@@ -8,24 +8,6 @@
 
 import UIKit
 
-enum PlaySection: Int {
-    case Header = 0
-    case One
-    case Two
-    case Three
-    case Four
-    case Five
-    case Six
-    case SumNumbers
-    case Max
-    case Min
-    case SumMaxMin
-    case Skala
-    case Full
-    case Poker
-    case Yamb
-    case SumSFPY
-}
 
 class PlayDataSource: NSObject, UICollectionViewDataSource
 {
@@ -40,6 +22,8 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
+        
+        let colValues = indexPath.item > 0 ? Game.shared.tableValues[indexPath.item-1]:[]
         
         switch PlaySection(rawValue: indexPath.section)! {
         case .Header:
@@ -58,6 +42,16 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
             else
             {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
+                
+                if let val = colValues[indexPath.row]
+                {
+                    cell.btn.setTitle(String(val), forState: .Normal)
+                }
+                else
+                {
+                    cell.btn.setTitle(nil, forState: .Normal)
+                    cell.btn.enabled = Game.shared.inputState == .Allowed
+                }
                 return cell
             }
         case .SumNumbers:

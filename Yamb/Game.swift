@@ -36,6 +36,7 @@ enum RollState {
     case NotRolling
 }
 
+
 enum InputState
 {
     case NotAllowed
@@ -53,7 +54,7 @@ class Game
     var gameState = GameState.Start
     var rollState = RollState.NotRolling
     var diceValues: [UInt32]?
-    
+    var tableValues = Array<Array<UInt32?>>(count: 4, repeatedValue: Array<UInt32?>(count: 16, repeatedValue: nil))
     
     func start()
     {
