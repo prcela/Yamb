@@ -93,11 +93,12 @@ class DiceScene: SCNScene
         }
     }
 
-    func roll()
+    func roll(completion: (result: [UInt32]) -> Void)
     {
         let ctMaxRounds: UInt32 = 5
+        var values = [UInt32]()
         
-        func randomRotateAngle(dst:CGFloat) -> CGFloat
+        func randomRotateAngleToDst(dst:CGFloat) -> CGFloat
         {
             return dst + CGFloat(1+arc4random_uniform(ctMaxRounds))*2*CGFloat(M_PI)
         }
@@ -105,11 +106,11 @@ class DiceScene: SCNScene
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
             let num = 1+arc4random_uniform(6)
-            print(num)
+            values.append(num)
             
-            var rndX = randomRotateAngle(0)
-            var rndY = randomRotateAngle(0)
-            var rndZ = randomRotateAngle(0)
+            var rndX = randomRotateAngleToDst(0)
+            var rndY = randomRotateAngleToDst(0)
+            let rndZ = randomRotateAngleToDst(0)
             
             if num == 1
             {
@@ -117,23 +118,23 @@ class DiceScene: SCNScene
             }
             else if num == 2
             {
-                rndY = randomRotateAngle(-CGFloat(M_PI_2))
+                rndY = randomRotateAngleToDst(-CGFloat(M_PI_2))
             }
             else if num == 3
             {
-                rndY = randomRotateAngle(CGFloat(M_PI))
+                rndY = randomRotateAngleToDst(CGFloat(M_PI))
             }
             else if num == 4
             {
-                rndY = randomRotateAngle(CGFloat(M_PI_2))
+                rndY = randomRotateAngleToDst(CGFloat(M_PI_2))
             }
             else if num == 5
             {
-                rndX = randomRotateAngle(CGFloat(M_PI_2))
+                rndX = randomRotateAngleToDst(CGFloat(M_PI_2))
             }
             else
             {
-                rndX = randomRotateAngle(-CGFloat(M_PI_2))
+                rndX = randomRotateAngleToDst(-CGFloat(M_PI_2))
             }
             
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 1)
@@ -145,6 +146,10 @@ class DiceScene: SCNScene
         {
             let dieNode = rootNode.childNodeWithName("0", recursively: false)
             dieNode?.runAction(playSoundAction!)
+        }
+        
+        dispatchToMainQueue(delay: 1.1) { 
+            completion(result: values)
         }
     }
 

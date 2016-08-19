@@ -8,11 +8,6 @@
 
 import UIKit
 
-struct NotificationName
-{
-    static let play = "Play"
-}
-
 class RootViewController: UIViewController
 {
     

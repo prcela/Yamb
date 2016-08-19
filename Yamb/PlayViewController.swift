@@ -15,6 +15,13 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var sceneView: SCNView!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.gameStateChanged, object: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,13 +31,19 @@ class PlayViewController: UIViewController {
         collectionView.reloadData()
     }
     
+    func onGameStateChanged(notification: NSNotification)
+    {
+        collectionView.reloadData()
+    }
+    
     @IBAction func back(sender: AnyObject)
     {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
     @IBAction func roll(sender: AnyObject)
     {
-        DiceScene.shared.roll()
+        Game.shared.roll()
     }
 }
 
