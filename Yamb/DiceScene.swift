@@ -21,7 +21,7 @@ class DiceScene: SCNScene
         let side: CGFloat = 1
         let delta: Float = 0.25
         
-        for dieIdx in 0...5
+        for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
             let die = SCNBox(width: side, height: side, length: side, chamferRadius: 0.1)
             
@@ -65,8 +65,8 @@ class DiceScene: SCNScene
         
         if #available(iOS 9.0, *) {
             
-            let dieNode = rootNode.childNodeWithName("3", recursively: false)!
-            let audioSource = SCNAudioSource(fileNamed: "Shake And Roll Dice.wav")!
+            let dieNode = rootNode.childNodeWithName("0", recursively: false)!
+            let audioSource = SCNAudioSource(fileNamed: "6.m4a")!
             let audioPlayer = SCNAudioPlayer(source: audioSource)
             
             dispatch_async(dispatch_get_main_queue(), { 
@@ -95,22 +95,55 @@ class DiceScene: SCNScene
 
     func roll()
     {
-        for dieIdx in 0...5
+        let ctMaxRounds: UInt32 = 5
+        
+        func randomRotateAngle(dst:CGFloat) -> CGFloat
         {
-            let rndX = CGFloat(M_PI) + CGFloat(arc4random_uniform(10))*CGFloat(M_PI_2)
-            let rndY = CGFloat(M_PI) + CGFloat(arc4random_uniform(10))*CGFloat(M_PI_2)
-            let rndZ = CGFloat(M_PI) + CGFloat(arc4random_uniform(10))*CGFloat(M_PI_2)
+            return dst + CGFloat(1+arc4random_uniform(ctMaxRounds))*2*CGFloat(M_PI)
+        }
+        
+        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        {
+            let num = 1+arc4random_uniform(6)
+            print(num)
+            
+            var rndX = randomRotateAngle(0)
+            var rndY = randomRotateAngle(0)
+            var rndZ = randomRotateAngle(0)
+            
+            if num == 1
+            {
+                // ok
+            }
+            else if num == 2
+            {
+                rndY = randomRotateAngle(-CGFloat(M_PI_2))
+            }
+            else if num == 3
+            {
+                rndY = randomRotateAngle(CGFloat(M_PI))
+            }
+            else if num == 4
+            {
+                rndY = randomRotateAngle(CGFloat(M_PI_2))
+            }
+            else if num == 5
+            {
+                rndX = randomRotateAngle(CGFloat(M_PI_2))
+            }
+            else
+            {
+                rndX = randomRotateAngle(-CGFloat(M_PI_2))
+            }
             
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 1)
-            if let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)
-            {
-                node.runAction(action)
-            }
+            let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)!
+            node.runAction(action)
         }
         
         if playSoundAction != nil
         {
-            let dieNode = rootNode.childNodeWithName("2", recursively: false)
+            let dieNode = rootNode.childNodeWithName("0", recursively: false)
             dieNode?.runAction(playSoundAction!)
         }
     }

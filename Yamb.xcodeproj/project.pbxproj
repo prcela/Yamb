@@ -26,7 +26,7 @@
 		9787AECC1D6329C0001640F7 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC71D6329C0001640F7 /* 5.png */; };
 		9787AECD1D6329C0001640F7 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC81D6329C0001640F7 /* 6.png */; };
 		9787AECF1D6330E3001640F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Game.swift */; };
-		97C4EF4E1D6669AE00A1E7CD /* Shake And Roll Dice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */; };
+		97C4EF521D6673BB00A1E7CD /* 6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF511D66738600A1E7CD /* 6.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +51,7 @@
 		9787AEC71D6329C0001640F7 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5.png; path = Yamb/Resources/5.png; sourceTree = "<group>"; };
 		9787AEC81D6329C0001640F7 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6.png; path = Yamb/Resources/6.png; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Shake And Roll Dice.wav"; sourceTree = "<group>"; };
+		97C4EF511D66738600A1E7CD /* 6.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 6.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		9787AEC11D632661001640F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				97C4EF4D1D6669AE00A1E7CD /* Shake And Roll Dice.wav */,
+				97C4EF511D66738600A1E7CD /* 6.m4a */,
 				9787AEC21D632670001640F7 /* 1.png */,
 				9787AEC41D6329C0001640F7 /* 2.png */,
 				9787AEC51D6329C0001640F7 /* 3.png */,
@@ -176,11 +176,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97C4EF521D6673BB00A1E7CD /* 6.m4a in Resources */,
 				977D98011CAEA35700AD9EF8 /* LaunchScreen.storyboard in Resources */,
 				9787AECB1D6329C0001640F7 /* 4.png in Resources */,
 				9787AEC31D632670001640F7 /* 1.png in Resources */,
 				9787AECD1D6329C0001640F7 /* 6.png in Resources */,
-				97C4EF4E1D6669AE00A1E7CD /* Shake And Roll Dice.wav in Resources */,
 				9787AEC91D6329C0001640F7 /* 2.png in Resources */,
 				9787AECA1D6329C0001640F7 /* 3.png in Resources */,
 				9787AECC1D6329C0001640F7 /* 5.png in Resources */,
