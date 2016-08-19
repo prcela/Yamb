@@ -11,6 +11,7 @@ import Foundation
 struct NotificationName
 {
     static let gameStateChanged = "Notification.GameStateChanged"
+    static let tableValuesChanged = "Notification.TableValuesChanged"
     static let play = "Notification.Play"
 }
 
@@ -97,6 +98,13 @@ class Game
             print("oops krivo stanje")
         }
         
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+    }
+    
+    func didSelectCellAtIndexPath(indexPath: NSIndexPath)
+    {
+        guard indexPath.item > 0 else {return}
+        tableValues[indexPath.item-1][indexPath.section] = 1
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
 }

@@ -26,24 +26,27 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
         let colValues = indexPath.item > 0 ? Game.shared.tableValues[indexPath.item-1]:[]
         
         switch PlaySection(rawValue: indexPath.section)! {
+        
         case .Header:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
             let titles = ["","↓","↑","⇅","N"]
             cell.lbl.text = titles[indexPath.item]
-            cell.lbl.font = UIFont.boldSystemFontOfSize(24)
+            cell.lbl.font = UIFont.boldSystemFontOfSize(isSmallScreen() ? 18 : 24)
             return cell
+            
         case .One, .Two, .Three, .Four, .Five, .Six:
             if indexPath.item == 0
             {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
                 cell.lbl.text = String(indexPath.section)
+                cell.lbl.font = UIFont.boldSystemFontOfSize(15)
                 return cell
             }
             else
             {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BtnCell", forIndexPath: indexPath) as! BtnCell
                 
-                if let val = colValues[indexPath.row]
+                if let val = colValues[indexPath.section]
                 {
                     cell.btn.setTitle(String(val), forState: .Normal)
                 }
@@ -54,6 +57,7 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
                 }
                 return cell
             }
+            
         case .SumNumbers:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LblCell", forIndexPath: indexPath) as! LblCell
             if indexPath.item == 0
@@ -62,6 +66,15 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
             }
             else
             {
+                var sum: UInt32 = 0
+                for val in colValues {
+                    if val != nil
+                    {
+                        sum += val!
+                    }
+                }
+                cell.lbl.text = String(sum)
+                cell.lbl.font = UIFont.boldSystemFontOfSize(15)
             }
             return cell
         case .Max:
@@ -159,4 +172,9 @@ class PlayDataSource: NSObject, UICollectionViewDataSource
         }
     }
 
+}
+
+func isSmallScreen() -> Bool
+{
+    return CGRectGetHeight(UIScreen.mainScreen().bounds) <= 480
 }

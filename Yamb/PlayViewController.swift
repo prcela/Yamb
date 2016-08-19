@@ -49,7 +49,12 @@ class PlayViewController: UIViewController {
 
 extension PlayViewController: UICollectionViewDelegate
 {
-    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        print(indexPath)
+        Game.shared.didSelectCellAtIndexPath(indexPath)
+        collectionView.reloadItemsAtIndexPaths([indexPath])
+    }
 }
 
 extension PlayViewController: UICollectionViewDelegateFlowLayout
