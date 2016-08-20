@@ -15,9 +15,6 @@
 		977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */; };
 		977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980A1CAF30E300AD9EF8 /* PrepareViewController.swift */; };
 		977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */; };
-		977D980F1CAFFD0A00AD9EF8 /* PlayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */; };
-		977D98111CB0021700AD9EF8 /* LblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98101CB0021700AD9EF8 /* LblCell.swift */; };
-		977D98131CB0022800AD9EF8 /* BtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98121CB0022800AD9EF8 /* BtnCell.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AEC31D632670001640F7 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC21D632670001640F7 /* 1.png */; };
 		9787AEC91D6329C0001640F7 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9787AEC41D6329C0001640F7 /* 2.png */; };
@@ -30,6 +27,8 @@
 		97C4EF561D67A36C00A1E7CD /* PlaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF551D67A36C00A1E7CD /* PlaySection.swift */; };
 		97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */; };
 		97C4EF5A1D67DD0A00A1E7CD /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */; };
+		97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF5B1D68DAA600A1E7CD /* Helper.swift */; };
+		97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF5D1D68DB4800A1E7CD /* NotificationName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,9 +42,6 @@
 		977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		977D980A1CAF30E300AD9EF8 /* PrepareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
 		977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
-		977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayDataSource.swift; sourceTree = "<group>"; };
-		977D98101CB0021700AD9EF8 /* LblCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LblCell.swift; sourceTree = "<group>"; };
-		977D98121CB0022800AD9EF8 /* BtnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BtnCell.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AEC21D632670001640F7 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = Yamb/Resources/1.png; sourceTree = "<group>"; };
 		9787AEC41D6329C0001640F7 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = Yamb/Resources/2.png; sourceTree = "<group>"; };
@@ -58,6 +54,8 @@
 		97C4EF551D67A36C00A1E7CD /* PlaySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySection.swift; sourceTree = "<group>"; };
 		97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableView.swift; sourceTree = "<group>"; };
 		97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
+		97C4EF5B1D68DAA600A1E7CD /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		97C4EF5D1D68DB4800A1E7CD /* NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,14 +98,13 @@
 				977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */,
 				977D980A1CAF30E300AD9EF8 /* PrepareViewController.swift */,
 				977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */,
-				977D980E1CAFFD0A00AD9EF8 /* PlayDataSource.swift */,
-				977D98101CB0021700AD9EF8 /* LblCell.swift */,
-				977D98121CB0022800AD9EF8 /* BtnCell.swift */,
 				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				9787AECE1D6330E3001640F7 /* Game.swift */,
 				97C4EF551D67A36C00A1E7CD /* PlaySection.swift */,
 				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
 				97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */,
+				97C4EF5B1D68DAA600A1E7CD /* Helper.swift */,
+				97C4EF5D1D68DB4800A1E7CD /* NotificationName.swift */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -205,16 +202,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				977D980F1CAFFD0A00AD9EF8 /* PlayDataSource.swift in Sources */,
+				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
+				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
 				977D97F91CAEA35700AD9EF8 /* RootViewController.swift in Sources */,
 				97C4EF5A1D67DD0A00A1E7CD /* UIColorExt.swift in Sources */,
-				977D98131CB0022800AD9EF8 /* BtnCell.swift in Sources */,
 				9787AECF1D6330E3001640F7 /* Game.swift in Sources */,
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,
-				977D98111CB0021700AD9EF8 /* LblCell.swift in Sources */,
 				977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */,
 				97C4EF561D67A36C00A1E7CD /* PlaySection.swift in Sources */,
 				97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */,

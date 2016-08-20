@@ -8,12 +8,6 @@
 
 import Foundation
 
-struct NotificationName
-{
-    static let gameStateChanged = "Notification.GameStateChanged"
-    static let tableValuesChanged = "Notification.TableValuesChanged"
-    static let play = "Notification.Play"
-}
 
 enum DiceNum: Int
 {

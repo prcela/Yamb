@@ -98,6 +98,7 @@ class GameTableView: UIView
             btn.setTitleColor(UIColor.blueColor(), forState: .Normal)
             btn.tag = rowIdx*ctColumns + colIdx
             btn.titleLabel?.font = UIFont(name: "Noteworthy", size: 15)
+            btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
             addSubview(btn)
             return btn
         }
@@ -111,11 +112,12 @@ class GameTableView: UIView
         
         // first column titles
         let firstColTitles = ["",1,2,3,4,5,6,"∑","Max","Min","∑","Skala","Full","Poker","Yamb","∑"]
-        for rowIdx in 1..<16 {
+        for rowIdx in 1..<firstColTitles.count {
             createLabelAt(rowIdx, colIdx: 0, text: "\(firstColTitles[rowIdx])")
         }
         
-        for rowIdx in 1...6
+        // all buttons
+        for rowIdx in [1,2,3,4,5,6,8,9,11,12,13,14]
         {
             for colIdx in 1..<ctColumns
             {
@@ -130,6 +132,17 @@ class GameTableView: UIView
                 createLabelAt(rowIdx, colIdx: colIdx, text: "")
             }
         }
+    }
+
+    @objc
+    func onBtnPressed(sender: UIButton)
+    {
+        print(sender.tag)
+        let ctColumns = Game.shared.useNajava ? 5:4
+        let rowIdx = sender.tag/ctColumns
+        let colIdx = sender.tag-rowIdx*ctColumns
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onTableBtnPressed, object: TablePos(rowIdx: rowIdx, colIdx: colIdx))
     }
 
 }
