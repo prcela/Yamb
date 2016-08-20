@@ -13,5 +13,4 @@ struct NotificationName
     static let gameStateChanged = "Notification.GameStateChanged"
     static let tableValuesChanged = "Notification.TableValuesChanged"
     static let play = "Notification.Play"
-    static let onTableBtnPressed = "Notification.onTableBtnTouchUpInside"
 }

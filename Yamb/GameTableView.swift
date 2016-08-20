@@ -137,12 +137,14 @@ class GameTableView: UIView
     @objc
     func onBtnPressed(sender: UIButton)
     {
-        print(sender.tag)
+        
         let ctColumns = Game.shared.useNajava ? 5:4
         let rowIdx = sender.tag/ctColumns
         let colIdx = sender.tag-rowIdx*ctColumns
+        let pos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
+        print(rowIdx,colIdx)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onTableBtnPressed, object: TablePos(rowIdx: rowIdx, colIdx: colIdx))
+        Game.shared.didSelectCellAtPos(pos)
     }
 
 }

@@ -95,10 +95,9 @@ class Game
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
-    func didSelectCellAtIndexPath(indexPath: NSIndexPath)
+    func didSelectCellAtPos(pos: TablePos)
     {
-        guard indexPath.item > 0 else {return}
-        tableValues[indexPath.item-1][indexPath.section] = 1
+        tableValues[pos.colIdx-1][pos.rowIdx] = 1
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
 }
