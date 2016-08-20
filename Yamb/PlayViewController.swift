@@ -11,8 +11,9 @@ import SceneKit
 
 class PlayViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
     
+    
+    @IBOutlet weak var gameTableView: GameTableView!
     @IBOutlet weak var sceneView: SCNView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,13 +28,16 @@ class PlayViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         sceneView.scene = DiceScene.shared
-        
-        collectionView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+        gameTableView.updateSubviews()
     }
     
     func onGameStateChanged(notification: NSNotification)
     {
-        collectionView.reloadData()
+//        collectionView.reloadData()
     }
     
     @IBAction func back(sender: AnyObject)
@@ -47,37 +51,3 @@ class PlayViewController: UIViewController {
     }
 }
 
-extension PlayViewController: UICollectionViewDelegate
-{
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        print(indexPath)
-        Game.shared.didSelectCellAtIndexPath(indexPath)
-        collectionView.reloadItemsAtIndexPaths([indexPath])
-    }
-}
-
-extension PlayViewController: UICollectionViewDelegateFlowLayout
-{
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let collectionSize = collectionView.frame.size
-        let ctRows = collectionView.numberOfItemsInSection(0)
-        let ctSections = collectionView.numberOfSections()
-        return CGSizeMake(collectionSize.width/CGFloat(ctRows), collectionSize.height/CGFloat(ctSections))
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsetsZero
-    }
-    
-    
-}
