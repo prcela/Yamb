@@ -8,6 +8,9 @@
 
 import UIKit
 
+let ctRows = 16
+let valueRows:[PlaySection] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+
 class GameTableView: UIView
 {
     // Only override drawRect: if you perform custom drawing.
@@ -28,7 +31,7 @@ class GameTableView: UIView
         
         CGContextStrokePath(ctx)
         
-        let ctColumns = Game.shared.useNajava ? 5:4
+        let ctColumns = Game.shared.ctColumns
         let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns))
         let rowHeight = round(CGRectGetHeight(rect)/16)
         for colIdx in 1..<ctColumns
@@ -51,10 +54,10 @@ class GameTableView: UIView
         
     }
     
-    func updateSubviews()
+    func updateFrames()
     {
-        let ctColumns = Game.shared.useNajava ? 5:4
-        let ctRows = 16
+        let ctColumns = Game.shared.ctColumns
+        
         let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns))
         let rowHeight = round(CGRectGetHeight(frame)/CGFloat(ctRows))
         
@@ -72,7 +75,7 @@ class GameTableView: UIView
     
     override func awakeFromNib()
     {
-        let ctColumns = Game.shared.useNajava ? 5:4
+        let ctColumns = Game.shared.ctColumns
         let colWidth = round(CGRectGetWidth(self.frame)/CGFloat(ctColumns))
         let rowHeight = round(CGRectGetHeight(self.frame)/16)
         
@@ -83,8 +86,10 @@ class GameTableView: UIView
             lbl.text = text
             lbl.textColor = UIColor.whiteColor()
             lbl.textAlignment = .Center
-            lbl.tag = rowIdx*ctColumns + colIdx
+            lbl.tag = tag(rowIdx, colIdx)
             lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 15 : 20)
+            lbl.layer.shadowColor = UIColor.grayColor().CGColor
+            lbl.layer.shadowOffset = CGSizeMake(2, 2)
             addSubview(lbl)
             return lbl
         }
@@ -99,6 +104,7 @@ class GameTableView: UIView
             btn.tag = rowIdx*ctColumns + colIdx
             btn.titleLabel?.font = UIFont(name: "Noteworthy", size: 15)
             btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
+            btn.setBackgroundImage(UIImage.fromColor(UIColor.lightGrayColor()), forState: .Disabled)
             addSubview(btn)
             return btn
         }
@@ -111,25 +117,44 @@ class GameTableView: UIView
         }
         
         // first column titles
-        let firstColTitles = ["",1,2,3,4,5,6,"∑","Max","Min","∑","Skala","Full","Poker","Yamb","∑"]
-        for rowIdx in 1..<firstColTitles.count {
-            createLabelAt(rowIdx, colIdx: 0, text: "\(firstColTitles[rowIdx])")
+        for rowIdx in 1..<ctRows {
+            createLabelAt(rowIdx, colIdx: 0, text: PlaySection(rawValue: rowIdx)!.name())
         }
         
         // all buttons
-        for rowIdx in [1,2,3,4,5,6,8,9,11,12,13,14]
+        for row in valueRows
         {
             for colIdx in 1..<ctColumns
             {
-                createBtnAt(rowIdx, colIdx: colIdx, text: String(rowIdx))
+                createBtnAt(row.rawValue, colIdx: colIdx, text: "")
             }
         }
         
-        for rowIdx in [7,10,15]
+        let sumRows:[PlaySection] = [.SumNumbers, .SumMaxMin, .SumSFPY]
+        for row in sumRows
         {
             for colIdx in 1..<ctColumns
             {
-                createLabelAt(rowIdx, colIdx: colIdx, text: "")
+                createLabelAt(row.rawValue, colIdx: colIdx, text: "")
+            }
+        }
+    }
+    
+    func updateValuesAndStates()
+    {
+        
+        // down col
+        for row in valueRows {
+            if let btn = viewWithTag(tag(row.rawValue, 1)) as? UIButton
+            {
+                if Game.shared.inputState == .NotAllowed
+                {
+                    btn.enabled = true
+                }
+                else
+                {
+                    btn.enabled = false
+                }
             }
         }
     }
@@ -138,13 +163,18 @@ class GameTableView: UIView
     func onBtnPressed(sender: UIButton)
     {
         
-        let ctColumns = Game.shared.useNajava ? 5:4
+        let ctColumns = Game.shared.ctColumns
         let rowIdx = sender.tag/ctColumns
         let colIdx = sender.tag-rowIdx*ctColumns
         let pos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
         print(rowIdx,colIdx)
         
         Game.shared.didSelectCellAtPos(pos)
+    }
+    
+    func tag(rowIdx: Int, _ colIdx: Int) -> Int
+    {
+        return rowIdx*Game.shared.ctColumns + colIdx
     }
 
 }

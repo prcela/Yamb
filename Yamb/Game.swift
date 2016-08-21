@@ -49,7 +49,15 @@ class Game
     var gameState = GameState.Start
     var rollState = RollState.NotRolling
     var diceValues: [UInt32]?
-    var tableValues = Array<Array<UInt32?>>(count: 4, repeatedValue: Array<UInt32?>(count: 16, repeatedValue: nil))
+    // table ordered with colIdx, rowIdx
+    var tableValues = Array<Array<UInt32?>>(count: 5, repeatedValue: Array<UInt32?>(count: 16, repeatedValue: nil))
+    var lastInputPos: TablePos?
+    
+    var ctColumns: Int {
+        get {
+            return useNajava ? 5:4
+        }
+    }
     
     func start()
     {
@@ -97,7 +105,8 @@ class Game
     
     func didSelectCellAtPos(pos: TablePos)
     {
-        tableValues[pos.colIdx-1][pos.rowIdx] = 1
+        tableValues[pos.colIdx][pos.rowIdx] = 1
+        lastInputPos = pos
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
 }

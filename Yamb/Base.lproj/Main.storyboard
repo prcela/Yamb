@@ -356,7 +356,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="aQ4-bk-OWM" customClass="PlayDataSource" customModule="Yamb" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="240" y="1148"/>
         </scene>

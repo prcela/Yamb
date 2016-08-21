@@ -25,4 +25,27 @@ enum PlaySection: Int {
     case Poker
     case Yamb
     case SumSFPY
+    
+    func name() -> String {
+        switch self {
+        case .One,.Two,.Three,.Four,.Five,.Six:
+            return String(rawValue)
+        case .SumNumbers, .SumMaxMin, .SumSFPY:
+            return "∑"
+        case .Max:
+            return "Max"
+        case .Min:
+            return "Min"
+        case .Skala:
+            return "Skala"
+        case .Full:
+            return "Full"
+        case .Poker:
+            return "Poker"
+        case .Yamb:
+            return "Yamb"
+        default:
+            return ""
+        }
+    }
 }

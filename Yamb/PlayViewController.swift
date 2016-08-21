@@ -32,12 +32,12 @@ class PlayViewController: UIViewController {
     
     override func viewDidLayoutSubviews()
     {
-        gameTableView.updateSubviews()
+        gameTableView.updateFrames()
     }
     
     func onGameStateChanged(notification: NSNotification)
     {
-//        collectionView.reloadData()
+        gameTableView.updateValuesAndStates()
     }
     
     @IBAction func back(sender: AnyObject)
