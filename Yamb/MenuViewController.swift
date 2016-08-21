@@ -12,5 +12,9 @@ class MenuViewController: UIViewController
 {
     @IBOutlet weak var trainingBtn: UIButton!
     @IBOutlet weak var nearbyBtn: UIButton!
-    @IBOutlet weak var offlineBtn: UIButton!
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+        
 }

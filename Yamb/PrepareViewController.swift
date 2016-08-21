@@ -34,7 +34,7 @@ class PrepareViewController: UIViewController {
 
     @IBAction func play(sender: AnyObject)
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.play, object: nil)
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
     
     @IBAction func back(sender: AnyObject) {
