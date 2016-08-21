@@ -9,7 +9,7 @@
 import UIKit
 
 let ctRows = 16
-let valueRows:[PlaySection] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+let valueRows:[TableSection] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
 
 class GameTableView: UIView
 {
@@ -119,7 +119,7 @@ class GameTableView: UIView
         
         // first column titles
         for rowIdx in 1..<ctRows {
-            createLabelAt(rowIdx, colIdx: 0, text: PlaySection(rawValue: rowIdx)!.name())
+            createLabelAt(rowIdx, colIdx: 0, text: TableSection(rawValue: rowIdx)!.name())
         }
         
         // all buttons
@@ -131,7 +131,7 @@ class GameTableView: UIView
             }
         }
         
-        let sumRows:[PlaySection] = [.SumNumbers, .SumMaxMin, .SumSFPY]
+        let sumRows:[TableSection] = [.SumNumbers, .SumMaxMin, .SumSFPY]
         for row in sumRows
         {
             for colIdx in 1..<ctColumns
@@ -189,7 +189,7 @@ class GameTableView: UIView
                         let prevRow = valueRows[idx-1]
                         if tableValues[1][prevRow.rawValue] != nil
                         {
-                            if let lastInputPos = Game.shared.lastInputPos where lastInputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1) && Game.shared.inputState == .Allowed
+                            if let lastInputPos = Game.shared.inputPos where lastInputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1) && Game.shared.inputState == .Allowed
                             {
                                 btn.enabled = false
                             }
@@ -212,7 +212,8 @@ class GameTableView: UIView
             if Game.shared.inputState != .NotAllowed
             {
                 let value = tableValues[3][row.rawValue]
-                btn.enabled = value == nil
+                let pos = TablePos(rowIdx: row.rawValue, colIdx: 3)
+                btn.enabled = value == nil || Game.shared.inputPos == pos
             }
         }
     

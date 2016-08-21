@@ -51,7 +51,7 @@ class Game
     var diceValues: [UInt32]?
     // table ordered with colIdx, rowIdx
     var tableValues = Array<Array<UInt32?>>(count: 5, repeatedValue: Array<UInt32?>(count: 16, repeatedValue: nil))
-    var lastInputPos: TablePos?
+    var inputPos: TablePos?
     
     var ctColumns: Int {
         get {
@@ -64,7 +64,7 @@ class Game
         gameState = .Start
         rollState = .NotRolling
         inputState = .NotAllowed
-        lastInputPos = nil
+        inputPos = nil
         diceValues = nil
         DiceScene.shared.start()
         
@@ -74,6 +74,7 @@ class Game
     func roll()
     {
         rollState = .Rolling
+        inputPos = nil
         DiceScene.shared.roll { (result) in
             self.rollState = .NotRolling
             self.diceValues = result
@@ -110,7 +111,11 @@ class Game
     func didSelectCellAtPos(pos: TablePos)
     {
         tableValues[pos.colIdx][pos.rowIdx] = 1
-        lastInputPos = pos
+        if let clearPos = inputPos
+        {
+            tableValues[clearPos.colIdx][clearPos.rowIdx] = nil
+        }
+        inputPos = pos
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
 }

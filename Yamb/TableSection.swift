@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PlaySection: Int {
+enum TableSection: Int {
     case Header = 0
     case One
     case Two
