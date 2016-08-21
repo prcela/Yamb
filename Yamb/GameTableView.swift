@@ -82,14 +82,13 @@ class GameTableView: UIView
         func createLabelAt(rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight))
-            lbl.backgroundColor = UIColor(netHex:0xCCC8D7FF)
+            lbl.backgroundColor = Skin.labelBlueBackColor
             lbl.text = text
             lbl.textColor = UIColor.whiteColor()
             lbl.textAlignment = .Center
             lbl.tag = tag(rowIdx, colIdx)
             lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 15 : 20)
-            lbl.layer.shadowColor = UIColor.grayColor().CGColor
-            lbl.layer.shadowOffset = CGSizeMake(2, 2)
+            
             addSubview(lbl)
             return lbl
         }
@@ -100,11 +99,13 @@ class GameTableView: UIView
             btn.frame = CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight)
             
             btn.setTitle(text, forState: .Normal)
-            btn.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            btn.setTitleColor(Skin.tintColor, forState: .Normal)
+            btn.setTitleColor(Skin.tintColor, forState: .Disabled)
             btn.tag = rowIdx*ctColumns + colIdx
             btn.titleLabel?.font = UIFont(name: "Noteworthy", size: 15)
             btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
-            btn.setBackgroundImage(UIImage.fromColor(UIColor.lightGrayColor()), forState: .Disabled)
+            btn.setBackgroundImage(UIImage.fromColor(Skin.lightGrayColor), forState: .Normal)
+            btn.setBackgroundImage(UIImage.fromColor(UIColor.whiteColor().colorWithAlphaComponent(0)), forState: .Disabled)
             addSubview(btn)
             return btn
         }
@@ -138,25 +139,83 @@ class GameTableView: UIView
                 createLabelAt(row.rawValue, colIdx: colIdx, text: "")
             }
         }
+        
+        updateValuesAndStates()
     }
     
     func updateValuesAndStates()
     {
+        let tableValues = Game.shared.tableValues
         
-        // down col
-        for row in valueRows {
-            if let btn = viewWithTag(tag(row.rawValue, 1)) as? UIButton
+        // set values
+        for colIdx in 1..<Game.shared.ctColumns
+        {
+            for row in valueRows
             {
-                if Game.shared.inputState == .NotAllowed
+                guard let btn = viewWithTag(tag(row.rawValue, colIdx)) as? UIButton else {continue}
+                
+                let value = tableValues[colIdx][row.rawValue]
+                
+                if value != nil
                 {
-                    btn.enabled = true
+                    btn.setTitle(String(value!), forState: .Normal)
                 }
                 else
                 {
-                    btn.enabled = false
+                    btn.setTitle(nil, forState: .Normal)
+                }
+                
+            }
+        }
+        
+        // down col
+        for (idx,row) in valueRows.enumerate() {
+            guard let btn = viewWithTag(tag(row.rawValue, 1)) as? UIButton else {continue}
+            
+            let value = tableValues[1][row.rawValue]
+            
+            // in most cases button is disabled, find only cases when it should be enabled
+            btn.enabled = false
+            if Game.shared.inputState != .NotAllowed
+            {
+                if idx == 0
+                {
+                    btn.enabled = value == nil
+                }
+                else
+                {
+                    if tableValues[1][row.rawValue] == nil
+                    {
+                        let prevRow = valueRows[idx-1]
+                        if tableValues[1][prevRow.rawValue] != nil
+                        {
+                            if let lastInputPos = Game.shared.lastInputPos where lastInputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1) && Game.shared.inputState == .Allowed
+                            {
+                                btn.enabled = false
+                            }
+                            else
+                            {
+                                btn.enabled = true
+                            }
+                        }
+                    }
                 }
             }
         }
+        
+    
+        // up down col
+        for (_,row) in valueRows.enumerate()
+        {
+            guard let btn = viewWithTag(tag(row.rawValue, 3)) as? UIButton else {continue}
+            btn.enabled = false
+            if Game.shared.inputState != .NotAllowed
+            {
+                let value = tableValues[3][row.rawValue]
+                btn.enabled = value == nil
+            }
+        }
+    
     }
 
     @objc

@@ -18,10 +18,6 @@ func dispatchToMainQueue(delay delay:NSTimeInterval, closure:()->()) {
         dispatch_get_main_queue(), closure)
 }
 
-struct TablePos {
-    var rowIdx: Int=0
-    var colIdx: Int=0    
-}
 
 func isSmallScreen() -> Bool
 {

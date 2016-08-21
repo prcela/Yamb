@@ -63,8 +63,12 @@ class Game
     {
         gameState = .Start
         rollState = .NotRolling
+        inputState = .NotAllowed
+        lastInputPos = nil
         diceValues = nil
         DiceScene.shared.start()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
     func roll()
