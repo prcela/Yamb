@@ -69,12 +69,12 @@ class Game
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        printStatus()
     }
     
     func roll()
     {
         rollState = .Rolling
-        inputPos = nil
         DiceScene.shared.roll { (result) in
             self.rollState = .NotRolling
             self.diceValues = result
@@ -90,11 +90,23 @@ class Game
             gameState = .After1
             inputState = .Allowed
         case .After1:
-            gameState = .After2
-            inputState = .Allowed
+            if inputPos == nil
+            {
+                gameState = .After2
+                inputState = .Allowed
+            }
+            
         case .After2:
-            gameState = .After3
-            inputState = .Must
+            if inputPos == nil
+            {
+                gameState = .After3
+                inputState = .Must
+            }
+            else
+            {
+                gameState = .After1
+                inputState = .Allowed
+            }
         case .N:
             gameState = .AfterN2
             inputState = .Allowed
@@ -105,17 +117,42 @@ class Game
             print("oops krivo stanje")
         }
         
+        inputPos = nil
+        
+        printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
     func didSelectCellAtPos(pos: TablePos)
     {
-        tableValues[pos.colIdx][pos.rowIdx] = 1
+        var oldValue: UInt32?
         if let clearPos = inputPos
         {
+            oldValue = tableValues[clearPos.colIdx][clearPos.rowIdx]
             tableValues[clearPos.colIdx][clearPos.rowIdx] = nil
         }
-        inputPos = pos
+        
+        if pos != inputPos
+        {
+            inputPos = pos
+            tableValues[pos.colIdx][pos.rowIdx] = 1
+        }
+        else if oldValue == nil
+        {
+            tableValues[pos.colIdx][pos.rowIdx] = 1
+        }
+        else
+        {
+            // obrisana stara vrijednost
+            inputPos = nil
+        }
+        
+        printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+    }
+    
+    func printStatus()
+    {
+        print(gameState,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
     }
 }
