@@ -74,6 +74,8 @@ class Game
     
     func roll()
     {
+        guard !(inputState == .Must && inputPos == nil) else {return}
+        
         rollState = .Rolling
         DiceScene.shared.roll { (result) in
             self.rollState = .NotRolling
@@ -89,6 +91,7 @@ class Game
         case .Start:
             gameState = .After1
             inputState = .Allowed
+        
         case .After1:
             if inputPos == nil
             {
@@ -107,12 +110,19 @@ class Game
                 gameState = .After1
                 inputState = .Allowed
             }
+            
+        case .After3:
+            gameState = .After1
+            inputState = .Allowed
+        
         case .N:
             gameState = .AfterN2
             inputState = .Allowed
+            
         case .AfterN2:
             gameState = .AfterN3
             inputState = .Must
+            
         default:
             print("oops krivo stanje")
         }
@@ -135,11 +145,11 @@ class Game
         if pos != inputPos
         {
             inputPos = pos
-            tableValues[pos.colIdx][pos.rowIdx] = 1
+            tableValues[pos.colIdx][pos.rowIdx] = calculateValueForPos(pos)
         }
         else if oldValue == nil
         {
-            tableValues[pos.colIdx][pos.rowIdx] = 1
+            tableValues[pos.colIdx][pos.rowIdx] = calculateValueForPos(pos)
         }
         else
         {
@@ -154,5 +164,50 @@ class Game
     func printStatus()
     {
         print(gameState,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
+    }
+    
+    func calculateValueForPos(pos: TablePos) -> UInt32
+    {
+        guard let values = diceValues else {return 0}
+        
+        let section = TableSection(rawValue: pos.rowIdx)!
+        
+        switch section
+        {
+        case .One, .Two, .Three, .Four, .Five, .Six:
+            return values.reduce(0, combine: { (sum, value) -> UInt32 in
+                if value == UInt32(pos.rowIdx)
+                {
+                    return sum + value
+                }
+                return sum
+            })
+            
+        case .Max, .Min:
+            let numMax = values.reduce(UInt32.min, combine: { max($0, $1) })
+            let numMin = values.reduce(UInt32.max, combine: { min($0, $1) })
+
+            
+            let sum = values.reduce(0, combine: { (sum, value) -> UInt32 in
+                    return sum + value
+            })
+            
+            if diceNum == .Five
+            {
+                return sum
+            }
+            else if section == .Max
+            {
+                return sum - numMin
+            }
+            else
+            {
+                return sum - numMax
+            }
+            
+            
+        default:
+            return 0
+        }
     }
 }
