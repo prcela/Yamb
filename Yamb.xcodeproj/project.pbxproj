@@ -16,7 +16,7 @@
 		977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AECF1D6330E3001640F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Game.swift */; };
-		97C4EF561D67A36C00A1E7CD /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF551D67A36C00A1E7CD /* TableSection.swift */; };
+		97C4EF561D67A36C00A1E7CD /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF551D67A36C00A1E7CD /* TableRow.swift */; };
 		97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */; };
 		97C4EF5A1D67DD0A00A1E7CD /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */; };
 		97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF5B1D68DAA600A1E7CD /* Helper.swift */; };
@@ -36,6 +36,7 @@
 		97C4EF941D6B38B900A1E7CD /* 5b.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF881D6B38B900A1E7CD /* 5b.png */; };
 		97C4EF951D6B38B900A1E7CD /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF891D6B38B900A1E7CD /* 6.png */; };
 		97C4EF961D6B38B900A1E7CD /* 6b.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF8A1D6B38B900A1E7CD /* 6b.png */; };
+		97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +51,7 @@
 		977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		97C4EF551D67A36C00A1E7CD /* TableSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
+		97C4EF551D67A36C00A1E7CD /* TableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableView.swift; sourceTree = "<group>"; };
 		97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		97C4EF5B1D68DAA600A1E7CD /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		97C4EF881D6B38B900A1E7CD /* 5b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5b.png; path = Yamb/Resources/5b.png; sourceTree = "<group>"; };
 		97C4EF891D6B38B900A1E7CD /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6.png; path = Yamb/Resources/6.png; sourceTree = "<group>"; };
 		97C4EF8A1D6B38B900A1E7CD /* 6b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6b.png; path = Yamb/Resources/6b.png; sourceTree = "<group>"; };
+		97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +116,8 @@
 				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				9787AECE1D6330E3001640F7 /* Game.swift */,
 				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
-				97C4EF551D67A36C00A1E7CD /* TableSection.swift */,
+				97C4EF551D67A36C00A1E7CD /* TableRow.swift */,
+				97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */,
 				97C4EF631D69DE1400A1E7CD /* TablePos.swift */,
 				97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */,
 				97C4EF5B1D68DAA600A1E7CD /* Helper.swift */,
@@ -239,8 +242,9 @@
 				97C4EF601D699D7B00A1E7CD /* UIImageExt.swift in Sources */,
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,
 				977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */,
+				97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */,
 				97C4EF641D69DE1400A1E7CD /* TablePos.swift in Sources */,
-				97C4EF561D67A36C00A1E7CD /* TableSection.swift in Sources */,
+				97C4EF561D67A36C00A1E7CD /* TableRow.swift in Sources */,
 				97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

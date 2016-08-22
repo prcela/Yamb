@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TableSection: Int {
+enum TableRow: Int {
     case Header = 0
     case One
     case Two

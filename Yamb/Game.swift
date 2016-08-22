@@ -174,12 +174,10 @@ class Game
     
     func recalculateSumsForColumn(colIdx: Int)
     {
-        for rowIdx in [
-            TableSection.SumNumbers.rawValue,
-            TableSection.SumMaxMin.rawValue,
-            TableSection.SumSFPY.rawValue]
+        let sumRows:[TableRow] = [.SumNumbers,.SumMaxMin,.SumSFPY]
+        for row in sumRows
         {
-            tableValues[colIdx][rowIdx] = calculateValueForPos(TablePos(rowIdx: rowIdx, colIdx: colIdx))
+            tableValues[colIdx][row.rawValue] = calculateValueForPos(TablePos(rowIdx: row.rawValue, colIdx: colIdx))
         }
     }
     
@@ -192,7 +190,7 @@ class Game
     {
         guard let values = diceValues else {return nil}
         
-        let section = TableSection(rawValue: pos.rowIdx)!
+        let section = TableRow(rawValue: pos.rowIdx)!
         
         switch section
         {
@@ -240,9 +238,9 @@ class Game
             
         case .SumMaxMin:
             if let
-            maxValue = tableValues[pos.colIdx][TableSection.Max.rawValue],
-            minValue = tableValues[pos.colIdx][TableSection.Min.rawValue],
-            oneValue = tableValues[pos.colIdx][TableSection.One.rawValue]
+            maxValue = tableValues[pos.colIdx][TableRow.Max.rawValue],
+            minValue = tableValues[pos.colIdx][TableRow.Min.rawValue],
+            oneValue = tableValues[pos.colIdx][TableRow.One.rawValue]
             {
                 return (maxValue-minValue)*oneValue
             }
@@ -332,9 +330,9 @@ class Game
             
         case .SumSFPY:
             var sum:UInt = 0
-            for section:TableSection in [.Skala,.Full,.Poker,.Yamb]
+            for row:TableRow in [.Skala,.Full,.Poker,.Yamb]
             {
-                if let value = tableValues[pos.colIdx][section.rawValue]
+                if let value = tableValues[pos.colIdx][row.rawValue]
                 {
                     sum += value
                 }

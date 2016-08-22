@@ -9,7 +9,7 @@
 import UIKit
 
 let ctRows = 16
-let valueRows:[TableSection] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+let valueRows:[TableRow] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
 
 class GameTableView: UIView
 {
@@ -127,7 +127,7 @@ class GameTableView: UIView
         
         // first column titles
         for rowIdx in 1..<ctRows {
-            createLabelAt(rowIdx, colIdx: 0, text: TableSection(rawValue: rowIdx)!.name())
+            createLabelAt(rowIdx, colIdx: 0, text: TableRow(rawValue: rowIdx)!.name())
         }
         
         // all buttons
@@ -139,7 +139,7 @@ class GameTableView: UIView
             }
         }
         
-        let sumRows:[TableSection] = [.SumNumbers, .SumMaxMin, .SumSFPY]
+        let sumRows:[TableRow] = [.SumNumbers, .SumMaxMin, .SumSFPY]
         for row in sumRows
         {
             for colIdx in 1..<ctColumns
@@ -181,28 +181,29 @@ class GameTableView: UIView
         }
         
         // down col
+        let downColIdx = TableCol.Down.rawValue
         for (idx,row) in valueRows.enumerate() {
-            guard let btn = viewWithTag(tag(row.rawValue, 1)) as? UIButton else {continue}
+            guard let btn = viewWithTag(tag(row.rawValue, downColIdx)) as? UIButton else {continue}
             
-            let value = tableValues[1][row.rawValue]
+            let value = tableValues[downColIdx][row.rawValue]
             
             // in most cases button is disabled, find only cases when it should be enabled
             btn.enabled = false
             if inputState != .NotAllowed
             {
-                if idx == 0
+                if row == .One
                 {
-                    btn.enabled = (value == nil) || (inputPos == TablePos(rowIdx: 1, colIdx: 1) && inputState != .NotAllowed)
+                    btn.enabled = (value == nil) || inputPos == TablePos(rowIdx: 1, colIdx: downColIdx)
                 }
                 else
                 {
                     if value == nil
                     {
                         let prevRow = valueRows[idx-1]
-                        let prevValue = tableValues[1][prevRow.rawValue]
+                        let prevValue = tableValues[downColIdx][prevRow.rawValue]
                         if  prevValue != nil
                         {
-                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1)
+                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: downColIdx)
                             {
                                 btn.enabled = false
                             }
@@ -214,35 +215,36 @@ class GameTableView: UIView
                     }
                     else
                     {
-                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: 1)
+                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: downColIdx)
                     }
                 }
             }
         }
         
         // up col
+        let upColIdx = TableCol.Up.rawValue
         for (idx,row) in valueRows.enumerate() {
-            guard let btn = viewWithTag(tag(row.rawValue, 2)) as? UIButton else {continue}
+            guard let btn = viewWithTag(tag(row.rawValue, upColIdx)) as? UIButton else {continue}
             
-            let value = tableValues[2][row.rawValue]
+            let value = tableValues[upColIdx][row.rawValue]
             
             // in most cases button is disabled, find only cases when it should be enabled
             btn.enabled = false
             if inputState != .NotAllowed
             {
-                if idx == 11
+                if row == .Yamb
                 {
-                    btn.enabled = (value == nil) || (inputPos == TablePos(rowIdx: TableSection.Yamb.rawValue, colIdx: 2) && inputState != .NotAllowed)
+                    btn.enabled = (value == nil) || inputPos == TablePos(rowIdx: TableRow.Yamb.rawValue, colIdx: upColIdx)
                 }
                 else
                 {
                     if value == nil
                     {
                         let nextRow = valueRows[idx+1]
-                        let nextValue = tableValues[2][nextRow.rawValue]
+                        let nextValue = tableValues[upColIdx][nextRow.rawValue]
                         if nextValue != nil
                         {
-                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: nextRow.rawValue,colIdx: 2)
+                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: nextRow.rawValue,colIdx: upColIdx)
                             {
                                 btn.enabled = false
                             }
@@ -254,7 +256,7 @@ class GameTableView: UIView
                     }
                     else
                     {
-                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: 2)
+                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: upColIdx)
                     }
                 }
             }
@@ -262,14 +264,29 @@ class GameTableView: UIView
         
     
         // up down col
+        let upDownColIdx = TableCol.UpDown.rawValue
         for (_,row) in valueRows.enumerate()
         {
-            guard let btn = viewWithTag(tag(row.rawValue, 3)) as? UIButton else {continue}
+            guard let btn = viewWithTag(tag(row.rawValue, upDownColIdx)) as? UIButton else {continue}
             btn.enabled = false
             if inputState != .NotAllowed
             {
-                let value = tableValues[3][row.rawValue]
-                let pos = TablePos(rowIdx: row.rawValue, colIdx: 3)
+                let value = tableValues[upDownColIdx][row.rawValue]
+                let pos = TablePos(rowIdx: row.rawValue, colIdx: upDownColIdx)
+                btn.enabled = value == nil || inputPos == pos
+            }
+        }
+        
+        // N column
+        let nColIdx = TableCol.N.rawValue
+        for (_,row) in valueRows.enumerate()
+        {
+            guard let btn = viewWithTag(tag(row.rawValue, nColIdx)) as? UIButton else {continue}
+            btn.enabled = false
+            if inputState != .NotAllowed && Game.shared.gameState == .After1
+            {
+                let value = tableValues[nColIdx][row.rawValue]
+                let pos = TablePos(rowIdx: row.rawValue, colIdx: nColIdx)
                 btn.enabled = value == nil || inputPos == pos
             }
         }
@@ -278,9 +295,9 @@ class GameTableView: UIView
         for colIdx in 1..<Game.shared.ctColumns
         {
             for rowIdx in [
-                TableSection.SumNumbers.rawValue,
-                TableSection.SumMaxMin.rawValue,
-                TableSection.SumSFPY.rawValue]
+                TableRow.SumNumbers.rawValue,
+                TableRow.SumMaxMin.rawValue,
+                TableRow.SumSFPY.rawValue]
             {
                 guard let lbl = viewWithTag(tag(rowIdx, colIdx)) as? UILabel else {continue}
                 if let value = tableValues[colIdx][rowIdx]
