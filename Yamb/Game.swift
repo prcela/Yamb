@@ -217,6 +217,47 @@ class Game
                 return 40
             }
             return 0
+            
+        case .Full:
+            
+            var sum = [UInt:UInt]()
+            var atLeastPairs = [UInt]()
+            for value in values
+            {
+                if sum[value] == nil
+                {
+                    sum[value] = 0
+                }
+                sum[value]! += 1
+            }
+            
+            for (key,value) in sum
+            {
+                if value >= 2
+                {
+                    atLeastPairs.append(key)
+                }
+            }
+            
+            if atLeastPairs.count == 2 && (sum[atLeastPairs[0]] >= 3 || sum[atLeastPairs[1]] >= 3)
+            {
+                atLeastPairs.sortInPlace()
+                if sum[atLeastPairs[1]] >= 3
+                {
+                    return atLeastPairs[0]*2 + atLeastPairs[1]*3
+                }
+                else
+                {
+                    return atLeastPairs[0]*3 + atLeastPairs[1]*2
+                }
+            }
+            else if atLeastPairs.count == 1 && sum[atLeastPairs[0]] >= 5
+            {
+                // yamb može biti isto full
+                return 5*atLeastPairs[0]
+            }
+            
+            return 0
         
         case .Poker, .Yamb:
             
