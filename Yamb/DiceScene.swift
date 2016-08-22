@@ -93,10 +93,10 @@ class DiceScene: SCNScene
         }
     }
 
-    func roll(completion: (result: [UInt32]) -> Void)
+    func roll(completion: (result: [UInt]) -> Void)
     {
         let ctMaxRounds: UInt32 = 5
-        var values = [UInt32]()
+        var values = [UInt]()
         
         func randomRotateAngleToDst(dst:CGFloat) -> CGFloat
         {
@@ -105,7 +105,7 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
-            let num = 1+arc4random_uniform(6)
+            let num = UInt(1+arc4random_uniform(6))
             values.append(num)
             
             var rndX = randomRotateAngleToDst(0)

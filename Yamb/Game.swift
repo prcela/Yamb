@@ -48,9 +48,9 @@ class Game
     var inputState = InputState.NotAllowed
     var gameState = GameState.Start
     var rollState = RollState.NotRolling
-    var diceValues: [UInt32]?
+    var diceValues: [UInt]?
     // table ordered with colIdx, rowIdx
-    var tableValues = Array<Array<UInt32?>>(count: 5, repeatedValue: Array<UInt32?>(count: 16, repeatedValue: nil))
+    var tableValues = Array<Array<UInt?>>(count: 5, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
     var inputPos: TablePos?
     
     var ctColumns: Int {
@@ -135,7 +135,7 @@ class Game
     
     func didSelectCellAtPos(pos: TablePos)
     {
-        var oldValue: UInt32?
+        var oldValue: UInt?
         if let clearPos = inputPos
         {
             oldValue = tableValues[clearPos.colIdx][clearPos.rowIdx]
@@ -166,7 +166,7 @@ class Game
         print(gameState,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
     }
     
-    func calculateValueForPos(pos: TablePos) -> UInt32
+    func calculateValueForPos(pos: TablePos) -> UInt
     {
         guard let values = diceValues else {return 0}
         
@@ -175,8 +175,8 @@ class Game
         switch section
         {
         case .One, .Two, .Three, .Four, .Five, .Six:
-            return values.reduce(0, combine: { (sum, value) -> UInt32 in
-                if value == UInt32(pos.rowIdx)
+            return values.reduce(0, combine: { (sum, value) -> UInt in
+                if value == UInt(pos.rowIdx)
                 {
                     return sum + value
                 }
@@ -184,11 +184,11 @@ class Game
             })
             
         case .Max, .Min:
-            let numMax = values.reduce(UInt32.min, combine: { max($0, $1) })
-            let numMin = values.reduce(UInt32.max, combine: { min($0, $1) })
+            let numMax = values.reduce(UInt.min, combine: { max($0, $1) })
+            let numMin = values.reduce(UInt.max, combine: { min($0, $1) })
 
             
-            let sum = values.reduce(0, combine: { (sum, value) -> UInt32 in
+            let sum = values.reduce(0, combine: { (sum, value) -> UInt in
                     return sum + value
             })
             
@@ -205,6 +205,46 @@ class Game
                 return sum - numMax
             }
             
+        case .Skala:
+            let set = Set(values)
+            
+            if set.intersect([1,2,3,4,5]).count == 5
+            {
+                return 30
+            }
+            else if set.intersect([2,3,4,5,6]).count == 5
+            {
+                return 40
+            }
+            return 0
+        
+        case .Poker, .Yamb:
+            
+            var sum = [UInt:UInt]()
+            for value in values
+            {
+                if sum[value] == nil
+                {
+                    sum[value] = 0
+                }
+                sum[value]! += 1
+                if section == .Poker
+                {
+                    if sum[value] == 4
+                    {
+                        return 4*value
+                    }
+                }
+                else if section == .Yamb
+                {
+                    if sum[value] == 5
+                    {
+                        return 5*value
+                    }
+                }
+            }
+            
+            return 0
             
         default:
             return 0
