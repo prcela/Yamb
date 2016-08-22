@@ -49,5 +49,11 @@ class PlayViewController: UIViewController {
     {
         Game.shared.roll()
     }
+    
+    @IBAction func onDiceTouched(sender: UIButton)
+    {
+        print("Touched: \(sender.tag)")
+        Game.shared.onDieTouched(UInt(sender.tag))
+    }
 }
 

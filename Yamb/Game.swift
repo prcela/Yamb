@@ -49,6 +49,7 @@ class Game
     var gameState = GameState.Start
     var rollState = RollState.NotRolling
     var diceValues: [UInt]?
+    var diceHeld = Set<UInt>()
     // table ordered with colIdx, rowIdx
     var tableValues = Array<Array<UInt?>>(count: 5, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
     var inputPos: TablePos?
@@ -66,6 +67,7 @@ class Game
         inputState = .NotAllowed
         inputPos = nil
         diceValues = nil
+        diceHeld.removeAll()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -75,6 +77,12 @@ class Game
     func roll()
     {
         guard !(inputState == .Must && inputPos == nil) else {return}
+        
+        if inputPos != nil
+        {
+            diceHeld.removeAll()
+            DiceScene.shared.updateDiceSelection()
+        }
         
         rollState = .Rolling
         DiceScene.shared.roll { (result) in
@@ -290,5 +298,19 @@ class Game
         default:
             return 0
         }
+    }
+    
+    func onDieTouched(dieIdx: UInt)
+    {
+        if diceHeld.contains(dieIdx)
+        {
+            diceHeld.remove(dieIdx)
+        }
+        else
+        {
+            diceHeld.insert(dieIdx)
+        }
+        
+        DiceScene.shared.updateDiceSelection()
     }
 }

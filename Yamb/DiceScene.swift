@@ -15,11 +15,29 @@ class DiceScene: SCNScene
     
     var playSoundAction: SCNAction?
     
+    var dieMaterialsDefault = [SCNMaterial]()
+    var dieMaterialsSelected = [SCNMaterial]()
+    
     override init() {
         super.init()
         
         let side: CGFloat = 1
         let delta: Float = 0.25
+        
+        for sideIdx in 1...6
+        {
+            let defaultMaterial = SCNMaterial()
+            let name = String(sideIdx)
+            defaultMaterial.diffuse.contents = UIImage(named: name)
+            defaultMaterial.locksAmbientWithDiffuse = true
+            dieMaterialsDefault.append(defaultMaterial)
+            
+            let selectedMaterial = SCNMaterial()
+            let selName = "\(sideIdx)b"
+            selectedMaterial.diffuse.contents = UIImage(named: selName)
+            selectedMaterial.locksAmbientWithDiffuse = true
+            dieMaterialsSelected.append(selectedMaterial)
+        }
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
@@ -33,24 +51,14 @@ class DiceScene: SCNScene
             dieNode.position = SCNVector3Make(Float(col)*(Float(side)+delta)+0.5*Float(side), Float(row)*(Float(side)+delta), 0)
             rootNode.addChildNode(dieNode)
             
-            var materials = [SCNMaterial]()
-            for sideIdx in 1...6
-            {
-                let material = SCNMaterial()
-                material.diffuse.contents = UIImage(named: String(sideIdx))
-                material.locksAmbientWithDiffuse = true
-                materials.append(material)
-            }
-            
-            
-            die.materials = materials
+            die.materials = dieMaterialsDefault
         }
         
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.usesOrthographicProjection = true
         cameraNode.camera?.orthographicScale = 1.5
-        cameraNode.position = SCNVector3Make(2, 0.5*Float(side) + 0.5*delta, 30)
+        cameraNode.position = SCNVector3Make(1.5*Float(side)+delta, 0.5*Float(side) + 0.5*delta, 30)
         
         rootNode.addChildNode(cameraNode)
         
@@ -96,6 +104,7 @@ class DiceScene: SCNScene
     func roll(completion: (result: [UInt]) -> Void)
     {
         let ctMaxRounds: UInt32 = 5
+        var oldValues = Game.shared.diceValues
         var values = [UInt]()
         
         func randomRotateAngleToDst(dst:CGFloat) -> CGFloat
@@ -105,6 +114,13 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
+            if Game.shared.diceHeld.contains(UInt(dieIdx))
+            {
+                // skip it by adding same value
+                values.append(oldValues?[dieIdx] ?? 1)
+                continue
+            }
+            
             let num = UInt(1+arc4random_uniform(6))
             values.append(num)
             
@@ -150,6 +166,24 @@ class DiceScene: SCNScene
         
         dispatchToMainQueue(delay: 1.1) { 
             completion(result: values)
+        }
+    }
+    
+    func updateDiceSelection()
+    {
+        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        {
+            if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            {
+                if Game.shared.diceHeld.contains(UInt(dieIdx))
+                {
+                    dieNode.geometry?.materials = dieMaterialsSelected
+                }
+                else
+                {
+                    dieNode.geometry?.materials = dieMaterialsDefault
+                }
+            }
         }
     }
 
