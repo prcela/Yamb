@@ -43,12 +43,20 @@ class GameTableView: UIView
             CGContextStrokePath(ctx)
         }
         
+        let fullLines = [1,7,8,10,11,15]
         for rowIdx in 1..<16
         {
             let y = CGFloat(rowIdx)*rowHeight
             CGContextBeginPath(ctx)
             CGContextMoveToPoint(ctx, 0, y)
-            CGContextAddLineToPoint(ctx, rect.size.width, y)
+            if fullLines.contains(rowIdx)
+            {
+                CGContextAddLineToPoint(ctx, rect.size.width, y)
+            }
+            else
+            {
+                CGContextAddLineToPoint(ctx, rect.size.width-colWidth, y)
+            }
             CGContextStrokePath(ctx)
         }
         
@@ -111,7 +119,7 @@ class GameTableView: UIView
         }
         
         // header
-        let titles = ["","↓","↑","⇅","N"]
+        let titles = ["","↓","↑","⇅","N","∑"]
         for colIdx in 1..<ctColumns
         {
             createLabelAt(0, colIdx: colIdx, text: titles[colIdx])
@@ -125,7 +133,7 @@ class GameTableView: UIView
         // all buttons
         for row in valueRows
         {
-            for colIdx in 1..<ctColumns
+            for colIdx in 1..<ctColumns-1
             {
                 createBtnAt(row.rawValue, colIdx: colIdx, text: "")
             }
@@ -136,7 +144,9 @@ class GameTableView: UIView
         {
             for colIdx in 1..<ctColumns
             {
-                createLabelAt(row.rawValue, colIdx: colIdx, text: "")
+                let sumLbl = createLabelAt(row.rawValue, colIdx: colIdx, text: "")
+                sumLbl.font = UIFont(name: "Noteworthy-Bold", size: 15)
+                sumLbl.textColor = Skin.tintColor
             }
         }
         
@@ -146,6 +156,8 @@ class GameTableView: UIView
     func updateValuesAndStates()
     {
         let tableValues = Game.shared.tableValues
+        let inputPos = Game.shared.inputPos
+        let inputState = Game.shared.inputState
         
         // set values
         for colIdx in 1..<Game.shared.ctColumns
@@ -176,20 +188,21 @@ class GameTableView: UIView
             
             // in most cases button is disabled, find only cases when it should be enabled
             btn.enabled = false
-            if Game.shared.inputState != .NotAllowed
+            if inputState != .NotAllowed
             {
                 if idx == 0
                 {
-                    btn.enabled = value == nil
+                    btn.enabled = (value == nil) || (inputPos == TablePos(rowIdx: 1, colIdx: 1) && inputState != .NotAllowed)
                 }
                 else
                 {
-                    if tableValues[1][row.rawValue] == nil
+                    if value == nil
                     {
                         let prevRow = valueRows[idx-1]
-                        if tableValues[1][prevRow.rawValue] != nil
+                        let prevValue = tableValues[1][prevRow.rawValue]
+                        if  prevValue != nil
                         {
-                            if let lastInputPos = Game.shared.inputPos where lastInputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1) && Game.shared.inputState == .Allowed
+                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: 1)
                             {
                                 btn.enabled = false
                             }
@@ -198,6 +211,50 @@ class GameTableView: UIView
                                 btn.enabled = true
                             }
                         }
+                    }
+                    else
+                    {
+                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: 1)
+                    }
+                }
+            }
+        }
+        
+        // up col
+        for (idx,row) in valueRows.enumerate() {
+            guard let btn = viewWithTag(tag(row.rawValue, 2)) as? UIButton else {continue}
+            
+            let value = tableValues[2][row.rawValue]
+            
+            // in most cases button is disabled, find only cases when it should be enabled
+            btn.enabled = false
+            if inputState != .NotAllowed
+            {
+                if idx == 11
+                {
+                    btn.enabled = (value == nil) || (inputPos == TablePos(rowIdx: TableSection.Yamb.rawValue, colIdx: 2) && inputState != .NotAllowed)
+                }
+                else
+                {
+                    if value == nil
+                    {
+                        let nextRow = valueRows[idx+1]
+                        let nextValue = tableValues[2][nextRow.rawValue]
+                        if nextValue != nil
+                        {
+                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: nextRow.rawValue,colIdx: 2)
+                            {
+                                btn.enabled = false
+                            }
+                            else
+                            {
+                                btn.enabled = true
+                            }
+                        }
+                    }
+                    else
+                    {
+                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: 2)
                     }
                 }
             }
@@ -209,11 +266,11 @@ class GameTableView: UIView
         {
             guard let btn = viewWithTag(tag(row.rawValue, 3)) as? UIButton else {continue}
             btn.enabled = false
-            if Game.shared.inputState != .NotAllowed
+            if inputState != .NotAllowed
             {
                 let value = tableValues[3][row.rawValue]
                 let pos = TablePos(rowIdx: row.rawValue, colIdx: 3)
-                btn.enabled = value == nil || Game.shared.inputPos == pos
+                btn.enabled = value == nil || inputPos == pos
             }
         }
         

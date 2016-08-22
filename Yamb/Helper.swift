@@ -21,5 +21,5 @@ func dispatchToMainQueue(delay delay:NSTimeInterval, closure:()->()) {
 
 func isSmallScreen() -> Bool
 {
-    return CGRectGetHeight(UIScreen.mainScreen().bounds) <= 480
+    return CGRectGetHeight(UIScreen.mainScreen().bounds) <= 568
 }

@@ -51,12 +51,12 @@ class Game
     var diceValues: [UInt]?
     var diceHeld = Set<UInt>()
     // table ordered with colIdx, rowIdx
-    var tableValues = Array<Array<UInt?>>(count: 5, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
+    var tableValues = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
     var inputPos: TablePos?
     
     var ctColumns: Int {
         get {
-            return useNajava ? 5:4
+            return useNajava ? 6:5
         }
     }
     
@@ -148,6 +148,7 @@ class Game
         {
             oldValue = tableValues[clearPos.colIdx][clearPos.rowIdx]
             tableValues[clearPos.colIdx][clearPos.rowIdx] = nil
+            recalculateSumsForColumn(clearPos.colIdx)
         }
         
         if pos != inputPos
