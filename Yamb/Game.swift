@@ -165,8 +165,21 @@ class Game
             inputPos = nil
         }
         
+        recalculateSumsForColumn(pos.colIdx)
+        
         printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+    }
+    
+    func recalculateSumsForColumn(colIdx: Int)
+    {
+        for rowIdx in [
+            TableSection.SumNumbers.rawValue,
+            TableSection.SumMaxMin.rawValue,
+            TableSection.SumSFPY.rawValue]
+        {
+            tableValues[colIdx][rowIdx] = calculateValueForPos(TablePos(rowIdx: rowIdx, colIdx: colIdx))
+        }
     }
     
     func printStatus()
@@ -174,9 +187,9 @@ class Game
         print(gameState,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
     }
     
-    func calculateValueForPos(pos: TablePos) -> UInt
+    func calculateValueForPos(pos: TablePos) -> UInt?
     {
-        guard let values = diceValues else {return 0}
+        guard let values = diceValues else {return nil}
         
         let section = TableSection(rawValue: pos.rowIdx)!
         
@@ -190,6 +203,17 @@ class Game
                 }
                 return sum
             })
+            
+        case .SumNumbers:
+            var sum: UInt = 0
+            for idxRow in 1...6
+            {
+                if let value = tableValues[pos.colIdx][idxRow]
+                {
+                    sum += value
+                }
+            }
+            return sum
             
         case .Max, .Min:
             let numMax = values.reduce(UInt.min, combine: { max($0, $1) })
@@ -212,6 +236,16 @@ class Game
             {
                 return sum - numMax
             }
+            
+        case .SumMaxMin:
+            if let
+            maxValue = tableValues[pos.colIdx][TableSection.Max.rawValue],
+            minValue = tableValues[pos.colIdx][TableSection.Min.rawValue],
+            oneValue = tableValues[pos.colIdx][TableSection.One.rawValue]
+            {
+                return (maxValue-minValue)*oneValue
+            }
+            return nil
             
         case .Skala:
             let set = Set(values)
@@ -295,6 +329,17 @@ class Game
             
             return 0
             
+        case .SumSFPY:
+            var sum:UInt = 0
+            for section:TableSection in [.Skala,.Full,.Poker,.Yamb]
+            {
+                if let value = tableValues[pos.colIdx][section.rawValue]
+                {
+                    sum += value
+                }
+            }
+            return sum
+            
         default:
             return 0
         }
@@ -302,6 +347,8 @@ class Game
     
     func onDieTouched(dieIdx: UInt)
     {
+        guard inputState != .Must && gameState != .Start else {return}
+        
         if diceHeld.contains(dieIdx)
         {
             diceHeld.remove(dieIdx)

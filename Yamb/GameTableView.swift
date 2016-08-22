@@ -216,6 +216,26 @@ class GameTableView: UIView
                 btn.enabled = value == nil || Game.shared.inputPos == pos
             }
         }
+        
+        // sum labels
+        for colIdx in 1..<Game.shared.ctColumns
+        {
+            for rowIdx in [
+                TableSection.SumNumbers.rawValue,
+                TableSection.SumMaxMin.rawValue,
+                TableSection.SumSFPY.rawValue]
+            {
+                guard let lbl = viewWithTag(tag(rowIdx, colIdx)) as? UILabel else {continue}
+                if let value = tableValues[colIdx][rowIdx]
+                {
+                    lbl.text = String(value)
+                }
+                else
+                {
+                    lbl.text = nil
+                }
+            }
+        }
     
     }
 
