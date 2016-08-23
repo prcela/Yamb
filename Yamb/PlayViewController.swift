@@ -67,7 +67,7 @@ class PlayViewController: UIViewController {
         // test for score submit
         if GameKitHelper.shared.authenticated
         {
-            let score = GKScore(leaderboardIdentifier: LeaderboardId.dice5N)
+            let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
             score.value = Int64(Game.shared.totalScore())
             
             GKScore.reportScores([score]) { (error) in

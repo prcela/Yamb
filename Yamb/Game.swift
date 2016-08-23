@@ -43,7 +43,6 @@ class Game
     static let shared = Game()
     
     var diceNum = DiceNum.Five
-    var useNajava = true
     var inputState = InputState.NotAllowed
     var state = GameState.Start
     var rollState = RollState.NotRolling
@@ -53,11 +52,7 @@ class Game
     var tableValues = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
     var inputPos: TablePos?
     
-    var ctColumns: Int {
-        get {
-            return useNajava ? 6:5
-        }
-    }
+    var ctColumns = 6
     
     func start()
     {
@@ -72,7 +67,7 @@ class Game
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
         printStatus()
-        FIRAnalytics.logEventWithName("game_start", parameters: ["najava": useNajava, "dice_num": diceNum.rawValue])
+        FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
     }
     
     func roll()

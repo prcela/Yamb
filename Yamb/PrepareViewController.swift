@@ -10,27 +10,39 @@ import UIKit
 
 class PrepareViewController: UIViewController {
 
+    @IBOutlet weak var dice56Btn: UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        updateDiceBtn()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateDiceBtn()
+    {
+        let title = "Dice 5/6"
+        let thinFont = UIFont(name: "AppleSDGothicNeo-Thin", size: 30)!
+        let defaultFont = UIFont(name: "Apple SD Gothic Neo", size: 30)!
+        
+        let attrString = NSMutableAttributedString(string: title, attributes: [
+            NSFontAttributeName:thinFont,
+            NSForegroundColorAttributeName:UIColor.blackColor()
+            ])
+        
+        let loc = Game.shared.diceNum == .Five ? 5:7
+        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(loc, 1))
+        
+        
+        dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func toggleDiceCount(sender: AnyObject)
+    {
+        let old = Game.shared.diceNum
+        Game.shared.diceNum = (old == .Five) ? .Six : .Five
+        updateDiceBtn()
     }
-    */
 
     @IBAction func newGame(sender: AnyObject)
     {

@@ -133,26 +133,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Announce yes/no" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzA-iw-gJQ">
-                                <rect key="frame" x="150" y="124" width="300" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="REs-pI-cAd"/>
-                                    <constraint firstAttribute="height" constant="30" id="TAH-df-7N9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dice 5/6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHt-NN-I8E">
-                                <rect key="frame" x="200" y="191" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="fNA-pJ-YS8"/>
-                                    <constraint firstAttribute="width" constant="200" id="tfL-k0-taE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHT-fD-qE3">
                                 <rect key="frame" x="200" y="57" width="200" height="30"/>
                                 <constraints>
@@ -168,7 +148,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyw-RE-efM">
-                                <rect key="frame" x="234" y="258" width="132" height="101"/>
+                                <rect key="frame" x="234" y="191" width="132" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="101" id="CDC-Lu-2qK"/>
                                     <constraint firstAttribute="width" constant="132" id="rgP-7j-VqX"/>
@@ -178,25 +158,34 @@
                                     <action selector="playNewGame:" destination="vJz-z9-bhl" eventType="touchUpInside" id="HEm-Es-glq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crm-fc-xNQ">
+                                <rect key="frame" x="200" y="124" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JV7-cd-Gfl"/>
+                                    <constraint firstAttribute="width" constant="200" id="abH-vh-wXn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Dice 5/6">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="Dvp-51-Iz8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QzA-iw-gJQ" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="88" id="2IU-no-u0A"/>
-                            <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="UHt-NN-I8E" secondAttribute="bottom" constant="37" id="Dmo-b4-oQL"/>
-                            <constraint firstItem="UHt-NN-I8E" firstAttribute="top" secondItem="QzA-iw-gJQ" secondAttribute="bottom" constant="37" id="KFQ-Of-XHT"/>
-                            <constraint firstItem="QzA-iw-gJQ" firstAttribute="top" secondItem="fHT-fD-qE3" secondAttribute="bottom" constant="37" id="Vrc-t1-hqr"/>
-                            <constraint firstItem="UHt-NN-I8E" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="akz-co-fNX"/>
-                            <constraint firstItem="QzA-iw-gJQ" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="eIJ-tY-wIt"/>
+                            <constraint firstItem="crm-fc-xNQ" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="QTw-7K-nVf"/>
+                            <constraint firstItem="crm-fc-xNQ" firstAttribute="top" secondItem="fHT-fD-qE3" secondAttribute="bottom" constant="37" id="dRa-nK-fJp"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="gG8-0k-MZg"/>
+                            <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="crm-fc-xNQ" secondAttribute="bottom" constant="37" id="o3O-wz-aT9"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="vGp-1b-QHN"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="37" id="ybT-Bz-G0Z"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="2IU-no-u0A"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="dice56Btn" destination="crm-fc-xNQ" id="pjJ-Cc-Xpg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="est-N0-ze9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

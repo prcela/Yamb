@@ -78,7 +78,7 @@ class MenuViewController: UIViewController
         let leaderboardVC = GKGameCenterViewController()
         leaderboardVC.gameCenterDelegate = self
         leaderboardVC.viewState = .Leaderboards
-        leaderboardVC.leaderboardIdentifier = LeaderboardId.dice5N
+        leaderboardVC.leaderboardIdentifier = LeaderboardId.dice5
         
         navigationController?.presentViewController(leaderboardVC, animated: true, completion: nil)
     }
