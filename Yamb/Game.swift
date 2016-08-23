@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 enum DiceNum: Int
 {
@@ -72,6 +72,7 @@ class Game
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
         printStatus()
+        FIRAnalytics.logEventWithName("game_start", parameters: ["najava": useNajava, "dice_num": diceNum.rawValue])
     }
     
     func roll()
@@ -196,9 +197,11 @@ class Game
     func recalculateSumsForColumn(colIdx: Int)
     {
         let sumRows:[TableRow] = [.SumNumbers,.SumMaxMin,.SumSFPY]
+        let sumColIdx = TableCol.Sum.rawValue
         for row in sumRows
         {
             tableValues[colIdx][row.rawValue] = calculateValueForPos(TablePos(rowIdx: row.rawValue, colIdx: colIdx))
+            tableValues[sumColIdx][row.rawValue] = calculateValueForPos(TablePos(rowIdx: row.rawValue, colIdx: sumColIdx))
         }
     }
     
@@ -211,9 +214,9 @@ class Game
     {
         guard let values = diceValues else {return nil}
         
-        let section = TableRow(rawValue: pos.rowIdx)!
+        let row = TableRow(rawValue: pos.rowIdx)!
         
-        switch section
+        switch row
         {
         case .One, .Two, .Three, .Four, .Five, .Six:
             return values.reduce(0, combine: { (sum, value) -> UInt in
@@ -225,20 +228,35 @@ class Game
             })
             
         case .SumNumbers:
+            
             var sum: UInt = 0
-            for idxRow in 1...6
+            if pos.colIdx == TableCol.Sum.rawValue
             {
-                if let value = tableValues[pos.colIdx][idxRow]
+                for col:TableCol in [.Down,.Up,.UpDown,.N]
                 {
-                    sum += value
+                    if let value = tableValues[col.rawValue][pos.rowIdx]
+                    {
+                        sum += value
+                    }
+                }
+            }
+            else
+            {
+                for idxRow in 1...6
+                {
+                    if let value = tableValues[pos.colIdx][idxRow]
+                    {
+                        sum += value
+                    }
                 }
             }
             return sum
             
+            
         case .Max, .Min:
+            
             let numMax = values.reduce(UInt.min, combine: { max($0, $1) })
             let numMin = values.reduce(UInt.max, combine: { min($0, $1) })
-
             
             let sum = values.reduce(0, combine: { (sum, value) -> UInt in
                     return sum + value
@@ -248,7 +266,7 @@ class Game
             {
                 return sum
             }
-            else if section == .Max
+            else if row == .Max
             {
                 return sum - numMin
             }
@@ -258,12 +276,28 @@ class Game
             }
             
         case .SumMaxMin:
-            if let
-            maxValue = tableValues[pos.colIdx][TableRow.Max.rawValue],
-            minValue = tableValues[pos.colIdx][TableRow.Min.rawValue],
-            oneValue = tableValues[pos.colIdx][TableRow.One.rawValue]
+            if pos.colIdx == TableCol.Sum.rawValue
             {
-                return (maxValue-minValue)*oneValue
+                var sum:UInt = 0
+                
+                for col:TableCol in [.Down,.Up,.UpDown,.N]
+                {
+                    if let value = tableValues[col.rawValue][pos.rowIdx]
+                    {
+                        sum += value
+                    }
+                }
+                return sum
+            }
+            else
+            {
+                if let
+                    maxValue = tableValues[pos.colIdx][TableRow.Max.rawValue],
+                    minValue = tableValues[pos.colIdx][TableRow.Min.rawValue],
+                    oneValue = tableValues[pos.colIdx][TableRow.One.rawValue]
+                {
+                    return (maxValue-minValue)*oneValue
+                }
             }
             return nil
             
@@ -331,14 +365,14 @@ class Game
                     sum[value] = 0
                 }
                 sum[value]! += 1
-                if section == .Poker
+                if row == .Poker
                 {
                     if sum[value] == 4
                     {
                         return 4*value
                     }
                 }
-                else if section == .Yamb
+                else if row == .Yamb
                 {
                     if sum[value] == 5
                     {
@@ -351,11 +385,24 @@ class Game
             
         case .SumSFPY:
             var sum:UInt = 0
-            for row:TableRow in [.Skala,.Full,.Poker,.Yamb]
+            if pos.colIdx == TableCol.Sum.rawValue
             {
-                if let value = tableValues[pos.colIdx][row.rawValue]
+                for col:TableCol in [.Down,.Up,.UpDown,.N]
                 {
-                    sum += value
+                    if let value = tableValues[col.rawValue][pos.rowIdx]
+                    {
+                        sum += value
+                    }
+                }
+            }
+            else
+            {
+                for row:TableRow in [.Skala,.Full,.Poker,.Yamb]
+                {
+                    if let value = tableValues[pos.colIdx][row.rawValue]
+                    {
+                        sum += value
+                    }
                 }
             }
             return sum
@@ -379,5 +426,19 @@ class Game
         }
         
         DiceScene.shared.updateDiceSelection()
+    }
+    
+    func totalScore() -> UInt
+    {
+        var sum: UInt = 0
+        let sumColIdx = TableCol.Sum.rawValue
+        for row:TableRow in [.SumNumbers,.SumMaxMin,.SumSFPY]
+        {
+            if let value = tableValues[sumColIdx][row.rawValue]
+            {
+                sum += value
+            }
+        }
+        return sum
     }
 }

@@ -14,4 +14,5 @@ enum TableCol: Int
     case Up
     case UpDown
     case N
+    case Sum
 }
