@@ -66,9 +66,12 @@
                                     <constraint firstAttribute="height" constant="30" id="K7W-Vq-Tu9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <state key="normal" title="Game center">
+                                <state key="normal" title="Leaderboard">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onGameCenter:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="mCE-xI-1Ej"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tell friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVB-7H-UKI">
                                 <rect key="frame" x="218" y="386" width="165" height="21"/>

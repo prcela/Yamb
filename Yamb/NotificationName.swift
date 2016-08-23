@@ -12,4 +12,5 @@ struct NotificationName
 {
     static let gameStateChanged = "Notification.GameStateChanged"
     static let tableValuesChanged = "Notification.TableValuesChanged"
+    static let authenticatedLocalPlayer = "Notification.AuthenticatedLocalPlayer"
 }

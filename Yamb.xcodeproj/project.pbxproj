@@ -40,6 +40,7 @@
 		97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */; };
 		97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */; };
 		97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */; };
+		97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCol.swift; sourceTree = "<group>"; };
 		97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				97C4EF5D1D68DB4800A1E7CD /* NotificationName.swift */,
 				97C4EF5F1D699D7B00A1E7CD /* UIImageExt.swift */,
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
+				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */,
 				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
 				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
