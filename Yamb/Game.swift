@@ -81,9 +81,12 @@ class Game
         {
             diceHeld.removeAll()
             DiceScene.shared.updateDiceSelection()
+            inputPos = nil
         }
         
         rollState = .Rolling
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        
         DiceScene.shared.roll { (result) in
             self.rollState = .NotRolling
             self.diceValues = result

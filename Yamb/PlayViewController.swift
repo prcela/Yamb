@@ -15,6 +15,7 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var gameTableView: GameTableView!
     @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var rollBtn: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,6 +29,7 @@ class PlayViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         sceneView.scene = DiceScene.shared
+        refresh()
     }
     
     override func viewDidLayoutSubviews()
@@ -37,8 +39,26 @@ class PlayViewController: UIViewController {
     
     func onGameStateChanged(notification: NSNotification)
     {
+        refresh()
+    }
+    
+    func refresh()
+    {
         gameTableView.updateValuesAndStates()
         gameTableView.setNeedsDisplay()
+        
+        switch Game.shared.state {
+        case .Start:
+            rollBtn.setTitle("Start", forState: .Normal)
+        case .After1:
+            rollBtn.setTitle("2.Roll", forState: .Normal)
+        case .After2, .AfterN2:
+            rollBtn.setTitle("3.Roll", forState: .Normal)
+        case .After3, .AfterN3:
+            rollBtn.setTitle("1.Roll", forState: .Normal)
+        }
+        
+        rollBtn.enabled = (Game.shared.inputState != .Must || Game.shared.inputPos != nil) && Game.shared.rollState == .NotRolling
     }
     
     @IBAction func back(sender: AnyObject)
