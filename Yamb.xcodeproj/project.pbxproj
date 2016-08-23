@@ -39,6 +39,7 @@
 		97C4EF961D6B38B900A1E7CD /* 6b.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF8A1D6B38B900A1E7CD /* 6b.png */; };
 		97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */; };
 		97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */; };
+		97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		97C4EF8A1D6B38B900A1E7CD /* 6b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6b.png; path = Yamb/Resources/6b.png; sourceTree = "<group>"; };
 		97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCol.swift; sourceTree = "<group>"; };
 		97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6691119A7FF9737FEB53F298 /* Pods_Yamb.framework in Frameworks */,
+				97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +163,7 @@
 		E12D9E9DECD0CD02EBD5C2D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */,
 				15B85DDCFC33AC69F1A59815 /* Pods_Yamb.framework */,
 			);
 			name = Frameworks;
@@ -210,6 +214,14 @@
 					977D97F21CAEA35700AD9EF8 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = X5F8D2MNQ7;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
