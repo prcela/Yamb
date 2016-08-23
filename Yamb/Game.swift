@@ -77,7 +77,7 @@ class Game
     {
         guard !(inputState == .Must && inputPos == nil) else {return}
         
-        if inputPos != nil && inputPos!.colIdx != TableCol.N.rawValue
+        if inputPos != nil && inputPos!.colIdx != TableCol.N.rawValue || (state == .AfterN3 || state == .After3)
         {
             diceHeld.removeAll()
             DiceScene.shared.updateDiceSelection()
