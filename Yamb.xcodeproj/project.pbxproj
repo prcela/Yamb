@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6691119A7FF9737FEB53F298 /* Pods_Yamb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B85DDCFC33AC69F1A59815 /* Pods_Yamb.framework */; };
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
 		977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FA1CAEA35700AD9EF8 /* Main.storyboard */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
@@ -37,9 +38,13 @@
 		97C4EF951D6B38B900A1E7CD /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF891D6B38B900A1E7CD /* 6.png */; };
 		97C4EF961D6B38B900A1E7CD /* 6b.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF8A1D6B38B900A1E7CD /* 6b.png */; };
 		97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */; };
+		97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15B85DDCFC33AC69F1A59815 /* Pods_Yamb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yamb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2403532EFB0E8D28533854DF /* Pods-Yamb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yamb.release.xcconfig"; path = "Pods/Target Support Files/Pods-Yamb/Pods-Yamb.release.xcconfig"; sourceTree = "<group>"; };
+		84B5FDFF6AD6F72E61586155 /* Pods-Yamb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yamb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Yamb/Pods-Yamb.debug.xcconfig"; sourceTree = "<group>"; };
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		977D97FB1CAEA35700AD9EF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +77,7 @@
 		97C4EF891D6B38B900A1E7CD /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6.png; path = Yamb/Resources/6.png; sourceTree = "<group>"; };
 		97C4EF8A1D6B38B900A1E7CD /* 6b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6b.png; path = Yamb/Resources/6b.png; sourceTree = "<group>"; };
 		97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCol.swift; sourceTree = "<group>"; };
+		97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6691119A7FF9737FEB53F298 /* Pods_Yamb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +98,9 @@
 				977D97F51CAEA35700AD9EF8 /* Yamb */,
 				9787AEC11D632661001640F7 /* Resources */,
 				977D97F41CAEA35700AD9EF8 /* Products */,
+				97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */,
+				F8EDF289099F30002037C05A /* Pods */,
+				E12D9E9DECD0CD02EBD5C2D0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +157,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		E12D9E9DECD0CD02EBD5C2D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15B85DDCFC33AC69F1A59815 /* Pods_Yamb.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8EDF289099F30002037C05A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84B5FDFF6AD6F72E61586155 /* Pods-Yamb.debug.xcconfig */,
+				2403532EFB0E8D28533854DF /* Pods-Yamb.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,9 +181,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 977D98051CAEA35700AD9EF8 /* Build configuration list for PBXNativeTarget "Yamb" */;
 			buildPhases = (
+				FFC96E82CB6096046080C32B /* [CP] Check Pods Manifest.lock */,
 				977D97EF1CAEA35700AD9EF8 /* Sources */,
 				977D97F01CAEA35700AD9EF8 /* Frameworks */,
 				977D97F11CAEA35700AD9EF8 /* Resources */,
+				5B8AB68B320F268755DCA9D8 /* [CP] Embed Pods Frameworks */,
+				20BA801EF6AC8AEDD2540784 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -215,6 +245,7 @@
 				97C4EF8F1D6B38B900A1E7CD /* 3.png in Resources */,
 				97C4EF921D6B38B900A1E7CD /* 4b.png in Resources */,
 				97C4EF8B1D6B38B900A1E7CD /* 1.png in Resources */,
+				97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */,
 				97C4EF8E1D6B38B900A1E7CD /* 2b.png in Resources */,
 				977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */,
 				977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */,
@@ -225,6 +256,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20BA801EF6AC8AEDD2540784 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Yamb/Pods-Yamb-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B8AB68B320F268755DCA9D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Yamb/Pods-Yamb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFC96E82CB6096046080C32B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		977D97EF1CAEA35700AD9EF8 /* Sources */ = {
@@ -358,6 +437,7 @@
 		};
 		977D98061CAEA35700AD9EF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84B5FDFF6AD6F72E61586155 /* Pods-Yamb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -373,6 +453,7 @@
 		};
 		977D98071CAEA35700AD9EF8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2403532EFB0E8D28533854DF /* Pods-Yamb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

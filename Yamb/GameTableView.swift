@@ -298,7 +298,7 @@ class GameTableView: UIView
         {
             guard let btn = viewWithTag(tag(row.rawValue, nColIdx)) as? UIButton else {continue}
             btn.enabled = false
-            if inputState != .NotAllowed && Game.shared.gameState == .After1
+            if inputState != .NotAllowed && Game.shared.state == .After1
             {
                 let value = tableValues[nColIdx][row.rawValue]
                 let pos = TablePos(rowIdx: row.rawValue, colIdx: nColIdx)
