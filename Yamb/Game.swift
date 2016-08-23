@@ -67,6 +67,7 @@ class Game
         inputPos = nil
         diceValues = nil
         diceHeld.removeAll()
+        tableValues = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)

@@ -33,6 +33,17 @@ class MenuViewController: UIViewController
         GameKitHelper.shared.authenticateLocalPlayer()
     }
     
+    @IBAction func play(sender: AnyObject)
+    {
+        if Game.shared.state == .Start
+        {
+            performSegueWithIdentifier("newId", sender: self)
+        }
+        else
+        {
+            performSegueWithIdentifier("resumeOrNewId", sender: self)
+        }
+    }
         
     @IBAction func onGameCenter(sender: AnyObject)
     {

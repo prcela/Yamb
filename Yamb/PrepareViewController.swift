@@ -32,9 +32,20 @@ class PrepareViewController: UIViewController {
     }
     */
 
+    @IBAction func newGame(sender: AnyObject)
+    {
+        performSegueWithIdentifier("newId", sender: self)
+    }
+    
     @IBAction func play(sender: AnyObject)
     {
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+    }
+    
+    @IBAction func playNewGame(sender: AnyObject)
+    {
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        Game.shared.start()
     }
     
     @IBAction func back(sender: AnyObject) {

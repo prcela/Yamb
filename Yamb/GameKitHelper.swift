@@ -8,6 +8,7 @@
 
 import Foundation
 import GameKit
+import Firebase
 
 class GameKitHelper
 {
@@ -30,9 +31,12 @@ class GameKitHelper
             }
             else
             {
-                self.authenticated = GKLocalPlayer.localPlayer().authenticated
+                let localPlayer = GKLocalPlayer.localPlayer()
+                self.authenticated = localPlayer.authenticated
                 self.authController = nil
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)
+                FIRAnalytics.setUserID(localPlayer.playerID)
+                FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")
             }
         }
         

@@ -99,6 +99,7 @@ class DiceScene: SCNScene
         {
             node.hidden = game.diceNum == .Five
         }
+        updateDiceSelection()
     }
 
     func roll(completion: (result: [UInt]) -> Void)

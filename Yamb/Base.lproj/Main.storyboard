@@ -52,11 +52,11 @@
                                     <constraint firstAttribute="height" constant="30" id="tDQ-hV-dVR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <state key="normal" title="Training">
+                                <state key="normal" title="Play">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vJz-z9-bhl" kind="show" id="rRw-Ly-1gx"/>
+                                    <action selector="play:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="gGp-HX-gyd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeS-bc-DLr">
@@ -113,6 +113,8 @@
                     <connections>
                         <outlet property="nearbyBtn" destination="MeS-bc-DLr" id="We4-i6-vkg"/>
                         <outlet property="trainingBtn" destination="Rwa-2u-xU7" id="0jh-fC-NNu"/>
+                        <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
+                        <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="qNf-kJ-iJq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cxl-5d-MX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -131,31 +133,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players 1..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzA-iw-gJQ">
-                                <rect key="frame" x="200" y="124" width="200" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Announce yes/no" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzA-iw-gJQ">
+                                <rect key="frame" x="150" y="124" width="300" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="REs-pI-cAd"/>
+                                    <constraint firstAttribute="width" constant="300" id="REs-pI-cAd"/>
                                     <constraint firstAttribute="height" constant="30" id="TAH-df-7N9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy/Hard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHt-NN-I8E">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dice 5/6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHt-NN-I8E">
                                 <rect key="frame" x="200" y="191" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="fNA-pJ-YS8"/>
                                     <constraint firstAttribute="width" constant="200" id="tfL-k0-taE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dice 5/6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib0-TW-g6Z">
-                                <rect key="frame" x="200" y="258" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="akS-qT-ciI"/>
-                                    <constraint firstAttribute="height" constant="30" id="rOg-Gf-DZy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -176,28 +168,26 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyw-RE-efM">
-                                <rect key="frame" x="234" y="354" width="132" height="101"/>
+                                <rect key="frame" x="234" y="258" width="132" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="101" id="CDC-Lu-2qK"/>
                                     <constraint firstAttribute="width" constant="132" id="rgP-7j-VqX"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="dice-clipart"/>
                                 <connections>
-                                    <action selector="play:" destination="vJz-z9-bhl" eventType="touchUpInside" id="oni-bu-TWD"/>
+                                    <action selector="playNewGame:" destination="vJz-z9-bhl" eventType="touchUpInside" id="HEm-Es-glq"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QzA-iw-gJQ" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="88" id="2IU-no-u0A"/>
-                            <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="ib0-TW-g6Z" secondAttribute="bottom" constant="66" id="69y-aA-bIb"/>
-                            <constraint firstItem="ib0-TW-g6Z" firstAttribute="top" secondItem="UHt-NN-I8E" secondAttribute="bottom" constant="37" id="IxF-M3-plJ"/>
+                            <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="UHt-NN-I8E" secondAttribute="bottom" constant="37" id="Dmo-b4-oQL"/>
                             <constraint firstItem="UHt-NN-I8E" firstAttribute="top" secondItem="QzA-iw-gJQ" secondAttribute="bottom" constant="37" id="KFQ-Of-XHT"/>
                             <constraint firstItem="QzA-iw-gJQ" firstAttribute="top" secondItem="fHT-fD-qE3" secondAttribute="bottom" constant="37" id="Vrc-t1-hqr"/>
                             <constraint firstItem="UHt-NN-I8E" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="akz-co-fNX"/>
                             <constraint firstItem="QzA-iw-gJQ" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="eIJ-tY-wIt"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="gG8-0k-MZg"/>
-                            <constraint firstItem="ib0-TW-g6Z" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="gie-lV-I0z"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="vGp-1b-QHN"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="37" id="ybT-Bz-G0Z"/>
                         </constraints>
@@ -386,9 +376,85 @@
             </objects>
             <point key="canvasLocation" x="1002" y="1137"/>
         </scene>
+        <!--Prepare View Controller-->
+        <scene sceneID="7zg-Qj-HUu">
+            <objects>
+                <viewController id="gEx-9a-YxG" customClass="PrepareViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vbW-BX-zcY"/>
+                        <viewControllerLayoutGuide type="bottom" id="IqS-lI-LiF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="249" id="IL3-Mv-GqB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tbq-ag-QlV">
+                                <rect key="frame" x="200" y="57" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="OIf-hK-zp1"/>
+                                    <constraint firstAttribute="width" constant="200" id="xr1-AN-gQh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="gEx-9a-YxG" eventType="touchUpInside" id="zmT-Ao-P9J"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYY-iA-dNr">
+                                <rect key="frame" x="200" y="124" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="dku-DW-OwT"/>
+                                    <constraint firstAttribute="height" constant="30" id="nn6-7c-ni8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Resume game">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="play:" destination="gEx-9a-YxG" eventType="touchUpInside" id="A9t-Ty-v95"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFl-Cr-22D">
+                                <rect key="frame" x="200" y="191" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3Tv-Cx-dBB"/>
+                                    <constraint firstAttribute="width" constant="200" id="zWv-yt-7C6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="New game">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newGame:" destination="gEx-9a-YxG" eventType="touchUpInside" id="m2G-M4-PPF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Tbq-ag-QlV" firstAttribute="centerX" secondItem="IL3-Mv-GqB" secondAttribute="centerX" id="IFN-M1-9da"/>
+                            <constraint firstItem="VYY-iA-dNr" firstAttribute="top" secondItem="Tbq-ag-QlV" secondAttribute="bottom" constant="37" id="QPg-0c-eAQ"/>
+                            <constraint firstItem="zFl-Cr-22D" firstAttribute="centerX" secondItem="IL3-Mv-GqB" secondAttribute="centerX" id="RJN-y0-Lhw"/>
+                            <constraint firstItem="VYY-iA-dNr" firstAttribute="centerX" secondItem="IL3-Mv-GqB" secondAttribute="centerX" id="XXS-hI-qWx"/>
+                            <constraint firstItem="zFl-Cr-22D" firstAttribute="top" secondItem="VYY-iA-dNr" secondAttribute="bottom" constant="37" id="atr-lK-hFd"/>
+                            <constraint firstItem="Tbq-ag-QlV" firstAttribute="top" secondItem="vbW-BX-zcY" secondAttribute="bottom" constant="37" id="tiE-Ne-8c1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="5o3-Gb-59i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LR3-mH-ZOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2496" y="-414"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dice-clipart" width="300" height="228"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5o3-Gb-59i"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
