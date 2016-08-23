@@ -38,3 +38,9 @@ class GameKitHelper
         
     }
 }
+
+struct LeaderboardId
+{
+    static let dice5N = "5dice.najava"
+    static let dice6N = "6dice.najava"
+}

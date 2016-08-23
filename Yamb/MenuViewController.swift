@@ -19,7 +19,11 @@ class MenuViewController: UIViewController
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
+        
+        nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
     }
     
     override func viewDidLoad() {
@@ -57,14 +61,21 @@ class MenuViewController: UIViewController
         }
     }
     
+    
     func showLeaderboard()
     {
         let leaderboardVC = GKGameCenterViewController()
         leaderboardVC.gameCenterDelegate = self
         leaderboardVC.viewState = .Leaderboards
-        leaderboardVC.leaderboardIdentifier = "5dice.najava"
+        leaderboardVC.leaderboardIdentifier = LeaderboardId.dice5N
         
         navigationController?.presentViewController(leaderboardVC, animated: true, completion: nil)
+    }
+    
+    @objc
+    func goToMainMenu()
+    {
+        navigationController?.popToRootViewControllerAnimated(false)
     }
 }
 

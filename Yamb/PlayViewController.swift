@@ -8,6 +8,7 @@
 
 import UIKit
 import SceneKit
+import GameKit
 
 class PlayViewController: UIViewController {
     
@@ -63,6 +64,22 @@ class PlayViewController: UIViewController {
     
     @IBAction func back(sender: AnyObject)
     {
+        // test for score submit
+        if GameKitHelper.shared.authenticated
+        {
+            let score = GKScore(leaderboardIdentifier: LeaderboardId.dice5N)
+            score.value = 50
+            
+            GKScore.reportScores([score]) { (error) in
+                if error == nil
+                {
+                    print("score reported")
+                }
+            }
+        }
+        
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
