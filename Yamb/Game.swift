@@ -21,7 +21,6 @@ enum GameState
     case After1
     case After2
     case After3
-    case N
     case AfterN2
     case AfterN3
 }
@@ -46,7 +45,7 @@ class Game
     var diceNum = DiceNum.Five
     var useNajava = true
     var inputState = InputState.NotAllowed
-    var gameState = GameState.Start
+    var state = GameState.Start
     var rollState = RollState.NotRolling
     var diceValues: [UInt]?
     var diceHeld = Set<UInt>()
@@ -62,7 +61,7 @@ class Game
     
     func start()
     {
-        gameState = .Start
+        state = .Start
         rollState = .NotRolling
         inputState = .NotAllowed
         inputPos = nil
@@ -78,7 +77,7 @@ class Game
     {
         guard !(inputState == .Must && inputPos == nil) else {return}
         
-        if inputPos != nil
+        if inputPos != nil && inputPos!.colIdx != TableCol.N.rawValue
         {
             diceHeld.removeAll()
             DiceScene.shared.updateDiceSelection()
@@ -94,51 +93,69 @@ class Game
     
     func afterRoll()
     {
-        switch gameState
+        switch state
         {
         case .Start:
-            gameState = .After1
+            state = .After1
             inputState = .Allowed
+            inputPos = nil
         
         case .After1:
             if inputPos == nil
             {
-                gameState = .After2
+                state = .After2
                 inputState = .Allowed
+            }
+            else if inputPos!.colIdx == TableCol.N.rawValue
+            {
+                state = .AfterN2
+                inputState = .NotAllowed
+                updateNajavaValue()
             }
             
         case .After2:
             if inputPos == nil
             {
-                gameState = .After3
+                state = .After3
                 inputState = .Must
             }
             else
             {
-                gameState = .After1
+                state = .After1
                 inputState = .Allowed
+                inputPos = nil
             }
             
         case .After3:
-            gameState = .After1
+            state = .After1
             inputState = .Allowed
-        
-        case .N:
-            gameState = .AfterN2
-            inputState = .Allowed
+            inputPos = nil
             
         case .AfterN2:
-            gameState = .AfterN3
-            inputState = .Must
+            state = .AfterN3
+            inputState = .NotAllowed
+            updateNajavaValue()
             
-        default:
-            print("oops krivo stanje")
+        case .AfterN3:
+            state = .After1
+            inputState = .Allowed
+            updateNajavaValue()
+            inputPos = nil
+            diceHeld.removeAll()
+            DiceScene.shared.updateDiceSelection()
         }
-        
-        inputPos = nil
         
         printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+    }
+    
+    func updateNajavaValue()
+    {
+        if let pos = inputPos
+        {
+            tableValues[pos.colIdx][pos.rowIdx] = calculateValueForPos(pos)
+            recalculateSumsForColumn(pos.colIdx)
+        }
     }
     
     func didSelectCellAtPos(pos: TablePos)
@@ -183,7 +200,7 @@ class Game
     
     func printStatus()
     {
-        print(gameState,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
+        print(state,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
     }
     
     func calculateValueForPos(pos: TablePos) -> UInt?
@@ -346,7 +363,7 @@ class Game
     
     func onDieTouched(dieIdx: UInt)
     {
-        guard inputState != .Must && gameState != .Start else {return}
+        guard inputState != .Must && state != .Start else {return}
         
         if diceHeld.contains(dieIdx)
         {

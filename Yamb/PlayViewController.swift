@@ -38,6 +38,7 @@ class PlayViewController: UIViewController {
     func onGameStateChanged(notification: NSNotification)
     {
         gameTableView.updateValuesAndStates()
+        gameTableView.setNeedsDisplay()
     }
     
     @IBAction func back(sender: AnyObject)

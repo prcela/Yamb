@@ -60,6 +60,21 @@ class GameTableView: UIView
             CGContextStrokePath(ctx)
         }
         
+        if let pos = Game.shared.inputPos
+        {
+            CGContextSetStrokeColorWithColor(ctx, UIColor.blueColor().CGColor)
+            
+            CGContextBeginPath(ctx)
+            let x = CGFloat(pos.colIdx)*colWidth
+            let y = CGFloat(pos.rowIdx)*rowHeight
+            CGContextMoveToPoint(ctx, x, y)
+            CGContextAddLineToPoint(ctx, x+colWidth, y)
+            CGContextAddLineToPoint(ctx, x+colWidth, y+rowHeight)
+            CGContextAddLineToPoint(ctx, x, y+rowHeight)
+            CGContextClosePath(ctx)
+            CGContextStrokePath(ctx)
+        }
+        
     }
     
     func updateFrames()
