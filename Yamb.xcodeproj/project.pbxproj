@@ -42,6 +42,9 @@
 		97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */; };
 		97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */; };
 		97C4EFA01D6D8F7200A1E7CD /* 6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */; };
+		97C4EFA21D6DBBDC00A1E7CD /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA11D6DBBDC00A1E7CD /* menu.png */; };
+		97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EFA51D6DC2A100A1E7CD /* Constants.swift */; };
+		97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA71D6DC55D00A1E7CD /* coin.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,7 @@
 		977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yamb-Bridging-Header.h"; sourceTree = "<group>"; };
 		97C4EF551D67A36C00A1E7CD /* TableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableView.swift; sourceTree = "<group>"; };
 		97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
@@ -84,6 +88,9 @@
 		97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 6.m4a; path = Yamb/Resources/6.m4a; sourceTree = "<group>"; };
+		97C4EFA11D6DBBDC00A1E7CD /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = Yamb/Resources/menu.png; sourceTree = "<group>"; };
+		97C4EFA51D6DC2A100A1E7CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		97C4EFA71D6DC55D00A1E7CD /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Yamb/Resources/coin.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +149,8 @@
 				97C4EF5F1D699D7B00A1E7CD /* UIImageExt.swift */,
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
 				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
+				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
+				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -162,6 +171,8 @@
 				97C4EF891D6B38B900A1E7CD /* 6.png */,
 				97C4EF8A1D6B38B900A1E7CD /* 6b.png */,
 				97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */,
+				97C4EFA11D6DBBDC00A1E7CD /* menu.png */,
+				97C4EFA71D6DC55D00A1E7CD /* coin.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -256,6 +267,7 @@
 			files = (
 				97C4EF951D6B38B900A1E7CD /* 6.png in Resources */,
 				97C4EF941D6B38B900A1E7CD /* 5b.png in Resources */,
+				97C4EFA21D6DBBDC00A1E7CD /* menu.png in Resources */,
 				97C4EF8D1D6B38B900A1E7CD /* 2.png in Resources */,
 				97C4EF8C1D6B38B900A1E7CD /* 1b.png in Resources */,
 				97C4EFA01D6D8F7200A1E7CD /* 6.m4a in Resources */,
@@ -265,6 +277,7 @@
 				97C4EF921D6B38B900A1E7CD /* 4b.png in Resources */,
 				97C4EF8B1D6B38B900A1E7CD /* 1.png in Resources */,
 				97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */,
+				97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */,
 				97C4EF8E1D6B38B900A1E7CD /* 2b.png in Resources */,
 				977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */,
 				977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */,
@@ -330,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */,
+				97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */,
 				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
 				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
@@ -460,6 +474,7 @@
 			baseConfigurationReference = 84B5FDFF6AD6F72E61586155 /* Pods-Yamb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Yamb/Info.plist;
@@ -468,6 +483,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ZD994VL69L.prcela;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Yamb/Yamb-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -476,6 +493,7 @@
 			baseConfigurationReference = 2403532EFB0E8D28533854DF /* Pods-Yamb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Yamb/Info.plist;
@@ -484,6 +502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ZD994VL69L.prcela;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Yamb/Yamb-Bridging-Header.h";
 			};
 			name = Release;
 		};

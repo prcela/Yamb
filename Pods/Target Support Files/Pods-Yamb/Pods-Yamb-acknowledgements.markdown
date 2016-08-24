@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## ChartboostSDK
+
+LICENSE © 2011-2016 Chartboost. All rights reserved. LICENSE
+
 ## Firebase
 
 Copyright 2016 Google

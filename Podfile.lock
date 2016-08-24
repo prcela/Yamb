@@ -1,4 +1,5 @@
 PODS:
+  - ChartboostSDK (6.4.7)
   - Firebase (3.4.0):
     - Firebase/Core (= 3.4.0)
   - Firebase/Analytics (3.4.0):
@@ -18,9 +19,11 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
 
 DEPENDENCIES:
+  - ChartboostSDK
   - Firebase
 
 SPEC CHECKSUMS:
+  ChartboostSDK: aeff0e21746d8b659c6407b1eda1fe67cdd59cf0
   Firebase: 754562547af419cc2f4b15247fee419081924bc2
   FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
@@ -28,6 +31,6 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
 
-PODFILE CHECKSUM: 437c1a715222e09a932f702e421f3a4404ed3f3d
+PODFILE CHECKSUM: 655a8da5c54cd26051a3ba6418bbac953cc90ba5
 
 COCOAPODS: 1.0.1

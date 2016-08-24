@@ -57,7 +57,18 @@ class PrepareViewController: UIViewController {
     @IBAction func playNewGame(sender: AnyObject)
     {
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
-        Game.shared.start()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var coins = defaults.integerForKey(Prefs.coins)
+        if coins > 0
+        {
+            coins -= 1
+            defaults.setInteger(coins, forKey: Prefs.coins)
+            Game.shared.start()
+        }
+        else
+        {
+            Chartboost.showRewardedVideo(CBLocationStartup)
+        }
     }
     
     @IBAction func back(sender: AnyObject) {
