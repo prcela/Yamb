@@ -17,29 +17,35 @@ class GameTableView: UIView
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         // Drawing code
+        
+        let ctColumns = Game.shared.ctColumns
+        let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(CGRectGetHeight(rect)/16-0.5)
         let ctx = UIGraphicsGetCurrentContext()
+        
+        // width and height aligned to pixel
+        let width = colWidth*CGFloat(ctColumns)
+        let height = rowHeight*CGFloat(ctRows)
         
         // stroke lines
         CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
         
         CGContextBeginPath(ctx)
         CGContextMoveToPoint(ctx, 0, 0)
-        CGContextAddLineToPoint(ctx, rect.size.width, 0)
-        CGContextAddLineToPoint(ctx, rect.size.width, rect.size.height)
-        CGContextAddLineToPoint(ctx, 0, rect.size.height)
+        CGContextAddLineToPoint(ctx, width, 0)
+        CGContextAddLineToPoint(ctx, width, height)
+        CGContextAddLineToPoint(ctx, 0, height)
         CGContextClosePath(ctx)
         
         CGContextStrokePath(ctx)
         
-        let ctColumns = Game.shared.ctColumns
-        let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns))
-        let rowHeight = round(CGRectGetHeight(rect)/16)
+        
         for colIdx in 1..<ctColumns
         {
             let x = CGFloat(colIdx)*colWidth
             CGContextBeginPath(ctx)
             CGContextMoveToPoint(ctx, x, 0)
-            CGContextAddLineToPoint(ctx, x, rect.size.height)
+            CGContextAddLineToPoint(ctx, x, height)
             CGContextStrokePath(ctx)
         }
         
@@ -51,11 +57,11 @@ class GameTableView: UIView
             CGContextMoveToPoint(ctx, 0, y)
             if fullLines.contains(rowIdx)
             {
-                CGContextAddLineToPoint(ctx, rect.size.width, y)
+                CGContextAddLineToPoint(ctx, width, y)
             }
             else
             {
-                CGContextAddLineToPoint(ctx, rect.size.width-colWidth, y)
+                CGContextAddLineToPoint(ctx, width-colWidth, y)
             }
             CGContextStrokePath(ctx)
         }
@@ -81,8 +87,8 @@ class GameTableView: UIView
     {
         let ctColumns = Game.shared.ctColumns
         
-        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns))
-        let rowHeight = round(CGRectGetHeight(frame)/CGFloat(ctRows))
+        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(CGRectGetHeight(frame)/CGFloat(ctRows)-0.5)
         
         for rowIdx in 0..<ctRows
         {
@@ -99,8 +105,8 @@ class GameTableView: UIView
     override func awakeFromNib()
     {
         let ctColumns = Game.shared.ctColumns
-        let colWidth = round(CGRectGetWidth(self.frame)/CGFloat(ctColumns))
-        let rowHeight = round(CGRectGetHeight(self.frame)/16)
+        let colWidth = round(CGRectGetWidth(self.frame)/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(CGRectGetHeight(self.frame)/16-0.5)
         
         func createLabelAt(rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
@@ -125,7 +131,7 @@ class GameTableView: UIView
             btn.setTitleColor(Skin.tintColor, forState: .Normal)
             btn.setTitleColor(Skin.tintColor, forState: .Disabled)
             btn.tag = rowIdx*ctColumns + colIdx
-            btn.titleLabel?.font = UIFont(name: "Noteworthy", size: 15)
+            btn.titleLabel?.font = UIFont(name: "Noteworthy", size: isSmallScreen() ? 15:18)
             btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
             btn.setBackgroundImage(UIImage.fromColor(Skin.lightGrayColor), forState: .Normal)
             btn.setBackgroundImage(UIImage.fromColor(UIColor.whiteColor().colorWithAlphaComponent(0)), forState: .Disabled)
@@ -160,7 +166,7 @@ class GameTableView: UIView
             for colIdx in 1..<ctColumns
             {
                 let sumLbl = createLabelAt(row.rawValue, colIdx: colIdx, text: "")
-                sumLbl.font = UIFont(name: "Noteworthy-Bold", size: 15)
+                sumLbl.font = UIFont(name: "Noteworthy-Bold", size: isSmallScreen() ? 15 : 18)
                 sumLbl.textColor = Skin.tintColor
             }
         }

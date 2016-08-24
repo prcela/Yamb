@@ -214,13 +214,15 @@ class Game
         switch row
         {
         case .One, .Two, .Three, .Four, .Five, .Six:
-            return values.reduce(0, combine: { (sum, value) -> UInt in
+            var ct:UInt = 0
+            for value in values
+            {
                 if value == UInt(pos.rowIdx)
                 {
-                    return sum + value
+                    ct += 1
                 }
-                return sum
-            })
+            }
+            return max(5, ct) * UInt(pos.rowIdx)
             
         case .SumNumbers:
             
@@ -243,6 +245,10 @@ class Game
                     {
                         sum += value
                     }
+                }
+                if sum >= 60
+                {
+                    sum += 30
                 }
             }
             return sum
@@ -299,11 +305,11 @@ class Game
         case .Skala:
             let set = Set(values)
             
-            if set.intersect([1,2,3,4,5]).count == 5
+            if set.intersect([2,3,4,5,6]).count == 5
             {
                 return 30
             }
-            else if set.intersect([2,3,4,5,6]).count == 5
+            else if set.intersect([1,2,3,4,5]).count == 5
             {
                 return 40
             }
