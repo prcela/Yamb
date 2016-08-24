@@ -58,17 +58,8 @@ class PrepareViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        if Chartboost.hasInterstitial(CBLocationLevelStart)
-        {
-            Chartboost.showInterstitial(CBLocationLevelStart)
-        }
-        else
-        {
-            Chartboost.cacheInterstitial(CBLocationLevelStart)
-            
-            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
-            Game.shared.start()
-        }
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        Game.shared.start()
     }
 
     @IBAction func back(sender: AnyObject) {

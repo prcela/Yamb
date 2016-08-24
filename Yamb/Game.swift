@@ -307,11 +307,11 @@ class Game
             
             if set.intersect([2,3,4,5,6]).count == 5
             {
-                return 30
+                return 40
             }
             else if set.intersect([1,2,3,4,5]).count == 5
             {
-                return 40
+                return 30
             }
             return 0
             
@@ -341,17 +341,17 @@ class Game
                 atLeastPairs.sortInPlace()
                 if sum[atLeastPairs[1]] >= 3
                 {
-                    return atLeastPairs[0]*2 + atLeastPairs[1]*3
+                    return 30 + atLeastPairs[0]*2 + atLeastPairs[1]*3
                 }
                 else
                 {
-                    return atLeastPairs[0]*3 + atLeastPairs[1]*2
+                    return 30 + atLeastPairs[0]*3 + atLeastPairs[1]*2
                 }
             }
             else if atLeastPairs.count == 1 && sum[atLeastPairs[0]] >= 5
             {
                 // yamb može biti isto full
-                return 5*atLeastPairs[0]
+                return 30 + 5*atLeastPairs[0]
             }
             
             return 0
@@ -370,14 +370,14 @@ class Game
                 {
                     if sum[value] == 4
                     {
-                        return 4*value
+                        return 40 + 4*value
                     }
                 }
                 else if row == .Yamb
                 {
                     if sum[value] == 5
                     {
-                        return 5*value
+                        return 50 + 5*value
                     }
                 }
             }

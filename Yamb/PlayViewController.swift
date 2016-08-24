@@ -31,6 +31,22 @@ class PlayViewController: UIViewController {
         // Do any additional setup after loading the view.
         sceneView.scene = DiceScene.shared
         refresh()
+        
+        if Game.shared.state == .Start
+        {
+            dispatchToMainQueue(delay: 2, closure: { 
+                if Chartboost.hasInterstitial(CBLocationLevelStart)
+                {
+                    print("Chartboost.showInterstitial(CBLocationLevelStart)")
+                    Chartboost.showInterstitial(CBLocationLevelStart)
+                }
+                else
+                {
+                    print("Chartboost.cacheInterstitial(CBLocationLevelStart)")
+                    Chartboost.cacheInterstitial(CBLocationLevelStart)
+                }
+            })
+        }
     }
     
     override func viewDidLayoutSubviews()
