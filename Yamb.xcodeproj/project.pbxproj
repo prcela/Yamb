@@ -41,6 +41,7 @@
 		97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */; };
 		97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */; };
 		97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */; };
+		97C4EFA01D6D8F7200A1E7CD /* 6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		97C4EF991D6C3CDF00A1E7CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
+		97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 6.m4a; path = Yamb/Resources/6.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 				97C4EF881D6B38B900A1E7CD /* 5b.png */,
 				97C4EF891D6B38B900A1E7CD /* 6.png */,
 				97C4EF8A1D6B38B900A1E7CD /* 6b.png */,
+				97C4EF9F1D6D8F6800A1E7CD /* 6.m4a */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				97C4EF941D6B38B900A1E7CD /* 5b.png in Resources */,
 				97C4EF8D1D6B38B900A1E7CD /* 2.png in Resources */,
 				97C4EF8C1D6B38B900A1E7CD /* 1b.png in Resources */,
+				97C4EFA01D6D8F7200A1E7CD /* 6.m4a in Resources */,
 				977D98011CAEA35700AD9EF8 /* LaunchScreen.storyboard in Resources */,
 				97C4EF961D6B38B900A1E7CD /* 6b.png in Resources */,
 				97C4EF8F1D6B38B900A1E7CD /* 3.png in Resources */,

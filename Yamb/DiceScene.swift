@@ -55,6 +55,7 @@ class DiceScene: SCNScene
         }
         
         let cameraNode = SCNNode()
+        cameraNode.name = "camera"
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.usesOrthographicProjection = true
         cameraNode.camera?.orthographicScale = 1.5
@@ -73,14 +74,12 @@ class DiceScene: SCNScene
         
         if #available(iOS 9.0, *) {
             
-            let dieNode = rootNode.childNodeWithName("0", recursively: false)!
             let audioSource = SCNAudioSource(fileNamed: "6.m4a")!
             let audioPlayer = SCNAudioPlayer(source: audioSource)
             
             dispatch_async(dispatch_get_main_queue(), { 
-                dieNode.addAudioPlayer(audioPlayer)
+                cameraNode.addAudioPlayer(audioPlayer)
             })
-            
             
             playSoundAction = SCNAction.playAudioSource(audioSource, waitForCompletion: false)
         }
@@ -161,8 +160,8 @@ class DiceScene: SCNScene
         
         if playSoundAction != nil
         {
-            let dieNode = rootNode.childNodeWithName("0", recursively: false)
-            dieNode?.runAction(playSoundAction!)
+            let cameraNode = rootNode.childNodeWithName("camera", recursively: false)
+            cameraNode?.runAction(playSoundAction!)
         }
         
         dispatchToMainQueue(delay: 1.1) { 
