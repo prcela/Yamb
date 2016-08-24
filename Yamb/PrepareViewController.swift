@@ -17,6 +17,8 @@ class PrepareViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         updateDiceBtn()
+        
+        Chartboost.cacheRewardedVideo(CBLocationLevelStart)
     }
 
     func updateDiceBtn()
@@ -56,18 +58,25 @@ class PrepareViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         let defaults = NSUserDefaults.standardUserDefaults()
         var coins = defaults.integerForKey(Prefs.coins)
         if coins > 0
         {
             coins -= 1
             defaults.setInteger(coins, forKey: Prefs.coins)
+            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
             Game.shared.start()
         }
         else
         {
-            Chartboost.showRewardedVideo(CBLocationStartup)
+            if Chartboost.hasRewardedVideo(CBLocationLevelStart)
+            {
+                Chartboost.showRewardedVideo(CBLocationLevelStart)
+            }
+            else
+            {
+                Chartboost.cacheRewardedVideo(CBLocationLevelStart)
+            }
         }
     }
     

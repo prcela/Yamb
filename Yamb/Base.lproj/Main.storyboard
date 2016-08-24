@@ -200,12 +200,56 @@
                                     <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="Dvp-51-Iz8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxT-jy-a2c">
+                                <rect key="frame" x="150" y="401" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="STn-38-qSe"/>
+                                    <constraint firstAttribute="height" constant="30" id="enP-vt-PcK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="25"/>
+                                <state key="normal" title="1,000    = 0,99 USD">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="2px-BK-S9E"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get coins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igx-Bg-84X">
+                                <rect key="frame" x="172" y="338" width="255" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="Fxw-c3-SIC"/>
+                                    <constraint firstAttribute="width" constant="255" id="OfG-hA-sq6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uxw-SW-WNr">
+                                <rect key="frame" x="150" y="448" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Oz0-d2-rvE"/>
+                                    <constraint firstAttribute="width" constant="300" id="jhZ-eQ-rsB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="25"/>
+                                <state key="normal" title="Watch video for free coins">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="LxU-me-7ce"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="igx-Bg-84X" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="225-Ka-7bO"/>
+                            <constraint firstItem="WxT-jy-a2c" firstAttribute="top" secondItem="igx-Bg-84X" secondAttribute="bottom" constant="30" id="8Mo-g3-xe7"/>
+                            <constraint firstItem="WxT-jy-a2c" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="H9h-eq-ljX"/>
+                            <constraint firstItem="igx-Bg-84X" firstAttribute="top" secondItem="Gyw-RE-efM" secondAttribute="bottom" constant="46" id="IGp-iz-3O2"/>
+                            <constraint firstItem="Uxw-SW-WNr" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="Kne-ag-D0a"/>
                             <constraint firstItem="crm-fc-xNQ" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="QTw-7K-nVf"/>
                             <constraint firstItem="crm-fc-xNQ" firstAttribute="top" secondItem="fHT-fD-qE3" secondAttribute="bottom" constant="37" id="dRa-nK-fJp"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="gG8-0k-MZg"/>
+                            <constraint firstItem="Uxw-SW-WNr" firstAttribute="top" secondItem="WxT-jy-a2c" secondAttribute="bottom" constant="17" id="lAS-Ea-vIW"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="crm-fc-xNQ" secondAttribute="bottom" constant="37" id="o3O-wz-aT9"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="vGp-1b-QHN"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="37" id="ybT-Bz-G0Z"/>
@@ -470,7 +514,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="coin.png" width="165" height="165"/>
+        <image name="coin.png" width="60" height="60"/>
         <image name="dice-clipart" width="300" height="228"/>
         <image name="menu.png" width="170" height="170"/>
     </resources>

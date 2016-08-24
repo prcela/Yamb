@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let prefs: [String:AnyObject] = [
-            Prefs.coins: 3
+            Prefs.coins: 5
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -66,5 +66,10 @@ extension AppDelegate: ChartboostDelegate
     
     func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
         print("did complete rewarded video with reward \(reward)")
+        Game.shared.start()
+    }
+    
+    func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
+        print("didFailToLoadRewardedVideo \(error.rawValue)")
     }
 }
