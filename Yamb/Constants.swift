@@ -10,7 +10,6 @@ import Foundation
 
 struct Prefs
 {
-    static let coins = "Prefs.coins"
 }
 
 struct LeaderboardId

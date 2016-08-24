@@ -13,7 +13,6 @@ class MenuViewController: UIViewController
 {
     @IBOutlet weak var trainingBtn: UIButton!
     @IBOutlet weak var nearbyBtn: UIButton!
-    @IBOutlet weak var coinsLbl: UILabel!
     
     var waitForLocalPlayerAuth = false
 
@@ -32,9 +31,6 @@ class MenuViewController: UIViewController
         
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
-        
-        let coins = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.coins)
-        coinsLbl.text = String(coins)
     }
     
     @IBAction func play(sender: AnyObject)

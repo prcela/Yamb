@@ -94,51 +94,23 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c8A-Sw-RKS">
-                                <rect key="frame" x="215" y="572" width="70" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="WAP-3c-1Bc"/>
-                                    <constraint firstAttribute="height" constant="28" id="b2r-qJ-J6r"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin.png" translatesAutoresizingMaskIntoConstraints="NO" id="s7u-DH-gVN">
-                                <rect key="frame" x="285" y="572" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="4ub-9H-pUu"/>
-                                    <constraint firstAttribute="height" constant="25" id="bqN-8R-Zng"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MeS-bc-DLr" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="34f-XG-uMr"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="3mg-MX-hH3"/>
                             <constraint firstItem="zVB-7H-UKI" firstAttribute="top" secondItem="MeS-bc-DLr" secondAttribute="bottom" constant="141" id="9vq-0v-qvG"/>
-                            <constraint firstItem="KbM-dB-RNU" firstAttribute="top" secondItem="s7u-DH-gVN" secondAttribute="bottom" constant="3" id="Coo-hE-QXQ"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="QzW-3q-ORa"/>
-                            <constraint firstItem="c8A-Sw-RKS" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" constant="-50" id="XOI-rg-8nN"/>
-                            <constraint firstItem="KbM-dB-RNU" firstAttribute="top" secondItem="c8A-Sw-RKS" secondAttribute="bottom" id="XsI-im-sdb"/>
                             <constraint firstItem="MeS-bc-DLr" firstAttribute="top" secondItem="Rwa-2u-xU7" secondAttribute="bottom" constant="37" id="dOc-UC-3Ca"/>
-                            <constraint firstItem="s7u-DH-gVN" firstAttribute="leading" secondItem="c8A-Sw-RKS" secondAttribute="trailing" id="eNs-Tp-HGx"/>
-                            <constraint firstItem="c8A-Sw-RKS" firstAttribute="top" secondItem="s7u-DH-gVN" secondAttribute="bottom" constant="-21" id="fwl-45-ENk"/>
                             <constraint firstItem="Rwa-2u-xU7" firstAttribute="top" secondItem="RIc-E4-osf" secondAttribute="bottom" constant="54" id="h2b-xQ-JFb"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="top" secondItem="84V-Oz-I6T" secondAttribute="bottom" constant="34" id="nfT-J9-tVa"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="top" secondItem="MeS-bc-DLr" secondAttribute="bottom" constant="37" id="p51-df-9U4"/>
                             <constraint firstItem="Rwa-2u-xU7" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="rsf-cq-44e"/>
                             <constraint firstItem="zVB-7H-UKI" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="vpH-42-CCu"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="fwl-45-ENk"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="WMf-2V-Q02"/>
                     <connections>
-                        <outlet property="coinsLbl" destination="c8A-Sw-RKS" id="hpg-Ra-Bqs"/>
                         <outlet property="nearbyBtn" destination="MeS-bc-DLr" id="We4-i6-vkg"/>
                         <outlet property="trainingBtn" destination="Rwa-2u-xU7" id="0jh-fC-NNu"/>
                         <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
@@ -200,56 +172,12 @@
                                     <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="Dvp-51-Iz8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxT-jy-a2c">
-                                <rect key="frame" x="150" y="401" width="300" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="STn-38-qSe"/>
-                                    <constraint firstAttribute="height" constant="30" id="enP-vt-PcK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="25"/>
-                                <state key="normal" title="1,000    = 0,99 USD">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="2px-BK-S9E"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get coins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igx-Bg-84X">
-                                <rect key="frame" x="172" y="338" width="255" height="33"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="Fxw-c3-SIC"/>
-                                    <constraint firstAttribute="width" constant="255" id="OfG-hA-sq6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uxw-SW-WNr">
-                                <rect key="frame" x="150" y="448" width="300" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Oz0-d2-rvE"/>
-                                    <constraint firstAttribute="width" constant="300" id="jhZ-eQ-rsB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="25"/>
-                                <state key="normal" title="Watch video for free coins">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="LxU-me-7ce"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="igx-Bg-84X" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="225-Ka-7bO"/>
-                            <constraint firstItem="WxT-jy-a2c" firstAttribute="top" secondItem="igx-Bg-84X" secondAttribute="bottom" constant="30" id="8Mo-g3-xe7"/>
-                            <constraint firstItem="WxT-jy-a2c" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="H9h-eq-ljX"/>
-                            <constraint firstItem="igx-Bg-84X" firstAttribute="top" secondItem="Gyw-RE-efM" secondAttribute="bottom" constant="46" id="IGp-iz-3O2"/>
-                            <constraint firstItem="Uxw-SW-WNr" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="Kne-ag-D0a"/>
                             <constraint firstItem="crm-fc-xNQ" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="QTw-7K-nVf"/>
                             <constraint firstItem="crm-fc-xNQ" firstAttribute="top" secondItem="fHT-fD-qE3" secondAttribute="bottom" constant="37" id="dRa-nK-fJp"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="gG8-0k-MZg"/>
-                            <constraint firstItem="Uxw-SW-WNr" firstAttribute="top" secondItem="WxT-jy-a2c" secondAttribute="bottom" constant="17" id="lAS-Ea-vIW"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="crm-fc-xNQ" secondAttribute="bottom" constant="37" id="o3O-wz-aT9"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="vGp-1b-QHN"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="37" id="ybT-Bz-G0Z"/>
@@ -514,7 +442,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="coin.png" width="60" height="60"/>
         <image name="dice-clipart" width="300" height="228"/>
         <image name="menu.png" width="170" height="170"/>
     </resources>

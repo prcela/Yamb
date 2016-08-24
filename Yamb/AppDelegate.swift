@@ -16,14 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        let prefs: [String:AnyObject] = [
-            Prefs.coins: 5
-        ]
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.registerDefaults(prefs)
-        
+                
         FIRApp.configure()
         
         Chartboost.startWithAppId("57b7fc8704b0163534a45ef3", appSignature: "f2baf66f467982be8bfc24bdd3b93e9ef9372714", delegate: self)
@@ -71,5 +64,17 @@ extension AppDelegate: ChartboostDelegate
     
     func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
         print("didFailToLoadRewardedVideo \(error.rawValue)")
+    }
+    
+    func didDismissInterstitial(location: String!) {
+        print("didDismissInterstitial")
+    }
+    
+    func didCloseInterstitial(location: String!) {
+        print("didCloseInterstitial")
+    }
+    
+    func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
+        print("didFailToLoadInterstitial \(error.rawValue)")
     }
 }
