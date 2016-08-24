@@ -222,7 +222,7 @@ class Game
                     ct += 1
                 }
             }
-            return max(5, ct) * UInt(pos.rowIdx)
+            return min(5, ct) * UInt(pos.rowIdx)
             
         case .SumNumbers:
             

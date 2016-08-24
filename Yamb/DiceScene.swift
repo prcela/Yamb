@@ -18,6 +18,8 @@ class DiceScene: SCNScene
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
+    var activeRotationRounds = Array<Array<UInt32>>(count: 6, repeatedValue: [0,0,0])
+    
     override init() {
         super.init()
         
@@ -107,9 +109,9 @@ class DiceScene: SCNScene
         var oldValues = Game.shared.diceValues
         var values = [UInt]()
         
-        func randomRotateAngleToDst(dst:CGFloat) -> CGFloat
+        func rotateAngleToDst(dst:CGFloat, rounds: UInt32) -> CGFloat
         {
-            return dst + CGFloat(1+arc4random_uniform(ctMaxRounds))*2*CGFloat(M_PI)
+            return dst + CGFloat(rounds)*2*CGFloat(M_PI)
         }
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
@@ -124,9 +126,23 @@ class DiceScene: SCNScene
             let num = UInt(1+arc4random_uniform(6))
             values.append(num)
             
-            var rndX = randomRotateAngleToDst(0)
-            var rndY = randomRotateAngleToDst(0)
-            let rndZ = randomRotateAngleToDst(0)
+            var newRounds = [1+arc4random_uniform(ctMaxRounds),
+                             1+arc4random_uniform(ctMaxRounds),
+                             1+arc4random_uniform(ctMaxRounds)]
+            
+            
+            for (idx,_) in newRounds.enumerate()
+            {
+                while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
+                    newRounds[idx] = 1+arc4random_uniform(ctMaxRounds)
+                }
+                activeRotationRounds[dieIdx][idx] = newRounds[idx]
+                
+            }
+            
+            var rndX = rotateAngleToDst(0, rounds: newRounds[0])
+            var rndY = rotateAngleToDst(0, rounds: newRounds[1])
+            let rndZ = rotateAngleToDst(0, rounds: newRounds[2])
             
             if num == 1
             {
@@ -134,23 +150,23 @@ class DiceScene: SCNScene
             }
             else if num == 2
             {
-                rndY = randomRotateAngleToDst(-CGFloat(M_PI_2))
+                rndY = rotateAngleToDst(-CGFloat(M_PI_2), rounds: newRounds[1])
             }
             else if num == 3
             {
-                rndY = randomRotateAngleToDst(CGFloat(M_PI))
+                rndY = rotateAngleToDst(CGFloat(M_PI), rounds: newRounds[1])
             }
             else if num == 4
             {
-                rndY = randomRotateAngleToDst(CGFloat(M_PI_2))
+                rndY = rotateAngleToDst(CGFloat(M_PI_2), rounds: newRounds[1])
             }
             else if num == 5
             {
-                rndX = randomRotateAngleToDst(CGFloat(M_PI_2))
+                rndX = rotateAngleToDst(CGFloat(M_PI_2), rounds: newRounds[0])
             }
             else
             {
-                rndX = randomRotateAngleToDst(-CGFloat(M_PI_2))
+                rndX = rotateAngleToDst(-CGFloat(M_PI_2), rounds: newRounds[0])
             }
             
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 1)
