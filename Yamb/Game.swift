@@ -50,6 +50,7 @@ class Game
     var diceHeld = Set<UInt>() {
         didSet {
             DiceScene.shared.updateDiceSelection()
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
         }
     }
     // table ordered with colIdx, rowIdx
@@ -187,7 +188,7 @@ class Game
         }
         
         recalculateSumsForColumn(pos.colIdx)
-        
+                
         if state == .After3 || state == .AfterN3
         {
             diceHeld.removeAll()
@@ -433,6 +434,25 @@ class Game
         {
             diceHeld.insert(dieIdx)
         }
+    }
+    
+    func isRollEnabled() -> Bool
+    {
+        if inputState == .Must && inputPos == nil
+        {
+            return false
+        }
+        
+        if rollState == .Rolling
+        {
+            return false
+        }
+                
+        if diceHeld.count == diceNum.rawValue
+        {
+            return false
+        }
+        return true
     }
     
     func totalScore() -> UInt

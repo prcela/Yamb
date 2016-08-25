@@ -78,7 +78,7 @@ class PlayViewController: UIViewController {
             rollBtn.setTitle("1.Roll", forState: .Normal)
         }
         
-        rollBtn.enabled = (Game.shared.inputState != .Must || Game.shared.inputPos != nil) && Game.shared.rollState == .NotRolling
+        rollBtn.enabled = Game.shared.isRollEnabled()
     }
     
     @IBAction func back(sender: AnyObject)
