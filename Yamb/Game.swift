@@ -42,12 +42,16 @@ class Game
 {
     static let shared = Game()
     
-    var diceNum = DiceNum.Five
+    var diceNum = DiceNum.Six
     var inputState = InputState.NotAllowed
     var state = GameState.Start
     var rollState = RollState.NotRolling
     var diceValues: [UInt]?
-    var diceHeld = Set<UInt>()
+    var diceHeld = Set<UInt>() {
+        didSet {
+            DiceScene.shared.updateDiceSelection()
+        }
+    }
     // table ordered with colIdx, rowIdx
     var tableValues = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
     var inputPos: TablePos?
@@ -77,7 +81,6 @@ class Game
         if inputPos != nil && inputPos!.colIdx != TableCol.N.rawValue || (state == .AfterN3 || state == .After3)
         {
             diceHeld.removeAll()
-            DiceScene.shared.updateDiceSelection()
             inputPos = nil
         }
         
@@ -130,6 +133,7 @@ class Game
             state = .After1
             inputState = .Allowed
             inputPos = nil
+            diceHeld.removeAll()
             
         case .AfterN2:
             state = .AfterN3
@@ -142,7 +146,6 @@ class Game
             updateNajavaValue()
             inputPos = nil
             diceHeld.removeAll()
-            DiceScene.shared.updateDiceSelection()
         }
         
         printStatus()
@@ -184,6 +187,11 @@ class Game
         }
         
         recalculateSumsForColumn(pos.colIdx)
+        
+        if state == .After3 || state == .AfterN3
+        {
+            diceHeld.removeAll()
+        }
         
         printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -425,8 +433,6 @@ class Game
         {
             diceHeld.insert(dieIdx)
         }
-        
-        DiceScene.shared.updateDiceSelection()
     }
     
     func totalScore() -> UInt

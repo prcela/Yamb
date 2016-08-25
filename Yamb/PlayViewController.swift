@@ -9,6 +9,7 @@
 import UIKit
 import SceneKit
 import GameKit
+import Firebase
 
 class PlayViewController: UIViewController {
     
@@ -39,11 +40,13 @@ class PlayViewController: UIViewController {
                 {
                     print("Chartboost.showInterstitial(CBLocationLevelStart)")
                     Chartboost.showInterstitial(CBLocationLevelStart)
+                    FIRAnalytics.logEventWithName("show_interstitial", parameters: nil)
                 }
                 else
                 {
                     print("Chartboost.cacheInterstitial(CBLocationLevelStart)")
                     Chartboost.cacheInterstitial(CBLocationLevelStart)
+                    FIRAnalytics.logEventWithName("cache_interstitial", parameters: nil)
                 }
             })
         }
