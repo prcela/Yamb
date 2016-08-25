@@ -18,7 +18,7 @@ class DiceScene: SCNScene
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
-    var activeRotationRounds = Array<Array<UInt32>>(count: 6, repeatedValue: [0,0,0])
+    var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
     
     override init() {
         super.init()
@@ -105,11 +105,12 @@ class DiceScene: SCNScene
 
     func roll(completion: (result: [UInt]) -> Void)
     {
-        let ctMaxRounds: UInt32 = 5
+        let ctMaxRounds: UInt32 = 3
+        
         var oldValues = Game.shared.diceValues
         var values = [UInt]()
         
-        func rotateAngleToDst(dst:CGFloat, rounds: UInt32) -> CGFloat
+        func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
         {
             return dst + CGFloat(rounds)*2*CGFloat(M_PI)
         }
@@ -126,15 +127,16 @@ class DiceScene: SCNScene
             let num = UInt(1+arc4random_uniform(6))
             values.append(num)
             
-            var newRounds = [1+arc4random_uniform(ctMaxRounds),
-                             1+arc4random_uniform(ctMaxRounds),
-                             1+arc4random_uniform(ctMaxRounds)]
+            var newRounds = [Int(1+arc4random_uniform(ctMaxRounds)),
+                             Int(1+arc4random_uniform(ctMaxRounds)),
+                             Int(1+arc4random_uniform(ctMaxRounds))]
             
             
             for (idx,_) in newRounds.enumerate()
             {
                 while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
-                    newRounds[idx] = 1+arc4random_uniform(ctMaxRounds)
+                    let dir = arc4random_uniform(2) == 0 ? -1:1
+                    newRounds[idx] = dir*Int(1+arc4random_uniform(ctMaxRounds))
                 }
                 activeRotationRounds[dieIdx][idx] = newRounds[idx]
                 
@@ -170,6 +172,7 @@ class DiceScene: SCNScene
             }
             
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 1)
+            action.timingMode = .EaseOut
             let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)!
             node.runAction(action)
         }
