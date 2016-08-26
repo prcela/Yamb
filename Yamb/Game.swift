@@ -175,8 +175,14 @@ class Game
     {
         if let pos = inputPos
         {
-            let newValue = table.updateValue(pos, diceValues: diceValues)
+            table.updateValue(pos, diceValues: diceValues)
             table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
+            if table.isQualityValueFor(pos, diceValues: diceValues)
+            {
+                state = .AfterN3
+                inputState = .NotAllowed
+                diceHeld.removeAll()
+            }
         }
     }
     
@@ -210,6 +216,11 @@ class Game
         if state == .After3 || state == .AfterN3
         {
             diceHeld.removeAll()
+        }
+        
+        if pos.colIdx == TableCol.N.rawValue
+        {
+            updateNajavaValue()
         }
         
         printStatus()

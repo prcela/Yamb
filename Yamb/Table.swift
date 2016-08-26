@@ -233,6 +233,30 @@ class Table
         }
     }
     
+    func isQualityValueFor(pos: TablePos, diceValues: [UInt]?) -> Bool
+    {
+        guard let value = values[pos.colIdx][pos.rowIdx] else {return false}
+        
+        switch TableRow(rawValue: pos.rowIdx)! {
+        case .One,.Two,.Three,.Four,.Five,.Six:
+            return value == 5*UInt(pos.rowIdx)
+        case .Max:
+            return value == 5*6
+        case .Min:
+            return value == 5
+        case .Skala:
+            return value == 40
+        case .Full:
+            return value >= 58 || (diceValues != nil && diceValues!.count == 5 && value > 0)
+        case .Poker:
+            return value > 0
+        case .Yamb:
+            return value > 0
+        default:
+            return false
+        }
+    }
+    
     func recalculateSumsForColumn(colIdx: Int, diceValues: [UInt]?)
     {
         let sumRows:[TableRow] = [.SumNumbers,.SumMaxMin,.SumSFPY]
