@@ -79,10 +79,26 @@ class Game
     {
         guard !(inputState == .Must && inputPos == nil) else {return}
         
-        if inputPos != nil && inputPos!.colIdx != TableCol.N.rawValue || (state == .AfterN3 || state == .After3)
+        if inputPos != nil
         {
-            diceHeld.removeAll()
-            inputPos = nil
+            if inputPos!.colIdx != TableCol.N.rawValue
+            {
+                switch state
+                {
+                case .After1, .After2, .After3, .AfterN3:
+                    state = .Start
+                    diceHeld.removeAll()
+                    inputPos = nil
+                default:
+                    break
+                }
+            }
+            
+            if state == .AfterN3 || state == .After3
+            {
+                diceHeld.removeAll()
+                inputPos = nil
+            }
         }
         
         rollState = .Rolling
@@ -140,6 +156,7 @@ class Game
             state = .AfterN3
             inputState = .NotAllowed
             updateNajavaValue()
+            diceHeld.removeAll()
             
         case .AfterN3:
             state = .After1
