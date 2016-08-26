@@ -176,7 +176,7 @@ class GameTableView: UIView
     
     func updateValuesAndStates()
     {
-        let tableValues = Game.shared.tableValues
+        let tableValues = Game.shared.table.values
         let inputPos = Game.shared.inputPos
         let inputState = Game.shared.inputState
         
