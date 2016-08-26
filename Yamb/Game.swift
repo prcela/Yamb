@@ -138,6 +138,7 @@ class Game
             {
                 state = .After3
                 inputState = .Must
+                diceHeld.removeAll()
             }
             else
             {

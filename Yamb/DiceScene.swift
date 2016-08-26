@@ -67,9 +67,10 @@ class DiceScene: SCNScene
         
         let light = SCNLight()
         light.type = SCNLightTypeDirectional
-        light.color = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        light.color = Skin.defaultLightColor
         
         let lightNode = SCNNode()
+        lightNode.name = "light"
         lightNode.light = light
         cameraNode.addChildNode(lightNode)
         
