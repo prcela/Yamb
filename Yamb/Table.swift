@@ -281,11 +281,11 @@ class Table
         values[4][1] = nil
     }
     
-    func isFulfilled() -> Bool
+    func areFulfilled(cols:[TableCol]) -> Bool
     {
         for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
         {
-            for col:TableCol in [.Down, .Up, .UpDown, .N]
+            for col in cols
             {
                 if values[col.rawValue][row.rawValue] == nil
                 {

@@ -288,12 +288,20 @@ class Game
         {
             return false
         }
+        
+        if state == .After1 && inputPos == nil
+        {
+            if table.areFulfilled([.Down,.Up,.UpDown])
+            {
+                return false
+            }
+        }
         return true
     }
     
     func shouldEnd() -> Bool
     {
-        if !table.isFulfilled()
+        if !table.areFulfilled([.Down, .Up, .UpDown, .N])
         {
             return false
         }
@@ -314,6 +322,8 @@ class Game
                 return true
             }
         }
+        
+
         return false
     }
     

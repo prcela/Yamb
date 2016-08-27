@@ -179,6 +179,7 @@ class GameTableView: UIView
         let tableValues = Game.shared.table.values
         let inputPos = Game.shared.inputPos
         let inputState = Game.shared.inputState
+        let gameState = Game.shared.state
         
         // set values
         for colIdx in 1..<Game.shared.ctColumns
@@ -191,7 +192,14 @@ class GameTableView: UIView
                 
                 if value != nil
                 {
-                    btn.setTitle(String(value!), forState: .Normal)
+                    if colIdx == TableCol.N.rawValue && inputPos?.rowIdx == row.rawValue && gameState != .AfterN3
+                    {
+                        btn.setTitle(String(value!) + " ?", forState: .Normal)
+                    }
+                    else
+                    {
+                        btn.setTitle(String(value!), forState: .Normal)
+                    }
                 }
                 else
                 {
