@@ -13,7 +13,7 @@ class DiceScene: SCNScene
 {
     static let shared = DiceScene()
     
-    var playSoundAction: SCNAction?
+    var playSoundActions = [SCNAction]()
     
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
@@ -77,14 +77,31 @@ class DiceScene: SCNScene
         
         if #available(iOS 9.0, *) {
             
-            let audioSource = SCNAudioSource(fileNamed: "6.m4a")!
-            let audioPlayer = SCNAudioPlayer(source: audioSource)
+            var audioSources = [SCNAudioSource]()
+            var audioPlayers = [SCNAudioPlayer]()
             
-            dispatch_async(dispatch_get_main_queue(), { 
-                cameraNode.addAudioPlayer(audioPlayer)
+            
+            for idx in 1...6
+            {
+                let audioSource = SCNAudioSource(fileNamed: "\(idx).m4a")!
+                let audioPlayer = SCNAudioPlayer(source: audioSource)
+                audioSources.append(audioSource)
+                audioPlayers.append(audioPlayer)
+            }
+            
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                for audioPlayer in audioPlayers
+                {
+                    cameraNode.addAudioPlayer(audioPlayer)
+                }
             })
             
-            playSoundAction = SCNAction.playAudioSource(audioSource, waitForCompletion: false)
+            
+            for audioSource in audioSources
+            {
+                playSoundActions.append(SCNAction.playAudioSource(audioSource, waitForCompletion: false))
+            }
         }
 
     }
@@ -179,10 +196,12 @@ class DiceScene: SCNScene
             node.runAction(action)
         }
         
-        if playSoundAction != nil
-        {
+        if #available(iOS 9.0, *) {
+            let ctRoll = Game.shared.diceNum.rawValue-Game.shared.diceHeld.count
+            let playSoundAction = playSoundActions[ctRoll-1]
+
             let cameraNode = rootNode.childNodeWithName("camera", recursively: false)
-            cameraNode?.runAction(playSoundAction!)
+            cameraNode?.runAction(playSoundAction)
         }
         
         dispatchToMainQueue(delay: 1.1) { 
