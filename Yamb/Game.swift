@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import GameKit
 
 enum DiceNum: Int
 {
@@ -23,6 +24,7 @@ enum GameState
     case After3
     case AfterN2
     case AfterN3
+    case End
 }
 
 enum RollState {
@@ -68,6 +70,7 @@ class Game
         diceValues = nil
         diceHeld.removeAll()
         table.resetValues()
+        table.fakeFill()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -99,6 +102,12 @@ class Game
                 diceHeld.removeAll()
                 inputPos = nil
             }
+        }
+        
+        if state == .End
+        {
+            start()
+            return
         }
         
         rollState = .Rolling
@@ -165,6 +174,9 @@ class Game
             updateNajavaValue()
             inputPos = nil
             diceHeld.removeAll()
+            
+        case .End:
+            break
         }
         
         printStatus()
@@ -223,6 +235,12 @@ class Game
             updateNajavaValue()
         }
         
+        if table.isFulfilled() && state != .AfterN2
+        {
+            // kraj
+            gameOver()
+        }
+        
         printStatus()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
@@ -267,6 +285,26 @@ class Game
             return false
         }
         return true
+    }
+    
+    func gameOver()
+    {
+        state = .End
+        print("kraj")
+        
+        // score submit
+        if GameKitHelper.shared.authenticated
+        {
+            let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
+            score.value = Int64(Game.shared.table.totalScore())
+            
+            GKScore.reportScores([score]) { (error) in
+                if error == nil
+                {
+                    print("score reported")
+                }
+            }
+        }
     }
     
     

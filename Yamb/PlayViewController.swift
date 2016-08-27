@@ -18,6 +18,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var gameTableView: GameTableView!
     @IBOutlet weak var sceneView: SCNView!
     @IBOutlet weak var rollBtn: UIButton!
+    @IBOutlet weak var sumLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -32,6 +33,13 @@ class PlayViewController: UIViewController {
         // Do any additional setup after loading the view.
         sceneView.scene = DiceScene.shared
         refresh()
+        
+        sumLbl.layer.borderWidth = 1
+        sumLbl.layer.borderColor = UIColor.lightGrayColor().CGColor
+        
+        rollBtn.layer.borderWidth = 1
+        rollBtn.layer.borderColor = UIColor.lightGrayColor().CGColor
+        rollBtn.layer.cornerRadius = 5
         
         if Game.shared.state == .Start
         {
@@ -66,12 +74,13 @@ class PlayViewController: UIViewController {
     {
         gameTableView.updateValuesAndStates()
         gameTableView.setNeedsDisplay()
+        sumLbl.hidden = true
         
         let inputPos = Game.shared.inputPos
         
         switch Game.shared.state {
         case .Start:
-            rollBtn.setTitle("Start", forState: .Normal)
+            rollBtn.setTitle("1.Roll", forState: .Normal)
         case .After1:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
@@ -95,6 +104,10 @@ class PlayViewController: UIViewController {
             
         case .AfterN2:
             rollBtn.setTitle("3.Roll", forState: .Normal)
+        case .End:
+            rollBtn.setTitle("New game", forState: .Normal)
+            sumLbl.text = String(Game.shared.table.totalScore())
+            sumLbl.hidden = false
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()
@@ -102,21 +115,6 @@ class PlayViewController: UIViewController {
     
     @IBAction func back(sender: AnyObject)
     {
-        // test for score submit
-        if GameKitHelper.shared.authenticated
-        {
-            let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
-            score.value = Int64(Game.shared.table.totalScore())
-            
-            GKScore.reportScores([score]) { (error) in
-                if error == nil
-                {
-                    print("score reported")
-                }
-            }
-        }
-        
-        
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
         dismissViewControllerAnimated(true, completion: nil)
     }

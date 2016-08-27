@@ -268,6 +268,33 @@ class Table
         }
     }
     
+    func fakeFill()
+    {
+        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        {
+            for col:TableCol in [.Down, .Up, .UpDown, .N]
+            {
+                values[col.rawValue][row.rawValue] = 1
+            }
+        }
+        values[1][1] = nil
+    }
+    
+    func isFulfilled() -> Bool
+    {
+        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        {
+            for col:TableCol in [.Down, .Up, .UpDown, .N]
+            {
+                if values[col.rawValue][row.rawValue] == nil
+                {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
     func totalScore() -> UInt
     {
         var sum: UInt = 0

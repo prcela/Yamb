@@ -172,7 +172,8 @@ class DiceScene: SCNScene
                 rndX = rotateAngleToDst(-CGFloat(M_PI_2), rounds: newRounds[0])
             }
             
-            let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 1)
+            let duration: NSTimeInterval = 0.5 + 0.5*Double(max(newRounds[0],newRounds[1],newRounds[2]))/Double(ctMaxRounds)
+            let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: duration)
             action.timingMode = .EaseOut
             let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)!
             node.runAction(action)
