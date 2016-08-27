@@ -278,6 +278,7 @@ class Table
             }
         }
         values[1][1] = nil
+        values[4][1] = nil
     }
     
     func isFulfilled() -> Bool

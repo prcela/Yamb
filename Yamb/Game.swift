@@ -167,11 +167,15 @@ class Game
             inputState = .NotAllowed
             updateNajavaValue()
             diceHeld.removeAll()
+            if shouldEnd()
+            {
+                end()
+            }
             
         case .AfterN3:
+            updateNajavaValue()
             state = .After1
             inputState = .Allowed
-            updateNajavaValue()
             inputPos = nil
             diceHeld.removeAll()
             
@@ -235,10 +239,10 @@ class Game
             updateNajavaValue()
         }
         
-        if table.isFulfilled() && state != .AfterN2
+        if shouldEnd()
         {
             // kraj
-            gameOver()
+            end()
         }
         
         printStatus()
@@ -287,7 +291,33 @@ class Game
         return true
     }
     
-    func gameOver()
+    func shouldEnd() -> Bool
+    {
+        if !table.isFulfilled()
+        {
+            return false
+        }
+        
+        if state == .AfterN3
+        {
+            return true
+        }
+        
+        if inputPos != nil
+        {
+            if state == .After2 || state == .After3
+            {
+                return true
+            }
+            else if state == .After1 && inputPos?.colIdx != TableCol.N.rawValue
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func end()
     {
         state = .End
         print("kraj")
