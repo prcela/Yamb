@@ -8,6 +8,8 @@ target 'Yamb' do
   # Pods for Yamb
 
 pod 'Firebase'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
 pod 'ChartboostSDK'
 
 end

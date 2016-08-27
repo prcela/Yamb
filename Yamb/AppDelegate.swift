@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         FIRApp.configure()
         
+        let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
         Chartboost.startWithAppId("57b7fc8704b0163534a45ef3", appSignature: "f2baf66f467982be8bfc24bdd3b93e9ef9372714", delegate: self)
         
         print(NSBundle.mainBundle().bundleIdentifier!)

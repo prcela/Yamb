@@ -70,7 +70,7 @@ class Game
         diceValues = nil
         diceHeld.removeAll()
         table.resetValues()
-        table.fakeFill()
+//        table.fakeFill()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
