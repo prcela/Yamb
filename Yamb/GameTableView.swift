@@ -117,6 +117,8 @@ class GameTableView: UIView
             lbl.textAlignment = .Center
             lbl.tag = tag(rowIdx, colIdx)
             lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 15 : 20)
+            lbl.adjustsFontSizeToFitWidth = true
+            lbl.minimumScaleFactor = 0.5
             
             addSubview(lbl)
             return lbl
@@ -189,10 +191,11 @@ class GameTableView: UIView
                 guard let btn = viewWithTag(tag(row.rawValue, colIdx)) as? UIButton else {continue}
                 
                 let value = tableValues[colIdx][row.rawValue]
+                let pos = TablePos(rowIdx: row.rawValue, colIdx: colIdx)
                 
                 if value != nil
                 {
-                    if colIdx == TableCol.N.rawValue && inputPos?.rowIdx == row.rawValue && gameState != .AfterN3
+                    if colIdx == TableCol.N.rawValue && inputPos == pos && gameState != .AfterN3 && gameState != .End
                     {
                         btn.setTitle(String(value!) + " ?", forState: .Normal)
                     }

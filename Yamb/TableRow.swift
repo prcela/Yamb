@@ -37,7 +37,7 @@ enum TableRow: Int {
         case .Min:
             return "Min"
         case .Skala:
-            return "Skala"
+            return lstr("Straight")
         case .Full:
             return "Full"
         case .Poker:
