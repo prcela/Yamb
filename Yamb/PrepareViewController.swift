@@ -23,7 +23,7 @@ class PrepareViewController: UIViewController {
 
     func updateDiceBtn()
     {
-        let title = "Dice 5/6"
+        let title = lstr("Dice 5/6")
         let thinFont = UIFont(name: "AppleSDGothicNeo-Thin", size: 30)!
         let defaultFont = UIFont(name: "Apple SD Gothic Neo", size: 30)!
         
@@ -32,8 +32,8 @@ class PrepareViewController: UIViewController {
             NSForegroundColorAttributeName:UIColor.blackColor()
             ])
         
-        let loc = Game.shared.diceNum == .Five ? 5:7
-        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(loc, 1))
+        let loc = title.characters.indexOf(Game.shared.diceNum == .Five ? "5":"6")!
+        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
         
         
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)

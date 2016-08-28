@@ -81,32 +81,32 @@ class PlayViewController: UIViewController {
         
         switch Game.shared.state {
         case .Start:
-            rollBtn.setTitle("1.Roll", forState: .Normal)
+            rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
         case .After1:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                rollBtn.setTitle("2.Roll", forState: .Normal)
+                rollBtn.setTitle(lstr("2.Roll"), forState: .Normal)
             }
             else
             {
-                rollBtn.setTitle("1.Roll", forState: .Normal)
+                rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
             }
         case .After2:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                rollBtn.setTitle("3.Roll", forState: .Normal)
+                rollBtn.setTitle(lstr("3.Roll"), forState: .Normal)
             }
             else
             {
-                rollBtn.setTitle("1.Roll", forState: .Normal)
+                rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
             }
         case .After3, .AfterN3:
-            rollBtn.setTitle("1.Roll", forState: .Normal)
+            rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
             
         case .AfterN2:
-            rollBtn.setTitle("3.Roll", forState: .Normal)
+            rollBtn.setTitle(lstr("3.Roll"), forState: .Normal)
         case .End:
-            rollBtn.setTitle("New game", forState: .Normal)
+            rollBtn.setTitle(lstr("New game"), forState: .Normal)
             sumLbl.text = String(Game.shared.table.totalScore())
             sumLbl.hidden = false
         }

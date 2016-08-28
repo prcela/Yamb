@@ -1,0 +1,45 @@
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Gyw-RE-efM"; */
+"Gyw-RE-efM.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Leaderboard"; ObjectID = "MeS-bc-DLr"; */
+"MeS-bc-DLr.normalTitle" = "Najbolji rezultati";
+
+/* Class = "UIButton"; normalTitle = "Tell friends"; ObjectID = "Qnf-Cy-dxw"; */
+"Qnf-Cy-dxw.normalTitle" = "Reci prijateljima";
+
+/* Class = "UILabel"; text = "Yamb"; ObjectID = "RIc-E4-osf"; */
+"RIc-E4-osf.text" = "Yamb";
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "Rwa-2u-xU7"; */
+"Rwa-2u-xU7.normalTitle" = "Kreni";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "Tbq-ag-QlV"; */
+"Tbq-ag-QlV.normalTitle" = "Nazad";
+
+/* Class = "UIButton"; normalTitle = "Resume game"; ObjectID = "VYY-iA-dNr"; */
+"VYY-iA-dNr.normalTitle" = "Nastavi";
+
+/* Class = "UIButton"; normalTitle = "Dice 5/6"; ObjectID = "crm-fc-xNQ"; */
+"crm-fc-xNQ.normalTitle" = "Kockice 5/6";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "dLn-kT-Moy"; */
+"dLn-kT-Moy.text" = "100";
+
+/* Class = "UIButton"; normalTitle = "Roll"; ObjectID = "dOz-Xm-yYs"; */
+"dOz-Xm-yYs.normalTitle" = "Baci";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "fHT-fD-qE3"; */
+"fHT-fD-qE3.normalTitle" = "Natrag";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "uHe-Q8-Vdx"; */
+"uHe-Q8-Vdx.normalTitle" = "Natrag";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "yEi-FD-lpu"; */
+"yEi-FD-lpu.text" = "Status";
+
+/* Class = "UIButton"; normalTitle = "New game"; ObjectID = "zFl-Cr-22D"; */
+"zFl-Cr-22D.normalTitle" = "Nova igra";
+
+/* Class = "UIButton"; normalTitle = "Rules"; ObjectID = "zZ1-9K-eRw"; */
+"zZ1-9K-eRw.normalTitle" = "Pravila";

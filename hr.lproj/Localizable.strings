@@ -1,0 +1,13 @@
+/* 
+  localization.strings
+  Yamb
+
+  Created by Kresimir Prcela on 28/08/16.
+  Copyright © 2016 100kas. All rights reserved.
+*/
+
+"New game" = "Nova igra";
+"1.Roll" = "1.Bacanje";
+"2.Roll" = "2.Bacanje";
+"3.Roll" = "3.Bacanje";
+"Dice 5/6" = "5/6 kockica";

@@ -23,3 +23,8 @@ func isSmallScreen() -> Bool
 {
     return CGRectGetHeight(UIScreen.mainScreen().bounds) <= 568
 }
+
+func lstr(key: String) -> String
+{
+    return NSLocalizedString(key, comment: "")
+}
