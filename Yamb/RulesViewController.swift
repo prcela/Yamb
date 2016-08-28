@@ -16,7 +16,8 @@ class RulesViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let url = NSURL(string: "https://dl.dropboxusercontent.com/u/5681660/yamb/index.html")!
+        let lang = lstr("lang")
+        let url = NSURL(string: "https://dl.dropboxusercontent.com/u/5681660/yamb/index_\(lang).html")!
         webView.loadRequest(NSURLRequest(URL: url))
     }
 
