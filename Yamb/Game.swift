@@ -358,6 +358,8 @@ class Game
                 }
             }
         }
+        
+        FIRAnalytics.logEventWithName("game_end", parameters: nil)
     }
     
     
