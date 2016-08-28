@@ -19,6 +19,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var sceneView: SCNView!
     @IBOutlet weak var rollBtn: UIButton!
     @IBOutlet weak var sumLbl: UILabel!
+    @IBOutlet weak var statusLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
