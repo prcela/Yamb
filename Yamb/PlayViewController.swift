@@ -112,6 +112,7 @@ class PlayViewController: UIViewController {
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()
+        statusLbl.text = Game.shared.status()
     }
     
     @IBAction func back(sender: AnyObject)

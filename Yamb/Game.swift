@@ -335,6 +335,11 @@ class Game
         return false
     }
     
+    func status() -> String?
+    {
+        return nil
+    }
+    
     func end()
     {
         state = .End

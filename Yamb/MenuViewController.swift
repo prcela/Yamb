@@ -66,10 +66,12 @@ class MenuViewController: UIViewController
     
     @IBAction func tellFriends(sender: AnyObject)
     {
+        guard MFMessageComposeViewController.canSendText() else {return}
+        
         let messageVC = MFMessageComposeViewController()
         messageVC.messageComposeDelegate = self
         messageVC.subject = "Yamb"
-        messageVC.body = "Check out this dice game http://apple.co/2byvskU"
+        messageVC.body = "Check out this dice game for iPhone \nhttp://apple.co/2byvskU"
         
         presentViewController(messageVC, animated: true, completion: nil)
     }
