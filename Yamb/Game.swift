@@ -70,7 +70,7 @@ class Game
         diceValues = nil
         diceHeld.removeAll()
         table.resetValues()
-        table.fakeFill()
+//        table.fakeFill()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -278,6 +278,11 @@ class Game
         {
             diceHeld.insert(dieIdx)
         }
+        
+        if diceHeld.count == diceNum.rawValue && inputPos?.colIdx == TableCol.N.rawValue
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.alertForInput, object: nil)
+        }
     }
     
     func isRollEnabled() -> Bool
@@ -333,6 +338,18 @@ class Game
         
 
         return false
+    }
+    
+    func confirmInputPos()
+    {
+        state = .AfterN3
+        inputState = .NotAllowed
+        updateNajavaValue()
+        diceHeld.removeAll()
+        if shouldEnd()
+        {
+            end()
+        }
     }
     
     func status() -> String?

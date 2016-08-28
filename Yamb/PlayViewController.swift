@@ -17,14 +17,17 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var gameTableView: GameTableView!
     @IBOutlet weak var sceneView: SCNView!
-    @IBOutlet weak var rollBtn: UIButton!
+    @IBOutlet private weak var rollBtn: UIButton!
     @IBOutlet weak var sumLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
+    @IBOutlet weak var playLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.gameStateChanged, object: nil)
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.gameStateChanged, object: nil)
+        nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
     }
     
     
@@ -81,38 +84,55 @@ class PlayViewController: UIViewController {
         
         switch Game.shared.state {
         case .Start:
-            rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
+            playLbl.text = lstr("1. roll")
         case .After1:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                rollBtn.setTitle(lstr("2.Roll"), forState: .Normal)
+                playLbl.text = lstr("2. roll")
             }
             else
             {
-                rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
+                playLbl.text = lstr("1. roll")
             }
         case .After2:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                rollBtn.setTitle(lstr("3.Roll"), forState: .Normal)
+                playLbl.text = lstr("3. roll")
             }
             else
             {
-                rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
+                playLbl.text = lstr("1. roll")
             }
         case .After3, .AfterN3:
-            rollBtn.setTitle(lstr("1.Roll"), forState: .Normal)
+            playLbl.text = lstr("1. roll")
             
         case .AfterN2:
-            rollBtn.setTitle(lstr("3.Roll"), forState: .Normal)
+            playLbl.text = lstr("3. roll")
         case .End:
-            rollBtn.setTitle(lstr("New game"), forState: .Normal)
+            playLbl.text = lstr("New game")
             sumLbl.text = String(Game.shared.table.totalScore())
             sumLbl.hidden = false
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()
         statusLbl.text = Game.shared.status()
+    }
+    
+    func alertForInput()
+    {
+        guard let pos = Game.shared.inputPos else {return}
+        let value = Game.shared.table.values[pos.colIdx][pos.rowIdx]!
+        
+        let message = String(format: lstr("Confirm input"), String(value))
+        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: lstr("Confirm"), style: .Default, handler: { (action) in
+            print("Confirmed")
+            Game.shared.confirmInputPos()
+        }))
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: { (action) in
+            print("Canceled")
+        }))
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func back(sender: AnyObject)

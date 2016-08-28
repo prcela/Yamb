@@ -8,9 +8,11 @@
 
 "lang" = "hr";
 "New game" = "Nova igra";
-"1.Roll" = "1.Bacanje";
-"2.Roll" = "2.Bacanje";
-"3.Roll" = "3.Bacanje";
+"1. roll" = "1. bacanje";
+"2. roll" = "2. bacanje";
+"3. roll" = "3. bacanje";
 "Dice 5/6" = "5/6 kockica";
 "Straight" = "Skala";
-
+"Confirm input" = "Potvrdite unos %@ u stupac od najave";
+"Confirm" = "Potvrdi";
+"Cancel" = "Poništi";

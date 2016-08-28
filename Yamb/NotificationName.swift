@@ -14,4 +14,5 @@ struct NotificationName
     static let tableValuesChanged = "Notification.TableValuesChanged"
     static let authenticatedLocalPlayer = "Notification.AuthenticatedLocalPlayer"
     static let goToMainMenu = "Notification.goToMainMenu"
+    static let alertForInput = "Notification.alertForInput"
 }

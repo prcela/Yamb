@@ -270,9 +270,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="uaX-AF-Za2"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                 <inset key="titleEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="25" minY="40" maxX="10" maxY="10"/>
-                                <state key="normal" title="Roll" backgroundImage="play.png">
+                                <state key="normal" backgroundImage="play.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="disabled">
@@ -282,6 +283,18 @@
                                     <action selector="roll:" destination="PEx-0D-RyI" eventType="touchUpInside" id="U4U-o4-6Xz"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xDD-Ze-2Kl">
+                                <rect key="frame" x="520" y="487" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="5BA-yJ-qTT"/>
+                                    <constraint firstAttribute="height" constant="50" id="e3H-Lm-pVU"/>
+                                </constraints>
+                                <string key="text">1.
+bacanje</string>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYH-H4-IEJ">
                                 <rect key="frame" x="20" y="547" width="30" height="30"/>
                                 <constraints>
@@ -361,6 +374,10 @@
                                     <action selector="onDiceTouched:" destination="PEx-0D-RyI" eventType="touchUpInside" id="BhD-ep-VAf"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ir-AP-vC0" customClass="GameTableView" customModule="Yamb" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="560" height="432"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLn-kT-Moy">
                                 <rect key="frame" x="510" y="453" width="70" height="25"/>
                                 <color key="backgroundColor" red="0.7843137255" green="0.84313725490000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -381,10 +398,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ir-AP-vC0" customClass="GameTableView" customModule="Yamb" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="432"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -403,6 +416,7 @@
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="8KR-KZ-IJX" secondAttribute="bottom" constant="30" id="Edz-dU-LAI"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="25" id="Kf9-tg-pn1"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="yEi-FD-lpu" secondAttribute="bottom" constant="120" id="MRv-6q-pcs"/>
+                            <constraint firstItem="xDD-Ze-2Kl" firstAttribute="centerY" secondItem="dOz-Xm-yYs" secondAttribute="centerY" constant="-20" id="Nbn-Bo-bm0"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="50" id="O1k-qA-SzM"/>
                             <constraint firstItem="dOz-Xm-yYs" firstAttribute="leading" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="15" id="Qbf-Ke-nIp"/>
                             <constraint firstItem="zYO-5M-WIC" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="-25" id="RIU-lf-t5r"/>
@@ -427,6 +441,7 @@
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="cCI-gJ-kED" secondAttribute="bottom" constant="30" id="yCH-uS-Ujk"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="40" id="yeJ-fv-Grm"/>
                             <constraint firstItem="8KR-KZ-IJX" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="25" id="z4K-nb-5RS"/>
+                            <constraint firstItem="xDD-Ze-2Kl" firstAttribute="centerX" secondItem="dOz-Xm-yYs" secondAttribute="centerX" id="zrm-Mi-YbM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -435,10 +450,10 @@
                                 <exclude reference="EAg-cA-CKP"/>
                                 <exclude reference="4Kr-nT-ta3"/>
                                 <exclude reference="8da-td-atd"/>
+                                <exclude reference="9ak-eA-Zje"/>
                                 <exclude reference="Edz-dU-LAI"/>
                                 <exclude reference="etN-Vn-lw4"/>
                                 <exclude reference="yCH-uS-Ujk"/>
-                                <exclude reference="9ak-eA-Zje"/>
                                 <exclude reference="yeJ-fv-Grm"/>
                             </mask>
                         </variation>
@@ -446,6 +461,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="gameTableView" destination="2Ir-AP-vC0" id="FQr-ns-Vg1"/>
+                        <outlet property="playLbl" destination="xDD-Ze-2Kl" id="yr8-Hv-VPA"/>
                         <outlet property="rollBtn" destination="dOz-Xm-yYs" id="Ap6-h2-hh4"/>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
                         <outlet property="statusLbl" destination="yEi-FD-lpu" id="WuP-ev-g2i"/>
