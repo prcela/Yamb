@@ -70,7 +70,7 @@ class Game
         diceValues = nil
         diceHeld.removeAll()
         table.resetValues()
-//        table.fakeFill()
+        table.fakeFill()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -260,7 +260,15 @@ class Game
     
     func onDieTouched(dieIdx: UInt)
     {
-        guard inputState != .Must && state != .Start else {return}
+        if inputState == .Must
+        {
+            return
+        }
+        
+        if state == .Start || state == .End || state == .After3 || state == .AfterN3
+        {
+            return
+        }
         
         if diceHeld.contains(dieIdx)
         {

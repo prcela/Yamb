@@ -8,6 +8,7 @@
 
 import UIKit
 import GameKit
+import MessageUI
 
 class MenuViewController: UIViewController
 {
@@ -62,6 +63,17 @@ class MenuViewController: UIViewController
         }
     }
     
+    
+    @IBAction func tellFriends(sender: AnyObject)
+    {
+        let messageVC = MFMessageComposeViewController()
+        messageVC.messageComposeDelegate = self
+        messageVC.subject = "Yamb"
+        messageVC.body = "Check out this dice game http://apple.co/2byvskU"
+        
+        presentViewController(messageVC, animated: true, completion: nil)
+    }
+    
     @objc
     func localPlayerAuthenticated()
     {
@@ -94,5 +106,12 @@ extension MenuViewController: GKGameCenterControllerDelegate
 {
     func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension MenuViewController: MFMessageComposeViewControllerDelegate
+{
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
