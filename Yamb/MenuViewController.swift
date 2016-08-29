@@ -34,7 +34,7 @@ class MenuViewController: UIViewController
         GameKitHelper.shared.authenticateLocalPlayer()
     }
     
-    @IBAction func play(sender: AnyObject)
+    @IBAction func singlePlayer(sender: AnyObject)
     {
         if Game.shared.state == .Start
         {
@@ -46,6 +46,9 @@ class MenuViewController: UIViewController
         }
     }
         
+    @IBAction func multiPlayer(sender: AnyObject) {
+    }
+    
     @IBAction func onGameCenter(sender: AnyObject)
     {
         if let gcAuthController = GameKitHelper.shared.authController

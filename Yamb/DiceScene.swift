@@ -114,6 +114,15 @@ class DiceScene: SCNScene
     func start()
     {
         let game = Game.shared
+        
+        for idx in 0..<6
+        {
+            if let node = rootNode.childNodeWithName(String(idx), recursively: false)
+            {
+                node.rotation = SCNVector4Zero
+            }
+        }
+        
         if let node = rootNode.childNodeWithName("5", recursively: false)
         {
             node.hidden = game.diceNum == .Five
