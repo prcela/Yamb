@@ -113,7 +113,7 @@
                                 </state>
                                 <connections>
                                     <action selector="multiPlayer:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="mxP-LH-IV4"/>
-                                    <action selector="singlePlayer:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="St2-xc-aTE"/>
+                                    <segue destination="KcI-sz-EiD" kind="show" id="Qcp-qP-rYY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -215,6 +215,24 @@
             </objects>
             <point key="canvasLocation" x="2496" y="380"/>
         </scene>
+        <!--Multi Player View Controller-->
+        <scene sceneID="Ujb-AV-RfA">
+            <objects>
+                <viewController id="KcI-sz-EiD" customClass="MultiPlayerViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HAe-dR-b20"/>
+                        <viewControllerLayoutGuide type="bottom" id="lgT-wo-VqH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XdI-RP-838">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hx4-Ru-U0Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2497" y="1137"/>
+        </scene>
         <!--Rules View Controller-->
         <scene sceneID="ru8-Ym-QDJ">
             <objects>
@@ -262,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lC6-aB-PcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2496" y="1183"/>
+            <point key="canvasLocation" x="1752" y="1137"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="T7e-KP-2ka">

@@ -10,13 +10,23 @@ import Foundation
 import GameKit
 import Firebase
 
-class GameKitHelper
+protocol GameKitHelperDelegate: class
+{
+    func matchStarted()
+    func matchEnded()
+    func matchDidReceiveData(match:GKMatch, data: NSData, fromPlayerId: String)
+}
+
+class GameKitHelper: NSObject
 {
     static var shared = GameKitHelper()
     
     var authenticated = false
     var lastError: NSError?
     var authController: UIViewController?
+    var currentMatch: GKTurnBasedMatch?
+    weak var delegate: GameKitHelperDelegate?
+    private var matchStarted = false
     
     func authenticateLocalPlayer()
     {
@@ -40,6 +50,45 @@ class GameKitHelper
             }
         }
         
+    }
+    
+    func findMatchWithMinPlayers(minPlayers: Int, maxPlayers: Int, vc: UIViewController, delegate: GameKitHelperDelegate)
+    {
+        currentMatch = nil
+        self.delegate = delegate
+        vc.dismissViewControllerAnimated(false, completion: nil)
+        
+        let request = GKMatchRequest()
+        request.minPlayers = 2
+        
+        let mmvc = GKTurnBasedMatchmakerViewController(matchRequest: request)
+        mmvc.turnBasedMatchmakerDelegate = self
+        mmvc.showExistingMatches = true
+        
+        vc.presentViewController(mmvc, animated: true, completion: nil)
+    }
+}
+
+extension GameKitHelper: GKTurnBasedMatchmakerViewControllerDelegate
+{
+    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFindMatch match: GKTurnBasedMatch) {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        print("did find match")
+        currentMatch = match
+    }
+    
+    func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController) {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        print("Was canceled")
+    }
+    
+    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: NSError) {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        print("Did fail with error: \(error.localizedDescription)")
+    }
+    
+    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, playerQuitForMatch match: GKTurnBasedMatch) {
+        print("player quit: \(match) \(match.currentParticipant)")
     }
 }
 
