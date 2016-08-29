@@ -46,14 +46,18 @@ class Table
             
         case .SumNumbers:
             
-            var sum: UInt = 0
+            var sum: UInt?
             if pos.colIdx == TableCol.Sum.rawValue
             {
                 for col:TableCol in [.Down,.Up,.UpDown,.N]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
-                        sum += value
+                        if sum == nil
+                        {
+                            sum = 0
+                        }
+                        sum! += value
                     }
                 }
             }
@@ -63,12 +67,16 @@ class Table
                 {
                     if let value = values[pos.colIdx][idxRow]
                     {
-                        sum += value
+                        if sum == nil
+                        {
+                            sum = 0
+                        }
+                        sum! += value
                     }
                 }
                 if sum >= 60
                 {
-                    sum += 30
+                    sum! += 30
                 }
             }
             return sum
@@ -99,13 +107,16 @@ class Table
         case .SumMaxMin:
             if pos.colIdx == TableCol.Sum.rawValue
             {
-                var sum:UInt = 0
+                var sum:UInt?
                 
                 for col:TableCol in [.Down,.Up,.UpDown,.N]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
-                        sum += value
+                        if sum == nil {
+                            sum = 0
+                        }
+                        sum! += value
                     }
                 }
                 return sum
@@ -205,14 +216,18 @@ class Table
             return 0
             
         case .SumSFPY:
-            var sum:UInt = 0
+            var sum:UInt?
             if pos.colIdx == TableCol.Sum.rawValue
             {
                 for col:TableCol in [.Down,.Up,.UpDown,.N]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
-                        sum += value
+                        if sum == nil
+                        {
+                            sum = 0
+                        }
+                        sum! += value
                     }
                 }
             }
@@ -222,7 +237,11 @@ class Table
                 {
                     if let value = values[pos.colIdx][row.rawValue]
                     {
-                        sum += value
+                        if sum == nil
+                        {
+                            sum = 0
+                        }
+                        sum! += value
                     }
                 }
             }
