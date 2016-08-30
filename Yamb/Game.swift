@@ -24,6 +24,7 @@ enum GameState
     case After3
     case AfterN2
     case AfterN3
+    case NextPlayer
     case End
 }
 
@@ -86,6 +87,16 @@ class Game
         FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
     }
     
+    func nextPlayer()
+    {
+        state = .NextPlayer
+        idxPlayer = (idxPlayer+1)%players.count
+        inputPos = nil
+        diceHeld.removeAll()
+        inputState = .NotAllowed
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+    }
+    
     func roll()
     {
         guard !(inputState == .Must && inputPos == nil) else {return}
@@ -96,7 +107,7 @@ class Game
             {
                 switch state
                 {
-                case .After1, .After2, .After3, .AfterN3:
+                case .After1, .After2, .After3, .AfterN3, .NextPlayer:
                     state = .Start
                     diceHeld.removeAll()
                     inputPos = nil
@@ -132,7 +143,7 @@ class Game
     {
         switch state
         {
-        case .Start:
+        case .Start, .NextPlayer:
             state = .After1
             inputState = .Allowed
             inputPos = nil

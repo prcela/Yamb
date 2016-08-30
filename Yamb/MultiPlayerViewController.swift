@@ -37,8 +37,13 @@ class MultiPlayerViewController: UIViewController {
     @IBAction func back(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }
-    @IBAction func localMatch(sender: AnyObject) {
+    
+    @IBAction func localMatch(sender: AnyObject)
+    {
+        Game.shared.start([nil,nil])
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
+    
     @IBAction func internetMatch(sender: AnyObject) {
         GameKitHelper.shared.findMatchWithMinPlayers(2, maxPlayers: 2, vc: self, delegate: self)
     }

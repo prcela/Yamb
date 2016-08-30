@@ -340,6 +340,7 @@ class GameTableView: UIView
                 {
                     lbl.text = nil
                 }
+                lbl.backgroundColor = (Game.shared.idxPlayer == 0) ? Skin.labelBlueBackColor : Skin.labelRedBackColor
             }
         }
     

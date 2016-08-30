@@ -83,9 +83,23 @@ class PlayViewController: UIViewController {
         
         let inputPos = Game.shared.inputPos
         
+        func endOfTurnText() -> String
+        {
+            if Game.shared.players.count == 1
+            {
+                return lstr("1. roll")
+            }
+            else
+            {
+                return lstr("Next player")
+            }
+        }
+        
         switch Game.shared.state {
+        
         case .Start:
             playLbl.text = lstr("1. roll")
+        
         case .After1:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
@@ -93,8 +107,9 @@ class PlayViewController: UIViewController {
             }
             else
             {
-                playLbl.text = lstr("1. roll")
+                playLbl.text = endOfTurnText()
             }
+        
         case .After2:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
@@ -102,13 +117,17 @@ class PlayViewController: UIViewController {
             }
             else
             {
-                playLbl.text = lstr("1. roll")
+                playLbl.text = endOfTurnText()
             }
         case .After3, .AfterN3:
-            playLbl.text = lstr("1. roll")
+            playLbl.text = endOfTurnText()
             
         case .AfterN2:
             playLbl.text = lstr("3. roll")
+            
+        case .NextPlayer:
+            playLbl.text = lstr("1. roll")
+            
         case .End:
             playLbl.text = lstr("New game")
             sumLbl.text = String(player.table.totalScore())
@@ -143,9 +162,16 @@ class PlayViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func roll(sender: AnyObject)
+    @IBAction func roll(sender: UIButton)
     {
-        Game.shared.roll()
+        if playLbl.text == lstr("Next player")
+        {
+            Game.shared.nextPlayer()
+        }
+        else
+        {
+            Game.shared.roll()
+        }
     }
     
     @IBAction func onDiceTouched(sender: UIButton)
