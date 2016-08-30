@@ -129,7 +129,14 @@ class PlayViewController: UIViewController {
             playLbl.text = lstr("1. roll")
             
         case .End:
-            playLbl.text = lstr("New game")
+            if Game.shared.players.count > 1 && Game.shared.idxPlayer == 0
+            {
+                playLbl.text = lstr("Next player")
+            }
+            else
+            {
+                playLbl.text = lstr("New game")
+            }
             sumLbl.text = String(player.table.totalScore())
             sumLbl.hidden = false
         }

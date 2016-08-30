@@ -77,9 +77,9 @@ class Game
             let player = Player()
             player.id = playerId
             players.append(player)
+            player.table.fakeFill()
         }
         
-//        table.fakeFill()
         DiceScene.shared.start()
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
