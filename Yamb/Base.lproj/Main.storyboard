@@ -255,7 +255,7 @@
                                     <action selector="localMatch:" destination="KcI-sz-EiD" eventType="touchUpInside" id="7I2-jm-Blv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-9A-wH7">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-9A-wH7">
                                 <rect key="frame" x="150" y="191" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3BW-LW-O8s"/>

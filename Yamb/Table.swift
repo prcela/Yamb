@@ -8,10 +8,47 @@
 
 import Foundation
 
-class Table
+private let keyValue = "keyValue"
+
+class Table: NSObject, NSCoding
 {
     // table ordered with colIdx, rowIdx
     var values = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
+    
+    func encodeWithCoder(aCoder: NSCoder)
+    {
+        for (idxCol,col) in values.enumerate()
+        {
+            for (idxRow,row) in col.enumerate()
+            {
+                if row != nil
+                {
+                    aCoder.encodeObject(row, forKey:"\(keyValue) \(idxCol) \(idxRow)")
+                }
+            }
+        }
+    }
+    
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        for idxCol in 0..<6
+        {
+            for idxRow in 0..<16
+            {
+                let key = "\(keyValue) \(idxCol) \(idxRow)"
+                if aDecoder.containsValueForKey(key)
+                {
+                    values[idxCol][idxRow] = UInt(aDecoder.decodeIntegerForKey(key))
+                }
+            }
+        }
+        super.init()
+    }
+
     
     func resetValues()
     {
@@ -315,15 +352,19 @@ class Table
         return true
     }
     
-    func totalScore() -> UInt
+    func totalScore() -> UInt?
     {
-        var sum: UInt = 0
+        var sum: UInt?
         let sumColIdx = TableCol.Sum.rawValue
         for row:TableRow in [.SumNumbers,.SumMaxMin,.SumSFPY]
         {
             if let value = values[sumColIdx][row.rawValue]
             {
-                sum += value
+                if sum == nil
+                {
+                    sum = 0
+                }
+                sum! += value
             }
         }
         return sum

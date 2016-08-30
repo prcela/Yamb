@@ -37,12 +37,13 @@ class PlayViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         sceneView.scene = DiceScene.shared
-        refresh()
         
+        sumLbl.text = nil
         sumLbl.layer.borderWidth = 1
         sumLbl.layer.borderColor = UIColor.lightGrayColor().CGColor
         sum1Lbl.backgroundColor = Skin.labelBlueBackColor
         
+        sum1Lbl.text = nil
         sum1Lbl.layer.borderWidth = 1
         sum1Lbl.layer.borderColor = UIColor.lightGrayColor().CGColor
         sum1Lbl.backgroundColor = Skin.labelRedBackColor
@@ -50,6 +51,8 @@ class PlayViewController: UIViewController {
         rollBtn.layer.borderWidth = 1
         rollBtn.layer.borderColor = UIColor.lightGrayColor().CGColor
         rollBtn.layer.cornerRadius = 5
+        
+        refresh()
         
         if Game.shared.state == .Start
         {
@@ -84,8 +87,9 @@ class PlayViewController: UIViewController {
     {
         gameTableView.updateValuesAndStates()
         gameTableView.setNeedsDisplay()
-        sumLbl.hidden = true
-        sum1Lbl.hidden = true
+        sumLbl.hidden = false
+        sum1Lbl.hidden = Game.shared.players.count == 1
+        
         let player = Game.shared.players[Game.shared.idxPlayer]
         
         let inputPos = Game.shared.inputPos
@@ -144,21 +148,33 @@ class PlayViewController: UIViewController {
             {
                 playLbl.text = lstr("New game")
             }
-            
-            sumLbl.hidden = false
-            if Game.shared.idxPlayer == 0
-            {
-                sumLbl.text = String(player.table.totalScore())
-            }
-            else if Game.shared.idxPlayer == 1
-            {
-                sum1Lbl.text = String(player.table.totalScore())
-                sum1Lbl.hidden = false
-            }
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()
         statusLbl.text = Game.shared.status()
+        
+        if Game.shared.idxPlayer == 0
+        {
+            if let totalScore = player.table.totalScore()
+            {
+                sumLbl.text = String(totalScore)
+            }
+            else
+            {
+                sumLbl.text = nil
+            }
+        }
+        else if Game.shared.idxPlayer == 1
+        {
+            if let totalScore = player.table.totalScore()
+            {
+                sum1Lbl.text = String(totalScore)
+            }
+            else
+            {
+                sum1Lbl.text = nil
+            }
+        }
     }
     
     func alertForInput()

@@ -77,7 +77,7 @@ class Game
             let player = Player()
             player.id = playerId
             players.append(player)
-            player.table.fakeFill()
+//            player.table.fakeFill()
         }
         idxPlayer = 0
         
@@ -394,12 +394,16 @@ class Game
         {
             let player = players[idxPlayer]
             let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
-            score.value = Int64(player.table.totalScore())
             
-            GKScore.reportScores([score]) { (error) in
-                if error == nil
-                {
-                    print("score reported")
+            if let totalScore = player.table.totalScore()
+            {
+                score.value = Int64(totalScore)
+                
+                GKScore.reportScores([score]) { (error) in
+                    if error == nil
+                    {
+                        print("score reported")
+                    }
                 }
             }
         }
