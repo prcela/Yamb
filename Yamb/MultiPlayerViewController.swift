@@ -15,7 +15,7 @@ class MultiPlayerViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        GameKitHelper.shared.findMatchWithMinPlayers(2, maxPlayers: 2, vc: self, delegate: self)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +34,14 @@ class MultiPlayerViewController: UIViewController {
     }
     */
 
+    @IBAction func back(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    @IBAction func localMatch(sender: AnyObject) {
+    }
+    @IBAction func internetMatch(sender: AnyObject) {
+        GameKitHelper.shared.findMatchWithMinPlayers(2, maxPlayers: 2, vc: self, delegate: self)
+    }
 }
 
 extension MultiPlayerViewController: GameKitHelperDelegate

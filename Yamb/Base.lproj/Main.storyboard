@@ -226,7 +226,59 @@
                     <view key="view" contentMode="scaleToFill" id="XdI-RP-838">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qT-bn-dJK">
+                                <rect key="frame" x="200" y="57" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6Zw-y7-qNe"/>
+                                    <constraint firstAttribute="width" constant="200" id="zEn-rt-Mc9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="KcI-sz-EiD" eventType="touchUpInside" id="5cu-ug-pbS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpV-Rk-wos">
+                                <rect key="frame" x="150" y="124" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="hCO-hg-mm9"/>
+                                    <constraint firstAttribute="width" constant="300" id="hKD-ET-K9d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="All on this device">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="localMatch:" destination="KcI-sz-EiD" eventType="touchUpInside" id="7I2-jm-Blv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-9A-wH7">
+                                <rect key="frame" x="150" y="191" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3BW-LW-O8s"/>
+                                    <constraint firstAttribute="width" constant="300" id="D1B-Ek-NVd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Internet">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="internetMatch:" destination="KcI-sz-EiD" eventType="touchUpInside" id="mwh-wc-5mk"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wpV-Rk-wos" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="1Tt-1J-nai"/>
+                            <constraint firstItem="9qT-bn-dJK" firstAttribute="top" secondItem="HAe-dR-b20" secondAttribute="bottom" constant="37" id="25S-f2-hxK"/>
+                            <constraint firstItem="wpV-Rk-wos" firstAttribute="top" secondItem="9qT-bn-dJK" secondAttribute="bottom" constant="37" id="2YY-US-ftC"/>
+                            <constraint firstItem="7Ft-9A-wH7" firstAttribute="top" secondItem="wpV-Rk-wos" secondAttribute="bottom" constant="37" id="89g-MI-tYU"/>
+                            <constraint firstItem="9qT-bn-dJK" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="AKt-8S-xIc"/>
+                            <constraint firstItem="7Ft-9A-wH7" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="u7F-F5-rj8"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hx4-Ru-U0Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -327,7 +379,7 @@
                                 <string key="text">1.
 bacanje</string>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYH-H4-IEJ">
@@ -430,7 +482,7 @@ bacanje</string>
                                     <constraint firstAttribute="height" constant="21" id="VCq-gj-jRh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
