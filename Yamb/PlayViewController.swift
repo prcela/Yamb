@@ -19,6 +19,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var sceneView: SCNView!
     @IBOutlet private weak var rollBtn: UIButton!
     @IBOutlet weak var sumLbl: UILabel!
+    @IBOutlet weak var sum1Lbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
     @IBOutlet weak var playLbl: UILabel!
     
@@ -40,6 +41,11 @@ class PlayViewController: UIViewController {
         
         sumLbl.layer.borderWidth = 1
         sumLbl.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sum1Lbl.backgroundColor = Skin.labelBlueBackColor
+        
+        sum1Lbl.layer.borderWidth = 1
+        sum1Lbl.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sum1Lbl.backgroundColor = Skin.labelRedBackColor
         
         rollBtn.layer.borderWidth = 1
         rollBtn.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -79,6 +85,7 @@ class PlayViewController: UIViewController {
         gameTableView.updateValuesAndStates()
         gameTableView.setNeedsDisplay()
         sumLbl.hidden = true
+        sum1Lbl.hidden = true
         let player = Game.shared.players[Game.shared.idxPlayer]
         
         let inputPos = Game.shared.inputPos
@@ -137,8 +144,17 @@ class PlayViewController: UIViewController {
             {
                 playLbl.text = lstr("New game")
             }
-            sumLbl.text = String(player.table.totalScore())
+            
             sumLbl.hidden = false
+            if Game.shared.idxPlayer == 0
+            {
+                sumLbl.text = String(player.table.totalScore())
+            }
+            else if Game.shared.idxPlayer == 1
+            {
+                sum1Lbl.text = String(player.table.totalScore())
+                sum1Lbl.hidden = false
+            }
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()

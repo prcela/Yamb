@@ -79,6 +79,7 @@ class Game
             players.append(player)
             player.table.fakeFill()
         }
+        idxPlayer = 0
         
         DiceScene.shared.start()
         

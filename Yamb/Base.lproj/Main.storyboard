@@ -247,8 +247,8 @@
                                     <constraint firstAttribute="height" constant="30" id="hCO-hg-mm9"/>
                                     <constraint firstAttribute="width" constant="300" id="hKD-ET-K9d"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <state key="normal" title="All on this device">
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="28"/>
+                                <state key="normal" title="All play on this device">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -485,14 +485,27 @@ bacanje</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-On-pUH" userLabel="Sum1">
+                                <rect key="frame" x="432" y="453" width="70" height="25"/>
+                                <color key="backgroundColor" red="1" green="0.46666666666666667" blue="0.46666666666666667" alpha="0.8486260775862069" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="35f-At-VZ8"/>
+                                    <constraint firstAttribute="height" constant="25" id="I1S-dx-OHX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.20000000000000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="dLn-kT-Moy" firstAttribute="leading" secondItem="oLa-On-pUH" secondAttribute="trailing" constant="8" id="1SG-gj-OhJ"/>
                             <constraint firstItem="BYH-H4-IEJ" firstAttribute="bottom" secondItem="36W-Ca-VAm" secondAttribute="bottom" constant="-15" id="2ir-iG-IKo"/>
                             <constraint firstItem="jV0-pk-WlY" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="-25" id="3EJ-Xf-5W0"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" id="3ce-Vg-gD9"/>
                             <constraint firstItem="1Dr-il-Q5L" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="-50" id="3qe-ps-ESU"/>
                             <constraint firstItem="BYH-H4-IEJ" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="4Kr-nT-ta3"/>
+                            <constraint firstItem="dLn-kT-Moy" firstAttribute="leading" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="-2" id="6ZE-PE-0JO"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="yEi-FD-lpu" secondAttribute="bottom" constant="-2" id="8Fl-zn-r5b"/>
                             <constraint firstItem="8KR-KZ-IJX" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="-40" id="8da-td-atd"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" id="9ak-eA-Zje"/>
@@ -518,6 +531,7 @@ bacanje</string>
                             <constraint firstAttribute="trailingMargin" secondItem="dLn-kT-Moy" secondAttribute="trailing" id="ZNs-wl-j4w"/>
                             <constraint firstAttribute="leadingMargin" secondItem="BYH-H4-IEJ" secondAttribute="leading" id="ado-oa-dh2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Ir-AP-vC0" secondAttribute="trailing" id="dKo-4M-KID"/>
+                            <constraint firstItem="oLa-On-pUH" firstAttribute="top" secondItem="dLn-kT-Moy" secondAttribute="top" id="eJp-jr-YRn"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="Vz9-WK-T5k" secondAttribute="bottom" constant="30" id="etN-Vn-lw4"/>
                             <constraint firstItem="yEi-FD-lpu" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="1" id="gDZ-Rw-Azf"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="60" id="lh7-ZW-1Pg"/>
@@ -533,6 +547,7 @@ bacanje</string>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="gDZ-Rw-Azf"/>
+                                <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="8Fl-zn-r5b"/>
                                 <exclude reference="EAg-cA-CKP"/>
                                 <exclude reference="4Kr-nT-ta3"/>
@@ -552,6 +567,7 @@ bacanje</string>
                         <outlet property="rollBtn" destination="dOz-Xm-yYs" id="Ap6-h2-hh4"/>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
                         <outlet property="statusLbl" destination="yEi-FD-lpu" id="WuP-ev-g2i"/>
+                        <outlet property="sum1Lbl" destination="oLa-On-pUH" id="JrU-pN-N0K"/>
                         <outlet property="sumLbl" destination="dLn-kT-Moy" id="rbE-De-lmY"/>
                     </connections>
                 </viewController>

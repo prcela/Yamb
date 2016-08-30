@@ -183,9 +183,22 @@ class GameTableView: UIView
         let inputState = Game.shared.inputState
         let gameState = Game.shared.state
         
+        
+        // zero column, update color only
+        for rowIdx in 1..<16
+        {
+            guard let lbl = viewWithTag(tag(rowIdx, 0)) as? UILabel else {continue}
+            lbl.backgroundColor = Game.shared.idxPlayer == 0 ? Skin.labelBlueBackColor : Skin.labelRedBackColor
+        }
+        
         // set values
         for colIdx in 1..<Game.shared.ctColumns
         {
+            // zero row
+            guard let lbl = viewWithTag(tag(0, colIdx)) as? UILabel else {continue}
+            lbl.backgroundColor = Game.shared.idxPlayer == 0 ? Skin.labelBlueBackColor : Skin.labelRedBackColor
+            
+            // value rows
             for row in valueRows
             {
                 guard let btn = viewWithTag(tag(row.rawValue, colIdx)) as? UIButton else {continue}
