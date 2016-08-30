@@ -79,6 +79,7 @@ class PlayViewController: UIViewController {
         gameTableView.updateValuesAndStates()
         gameTableView.setNeedsDisplay()
         sumLbl.hidden = true
+        let player = Game.shared.players[Game.shared.idxPlayer]
         
         let inputPos = Game.shared.inputPos
         
@@ -110,7 +111,7 @@ class PlayViewController: UIViewController {
             playLbl.text = lstr("3. roll")
         case .End:
             playLbl.text = lstr("New game")
-            sumLbl.text = String(Game.shared.table.totalScore())
+            sumLbl.text = String(player.table.totalScore())
             sumLbl.hidden = false
         }
         
@@ -121,7 +122,8 @@ class PlayViewController: UIViewController {
     func alertForInput()
     {
         guard let pos = Game.shared.inputPos else {return}
-        let value = Game.shared.table.values[pos.colIdx][pos.rowIdx]!
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        let value = player.table.values[pos.colIdx][pos.rowIdx]!
         
         let message = String(format: lstr("Confirm input"), String(value))
         let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)

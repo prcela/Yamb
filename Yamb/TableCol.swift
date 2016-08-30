@@ -15,4 +15,20 @@ enum TableCol: Int
     case UpDown
     case N
     case Sum
+    
+    func name() -> String
+    {
+        switch self {
+        case .Down:
+            return "↓"
+        case .Up:
+            return "↑"
+        case .UpDown:
+            return "⇅"
+        case .N:
+            return "N"
+        case .Sum:
+            return "∑"
+        }
+    }
 }

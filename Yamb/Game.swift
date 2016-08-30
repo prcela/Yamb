@@ -44,6 +44,8 @@ class Game
 {
     static let shared = Game()
     
+    var players = [Player]()
+    var idxPlayer: Int = 0
     var diceNum = DiceNum.Six
     var inputState = InputState.NotAllowed
     var state = GameState.Start
@@ -56,12 +58,11 @@ class Game
         }
     }
     
-    var table = Table()
     var inputPos: TablePos?
     
     var ctColumns = 6
     
-    func start()
+    func start(playerIds: [String?])
     {
         state = .Start
         rollState = .NotRolling
@@ -69,7 +70,14 @@ class Game
         inputPos = nil
         diceValues = nil
         diceHeld.removeAll()
-        table.resetValues()
+        players.removeAll()
+        for playerId in playerIds
+        {
+            let player = Player()
+            player.id = playerId
+            players.append(player)
+        }
+        
 //        table.fakeFill()
         DiceScene.shared.start()
         
@@ -106,7 +114,7 @@ class Game
         
         if state == .End
         {
-            start()
+            start(players.map({ $0.id }))
             return
         }
         
@@ -189,11 +197,13 @@ class Game
     
     func updateNajavaValue()
     {
+        let player = players[idxPlayer]
+        
         if let pos = inputPos
         {
-            table.updateValue(pos, diceValues: diceValues)
-            table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
-            if table.isQualityValueFor(pos, diceValues: diceValues)
+            player.table.updateValue(pos, diceValues: diceValues)
+            player.table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
+            if player.table.isQualityValueFor(pos, diceValues: diceValues)
             {
                 state = .AfterN3
                 inputState = .NotAllowed
@@ -204,22 +214,24 @@ class Game
     
     func didSelectCellAtPos(pos: TablePos)
     {
+        let player = players[idxPlayer]
+        
         var oldValue: UInt?
         if let clearPos = inputPos
         {
-            oldValue = table.values[clearPos.colIdx][clearPos.rowIdx]
-            table.values[clearPos.colIdx][clearPos.rowIdx] = nil
-            table.recalculateSumsForColumn(clearPos.colIdx, diceValues: diceValues)
+            oldValue = player.table.values[clearPos.colIdx][clearPos.rowIdx]
+            player.table.values[clearPos.colIdx][clearPos.rowIdx] = nil
+            player.table.recalculateSumsForColumn(clearPos.colIdx, diceValues: diceValues)
         }
         
         if pos != inputPos
         {
             inputPos = pos
-            table.updateValue(pos, diceValues: diceValues)
+            player.table.updateValue(pos, diceValues: diceValues)
         }
         else if oldValue == nil
         {
-            table.updateValue(pos, diceValues: diceValues)
+            player.table.updateValue(pos, diceValues: diceValues)
         }
         else
         {
@@ -227,7 +239,7 @@ class Game
             inputPos = nil
         }
         
-        table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
+        player.table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
                 
         if state == .After3 || state == .AfterN3
         {
@@ -287,6 +299,8 @@ class Game
     
     func isRollEnabled() -> Bool
     {
+        let player = players[idxPlayer]
+        
         if inputState == .Must && inputPos == nil
         {
             return false
@@ -304,7 +318,7 @@ class Game
         
         if state == .After1 && inputPos == nil
         {
-            if table.areFulfilled([.Down,.Up,.UpDown])
+            if player.table.areFulfilled([.Down,.Up,.UpDown])
             {
                 return false
             }
@@ -314,7 +328,8 @@ class Game
     
     func shouldEnd() -> Bool
     {
-        if !table.areFulfilled([.Down, .Up, .UpDown, .N])
+        let player = players[idxPlayer]
+        if !player.table.areFulfilled([.Down, .Up, .UpDown, .N])
         {
             return false
         }
@@ -365,8 +380,9 @@ class Game
         // score submit
         if GameKitHelper.shared.authenticated
         {
+            let player = players[idxPlayer]
             let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
-            score.value = Int64(Game.shared.table.totalScore())
+            score.value = Int64(player.table.totalScore())
             
             GKScore.reportScores([score]) { (error) in
                 if error == nil

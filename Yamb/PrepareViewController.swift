@@ -58,8 +58,9 @@ class PrepareViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
+        Game.shared.start([nil])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
-        Game.shared.start()
+        
     }
 
     @IBAction func back(sender: AnyObject) {

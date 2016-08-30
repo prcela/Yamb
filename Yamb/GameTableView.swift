@@ -142,10 +142,9 @@ class GameTableView: UIView
         }
         
         // header
-        let titles = ["","↓","↑","⇅","N","∑"]
         for colIdx in 1..<ctColumns
         {
-            createLabelAt(0, colIdx: colIdx, text: titles[colIdx])
+            createLabelAt(0, colIdx: colIdx, text: TableCol(rawValue: colIdx)!.name())
         }
         
         // first column titles
@@ -178,7 +177,8 @@ class GameTableView: UIView
     
     func updateValuesAndStates()
     {
-        let tableValues = Game.shared.table.values
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        let tableValues = player.table.values
         let inputPos = Game.shared.inputPos
         let inputState = Game.shared.inputState
         let gameState = Game.shared.state
