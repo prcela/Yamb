@@ -288,7 +288,7 @@ class Game
             return
         }
         
-        if state == .Start || state == .End || state == .After3 || state == .AfterN3
+        if state == .Start || state == .End || state == .After3 || state == .AfterN3 || state == .NextPlayer
         {
             return
         }
