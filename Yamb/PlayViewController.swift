@@ -199,6 +199,12 @@ class PlayViewController: UIViewController {
     {
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
         dismissViewControllerAnimated(true, completion: nil)
+        let game = Game.shared
+        
+        if game.state != .Start && game.state != .End
+        {
+            GameFileManager.saveGame(game)
+        }
     }
     
     @IBAction func roll(sender: UIButton)

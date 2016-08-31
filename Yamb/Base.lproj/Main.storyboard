@@ -612,7 +612,7 @@ bacanje</string>
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="play:" destination="gEx-9a-YxG" eventType="touchUpInside" id="A9t-Ty-v95"/>
+                                    <action selector="resumeGame:" destination="gEx-9a-YxG" eventType="touchUpInside" id="EzP-SO-eKL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFl-Cr-22D">
@@ -655,7 +655,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qNf-kJ-iJq"/>
+        <segue reference="5o3-Gb-59i"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

@@ -23,7 +23,7 @@ class Table: NSObject, NSCoding
             {
                 if row != nil
                 {
-                    aCoder.encodeObject(row, forKey:"\(keyValue) \(idxCol) \(idxRow)")
+                    aCoder.encodeInteger(Int(row!), forKey:"\(keyValue) \(idxCol) \(idxRow)")
                 }
             }
         }

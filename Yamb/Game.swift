@@ -10,15 +10,27 @@ import Foundation
 import Firebase
 import GameKit
 
+private let keyPlayers = "keyPlayers"
+private let keyIdxPlayer = "keyIdxPlayer"
+private let keyDiceNum = "keyDiceNum"
+private let keyInputState = "keyInputState"
+private let keyState = "keyState"
+private let keyRollState = "keyRollState"
+private let keyDiceValues = "keyDiceValues"
+private let keyDiceHeld = "keyDiceHeld"
+private let keyInputPosRow = "keyInputPosRow"
+private let keyInputPosCol = "keyInputPosCol"
+private let keyCtColumns = "keyCtColumns"
+
 enum DiceNum: Int
 {
     case Five = 5
     case Six = 6
 }
 
-enum GameState
+enum GameState: Int
 {
-    case Start
+    case Start = 0
     case After1
     case After2
     case After3
@@ -28,22 +40,26 @@ enum GameState
     case End
 }
 
-enum RollState {
-    case Rolling
+enum RollState: Int {
+    case Rolling = 0
     case NotRolling
 }
 
 
-enum InputState
+enum InputState: Int
 {
-    case NotAllowed
+    case NotAllowed = 0
     case Allowed
     case Must
 }
 
-class Game
+class Game: NSObject, NSCoding
 {
-    static let shared = Game()
+    static var shared = Game() {
+        didSet {
+            print("Game did set")
+        }
+    }
     
     var players = [Player]()
     var idxPlayer: Int = 0
@@ -60,8 +76,11 @@ class Game
     }
     
     var inputPos: TablePos?
-    
     var ctColumns = 6
+    
+    override init() {
+        super.init()
+    }
     
     func start(playerIds: [String?])
     {
@@ -419,4 +438,49 @@ class Game
     }
     
     
+    
+    // MARK: NSCoding
+    func encodeWithCoder(aCoder: NSCoder)
+    {
+        aCoder.encodeObject(players, forKey: keyPlayers)
+        aCoder.encodeInteger(idxPlayer, forKey: keyIdxPlayer)
+        aCoder.encodeInteger(diceNum.rawValue, forKey: keyDiceNum)
+        aCoder.encodeInteger(inputState.rawValue, forKey: keyInputState)
+        aCoder.encodeInteger(state.rawValue, forKey: keyState)
+        aCoder.encodeInteger(rollState.rawValue, forKey: keyRollState)
+        aCoder.encodeObject(diceValues, forKey: keyDiceValues)
+        aCoder.encodeObject(diceHeld, forKey: keyDiceHeld)
+        
+        if let pos = inputPos
+        {
+            aCoder.encodeInteger(pos.rowIdx, forKey: keyInputPosRow)
+            aCoder.encodeInteger(pos.colIdx, forKey: keyInputPosCol)
+        }
+        
+        aCoder.encodeInteger(ctColumns, forKey: keyCtColumns)
+
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        players = aDecoder.decodeObjectForKey(keyPlayers) as! [Player]
+        idxPlayer = aDecoder.decodeIntegerForKey(keyIdxPlayer)
+        diceNum = DiceNum(rawValue: aDecoder.decodeIntegerForKey(keyDiceNum))!
+        inputState = InputState(rawValue: aDecoder.decodeIntegerForKey(keyInputState))!
+        state = GameState(rawValue: aDecoder.decodeIntegerForKey(keyState))!
+        rollState = RollState(rawValue: aDecoder.decodeIntegerForKey(keyRollState))!
+        diceValues = aDecoder.decodeObjectForKey(keyDiceValues) as? [UInt]
+        diceHeld = (aDecoder.decodeObjectForKey(keyDiceHeld) as? Set<UInt>)!
+        
+        if aDecoder.containsValueForKey(keyInputPosRow)
+        {
+            let row = aDecoder.decodeIntegerForKey(keyInputPosRow)
+            let col = aDecoder.decodeIntegerForKey(keyInputPosCol)
+            inputPos = TablePos(rowIdx: row, colIdx: col)
+        }
+        
+        ctColumns = aDecoder.decodeIntegerForKey(keyCtColumns)
+        super.init()
+    }
 }
+

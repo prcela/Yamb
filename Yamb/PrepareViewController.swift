@@ -51,8 +51,12 @@ class PrepareViewController: UIViewController {
         performSegueWithIdentifier("newId", sender: self)
     }
     
-    @IBAction func play(sender: AnyObject)
+    @IBAction func resumeGame(sender: AnyObject)
     {
+        if let game = GameFileManager.loadGame("singlePlayer")
+        {
+            Game.shared = game
+        }
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
     
