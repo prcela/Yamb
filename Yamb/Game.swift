@@ -229,11 +229,18 @@ class Game
         let player = players[idxPlayer]
         
         var oldValue: UInt?
-        if let clearPos = inputPos
+        if let oldPos = inputPos
         {
-            oldValue = player.table.values[clearPos.colIdx][clearPos.rowIdx]
-            player.table.values[clearPos.colIdx][clearPos.rowIdx] = nil
-            player.table.recalculateSumsForColumn(clearPos.colIdx, diceValues: diceValues)
+            oldValue = player.table.values[oldPos.colIdx][oldPos.rowIdx]
+            if state == .AfterN2
+            {
+                state = .AfterN3
+            }
+            else
+            {
+                player.table.values[oldPos.colIdx][oldPos.rowIdx] = nil
+                player.table.recalculateSumsForColumn(oldPos.colIdx, diceValues: diceValues)
+            }
         }
         
         if pos != inputPos

@@ -36,7 +36,8 @@ class MenuViewController: UIViewController
     
     @IBAction func singlePlayer(sender: AnyObject)
     {
-        if Game.shared.state == .Start
+        let game = Game.shared
+        if game.state == .Start || game.players.count > 1
         {
             performSegueWithIdentifier("newId", sender: self)
         }
