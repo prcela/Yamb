@@ -15,6 +15,7 @@ class DiceScene: SCNScene
     
     var playSoundActions = [SCNAction]()
     
+    var dieName = "a"
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
@@ -29,13 +30,13 @@ class DiceScene: SCNScene
         for sideIdx in 1...6
         {
             let defaultMaterial = SCNMaterial()
-            let name = String(sideIdx)
+            let name = "\(sideIdx)\(dieName)"
             defaultMaterial.diffuse.contents = UIImage(named: name)
             defaultMaterial.locksAmbientWithDiffuse = true
             dieMaterialsDefault.append(defaultMaterial)
             
             let selectedMaterial = SCNMaterial()
-            let selName = "\(sideIdx)b"
+            let selName = "\(name)_sel"
             selectedMaterial.diffuse.contents = UIImage(named: selName)
             selectedMaterial.locksAmbientWithDiffuse = true
             dieMaterialsSelected.append(selectedMaterial)
