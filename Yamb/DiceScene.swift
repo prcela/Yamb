@@ -133,8 +133,8 @@ class DiceScene: SCNScene
     func roll(completion: (result: [UInt]) -> Void)
     {
         let ctMaxRounds: UInt32 = 3
-        
-        var oldValues = Game.shared.diceValues
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        var oldValues = player.diceValues
         var values = [UInt]()
         
         func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
@@ -144,7 +144,7 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
-            if Game.shared.diceHeld.contains(UInt(dieIdx))
+            if player.diceHeld.contains(UInt(dieIdx))
             {
                 // skip it by adding same value
                 values.append(oldValues?[dieIdx] ?? 1)
@@ -206,7 +206,7 @@ class DiceScene: SCNScene
         }
         
         if #available(iOS 9.0, *) {
-            let ctRoll = Game.shared.diceNum.rawValue-Game.shared.diceHeld.count
+            let ctRoll = Game.shared.diceNum.rawValue-player.diceHeld.count
             let playSoundAction = playSoundActions[ctRoll-1]
 
             let cameraNode = rootNode.childNodeWithName("camera", recursively: false)
@@ -220,11 +220,12 @@ class DiceScene: SCNScene
     
     func updateDiceSelection()
     {
+        let player = Game.shared.players[Game.shared.idxPlayer]
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
             {
-                if Game.shared.diceHeld.contains(UInt(dieIdx))
+                if player.diceHeld.contains(UInt(dieIdx))
                 {
                     dieNode.geometry?.materials = dieMaterialsSelected
                 }
@@ -238,7 +239,8 @@ class DiceScene: SCNScene
     
     func updateDiceValues()
     {
-        guard let values = Game.shared.diceValues else {return}
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        guard let values = player.diceValues else {return}
         
         for (idx,num) in values.enumerate()
         {

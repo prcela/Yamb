@@ -54,7 +54,7 @@ class PlayViewController: UIViewController {
         
         refresh()
         
-        if Game.shared.state == .Start
+        if Game.shared.players.first?.state == .Start
         {
             dispatchToMainQueue(delay: 2, closure: { 
                 if Chartboost.hasInterstitial(CBLocationLevelStart)
@@ -92,7 +92,7 @@ class PlayViewController: UIViewController {
         
         let player = Game.shared.players[Game.shared.idxPlayer]
         
-        let inputPos = Game.shared.inputPos
+        let inputPos = player.inputPos
         
         func endOfTurnText() -> String
         {
@@ -106,7 +106,7 @@ class PlayViewController: UIViewController {
             }
         }
         
-        switch Game.shared.state {
+        switch player.state {
         
         case .Start:
             playLbl.text = lstr("1. roll")
@@ -136,7 +136,7 @@ class PlayViewController: UIViewController {
         case .AfterN2:
             playLbl.text = lstr("3. roll")
             
-        case .NextPlayer:
+        case .WaitTurn:
             playLbl.text = lstr("1. roll")
             
         case .End:
@@ -179,15 +179,15 @@ class PlayViewController: UIViewController {
     
     func alertForInput()
     {
-        guard let pos = Game.shared.inputPos else {return}
         let player = Game.shared.players[Game.shared.idxPlayer]
+        guard let pos = player.inputPos else {return}
         let value = player.table.values[pos.colIdx][pos.rowIdx]!
         
         let message = String(format: lstr("Confirm input"), String(value))
         let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: lstr("Confirm"), style: .Default, handler: { (action) in
             print("Confirmed")
-            Game.shared.confirmInputPos()
+            player.confirmInputPos()
         }))
         alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: { (action) in
             print("Canceled")
@@ -201,7 +201,19 @@ class PlayViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
         let game = Game.shared
         
-        if game.state != .Start && game.state != .End
+        func allPlaying() -> Bool
+        {
+            for player in game.players
+            {
+                if player.state == .Start || player.state == .End
+                {
+                    return false
+                }
+            }
+            return true
+        }
+        
+        if allPlaying()
         {
             GameFileManager.saveGame(game)
         }

@@ -66,7 +66,9 @@ class GameTableView: UIView
             CGContextStrokePath(ctx)
         }
         
-        if let pos = Game.shared.inputPos
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        
+        if let pos = player.inputPos
         {
             CGContextSetStrokeColorWithColor(ctx, UIColor.blueColor().CGColor)
             
@@ -179,10 +181,9 @@ class GameTableView: UIView
     {
         let player = Game.shared.players[Game.shared.idxPlayer]
         let tableValues = player.table.values
-        let inputPos = Game.shared.inputPos
-        let inputState = Game.shared.inputState
-        let gameState = Game.shared.state
-        
+        let inputPos = player.inputPos
+        let inputState = player.inputState
+        let gameState = player.state
         
         // zero column, update color only
         for rowIdx in 1..<16
@@ -329,12 +330,12 @@ class GameTableView: UIView
             guard let btn = viewWithTag(tag(row.rawValue, nColIdx)) as? UIButton else {continue}
             btn.enabled = false
             let pos = TablePos(rowIdx: row.rawValue, colIdx: nColIdx)
-            if inputState != .NotAllowed && Game.shared.state == .After1
+            if inputState != .NotAllowed && player.state == .After1
             {
                 let value = tableValues[nColIdx][row.rawValue]
                 btn.enabled = value == nil || inputPos == pos
             }
-            else if inputState == .NotAllowed && Game.shared.state == .AfterN2
+            else if inputState == .NotAllowed && player.state == .AfterN2
             {
                 btn.enabled = (inputPos == pos)
             }
