@@ -58,6 +58,8 @@ class Game: NSObject, NSCoding
     static var shared = Game() {
         didSet {
             print("Game did set")
+            DiceScene.shared.updateDiceValues()
+            DiceScene.shared.updateDiceSelection()
         }
     }
     

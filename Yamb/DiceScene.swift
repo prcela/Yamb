@@ -235,6 +235,46 @@ class DiceScene: SCNScene
             }
         }
     }
+    
+    func updateDiceValues()
+    {
+        guard let values = Game.shared.diceValues else {return}
+        
+        for (idx,num) in values.enumerate()
+        {
+            var rndX:CGFloat = 0
+            var rndY:CGFloat = 0
+            let rndZ:CGFloat = 0
+            
+            if num == 1
+            {
+                // ok
+            }
+            else if num == 2
+            {
+                rndY = -CGFloat(M_PI_2)
+            }
+            else if num == 3
+            {
+                rndY = CGFloat(M_PI)
+            }
+            else if num == 4
+            {
+                rndY = CGFloat(M_PI_2)
+            }
+            else if num == 5
+            {
+                rndX = CGFloat(M_PI_2)
+            }
+            else
+            {
+                rndX = -CGFloat(M_PI_2)
+            }
+            let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 0)
+            let node = rootNode.childNodeWithName(String(idx), recursively: false)!
+            node.runAction(action)
+        }
+    }
 
 }
 
