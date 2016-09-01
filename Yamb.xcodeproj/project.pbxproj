@@ -13,6 +13,7 @@
 		9724981B1D730F7C00CDC6B7 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9724981A1D730F7C00CDC6B7 /* play.png */; };
 		9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
+		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
 		977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FA1CAEA35700AD9EF8 /* Main.storyboard */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		9724981A1D730F7C00CDC6B7 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Yamb/Resources/play.png; sourceTree = "<group>"; };
 		9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerViewController.swift; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
+		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		977D97FB1CAEA35700AD9EF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				97A6E0241D71F7E2000ED49D /* 5.m4a */,
 				97C4EFA11D6DBBDC00A1E7CD /* menu.png */,
 				97C4EFA71D6DC55D00A1E7CD /* coin.png */,
+				974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				97C4EF8F1D6B38B900A1E7CD /* 3.png in Resources */,
 				97C4EF921D6B38B900A1E7CD /* 4b.png in Resources */,
 				97C4EF8B1D6B38B900A1E7CD /* 1.png in Resources */,
+				974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */,
 				97C4EF9A1D6C3CDF00A1E7CD /* GoogleService-Info.plist in Resources */,
 				97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */,
 				97C4EF8E1D6B38B900A1E7CD /* 2b.png in Resources */,

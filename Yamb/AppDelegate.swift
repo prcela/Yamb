@@ -26,6 +26,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Chartboost.startWithAppId("57b7fc8704b0163534a45ef3", appSignature: "f2baf66f467982be8bfc24bdd3b93e9ef9372714", delegate: self)
         
+        let firRemoteConfig = FIRRemoteConfig.remoteConfig()
+        firRemoteConfig.setDefaultsFromPlistFileName("DefaultRemoteConfig")
+        
+        // 1 hour
+        let expirationDuration:NSTimeInterval = 3600
+        
+        firRemoteConfig.fetchWithExpirationDuration(expirationDuration) { (status, error) in
+            if status == .Success
+            {
+                print("fetched FB remote config")
+                firRemoteConfig.activateFetched()
+            }
+            
+            if error != nil
+            {
+                print("Fetch FB config error \(error!)")
+            }
+        }
+        
         print(NSBundle.mainBundle().bundleIdentifier!)
         return true
     }

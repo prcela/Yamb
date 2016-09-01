@@ -9,6 +9,7 @@ target 'Yamb' do
 
 pod 'Firebase'
 pod 'Firebase/Core'
+pod 'Firebase/RemoteConfig'
 pod 'Firebase/Messaging'
 pod 'ChartboostSDK'
 

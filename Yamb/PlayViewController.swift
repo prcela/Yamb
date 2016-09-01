@@ -54,22 +54,27 @@ class PlayViewController: UIViewController {
         
         refresh()
         
-        if Game.shared.players.first?.state == .Start
+        let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
+        print("allow_chartboost: \(chartboostAllowed)")
+        if chartboostAllowed
         {
-            dispatchToMainQueue(delay: 2, closure: { 
-                if Chartboost.hasInterstitial(CBLocationLevelStart)
-                {
-                    print("Chartboost.showInterstitial(CBLocationLevelStart)")
-                    Chartboost.showInterstitial(CBLocationLevelStart)
-                    FIRAnalytics.logEventWithName("show_interstitial", parameters: nil)
-                }
-                else
-                {
-                    print("Chartboost.cacheInterstitial(CBLocationLevelStart)")
-                    Chartboost.cacheInterstitial(CBLocationLevelStart)
-                    FIRAnalytics.logEventWithName("cache_interstitial", parameters: nil)
-                }
-            })
+            if Game.shared.players.first?.state == .Start
+            {
+                dispatchToMainQueue(delay: 2, closure: {
+                    if Chartboost.hasInterstitial(CBLocationLevelStart)
+                    {
+                        print("Chartboost.showInterstitial(CBLocationLevelStart)")
+                        Chartboost.showInterstitial(CBLocationLevelStart)
+                        FIRAnalytics.logEventWithName("show_interstitial", parameters: nil)
+                    }
+                    else
+                    {
+                        print("Chartboost.cacheInterstitial(CBLocationLevelStart)")
+                        Chartboost.cacheInterstitial(CBLocationLevelStart)
+                        FIRAnalytics.logEventWithName("cache_interstitial", parameters: nil)
+                    }
+                })
+            }
         }
     }
     
