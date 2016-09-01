@@ -70,23 +70,6 @@ class Game: NSObject, NSCoding
     
     func roll()
     {
-        func allPlayersEnded() -> Bool {
-            for player in players
-            {
-                if player.state != .End
-                {
-                    return false
-                }
-            }
-            return true
-        }
-        
-        if allPlayersEnded()
-        {
-            start(players.map({ $0.id }))
-            return
-        }
-        
         players[idxPlayer].roll()
     }
     

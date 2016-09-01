@@ -55,12 +55,14 @@ class PlayViewController: UIViewController {
         refresh()
         
         let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
+        let finishedOnce = NSUserDefaults.standardUserDefaults().boolForKey(Prefs.finishedOnce)
         print("allow_chartboost: \(chartboostAllowed)")
-        if chartboostAllowed
+        
+        if chartboostAllowed && finishedOnce
         {
             if Game.shared.players.first?.state == .Start
             {
-                dispatchToMainQueue(delay: 2, closure: {
+                dispatchToMainQueue(delay: 45, closure: {
                     if Chartboost.hasInterstitial(CBLocationLevelStart)
                     {
                         print("Chartboost.showInterstitial(CBLocationLevelStart)")
@@ -158,28 +160,24 @@ class PlayViewController: UIViewController {
         rollBtn.enabled = Game.shared.isRollEnabled()
         statusLbl.text = Game.shared.status()
         
-        if Game.shared.idxPlayer == 0
+        let sumLbls = [sumLbl,sum1Lbl]
+        
+        for (idx,lbl) in sumLbls.enumerate()
         {
-            if let totalScore = player.table.totalScore()
+            if idx < Game.shared.players.count
             {
-                sumLbl.text = String(totalScore)
-            }
-            else
-            {
-                sumLbl.text = nil
+                let player = Game.shared.players[idx]
+                if let score = player.table.totalScore()
+                {
+                    lbl.text = String(score)
+                }
+                else
+                {
+                    lbl.text = nil
+                }
             }
         }
-        else if Game.shared.idxPlayer == 1
-        {
-            if let totalScore = player.table.totalScore()
-            {
-                sum1Lbl.text = String(totalScore)
-            }
-            else
-            {
-                sum1Lbl.text = nil
-            }
-        }
+        
     }
     
     func alertForInput()
@@ -226,7 +224,11 @@ class PlayViewController: UIViewController {
     
     @IBAction func roll(sender: UIButton)
     {
-        if playLbl.text == lstr("Next player")
+        if playLbl.text == lstr("New game")
+        {
+            Game.shared.start(Game.shared.players.map({ $0.id }))
+        }
+        else if playLbl.text == lstr("Next player")
         {
             Game.shared.nextPlayer()
         }

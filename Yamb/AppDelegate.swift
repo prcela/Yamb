@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let prefs: [String:AnyObject] = [
+            Prefs.finishedOnce: false
+        ]
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.registerDefaults(prefs)
                 
         FIRApp.configure()
         

@@ -10,6 +10,7 @@ import Foundation
 
 struct Prefs
 {
+    static let finishedOnce = "PrefFinishedOnce"
 }
 
 struct LeaderboardId
