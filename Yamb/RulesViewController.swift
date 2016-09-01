@@ -17,7 +17,7 @@ class RulesViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         let lang = lstr("lang")
-        let url = NSURL(string: "https://dl.dropboxusercontent.com/u/5681660/yamb/index_\(lang).html")!
+        let url = NSBundle.mainBundle().URLForResource("index_\(lang)", withExtension: "html", subdirectory: "rules")!
         webView.loadRequest(NSURLRequest(URL: url))
     }
 

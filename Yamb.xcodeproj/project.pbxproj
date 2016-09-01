@@ -14,6 +14,7 @@
 		9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
 		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
+		974712E61D78495F00BB2AA9 /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 974712E51D78495F00BB2AA9 /* rules */; };
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
 		977D97FC1CAEA35700AD9EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FA1CAEA35700AD9EF8 /* Main.storyboard */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerViewController.swift; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
 		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
+		974712E51D78495F00BB2AA9 /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Yamb/Resources/rules; sourceTree = "<group>"; };
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		977D97FB1CAEA35700AD9EF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		9787AEC11D632661001640F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				974712E51D78495F00BB2AA9 /* rules */,
 				9724981A1D730F7C00CDC6B7 /* play.png */,
 				97C4EF7F1D6B38B900A1E7CD /* 1.png */,
 				97C4EF801D6B38B900A1E7CD /* 1b.png */,
@@ -325,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				974712E61D78495F00BB2AA9 /* rules in Resources */,
 				97A6E0271D71FB5C000ED49D /* 3.m4a in Resources */,
 				97C4EF951D6B38B900A1E7CD /* 6.png in Resources */,
 				97C4EF941D6B38B900A1E7CD /* 5b.png in Resources */,

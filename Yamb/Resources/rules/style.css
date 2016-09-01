@@ -1,0 +1,24 @@
+
+html, body{
+text-align:left;
+font-family:Athiti, sans-serif;
+font-size:100%;
+color:black;
+}
+
+p{
+font-family:Athiti, sans-serif;
+color:black;
+font-size:100%;
+background-color:inherit;
+}
+
+
+a img{border:none;}
+
+img.left,img.center,img.right{padding:3px; border:none;}
+img.left{float:left; margin:0 10px 5px 0;}
+img.center{display:block; margin:0 auto 5px auto;}
+img.right{float:right; margin:0 0 5px 10px;}
+
+
