@@ -56,6 +56,7 @@ class PrepareViewController: UIViewController {
         if let game = GameFileManager.loadGame("singlePlayer")
         {
             Game.shared = game
+            GameFileManager.deleteGame("singlePlayer")
         }
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }

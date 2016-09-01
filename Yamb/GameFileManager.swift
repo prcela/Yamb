@@ -39,4 +39,14 @@ class GameFileManager
         }
         return nil
     }
+    
+    class func deleteGame(gameName: String) -> Bool
+    {
+        let filePath = filePathForGameName(gameName)
+        if let _ = try? NSFileManager.defaultManager().removeItemAtPath(filePath)
+        {
+            return true
+        }
+        return false
+    }
 }
