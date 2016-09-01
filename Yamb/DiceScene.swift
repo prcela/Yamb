@@ -15,7 +15,7 @@ class DiceScene: SCNScene
     
     var playSoundActions = [SCNAction]()
     
-    var dieName = "a"
+    var dieName = "b"
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
