@@ -15,7 +15,6 @@ class DiceScene: SCNScene
     
     var playSoundActions = [SCNAction]()
     
-    var dieName = "b"
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
@@ -26,6 +25,8 @@ class DiceScene: SCNScene
         
         let side: CGFloat = 1
         let delta: Float = 0.25
+        
+        let dieName = Game.shared.diceMaterial.rawValue
         
         for sideIdx in 1...6
         {
@@ -42,10 +43,10 @@ class DiceScene: SCNScene
             dieMaterialsSelected.append(selectedMaterial)
         }
         
+        let die = SCNBox(width: side, height: side, length: side, chamferRadius: 0.1)
+        
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
-            let die = SCNBox(width: side, height: side, length: side, chamferRadius: 0.1)
-            
             let row = dieIdx / 3
             let col = dieIdx % 3
             
@@ -67,12 +68,13 @@ class DiceScene: SCNScene
         rootNode.addChildNode(cameraNode)
         
         let light = SCNLight()
-        light.type = SCNLightTypeDirectional
+        light.type = SCNLightTypeSpot
         light.color = Skin.defaultLightColor
         
         let lightNode = SCNNode()
         lightNode.name = "light"
         lightNode.light = light
+        lightNode.position = SCNVector3Make(2,2,2)
         cameraNode.addChildNode(lightNode)
         
         
@@ -110,6 +112,34 @@ class DiceScene: SCNScene
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func recreateMaterials()
+    {
+        let dieMat = Game.shared.diceMaterial.rawValue
+        dieMaterialsDefault.removeAll()
+        dieMaterialsSelected.removeAll()
+        
+        for sideIdx in 1...6
+        {
+            let defaultMaterial = SCNMaterial()
+            let name = "\(sideIdx)\(dieMat)"
+            defaultMaterial.diffuse.contents = UIImage(named: name)
+            defaultMaterial.locksAmbientWithDiffuse = true
+            dieMaterialsDefault.append(defaultMaterial)
+            
+            let selectedMaterial = SCNMaterial()
+            let selName = "\(name)_sel"
+            selectedMaterial.diffuse.contents = UIImage(named: selName)
+            selectedMaterial.locksAmbientWithDiffuse = true
+            dieMaterialsSelected.append(selectedMaterial)
+        }
+        
+        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        {
+            let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            dieNode?.geometry?.materials = dieMaterialsDefault
+        }
     }
     
     func start()

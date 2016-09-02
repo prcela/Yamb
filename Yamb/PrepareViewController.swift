@@ -8,15 +8,24 @@
 
 import UIKit
 
+private let diceMats:[DiceMaterial] = [.White, .Black, .Rose]
+
 class PrepareViewController: UIViewController {
 
     @IBOutlet weak var dice56Btn: UIButton?
+    @IBOutlet weak var diceTextureBtn: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        diceTextureBtn?.layer.cornerRadius = 5
+        diceTextureBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        diceTextureBtn?.layer.borderWidth = 1
+        diceTextureBtn?.clipsToBounds = true
         updateDiceBtn()
+        
+        
         
         Chartboost.cacheInterstitial(CBLocationLevelStart)
     }
@@ -37,6 +46,10 @@ class PrepareViewController: UIViewController {
         
         
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
+        
+        let current = Game.shared.diceMaterial
+        diceTextureBtn?.setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
+        
     }
     
     @IBAction func toggleDiceCount(sender: AnyObject)
@@ -59,6 +72,15 @@ class PrepareViewController: UIViewController {
             GameFileManager.deleteGame("singlePlayer")
         }
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+    }
+    
+    @IBAction func changeDiceMaterial(sender: AnyObject)
+    {
+        let current = Game.shared.diceMaterial
+        let idx = diceMats.indexOf(current)!
+        let nextIdx = (idx+1)%diceMats.count
+        Game.shared.diceMaterial = diceMats[nextIdx]
+        diceTextureBtn?.setImage(UIImage(named: "1\(Game.shared.diceMaterial.rawValue)"), forState: .Normal)
     }
     
     @IBAction func playNewGame(sender: AnyObject)

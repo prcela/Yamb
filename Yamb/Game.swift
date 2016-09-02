@@ -21,6 +21,14 @@ enum DiceNum: Int
     case Six = 6
 }
 
+enum DiceMaterial: String
+{
+    case White = "a"
+    case Black = "b"
+    case Rose = "c"
+}
+
+
 
 class Game: NSObject, NSCoding
 {
@@ -35,6 +43,7 @@ class Game: NSObject, NSCoding
     var players = [Player]()
     var idxPlayer: Int = 0
     var diceNum = DiceNum.Six
+    var diceMaterial = DiceMaterial.White
     
     var ctColumns = 6
     

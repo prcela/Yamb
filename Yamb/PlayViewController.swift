@@ -53,6 +53,7 @@ class PlayViewController: UIViewController {
         rollBtn.layer.cornerRadius = 5
         
         refresh()
+        DiceScene.shared.recreateMaterials()
         
         let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
         let finishedOnce = NSUserDefaults.standardUserDefaults().boolForKey(Prefs.finishedOnce)

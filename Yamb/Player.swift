@@ -46,6 +46,7 @@ enum InputState: Int
 }
 
 
+
 class Player: NSObject, NSCoding
 {
     var id: String?

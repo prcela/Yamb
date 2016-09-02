@@ -172,14 +172,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyw-RE-efM">
-                                <rect key="frame" x="234" y="191" width="132" height="101"/>
+                                <rect key="frame" x="275" y="191" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="101" id="CDC-Lu-2qK"/>
-                                    <constraint firstAttribute="width" constant="132" id="rgP-7j-VqX"/>
+                                    <constraint firstAttribute="height" constant="50" id="CDC-Lu-2qK"/>
+                                    <constraint firstAttribute="width" constant="50" id="rgP-7j-VqX"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="dice-clipart"/>
+                                <state key="normal" title="Button" image="1c.png"/>
                                 <connections>
-                                    <action selector="playNewGame:" destination="vJz-z9-bhl" eventType="touchUpInside" id="HEm-Es-glq"/>
+                                    <action selector="changeDiceMaterial:" destination="vJz-z9-bhl" eventType="touchUpInside" id="BsQ-lZ-nSA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crm-fc-xNQ">
@@ -196,6 +196,20 @@
                                     <action selector="toggleDiceCount:" destination="vJz-z9-bhl" eventType="touchUpInside" id="Dvp-51-Iz8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OvI-0e-qLl">
+                                <rect key="frame" x="200" y="285" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="2gr-Ne-gCX"/>
+                                    <constraint firstAttribute="height" constant="30" id="edT-FT-Tlz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="playNewGame:" destination="vJz-z9-bhl" eventType="touchUpInside" id="zH2-kS-tce"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -205,10 +219,13 @@
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="top" secondItem="crm-fc-xNQ" secondAttribute="bottom" constant="37" id="o3O-wz-aT9"/>
                             <constraint firstItem="Gyw-RE-efM" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="vGp-1b-QHN"/>
                             <constraint firstItem="fHT-fD-qE3" firstAttribute="top" secondItem="E0a-0a-aZv" secondAttribute="bottom" constant="37" id="ybT-Bz-G0Z"/>
+                            <constraint firstItem="OvI-0e-qLl" firstAttribute="top" secondItem="Gyw-RE-efM" secondAttribute="bottom" constant="44" id="yrm-HA-mvM"/>
+                            <constraint firstItem="OvI-0e-qLl" firstAttribute="centerX" secondItem="bP6-BX-tkt" secondAttribute="centerX" id="zRd-9s-idp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dice56Btn" destination="crm-fc-xNQ" id="pjJ-Cc-Xpg"/>
+                        <outlet property="diceTextureBtn" destination="Gyw-RE-efM" id="1g3-Ve-adg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="est-N0-ze9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -650,7 +667,7 @@ bacanje</string>
         </scene>
     </scenes>
     <resources>
-        <image name="dice-clipart" width="300" height="228"/>
+        <image name="1c.png" width="171" height="171"/>
         <image name="menu.png" width="170" height="170"/>
         <image name="play.png" width="140" height="180"/>
     </resources>
