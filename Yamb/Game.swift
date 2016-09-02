@@ -27,6 +27,7 @@ enum DiceMaterial: String
     case Black = "b"
     case Rose = "c"
     case Blue = "d"
+    case Red = "e"
 }
 
 
