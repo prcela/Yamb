@@ -43,19 +43,21 @@ class DiceScene: SCNScene
             dieMaterialsSelected.append(selectedMaterial)
         }
         
-        let die = SCNBox(width: side, height: side, length: side, chamferRadius: 0.1)
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
             let row = dieIdx / 3
             let col = dieIdx % 3
             
-            let dieNode = SCNNode(geometry: die)
+            let dieBox = SCNBox(width: side, height: side, length: side, chamferRadius: 0.1)
+            dieBox.materials = dieMaterialsDefault
+            
+            let dieNode = SCNNode(geometry: dieBox)
             dieNode.name = String(dieIdx)
             dieNode.position = SCNVector3Make(Float(col)*(Float(side)+delta)+0.5*Float(side), Float(row)*(Float(side)+delta), 0)
             rootNode.addChildNode(dieNode)
             
-            die.materials = dieMaterialsDefault
+            
         }
         
         let cameraNode = SCNNode()
