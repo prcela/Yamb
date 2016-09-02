@@ -40,6 +40,7 @@ enum DiceMaterial: String
     case Rose = "c"
     case Blue = "d"
     case Red = "e"
+    case Yellow = "f"
 }
 
 
