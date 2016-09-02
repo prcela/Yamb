@@ -2,7 +2,7 @@
 /* Class = "UIButton"; normalTitle = "Internet"; ObjectID = "7Ft-9A-wH7"; */
 "7Ft-9A-wH7.normalTitle" = "Internet";
 
-/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "9qT-bn-dJK"; */
+/* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "9qT-bn-dJK"; */
 "9qT-bn-dJK.normalTitle" = "Natrag";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Gyw-RE-efM"; */
@@ -11,16 +11,19 @@
 /* Class = "UIButton"; normalTitle = "Najbolji rezultati"; ObjectID = "MeS-bc-DLr"; */
 "MeS-bc-DLr.normalTitle" = "Najbolji rezultati";
 
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "OvI-0e-qLl"; */
+"OvI-0e-qLl.normalTitle" = "Kreni";
+
 /* Class = "UIButton"; normalTitle = "Reci prijateljima"; ObjectID = "Qnf-Cy-dxw"; */
 "Qnf-Cy-dxw.normalTitle" = "Reci prijateljima";
 
 /* Class = "UILabel"; text = "Yamb"; ObjectID = "RIc-E4-osf"; */
 "RIc-E4-osf.text" = "Yamb";
 
-/* Class = "UIButton"; normalTitle = "Kreni"; ObjectID = "Rwa-2u-xU7"; */
+/* Class = "UIButton"; normalTitle = "Jedan igrac"; ObjectID = "Rwa-2u-xU7"; */
 "Rwa-2u-xU7.normalTitle" = "Jedan igrac";
 
-/* Class = "UIButton"; normalTitle = "Nazad"; ObjectID = "Tbq-ag-QlV"; */
+/* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "Tbq-ag-QlV"; */
 "Tbq-ag-QlV.normalTitle" = "Natrag";
 
 /* Class = "UIButton"; normalTitle = "Nastavi igru"; ObjectID = "VYY-iA-dNr"; */
@@ -38,13 +41,16 @@
 /* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "fHT-fD-qE3"; */
 "fHT-fD-qE3.normalTitle" = "Natrag";
 
-/* Class = "UIButton"; normalTitle = "Multiplayer"; ObjectID = "nSW-yA-QpT"; */
+/* Class = "UIButton"; normalTitle = "Vise igraca"; ObjectID = "nSW-yA-QpT"; */
 "nSW-yA-QpT.normalTitle" = "Vise igraca";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "oLa-On-pUH"; */
+"oLa-On-pUH.text" = "100";
 
 /* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "uHe-Q8-Vdx"; */
 "uHe-Q8-Vdx.normalTitle" = "Natrag";
 
-/* Class = "UIButton"; normalTitle = "All on this device"; ObjectID = "wpV-Rk-wos"; */
+/* Class = "UIButton"; normalTitle = "Svi igraju na ovom uređaju"; ObjectID = "wpV-Rk-wos"; */
 "wpV-Rk-wos.normalTitle" = "Svi igraju na ovom uređaju";
 
 /* Class = "UILabel"; text = "1.\nbacanje"; ObjectID = "xDD-Ze-2Kl"; */
