@@ -228,7 +228,7 @@ class PlayViewController: UIViewController {
     {
         if playLbl.text == lstr("New game")
         {
-            Game.shared.start(Game.shared.players.map({ $0.id }))
+            Game.shared.start(Game.shared.players.map({ ($0.id, $0.diceMaterial) }))
         }
         else if playLbl.text == lstr("Next player")
         {

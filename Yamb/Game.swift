@@ -21,17 +21,6 @@ enum DiceNum: Int
     case Six = 6
 }
 
-enum DiceMaterial: String
-{
-    case White = "a"
-    case Black = "b"
-    case Rose = "c"
-    case Blue = "d"
-    case Red = "e"
-}
-
-
-
 class Game: NSObject, NSCoding
 {
     static var shared = Game() {
@@ -45,7 +34,6 @@ class Game: NSObject, NSCoding
     var players = [Player]()
     var idxPlayer: Int = 0
     var diceNum = DiceNum.Six
-    var diceMaterial = DiceMaterial.White
     
     var ctColumns = 6
     
@@ -53,13 +41,14 @@ class Game: NSObject, NSCoding
         super.init()
     }
     
-    func start(playerIds: [String?])
+    func start(playersDesc: [(id: String?,diceMat: DiceMaterial)])
     {
         players.removeAll()
-        for playerId in playerIds
+        for (id,diceMat) in playersDesc
         {
             let player = Player()
-            player.id = playerId
+            player.id = id
+            player.diceMaterial = diceMat
             players.append(player)
 //            player.table.fakeFill()
             player.printStatus()
@@ -76,6 +65,7 @@ class Game: NSObject, NSCoding
     {
         players[idxPlayer].next()
         idxPlayer = (idxPlayer+1)%players.count
+        DiceScene.shared.recreateMaterials()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
@@ -111,10 +101,6 @@ class Game: NSObject, NSCoding
     {
         return nil
     }
-    
-    
-    
-    
     
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)

@@ -19,6 +19,7 @@ private let keyDiceValues = "keyDiceValues"
 private let keyDiceHeld = "keyDiceHeld"
 private let keyInputPosRow = "keyInputPosRow"
 private let keyInputPosCol = "keyInputPosCol"
+private let keyDiceMaterial = "keyDiceMaterial"
 
 enum PlayerState: Int
 {
@@ -31,6 +32,16 @@ enum PlayerState: Int
     case WaitTurn
     case End
 }
+
+enum DiceMaterial: String
+{
+    case White = "a"
+    case Black = "b"
+    case Rose = "c"
+    case Blue = "d"
+    case Red = "e"
+}
+
 
 enum RollState: Int {
     case Rolling = 0
@@ -50,6 +61,7 @@ enum InputState: Int
 class Player: NSObject, NSCoding
 {
     var id: String?
+    var diceMaterial = DiceMaterial.White
     var table = Table()
     var inputState = InputState.NotAllowed
     var state = PlayerState.Start
@@ -83,6 +95,7 @@ class Player: NSObject, NSCoding
             let col = aDecoder.decodeIntegerForKey(keyInputPosCol)
             inputPos = TablePos(rowIdx: row, colIdx: col)
         }
+        diceMaterial = DiceMaterial(rawValue: aDecoder.decodeObjectForKey(keyDiceMaterial) as? String ?? "a")!
 
         super.init()
     }
@@ -102,6 +115,7 @@ class Player: NSObject, NSCoding
             aCoder.encodeInteger(pos.rowIdx, forKey: keyInputPosRow)
             aCoder.encodeInteger(pos.colIdx, forKey: keyInputPosCol)
         }
+        aCoder.encodeObject(diceMaterial.rawValue, forKey: keyDiceMaterial)
 
     }
     

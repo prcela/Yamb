@@ -15,6 +15,8 @@ class PrepareViewController: UIViewController {
     @IBOutlet weak var dice56Btn: UIButton?
     @IBOutlet weak var diceTextureBtn: UIButton?
     
+    var diceMatSelected = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +49,7 @@ class PrepareViewController: UIViewController {
         
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
         
-        let current = Game.shared.diceMaterial
+        let current = diceMats[diceMatSelected]
         diceTextureBtn?.setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
         
     }
@@ -76,16 +78,14 @@ class PrepareViewController: UIViewController {
     
     @IBAction func changeDiceMaterial(sender: AnyObject)
     {
-        let current = Game.shared.diceMaterial
-        let idx = diceMats.indexOf(current)!
-        let nextIdx = (idx+1)%diceMats.count
-        Game.shared.diceMaterial = diceMats[nextIdx]
-        diceTextureBtn?.setImage(UIImage(named: "1\(Game.shared.diceMaterial.rawValue)"), forState: .Normal)
+        diceMatSelected = (diceMatSelected+1)%diceMats.count
+        let diceMat = diceMats[diceMatSelected]
+        diceTextureBtn?.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
     }
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        Game.shared.start([nil])
+        Game.shared.start([(nil,diceMats[diceMatSelected])])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         
     }

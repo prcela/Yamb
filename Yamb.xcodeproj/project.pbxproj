@@ -287,6 +287,7 @@
 				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				9787AECE1D6330E3001640F7 /* Game.swift */,
 				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
+				97C060041D757A7C00A680C1 /* Player.swift */,
 				97A6E01E1D7068E7000ED49D /* Table.swift */,
 				97C4EF551D67A36C00A1E7CD /* TableRow.swift */,
 				97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */,
@@ -299,7 +300,6 @@
 				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
-				97C060041D757A7C00A680C1 /* Player.swift */,
 				974712E11D778CA500BB2AA9 /* GameFileManager.swift */,
 			);
 			path = Yamb;

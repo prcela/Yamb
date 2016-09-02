@@ -40,7 +40,7 @@ class MultiPlayerViewController: UIViewController {
     
     @IBAction func localMatch(sender: AnyObject)
     {
-        Game.shared.start([nil,nil])
+        Game.shared.start([(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
     

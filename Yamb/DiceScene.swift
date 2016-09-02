@@ -26,23 +26,7 @@ class DiceScene: SCNScene
         let side: CGFloat = 1
         let delta: Float = 0.25
         
-        let dieName = Game.shared.diceMaterial.rawValue
-        
-        for sideIdx in 1...6
-        {
-            let defaultMaterial = SCNMaterial()
-            let name = "\(sideIdx)\(dieName)"
-            defaultMaterial.diffuse.contents = UIImage(named: name)
-            defaultMaterial.locksAmbientWithDiffuse = true
-            dieMaterialsDefault.append(defaultMaterial)
-            
-            let selectedMaterial = SCNMaterial()
-            let selName = "\(name)_sel"
-            selectedMaterial.diffuse.contents = UIImage(named: selName)
-            selectedMaterial.locksAmbientWithDiffuse = true
-            dieMaterialsSelected.append(selectedMaterial)
-        }
-        
+        recreateMaterials()
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
@@ -118,7 +102,8 @@ class DiceScene: SCNScene
     
     func recreateMaterials()
     {
-        let dieMat = Game.shared.diceMaterial.rawValue
+        let player = Game.shared.players[Game.shared.idxPlayer]
+        let dieMat = player.diceMaterial.rawValue
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
         
@@ -139,8 +124,10 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
-            let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
-            dieNode?.geometry?.materials = dieMaterialsDefault
+            if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            {
+                dieNode.geometry?.materials = dieMaterialsDefault
+            }
         }
     }
     

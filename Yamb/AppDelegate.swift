@@ -90,7 +90,6 @@ extension AppDelegate: ChartboostDelegate
     
     func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
         print("did complete rewarded video with reward \(reward)")
-        Game.shared.start([nil])
     }
     
     func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
