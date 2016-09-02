@@ -63,7 +63,8 @@ class PlayViewController: UIViewController {
         {
             if Game.shared.players.first?.state == .Start
             {
-                dispatchToMainQueue(delay: 45, closure: {
+                dispatchToMainQueue(delay: 45, closure: {[weak self] in
+                    guard self != nil else {return}
                     if Chartboost.hasInterstitial(CBLocationLevelStart)
                     {
                         print("Chartboost.showInterstitial(CBLocationLevelStart)")

@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let diceMats:[DiceMaterial] = [.White, .Black, .Rose]
+private let diceMats:[DiceMaterial] = [.White, .Black, .Blue, .Rose]
 
 class PrepareViewController: UIViewController {
 
