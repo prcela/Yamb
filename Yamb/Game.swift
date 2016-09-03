@@ -21,6 +21,13 @@ enum DiceNum: Int
     case Six = 6
 }
 
+enum GameType
+{
+    case SinglePlayer
+    case LocalMultiplayer
+    case TurnBasedMultiplayer
+}
+
 class Game: NSObject, NSCoding
 {
     static var shared = Game() {
@@ -31,6 +38,7 @@ class Game: NSObject, NSCoding
         }
     }
     
+    var gameType = GameType.SinglePlayer
     var players = [Player]()
     var idxPlayer: Int = 0
     var diceNum = DiceNum.Six
@@ -41,8 +49,9 @@ class Game: NSObject, NSCoding
         super.init()
     }
     
-    func start(playersDesc: [(id: String?,diceMat: DiceMaterial)])
+    func start(gameType: GameType, playersDesc: [(id: String?,diceMat: DiceMaterial)])
     {
+        self.gameType = gameType
         players.removeAll()
         for (id,diceMat) in playersDesc
         {
@@ -63,6 +72,11 @@ class Game: NSObject, NSCoding
     
     func nextPlayer()
     {
+        if gameType == .TurnBasedMultiplayer
+        {
+            sendTurn()
+        }
+        
         players[idxPlayer].next()
         idxPlayer = (idxPlayer+1)%players.count
         DiceScene.shared.recreateMaterials()
@@ -100,6 +114,18 @@ class Game: NSObject, NSCoding
     func status() -> String?
     {
         return nil
+    }
+    
+    func sendTurn()
+    {
+        guard let currentMatch = GameKitHelper.shared.currentMatch else {return}
+        guard let currentIdx = currentMatch.participants?.indexOf(currentMatch.currentParticipant!) else {return}
+        guard let ctParticipants = currentMatch.participants?.count else {return}
+        let nextParticipant = currentMatch.participants![(currentIdx+1)%ctParticipants]
+        let turnData = "moj potez koji sam poslao".dataUsingEncoding(NSUTF8StringEncoding)!
+        currentMatch.endTurnWithNextParticipants([nextParticipant], turnTimeout: 60, matchData: turnData) { (error) in
+            print(error)
+        }
     }
     
     // MARK: NSCoding

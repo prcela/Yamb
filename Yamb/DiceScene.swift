@@ -8,23 +8,31 @@
 
 import UIKit
 import SceneKit
+import AVFoundation
 
 class DiceScene: SCNScene
 {
     static let shared = DiceScene()
     
-    var playSoundActions = [SCNAction]()
-    
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
     var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
+    var audioPlayers = [AVAudioPlayer]()
     
     override init() {
         super.init()
         
         let side: CGFloat = 1
         let delta: Float = 0.25
+        
+        for idx in 1...6
+        {
+            let soundURL = NSBundle.mainBundle().URLForResource(String(idx), withExtension: "m4a")!
+            let audioPlayer = try! AVAudioPlayer(contentsOfURL: soundURL)
+            audioPlayers.append(audioPlayer)
+        }
+        
         
         recreateMaterials()
         
@@ -62,37 +70,6 @@ class DiceScene: SCNScene
         lightNode.light = light
         lightNode.position = SCNVector3Make(2,2,2)
         cameraNode.addChildNode(lightNode)
-        
-        
-        if #available(iOS 9.0, *) {
-            
-            var audioSources = [SCNAudioSource]()
-            var audioPlayers = [SCNAudioPlayer]()
-            
-            
-            for idx in 1...6
-            {
-                let audioSource = SCNAudioSource(fileNamed: "\(idx).m4a")!
-                let audioPlayer = SCNAudioPlayer(source: audioSource)
-                audioSources.append(audioSource)
-                audioPlayers.append(audioPlayer)
-            }
-            
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                for audioPlayer in audioPlayers
-                {
-                    cameraNode.addAudioPlayer(audioPlayer)
-                }
-            })
-            
-            
-            for audioSource in audioSources
-            {
-                playSoundActions.append(SCNAction.playAudioSource(audioSource, waitForCompletion: false))
-            }
-        }
-
     }
     
     
@@ -225,13 +202,8 @@ class DiceScene: SCNScene
             node.runAction(action)
         }
         
-        if #available(iOS 9.0, *) {
-            let ctRoll = Game.shared.diceNum.rawValue-player.diceHeld.count
-            let playSoundAction = playSoundActions[ctRoll-1]
-
-            let cameraNode = rootNode.childNodeWithName("camera", recursively: false)
-            cameraNode?.runAction(playSoundAction)
-        }
+        let ctRoll = Game.shared.diceNum.rawValue-player.diceHeld.count
+        audioPlayers[ctRoll-1].play()
         
         dispatchToMainQueue(delay: 1.1) { 
             completion(result: values)

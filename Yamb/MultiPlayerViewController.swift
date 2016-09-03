@@ -9,7 +9,13 @@
 import UIKit
 import GameKit
 
-class MultiPlayerViewController: UIViewController {
+class MultiPlayerViewController: UIViewController
+{
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didFindTurnBasedMatch), name: NotificationName.didFindTurnBasedMatch, object: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +46,18 @@ class MultiPlayerViewController: UIViewController {
     
     @IBAction func localMatch(sender: AnyObject)
     {
-        Game.shared.start([(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
+        Game.shared.start(GameType.LocalMultiplayer, playersDesc: [(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
     
     @IBAction func internetMatch(sender: AnyObject) {
         GameKitHelper.shared.findMatchWithMinPlayers(2, maxPlayers: 2, vc: self, delegate: self)
+    }
+    
+    func didFindTurnBasedMatch()
+    {
+        Game.shared.start(GameType.TurnBasedMultiplayer, playersDesc: [(id: "proba", diceMat: DiceMaterial.Yellow)])
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
 }
 

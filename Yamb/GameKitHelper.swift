@@ -75,6 +75,7 @@ extension GameKitHelper: GKTurnBasedMatchmakerViewControllerDelegate
         viewController.dismissViewControllerAnimated(true, completion: nil)
         print("did find match")
         currentMatch = match
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.didFindTurnBasedMatch, object: nil)
     }
     
     func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController) {
