@@ -279,11 +279,11 @@
                                     <constraint firstAttribute="width" constant="300" id="D1B-Ek-NVd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <state key="normal" title="Internet - turn by turn">
+                                <state key="normal" title="Internet - 15 min">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="internetMatch:" destination="KcI-sz-EiD" eventType="touchUpInside" id="mwh-wc-5mk"/>
+                                    <action selector="internetMatch15:" destination="KcI-sz-EiD" eventType="touchUpInside" id="mGg-P6-P7c"/>
                                 </connections>
                             </button>
                         </subviews>

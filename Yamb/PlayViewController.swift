@@ -15,8 +15,8 @@ class PlayViewController: UIViewController {
     
     
     
-    @IBOutlet weak var gameTableView: GameTableView!
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var gameTableView: GameTableView?
+    @IBOutlet weak var sceneView: SCNView?
     @IBOutlet private weak var rollBtn: UIButton!
     @IBOutlet weak var sumLbl: UILabel!
     @IBOutlet weak var sum1Lbl: UILabel!
@@ -36,7 +36,7 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        sceneView.scene = DiceScene.shared
+        sceneView?.scene = DiceScene.shared
         
         sumLbl.text = nil
         sumLbl.layer.borderWidth = 1
@@ -84,7 +84,7 @@ class PlayViewController: UIViewController {
     
     override func viewDidLayoutSubviews()
     {
-        gameTableView.updateFrames()
+        gameTableView?.updateFrames()
     }
     
     func onGameStateChanged(notification: NSNotification)
@@ -94,8 +94,8 @@ class PlayViewController: UIViewController {
     
     func refresh()
     {
-        gameTableView.updateValuesAndStates()
-        gameTableView.setNeedsDisplay()
+        gameTableView?.updateValuesAndStates()
+        gameTableView?.setNeedsDisplay()
         sumLbl.hidden = false
         sum1Lbl.hidden = Game.shared.players.count == 1
         
@@ -105,7 +105,8 @@ class PlayViewController: UIViewController {
         
         func endOfTurnText() -> String
         {
-            if Game.shared.players.count == 1
+            let gameType = Game.shared.gameType
+            if gameType == .SinglePlayer
             {
                 return lstr("1. roll")
             }

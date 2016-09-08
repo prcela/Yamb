@@ -118,14 +118,7 @@ class Game: NSObject, NSCoding
     
     func sendTurn()
     {
-        guard let currentMatch = GameKitHelper.shared.currentMatch else {return}
-        guard let currentIdx = currentMatch.participants?.indexOf(currentMatch.currentParticipant!) else {return}
-        guard let ctParticipants = currentMatch.participants?.count else {return}
-        let nextParticipant = currentMatch.participants![(currentIdx+1)%ctParticipants]
-        let turnData = "moj potez koji sam poslao".dataUsingEncoding(NSUTF8StringEncoding)!
-        currentMatch.endTurnWithNextParticipants([nextParticipant], turnTimeout: 60, matchData: turnData) { (error) in
-            print(error)
-        }
+        // ..... hm staro
     }
     
     // MARK: NSCoding

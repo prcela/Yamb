@@ -7,101 +7,108 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72FD02DCC20857196852766038595012 /* Pods-Yamb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C72A44C88515948DC11F94BB5AE6B43 /* Pods-Yamb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C76C005EF0CF2C53440DFE527B6D3C5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		FD7EA4CA9617F7F0639487B4F9AA7B30 /* Pods-Yamb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D2C5D09D1DA624A2430EF3EA717298 /* Pods-Yamb-dummy.m */; };
+		010391BF2D528F3A530DC1844D1BB6FD /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3026C36F9E26094F27C87FE2497E7 /* SSLSecurity.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2B06ECFB7E515A42F43AACA82A3B1574 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		2E64EE5072374F45E0715D77E7A4B701 /* Starscream-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA268B0D033D8358D5CC8C819094265 /* Starscream-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34CCDBA006DF536162DCAC33271AD7CC /* Starscream-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C8568F074664942370E585AA2180E5 /* Starscream-dummy.m */; };
+		3F56089653C2643CF7D82055E147947E /* Pods-Yamb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D2C5D09D1DA624A2430EF3EA717298 /* Pods-Yamb-dummy.m */; };
+		640F1435058B462118F8863055AFB27C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		9C5FDA70526C190A5391F1454F9A04E9 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4763DCA90084FB5E6D08B8553C896AFA /* WebSocket.swift */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F1DCCE940D86FBD5B65B93634C0FBD12 /* Pods-Yamb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C72A44C88515948DC11F94BB5AE6B43 /* Pods-Yamb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		88457DC07B356FF593A7D9764E72EC85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7BA37FF6F9114294CF54757CFE01937;
+			remoteInfo = Starscream;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		022D0F24109BA0A978BADCAF444E7078 /* Pods-Yamb-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Yamb-acknowledgements.plist"; sourceTree = "<group>"; };
-		0299CA4C0224C01D286E189BB7336B7C /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Sources/FIRInstanceID.h; sourceTree = "<group>"; };
 		06877182FD095A9296CC53279C98F0B0 /* Pods-Yamb-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Yamb-acknowledgements.markdown"; sourceTree = "<group>"; };
-		1099CEA1497EB47AF8CEE403C0DDD660 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
-		16F0B039D141E4A83D1C10E818C2D86E /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		17CF64575F5D273942043CDBFF2A75D0 /* FIRMessaging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRMessaging.h; path = Sources/FIRMessaging.h; sourceTree = "<group>"; };
-		1D04ECD573FB78E14087005D88B73FF7 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
+		0EC24D1A326443BC625AE4A77F6BDBFD /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		11C8568F074664942370E585AA2180E5 /* Starscream-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Starscream-dummy.m"; sourceTree = "<group>"; };
+		2352EA5E00763398DC0F45753DF39CD7 /* FIRMessaging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRMessaging.h; path = Sources/FIRMessaging.h; sourceTree = "<group>"; };
+		25B3026C36F9E26094F27C87FE2497E7 /* SSLSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SSLSecurity.swift; path = Source/SSLSecurity.swift; sourceTree = "<group>"; };
+		34A6EAFDA84357321150DB8CC4EFAF25 /* Starscream.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Starscream.modulemap; sourceTree = "<group>"; };
 		36D2C5D09D1DA624A2430EF3EA717298 /* Pods-Yamb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Yamb-dummy.m"; sourceTree = "<group>"; };
-		39D8EE28375EC747E6C2295FA8D5AE9E /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Analytics/Sources/Firebase.h; sourceTree = "<group>"; };
+		3CCA3735CB886900A0D49B53084C8DEB /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
 		3CD1A3A70CED5AD95394D9084E959986 /* Pods-Yamb.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Yamb.modulemap"; sourceTree = "<group>"; };
-		417CA0B9A6DE507C4A3B0C3F0FC598DE /* CBMoreAppsButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsButton.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsButton.h; sourceTree = "<group>"; };
-		5175B47A705D07686E232E8A23605D28 /* CBInPlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBInPlay.h; path = Chartboost.framework/Versions/A/Headers/CBInPlay.h; sourceTree = "<group>"; };
+		3FA821C52460DED3FA8D6510158E3363 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42519831C78DBF94A2966769C6B45DF2 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		4763DCA90084FB5E6D08B8553C896AFA /* WebSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WebSocket.swift; path = Source/WebSocket.swift; sourceTree = "<group>"; };
+		47C1ED686C86A5F4173AF0235E5FEAAB /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		59382AD60B8B1F44C663CBCB5F193001 /* CBMoreAppsButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsButton.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsButton.h; sourceTree = "<group>"; };
+		5BA268B0D033D8358D5CC8C819094265 /* Starscream-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-umbrella.h"; sourceTree = "<group>"; };
 		5C72A44C88515948DC11F94BB5AE6B43 /* Pods-Yamb-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Yamb-umbrella.h"; sourceTree = "<group>"; };
-		6347ACC8AF5266B325103B773DF47C52 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = Frameworks/frameworks/FirebaseMessaging.framework; sourceTree = "<group>"; };
+		60073C217491CF6E4E6134496FF8DE74 /* CBInPlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBInPlay.h; path = Chartboost.framework/Versions/A/Headers/CBInPlay.h; sourceTree = "<group>"; };
+		60BA8F9332AEDD2A75D2FAEDF52DA4AE /* Starscream-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-prefix.pch"; sourceTree = "<group>"; };
 		645DAFA09ECEFE7020C080AD09832B3D /* Pods-Yamb-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Yamb-frameworks.sh"; sourceTree = "<group>"; };
-		7EBE5A3ACEBA132875F55DA3D575D197 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		6BADF220230C50C8CF486656486109E6 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Sources/FIRInstanceID.h; sourceTree = "<group>"; };
+		77ECF3D057C70C49509F3761E82A3B22 /* Starscream.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Starscream.xcconfig; sourceTree = "<group>"; };
+		78F678630185A8D509ED87B495204B4F /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = Frameworks/frameworks/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
+		7FEB0055B7929443C9D94E09C582070D /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Analytics/Sources/Firebase.h; sourceTree = "<group>"; };
 		84336948CD143783C85D9F35DA2D8B46 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D9169CE6B1DD14F77752659D6C99DB9 /* GoogleIPhoneUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleIPhoneUtilities.framework; path = Frameworks/GoogleIPhoneUtilities.framework; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C486192300FE00CAAF0A1A4C54B26F5D /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
-		C8549D6E21115DB7635EFC283BD2E763 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		994DB87D0F3D37DC9E34B184D4AE5C58 /* Pods_Yamb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yamb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0FB34EC43A53ED6ABED4E85E71EDE78 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
+		A13577C00613809B7A83FB77663CC270 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
+		A6E8803F7F8E47206E9EB804A030135D /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A87ECD22CCF925BD2EE2432A60CCD1AD /* CBMoreAppsBadge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsBadge.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsBadge.h; sourceTree = "<group>"; };
+		C9430F900BD0744377F0AA4260E1525C /* Chartboost.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Chartboost.h; path = Chartboost.framework/Versions/A/Headers/Chartboost.h; sourceTree = "<group>"; };
 		CC95405C2661541D607E2F060A8DA288 /* Pods-Yamb-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Yamb-resources.sh"; sourceTree = "<group>"; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CFB37777BF23C42517CC5152644A464A /* Pods-Yamb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Yamb.release.xcconfig"; sourceTree = "<group>"; };
-		D29FD56D95A944FD11A4B469AB7912D0 /* CBMoreAppsBadge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsBadge.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsBadge.h; sourceTree = "<group>"; };
 		D6E8AEF406B5BCDF58A46825D3E1CF6F /* Pods-Yamb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Yamb.debug.xcconfig"; sourceTree = "<group>"; };
-		EA9F8AB3DE2B273B80968C4391578FFA /* Pods_Yamb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yamb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4A7122108B45C2DA858A6406E5676E1 /* CBAnalytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBAnalytics.h; path = Chartboost.framework/Versions/A/Headers/CBAnalytics.h; sourceTree = "<group>"; };
-		F62E634AD3116120E4F7AB8766532C84 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = Frameworks/frameworks/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
-		FDCEAEAE7842C4DCD1420D2148DEF6E7 /* Chartboost.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Chartboost.h; path = Chartboost.framework/Versions/A/Headers/Chartboost.h; sourceTree = "<group>"; };
+		DC54AFC5D2E2E2705AB6DF00F72BAED2 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = Frameworks/frameworks/FirebaseMessaging.framework; sourceTree = "<group>"; };
+		DD0ED7D1D56F8F9DB40599156B950DC6 /* CBAnalytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBAnalytics.h; path = Chartboost.framework/Versions/A/Headers/CBAnalytics.h; sourceTree = "<group>"; };
+		ECB90DB858E4DC545DB6F2C58035CCBF /* GoogleIPhoneUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleIPhoneUtilities.framework; path = Frameworks/GoogleIPhoneUtilities.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5ADB55B53445C4BF41AB6162BD1B0DA8 /* Frameworks */ = {
+		318A6B9E9615E31262FF96569F3BB980 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C76C005EF0CF2C53440DFE527B6D3C5F /* Foundation.framework in Frameworks */,
+				2B06ECFB7E515A42F43AACA82A3B1574 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F7E82414A9061FDCFF4A8792DF1B534 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				640F1435058B462118F8863055AFB27C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		057AE078F85ABFF870FE85E958ABB5D4 /* Firebase */ = {
+		0A73C52E3844093EA398FE717138A8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6922DEE5B5C445EEA5D19E8786ED1143 /* Analytics */,
-			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
-		0A3AB92D0D8896E2A614B62D03850120 /* FirebaseMessaging */ = {
-			isa = PBXGroup;
-			children = (
-				17CF64575F5D273942043CDBFF2A75D0 /* FIRMessaging.h */,
-				4A440463A860F3694D9AE31EE0160AF9 /* Frameworks */,
-			);
-			path = FirebaseMessaging;
-			sourceTree = "<group>";
-		};
-		0B1FCC798AE3A8A4BBBAA8F6E58A617B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C8549D6E21115DB7635EFC283BD2E763 /* FirebaseInstanceID.framework */,
+				42519831C78DBF94A2966769C6B45DF2 /* GoogleSymbolUtilities.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		19AC78FF91256D031007EE0AE8B82319 /* Frameworks */ = {
+		272D2CA0E556CD0AC8A067AF47CB213B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C486192300FE00CAAF0A1A4C54B26F5D /* GoogleUtilities.framework */,
+				0EC24D1A326443BC625AE4A77F6BDBFD /* FirebaseAnalytics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		244561FCDB356CD5C61E7B1C57FF974B /* FirebaseAnalytics */ = {
+		2770D04C191F72C5B52AE8A7BD96C80F /* GoogleInterchangeUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				99209F1E79632FDF043ED857A159D6F9 /* Frameworks */,
-			);
-			path = FirebaseAnalytics;
-			sourceTree = "<group>";
-		};
-		3AA2FCAB7F31A6842D60CA9975587361 /* GoogleInterchangeUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				584130F98A80ED51C64AA66B92220AF4 /* Frameworks */,
+				4E3745C2E8BD3F76AB00D25BDB88C79F /* Frameworks */,
 			);
 			path = GoogleInterchangeUtilities;
 			sourceTree = "<group>";
@@ -114,42 +121,48 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		4635FE95B530F3C310A0E73D224D95F5 /* Frameworks */ = {
+		3E020F284A4D88AF1441396ED68C332C /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				F62E634AD3116120E4F7AB8766532C84 /* FirebaseRemoteConfig.framework */,
+				75E8DBA1DDD16F728769E81856A8C7FF /* Analytics */,
 			);
-			name = Frameworks;
+			path = Firebase;
 			sourceTree = "<group>";
 		};
-		4863903324858EB8EC274667FAA3D454 /* Products */ = {
+		467E2B64B1BD9D80CCF11209873C1512 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA9F8AB3DE2B273B80968C4391578FFA /* Pods_Yamb.framework */,
+				994DB87D0F3D37DC9E34B184D4AE5C58 /* Pods_Yamb.framework */,
+				A6E8803F7F8E47206E9EB804A030135D /* Starscream.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4A440463A860F3694D9AE31EE0160AF9 /* Frameworks */ = {
+		4E3745C2E8BD3F76AB00D25BDB88C79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6347ACC8AF5266B325103B773DF47C52 /* FirebaseMessaging.framework */,
+				47C1ED686C86A5F4173AF0235E5FEAAB /* GoogleInterchangeUtilities.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4AB118897D894338D923498E56C89481 /* FirebaseRemoteConfig */ = {
+		50BED561581D3B0CB590F02957A30EA4 /* ChartboostSDK */ = {
 			isa = PBXGroup;
 			children = (
-				4635FE95B530F3C310A0E73D224D95F5 /* Frameworks */,
+				DD0ED7D1D56F8F9DB40599156B950DC6 /* CBAnalytics.h */,
+				60073C217491CF6E4E6134496FF8DE74 /* CBInPlay.h */,
+				A87ECD22CCF925BD2EE2432A60CCD1AD /* CBMoreAppsBadge.h */,
+				59382AD60B8B1F44C663CBCB5F193001 /* CBMoreAppsButton.h */,
+				C9430F900BD0744377F0AA4260E1525C /* Chartboost.h */,
+				B78883E1024D4ACB5F6A32E250253D98 /* Frameworks */,
 			);
-			path = FirebaseRemoteConfig;
+			path = ChartboostSDK;
 			sourceTree = "<group>";
 		};
-		584130F98A80ED51C64AA66B92220AF4 /* Frameworks */ = {
+		55E16B166D2E028C74E1ECFC71CFED99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7EBE5A3ACEBA132875F55DA3D575D197 /* GoogleInterchangeUtilities.framework */,
+				78F678630185A8D509ED87B495204B4F /* FirebaseRemoteConfig.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,28 +175,39 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		6922DEE5B5C445EEA5D19E8786ED1143 /* Analytics */ = {
+		5FB401C18CB5FF46F65ED626B72C74CE /* FirebaseMessaging */ = {
 			isa = PBXGroup;
 			children = (
-				39D8EE28375EC747E6C2295FA8D5AE9E /* Firebase.h */,
+				2352EA5E00763398DC0F45753DF39CD7 /* FIRMessaging.h */,
+				C4BFDB7217573FFB2210970F4FCC032D /* Frameworks */,
+			);
+			path = FirebaseMessaging;
+			sourceTree = "<group>";
+		};
+		75E8DBA1DDD16F728769E81856A8C7FF /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				7FEB0055B7929443C9D94E09C582070D /* Firebase.h */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
 		};
-		6B121625BE83AF3FE48CF52C13656BD0 /* GoogleSymbolUtilities */ = {
+		7AE1054F676E92E21E448254902F24D3 /* FirebaseRemoteConfig */ = {
 			isa = PBXGroup;
 			children = (
-				CBEA7718FB75F8FC02B1E6D166EC5631 /* Frameworks */,
+				55E16B166D2E028C74E1ECFC71CFED99 /* Frameworks */,
 			);
-			path = GoogleSymbolUtilities;
+			path = FirebaseRemoteConfig;
 			sourceTree = "<group>";
 		};
-		6C75BCC329411D6561541A4B22C17850 /* Frameworks */ = {
+		7B665228D63482E5D374ED9420924618 /* Starscream */ = {
 			isa = PBXGroup;
 			children = (
-				8D9169CE6B1DD14F77752659D6C99DB9 /* GoogleIPhoneUtilities.framework */,
+				25B3026C36F9E26094F27C87FE2497E7 /* SSLSecurity.swift */,
+				4763DCA90084FB5E6D08B8553C896AFA /* WebSocket.swift */,
+				C9C16BE7613854B70822CA8AA5B39730 /* Support Files */,
 			);
-			name = Frameworks;
+			path = Starscream;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -191,24 +215,41 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				E55071FCA4400F48C4EC4E08F2FA9AA5 /* Pods */,
-				4863903324858EB8EC274667FAA3D454 /* Products */,
+				BB366280868E5B00806CA1133E85EC3F /* Pods */,
+				467E2B64B1BD9D80CCF11209873C1512 /* Products */,
 				5C8DF26522F1468C13DB7E51339E7494 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		99209F1E79632FDF043ED857A159D6F9 /* Frameworks */ = {
+		8702B1704460F112DC1C899B6E59AADA /* GoogleSymbolUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				16F0B039D141E4A83D1C10E818C2D86E /* FirebaseAnalytics.framework */,
+				0A73C52E3844093EA398FE717138A8CE /* Frameworks */,
 			);
-			name = Frameworks;
+			path = GoogleSymbolUtilities;
 			sourceTree = "<group>";
 		};
-		9C2DDB2C6BC42A3D1DC62BC86F14F72B /* GoogleIPhoneUtilities */ = {
+		99282D065C1A7BC01EFF1A916028330A /* FirebaseInstanceID */ = {
 			isa = PBXGroup;
 			children = (
-				6C75BCC329411D6561541A4B22C17850 /* Frameworks */,
+				6BADF220230C50C8CF486656486109E6 /* FIRInstanceID.h */,
+				BB5EE72D18D31D8E8DEFC8D7285F0FC9 /* Frameworks */,
+			);
+			path = FirebaseInstanceID;
+			sourceTree = "<group>";
+		};
+		A832DDFFCF66251A31FFD81DAF1A28CE /* FirebaseAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				272D2CA0E556CD0AC8A067AF47CB213B /* Frameworks */,
+			);
+			path = FirebaseAnalytics;
+			sourceTree = "<group>";
+		};
+		B66B121A6CC6E46C7C859BEA37A00D09 /* GoogleIPhoneUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				F60BA5BB72278C2EE6EF6624772DB87B /* Frameworks */,
 			);
 			path = GoogleIPhoneUtilities;
 			sourceTree = "<group>";
@@ -231,6 +272,40 @@
 			path = "Target Support Files/Pods-Yamb";
 			sourceTree = "<group>";
 		};
+		B78883E1024D4ACB5F6A32E250253D98 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A13577C00613809B7A83FB77663CC270 /* Chartboost.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB366280868E5B00806CA1133E85EC3F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				50BED561581D3B0CB590F02957A30EA4 /* ChartboostSDK */,
+				3E020F284A4D88AF1441396ED68C332C /* Firebase */,
+				A832DDFFCF66251A31FFD81DAF1A28CE /* FirebaseAnalytics */,
+				99282D065C1A7BC01EFF1A916028330A /* FirebaseInstanceID */,
+				5FB401C18CB5FF46F65ED626B72C74CE /* FirebaseMessaging */,
+				7AE1054F676E92E21E448254902F24D3 /* FirebaseRemoteConfig */,
+				2770D04C191F72C5B52AE8A7BD96C80F /* GoogleInterchangeUtilities */,
+				B66B121A6CC6E46C7C859BEA37A00D09 /* GoogleIPhoneUtilities */,
+				8702B1704460F112DC1C899B6E59AADA /* GoogleSymbolUtilities */,
+				F39FC1883D87B3CE4799394EB78D1773 /* GoogleUtilities */,
+				7B665228D63482E5D374ED9420924618 /* Starscream */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BB5EE72D18D31D8E8DEFC8D7285F0FC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CCA3735CB886900A0D49B53084C8DEB /* FirebaseInstanceID.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,98 +314,107 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C2A1ED97325534A63C797B72423C5A47 /* GoogleUtilities */ = {
+		C4BFDB7217573FFB2210970F4FCC032D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				19AC78FF91256D031007EE0AE8B82319 /* Frameworks */,
+				DC54AFC5D2E2E2705AB6DF00F72BAED2 /* FirebaseMessaging.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9C16BE7613854B70822CA8AA5B39730 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3FA821C52460DED3FA8D6510158E3363 /* Info.plist */,
+				34A6EAFDA84357321150DB8CC4EFAF25 /* Starscream.modulemap */,
+				77ECF3D057C70C49509F3761E82A3B22 /* Starscream.xcconfig */,
+				11C8568F074664942370E585AA2180E5 /* Starscream-dummy.m */,
+				60BA8F9332AEDD2A75D2FAEDF52DA4AE /* Starscream-prefix.pch */,
+				5BA268B0D033D8358D5CC8C819094265 /* Starscream-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Starscream";
+			sourceTree = "<group>";
+		};
+		EEA3C3D19996559EB24005CD01BC841A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0FB34EC43A53ED6ABED4E85E71EDE78 /* GoogleUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F39FC1883D87B3CE4799394EB78D1773 /* GoogleUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				EEA3C3D19996559EB24005CD01BC841A /* Frameworks */,
 			);
 			path = GoogleUtilities;
 			sourceTree = "<group>";
 		};
-		C3236FD8B7BB313A6B9260A3A46340F6 /* ChartboostSDK */ = {
+		F60BA5BB72278C2EE6EF6624772DB87B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4A7122108B45C2DA858A6406E5676E1 /* CBAnalytics.h */,
-				5175B47A705D07686E232E8A23605D28 /* CBInPlay.h */,
-				D29FD56D95A944FD11A4B469AB7912D0 /* CBMoreAppsBadge.h */,
-				417CA0B9A6DE507C4A3B0C3F0FC598DE /* CBMoreAppsButton.h */,
-				FDCEAEAE7842C4DCD1420D2148DEF6E7 /* Chartboost.h */,
-				C36F99018B06896EE4697B8FE5D78A13 /* Frameworks */,
-			);
-			path = ChartboostSDK;
-			sourceTree = "<group>";
-		};
-		C36F99018B06896EE4697B8FE5D78A13 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1D04ECD573FB78E14087005D88B73FF7 /* Chartboost.framework */,
+				ECB90DB858E4DC545DB6F2C58035CCBF /* GoogleIPhoneUtilities.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CBEA7718FB75F8FC02B1E6D166EC5631 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1099CEA1497EB47AF8CEE403C0DDD660 /* GoogleSymbolUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D7174BF605B52FBDCF502F860E6A2F78 /* FirebaseInstanceID */ = {
-			isa = PBXGroup;
-			children = (
-				0299CA4C0224C01D286E189BB7336B7C /* FIRInstanceID.h */,
-				0B1FCC798AE3A8A4BBBAA8F6E58A617B /* Frameworks */,
-			);
-			path = FirebaseInstanceID;
-			sourceTree = "<group>";
-		};
-		E55071FCA4400F48C4EC4E08F2FA9AA5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C3236FD8B7BB313A6B9260A3A46340F6 /* ChartboostSDK */,
-				057AE078F85ABFF870FE85E958ABB5D4 /* Firebase */,
-				244561FCDB356CD5C61E7B1C57FF974B /* FirebaseAnalytics */,
-				D7174BF605B52FBDCF502F860E6A2F78 /* FirebaseInstanceID */,
-				0A3AB92D0D8896E2A614B62D03850120 /* FirebaseMessaging */,
-				4AB118897D894338D923498E56C89481 /* FirebaseRemoteConfig */,
-				3AA2FCAB7F31A6842D60CA9975587361 /* GoogleInterchangeUtilities */,
-				9C2DDB2C6BC42A3D1DC62BC86F14F72B /* GoogleIPhoneUtilities */,
-				6B121625BE83AF3FE48CF52C13656BD0 /* GoogleSymbolUtilities */,
-				C2A1ED97325534A63C797B72423C5A47 /* GoogleUtilities */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		7E38090C333FB25FA2D9F5BA2FE22208 /* Headers */ = {
+		72E4E0DBCCFA9D136D4123AFD6635F22 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72FD02DCC20857196852766038595012 /* Pods-Yamb-umbrella.h in Headers */,
+				F1DCCE940D86FBD5B65B93634C0FBD12 /* Pods-Yamb-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA815E4B28B34356AF03337E4319FE01 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E64EE5072374F45E0715D77E7A4B701 /* Starscream-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		829B42A3C55D2BAFB0F6F649AEE0E40B /* Pods-Yamb */ = {
+		A7BA37FF6F9114294CF54757CFE01937 /* Starscream */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F2626694B70EA0E7F1B1BDFEC7BEB72 /* Build configuration list for PBXNativeTarget "Pods-Yamb" */;
+			buildConfigurationList = C314E9A9A4828A21B9F25451131D9A21 /* Build configuration list for PBXNativeTarget "Starscream" */;
 			buildPhases = (
-				2E488FD1963886A8AEC4A8DCF9B84675 /* Sources */,
-				5ADB55B53445C4BF41AB6162BD1B0DA8 /* Frameworks */,
-				7E38090C333FB25FA2D9F5BA2FE22208 /* Headers */,
+				95E9385C0A930E0A0351C00D9EEEC1ED /* Sources */,
+				318A6B9E9615E31262FF96569F3BB980 /* Frameworks */,
+				DA815E4B28B34356AF03337E4319FE01 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
+			name = Starscream;
+			productName = Starscream;
+			productReference = A6E8803F7F8E47206E9EB804A030135D /* Starscream.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CAF874597C0E0EC2E6F16FBE9EFE85A5 /* Pods-Yamb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA618753CE5B571BFD2482BC85338859 /* Build configuration list for PBXNativeTarget "Pods-Yamb" */;
+			buildPhases = (
+				AC8B23135534BE9315DD6B36524C0A58 /* Sources */,
+				4F7E82414A9061FDCFF4A8792DF1B534 /* Frameworks */,
+				72E4E0DBCCFA9D136D4123AFD6635F22 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9300039147B338E41704AFEBFE58266C /* PBXTargetDependency */,
+			);
 			name = "Pods-Yamb";
 			productName = "Pods-Yamb";
-			productReference = EA9F8AB3DE2B273B80968C4391578FFA /* Pods_Yamb.framework */;
+			productReference = 994DB87D0F3D37DC9E34B184D4AE5C58 /* Pods_Yamb.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -350,60 +434,47 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 4863903324858EB8EC274667FAA3D454 /* Products */;
+			productRefGroup = 467E2B64B1BD9D80CCF11209873C1512 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				829B42A3C55D2BAFB0F6F649AEE0E40B /* Pods-Yamb */,
+				CAF874597C0E0EC2E6F16FBE9EFE85A5 /* Pods-Yamb */,
+				A7BA37FF6F9114294CF54757CFE01937 /* Starscream */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2E488FD1963886A8AEC4A8DCF9B84675 /* Sources */ = {
+		95E9385C0A930E0A0351C00D9EEEC1ED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD7EA4CA9617F7F0639487B4F9AA7B30 /* Pods-Yamb-dummy.m in Sources */,
+				010391BF2D528F3A530DC1844D1BB6FD /* SSLSecurity.swift in Sources */,
+				34CCDBA006DF536162DCAC33271AD7CC /* Starscream-dummy.m in Sources */,
+				9C5FDA70526C190A5391F1454F9A04E9 /* WebSocket.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC8B23135534BE9315DD6B36524C0A58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F56089653C2643CF7D82055E147947E /* Pods-Yamb-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin XCBuildConfiguration section */
-		3580374F6910C5E5671D8D4EADB61516 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFB37777BF23C42517CC5152644A464A /* Pods-Yamb.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Yamb/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Yamb/Pods-Yamb.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Yamb;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
+/* Begin PBXTargetDependency section */
+		9300039147B338E41704AFEBFE58266C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Starscream;
+			target = A7BA37FF6F9114294CF54757CFE01937 /* Starscream */;
+			targetProxy = 88457DC07B356FF593A7D9764E72EC85 /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
 		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -484,7 +555,70 @@
 			};
 			name = Release;
 		};
-		DCF2F0A475FB74A9310744859A189D8E /* Debug */ = {
+		BAB77995BE67285519C6B6FF082482DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFB37777BF23C42517CC5152644A464A /* Pods-Yamb.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Yamb/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Yamb/Pods-Yamb.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Yamb;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D3E0A364484334242E9998D2A036ABBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77ECF3D057C70C49509F3761E82A3B22 /* Starscream.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Starscream/Starscream-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Starscream/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Starscream/Starscream.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Starscream;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D856950A9D54FD0A7B4C378072839539 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6E8AEF406B5BCDF58A46825D3E1CF6F /* Pods-Yamb.debug.xcconfig */;
 			buildSettings = {
@@ -511,11 +645,41 @@
 				PRODUCT_NAME = Pods_Yamb;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		F3D03364CF0A5ECB5A6EBE68E8CD89C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77ECF3D057C70C49509F3761E82A3B22 /* Starscream.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Starscream/Starscream-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Starscream/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Starscream/Starscream.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Starscream;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -529,11 +693,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F2626694B70EA0E7F1B1BDFEC7BEB72 /* Build configuration list for PBXNativeTarget "Pods-Yamb" */ = {
+		C314E9A9A4828A21B9F25451131D9A21 /* Build configuration list for PBXNativeTarget "Starscream" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DCF2F0A475FB74A9310744859A189D8E /* Debug */,
-				3580374F6910C5E5671D8D4EADB61516 /* Release */,
+				D3E0A364484334242E9998D2A036ABBD /* Debug */,
+				F3D03364CF0A5ECB5A6EBE68E8CD89C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA618753CE5B571BFD2482BC85338859 /* Build configuration list for PBXNativeTarget "Pods-Yamb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D856950A9D54FD0A7B4C378072839539 /* Debug */,
+				BAB77995BE67285519C6B6FF082482DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

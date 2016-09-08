@@ -12,5 +12,6 @@ pod 'Firebase/Core'
 pod 'Firebase/RemoteConfig'
 pod 'Firebase/Messaging'
 pod 'ChartboostSDK'
+pod 'Starscream', '~> 1.1.3'
 
 end
