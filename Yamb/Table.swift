@@ -162,8 +162,8 @@ class Table: NSObject, NSCoding
             {
                 if let
                     maxValue = values[pos.colIdx][TableRow.Max.rawValue],
-                    minValue = values[pos.colIdx][TableRow.Min.rawValue],
-                    oneValue = values[pos.colIdx][TableRow.One.rawValue]
+                    let minValue = values[pos.colIdx][TableRow.Min.rawValue],
+                    let oneValue = values[pos.colIdx][TableRow.One.rawValue]
                 {
                     return (maxValue-minValue)*oneValue
                 }

@@ -11,7 +11,7 @@
 /* Class = "UIButton"; normalTitle = "Najbolji rezultati"; ObjectID = "MeS-bc-DLr"; */
 "MeS-bc-DLr.normalTitle" = "Najbolji rezultati";
 
-/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "OvI-0e-qLl"; */
+/* Class = "UIButton"; normalTitle = "Kreni"; ObjectID = "OvI-0e-qLl"; */
 "OvI-0e-qLl.normalTitle" = "Kreni";
 
 /* Class = "UIButton"; normalTitle = "Reci prijateljima"; ObjectID = "Qnf-Cy-dxw"; */
@@ -49,6 +49,9 @@
 
 /* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "uHe-Q8-Vdx"; */
 "uHe-Q8-Vdx.normalTitle" = "Natrag";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "vlU-1m-0Ct"; */
+"vlU-1m-0Ct.text" = "Status";
 
 /* Class = "UIButton"; normalTitle = "Svi igraju na ovom uređaju"; ObjectID = "wpV-Rk-wos"; */
 "wpV-Rk-wos.normalTitle" = "Svi igraju na ovom uređaju";

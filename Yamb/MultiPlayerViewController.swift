@@ -47,10 +47,6 @@ class MultiPlayerViewController: UIViewController
         Game.shared.start(GameType.LocalMultiplayer, playersDesc: [(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
-    
-    @IBAction func internetMatch15(sender: AnyObject) {
-        // TODO...
-    }
-    
+        
 }
 

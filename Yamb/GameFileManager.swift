@@ -13,7 +13,7 @@ class GameFileManager
     class func filePathForGameName(gameName: String) -> String
     {
         let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: [.UserDomainMask]).first!
-        let filePath = docURL.URLByAppendingPathComponent(gameName).path!
+        let filePath = docURL.URLByAppendingPathComponent(gameName)!.path!
         return filePath
     }
     

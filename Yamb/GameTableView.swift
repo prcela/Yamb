@@ -21,7 +21,7 @@ class GameTableView: UIView
         let ctColumns = Game.shared.ctColumns
         let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns)-0.5)
         let rowHeight = round(CGRectGetHeight(rect)/16-0.5)
-        let ctx = UIGraphicsGetCurrentContext()
+        guard let ctx = UIGraphicsGetCurrentContext() else {return}
         
         // width and height aligned to pixel
         let width = colWidth*CGFloat(ctColumns)
