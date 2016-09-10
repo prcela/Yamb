@@ -45,7 +45,7 @@ extension Match15ViewController: WebSocketDelegate
     func websocketDidConnect(socket: WebSocket) {
         print("didConnect")
         
-        let payload = ["gc_id":"kreso"]
+        let payload = ["msg_func":"join","gc_id":"1","alias":"kreso"]
         let data = try! NSJSONSerialization.dataWithJSONObject(payload, options: [])
         socket.writeData(data)
     }
@@ -60,5 +60,16 @@ extension Match15ViewController: WebSocketDelegate
     
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         print("websocketDidReceiveMessage: \(text)")
+        
+        guard let data = text.dataUsingEncoding(NSUTF8StringEncoding) else {return}
+        let json = JSON(data: data)
+        
+        switch MessageFunc(rawValue: json["msg_func"].stringValue)!
+        {
+        case .Join:
+            print("joined")
+        default:
+            break
+        }
     }
 }

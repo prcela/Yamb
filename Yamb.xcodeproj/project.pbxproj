@@ -14,6 +14,8 @@
 		9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */; };
 		972B1B9A1D83C9B600010F5F /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1B971D83C9B600010F5F /* SSLSecurity.swift */; };
 		972B1B9B1D83C9B600010F5F /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1B981D83C9B600010F5F /* WebSocket.swift */; };
+		972B1BC71D83DECC00010F5F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */; };
+		972B1BC91D83DFD700010F5F /* MessageFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1BC81D83DFD700010F5F /* MessageFunc.swift */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
 		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
 		974712E61D78495F00BB2AA9 /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 974712E51D78495F00BB2AA9 /* rules */; };
@@ -137,6 +139,8 @@
 		9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerViewController.swift; sourceTree = "<group>"; };
 		972B1B971D83C9B600010F5F /* SSLSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
 		972B1B981D83C9B600010F5F /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		972B1BC81D83DFD700010F5F /* MessageFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageFunc.swift; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
 		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		974712E51D78495F00BB2AA9 /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Yamb/Resources/rules; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 		977D97EA1CAEA35700AD9EF8 = {
 			isa = PBXGroup;
 			children = (
+				972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */,
 				972B1B991D83C9B600010F5F /* Starscream */,
 				977D97F51CAEA35700AD9EF8 /* Yamb */,
 				972498121D72C7A700CDC6B7 /* Locale */,
@@ -342,6 +347,7 @@
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
 				974712E11D778CA500BB2AA9 /* GameFileManager.swift */,
+				972B1BC81D83DFD700010F5F /* MessageFunc.swift */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -677,12 +683,14 @@
 				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
 				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,
 				972B1B9B1D83C9B600010F5F /* WebSocket.swift in Sources */,
+				972B1BC91D83DFD700010F5F /* MessageFunc.swift in Sources */,
 				97C060051D757A7C00A680C1 /* Player.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
 				97C4EF5A1D67DD0A00A1E7CD /* UIColorExt.swift in Sources */,
 				9787AECF1D6330E3001640F7 /* Game.swift in Sources */,
+				972B1BC71D83DECC00010F5F /* SwiftyJSON.swift in Sources */,
 				9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */,
 				97C4EF621D69D2A000A1E7CD /* Skin.swift in Sources */,
 				97C4EF601D699D7B00A1E7CD /* UIImageExt.swift in Sources */,
