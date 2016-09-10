@@ -36,6 +36,11 @@ class GameKitHelper: NSObject
                 self.authenticated = localPlayer.authenticated
                 self.authController = nil
                 
+                if self.authenticated
+                {
+                    WsAPI.shared.connect()
+                }
+                
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)
                 FIRAnalytics.setUserID(localPlayer.playerID)
                 FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")

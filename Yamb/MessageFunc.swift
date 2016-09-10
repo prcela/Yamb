@@ -13,4 +13,5 @@ enum MessageFunc: String
     case Join = "join"
     case Match = "match"
     case Message = "message"
+    case RoomInfo = "room_info"
 }
