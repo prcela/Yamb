@@ -11,6 +11,6 @@ import Foundation
 class Room
 {
     static let main = Room()
-    var players = [(gcId: String, alias: String)]()
+    var players = [(id: String, alias: String)]()
     
 }

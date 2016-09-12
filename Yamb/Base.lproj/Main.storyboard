@@ -302,27 +302,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlU-1m-0Ct">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="GXp-w7-vJw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gt7-ev-eHZ">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8FG-ed-UyZ">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8FG-ed-UyZ" id="aFm-90-pYv">
+                                            <frame key="frameInset" width="343" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lG-Wk-bB7">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="BGO-p0-Otu"/>
+                                    <constraint firstAttribute="width" constant="300" id="TAB-mC-Wdc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <state key="normal" title="New game">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newGame:" destination="V7M-Hp-OMl" eventType="touchUpInside" id="uXN-Tz-n5V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Gt7-ev-eHZ" secondAttribute="trailing" id="CfJ-7P-gxJ"/>
-                            <constraint firstItem="vlU-1m-0Ct" firstAttribute="top" secondItem="RRD-Ad-GZ1" secondAttribute="bottom" id="HwT-Kw-6VP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vlU-1m-0Ct" secondAttribute="trailing" id="OdO-Yf-Ao2"/>
-                            <constraint firstItem="Gt7-ev-eHZ" firstAttribute="top" secondItem="vlU-1m-0Ct" secondAttribute="bottom" constant="8" id="UiL-jf-iwX"/>
+                            <constraint firstItem="0lG-Wk-bB7" firstAttribute="centerX" secondItem="va1-uJ-e0H" secondAttribute="centerX" id="HTc-sv-Pp6"/>
+                            <constraint firstItem="Gt7-ev-eHZ" firstAttribute="top" secondItem="0lG-Wk-bB7" secondAttribute="bottom" constant="23" id="HkZ-Fb-RES"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Gt7-ev-eHZ" secondAttribute="leading" id="acl-ta-YyF"/>
                             <constraint firstItem="Gdl-6O-tPP" firstAttribute="top" secondItem="Gt7-ev-eHZ" secondAttribute="bottom" id="duX-JP-cxt"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="vlU-1m-0Ct" secondAttribute="leading" id="gRW-q1-a4l"/>
+                            <constraint firstItem="0lG-Wk-bB7" firstAttribute="top" secondItem="RRD-Ad-GZ1" secondAttribute="bottom" constant="18" id="vBP-wZ-gS3"/>
                         </constraints>
                     </view>
                 </viewController>

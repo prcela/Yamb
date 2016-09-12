@@ -38,11 +38,13 @@ class GameKitHelper: NSObject
                 
                 if self.authenticated
                 {
-                    WsAPI.shared.connect()
+                    if let alias = localPlayer.alias
+                    {
+                        NSUserDefaults.standardUserDefaults().setObject(alias, forKey: Prefs.playerAlias)
+                    }
                 }
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)
-                FIRAnalytics.setUserID(localPlayer.playerID)
                 FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")
             }
         }

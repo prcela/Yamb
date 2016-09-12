@@ -10,7 +10,10 @@ import Foundation
 
 struct Prefs
 {
+    static let firstRun = "PrefsFirstRun"
     static let finishedOnce = "PrefFinishedOnce"
+    static let playerId = "PrefPlayerId"
+    static let playerAlias = "PrefPlayerAlias"
 }
 
 struct LeaderboardId

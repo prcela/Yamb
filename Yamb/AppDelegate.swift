@@ -17,14 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        
+        
         let prefs: [String:AnyObject] = [
+            Prefs.firstRun: true,
             Prefs.finishedOnce: false
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.registerDefaults(prefs)
+        
+        if defaults.boolForKey(Prefs.firstRun)
+        {
+            let rndPlayerId = String(arc4random())
+            let rndPlayerAlias = lstr("Player") + "_" + rndPlayerId
+            defaults.setBool(false, forKey: Prefs.firstRun)
+            defaults.setObject(rndPlayerId, forKey: Prefs.playerId)
+            defaults.setObject(rndPlayerAlias, forKey: Prefs.playerAlias)
+        }
                 
         FIRApp.configure()
+        FIRAnalytics.setUserID(defaults.stringForKey(Prefs.playerId)!)
         
         let settings: UIUserNotificationSettings =
             UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)

@@ -29,8 +29,10 @@ class WsAPI
     
     func joinToRoom()
     {
-        let localPlayer = GKLocalPlayer.localPlayer()
-        let json = JSON(["msg_func":"join","gc_id":localPlayer.playerID!,"alias":localPlayer.alias!])
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let playerAlias = defaults.stringForKey(Prefs.playerAlias)!
+        let json = JSON(["msg_func":"join","id":playerId,"alias":playerAlias])
         let data = try! json.rawData()
         socket.writeData(data)
     }
@@ -38,6 +40,13 @@ class WsAPI
     func roomInfo()
     {
         let json = JSON(["msg_func":"room_info"])
+        let data = try! json.rawData()
+        socket.writeData(data)
+    }
+    
+    func createMatch()
+    {
+        let json = JSON(["msg_func":"create_match"])
         let data = try! json.rawData()
         socket.writeData(data)
     }
@@ -75,9 +84,9 @@ extension WsAPI: WebSocketDelegate
             Room.main.players.removeAll()
             for p in players
             {
-                let gcId = p["gc_id"].stringValue
+                let id = p["id"].stringValue
                 let alias = p["alias"].stringValue
-                Room.main.players.append((gcId: gcId, alias: alias))
+                Room.main.players.append((id: id, alias: alias))
             }
             
         default:
