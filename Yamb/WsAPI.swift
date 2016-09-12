@@ -76,18 +76,43 @@ extension WsAPI: WebSocketDelegate
         
         switch MessageFunc(rawValue: json["msg_func"].stringValue)!
         {
+        
         case .Join:
             print("joined")
             roomInfo()
+        
         case .RoomInfo:
-            let players = json["players"].arrayValue
-            Room.main.players.removeAll()
-            for p in players
+            
+            Room.main.freePlayers.removeAll()
+            Room.main.matches.removeAll()
+            
+            let freePlayers = json["free_players"].arrayValue
+            for p in freePlayers
             {
-                let id = p["id"].stringValue
-                let alias = p["alias"].stringValue
-                Room.main.players.append((id: id, alias: alias))
+                let player = Player()
+                player.id = p["id"].stringValue
+                player.alias = p["alias"].stringValue
+                Room.main.freePlayers.append(player)
             }
+            
+            let matches = json["matches"].arrayValue
+            for m in matches
+            {
+                let match = Match()
+                match.id = m["id"].uIntValue
+                match.state = MatchState(rawValue: m["state"].stringValue)!
+                
+                let players = json["players"].arrayValue
+                for p in players
+                {
+                    let player = Player()
+                    player.id = p["id"].stringValue
+                    player.alias = p["alias"].stringValue
+                    match.players.append(player)
+                }
+                
+            }
+            
             
         default:
             break

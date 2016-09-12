@@ -62,6 +62,7 @@ enum InputState: Int
 class Player: NSObject, NSCoding
 {
     var id: String?
+    var alias: String?
     var diceMaterial = DiceMaterial.White
     var table = Table()
     var inputState = InputState.NotAllowed

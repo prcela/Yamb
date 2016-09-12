@@ -305,12 +305,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gt7-ev-eHZ">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8FG-ed-UyZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellId" textLabel="ihB-dA-Jpu" style="IBUITableViewCellStyleDefault" id="8FG-ed-UyZ">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8FG-ed-UyZ" id="aFm-90-pYv">
                                             <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ihB-dA-Jpu">
+                                                    <frame key="frameInset" minX="15" width="313" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -589,17 +598,17 @@ bacanje</string>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="gDZ-Rw-Azf"/>
-                                <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="8Fl-zn-r5b"/>
                                 <exclude reference="EAg-cA-CKP"/>
-                                <exclude reference="4Kr-nT-ta3"/>
                                 <exclude reference="8da-td-atd"/>
+                                <exclude reference="4Kr-nT-ta3"/>
+                                <exclude reference="yeJ-fv-Grm"/>
                                 <exclude reference="9ak-eA-Zje"/>
+                                <exclude reference="gDZ-Rw-Azf"/>
+                                <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="Edz-dU-LAI"/>
                                 <exclude reference="etN-Vn-lw4"/>
                                 <exclude reference="yCH-uS-Ujk"/>
-                                <exclude reference="yeJ-fv-Grm"/>
                             </mask>
                         </variation>
                     </view>

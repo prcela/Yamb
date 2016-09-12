@@ -11,6 +11,7 @@ import Foundation
 class Room
 {
     static let main = Room()
-    var players = [(id: String, alias: String)]()
+    var freePlayers = [Player]()
+    var matches = [Match]()
     
 }
