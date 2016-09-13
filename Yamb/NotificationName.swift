@@ -15,4 +15,5 @@ struct NotificationName
     static let authenticatedLocalPlayer = "Notification.AuthenticatedLocalPlayer"
     static let goToMainMenu = "Notification.goToMainMenu"
     static let alertForInput = "Notification.alertForInput"
+    static let onRoomInfo = "Notification.onRoomInfo"
 }

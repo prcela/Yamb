@@ -16,10 +16,12 @@ class WsAPI
     var socket: WebSocket
     
     init() {
-        socket = WebSocket(url: NSURL(string: "ws://192.168.5.10:8080/chat/")!)
+        let ipHome = "192.168.5.10"
+        let ipServer = "139.59.142.160"
+        let strURL = "ws://\(ipHome):8080/chat/"
+        socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
-        socket.connect()
     }
     
     func connect()
@@ -102,7 +104,7 @@ extension WsAPI: WebSocketDelegate
                 match.id = m["id"].uIntValue
                 match.state = MatchState(rawValue: m["state"].stringValue)!
                 
-                let players = json["players"].arrayValue
+                let players = m["players"].arrayValue
                 for p in players
                 {
                     let player = Player()
@@ -110,9 +112,14 @@ extension WsAPI: WebSocketDelegate
                     player.alias = p["alias"].stringValue
                     match.players.append(player)
                 }
-                
+                Room.main.matches.append(match)
             }
             
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onRoomInfo, object: nil)
+            
+        case .CreateMatch:
+            print("Match created")
+            roomInfo()
             
         default:
             break
