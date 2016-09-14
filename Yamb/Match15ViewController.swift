@@ -121,5 +121,13 @@ extension Match15ViewController: UITableViewDelegate
         {
             WsAPI.shared.createMatch()
         }
+        else if indexPath.section == 1
+        {
+            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
+                return match.state == .WaitingForPlayers
+            })
+            let match = filteredMatches[indexPath.row]
+            WsAPI.shared.joinToMatch(match.id)
+        }
     }
 }

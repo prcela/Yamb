@@ -17,8 +17,9 @@ class WsAPI
     
     init() {
         let ipHome = "192.168.5.10"
+        let ipWork = "10.0.21.221"
         let ipServer = "139.59.142.160"
-        let strURL = "ws://\(ipHome):8080/chat/"
+        let strURL = "ws://\(ipWork):8080/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -34,21 +35,31 @@ class WsAPI
         let defaults = NSUserDefaults.standardUserDefaults()
         let playerId = defaults.stringForKey(Prefs.playerId)!
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)!
-        let json = JSON(["msg_func":"join","id":playerId,"alias":playerAlias])
-        let data = try! json.rawData()
-        socket.writeData(data)
+        let json = JSON(["id":playerId,"alias":playerAlias])
+        send(.Join, json:json)
     }
     
     func roomInfo()
     {
-        let json = JSON(["msg_func":"room_info"])
-        let data = try! json.rawData()
-        socket.writeData(data)
+        send(.RoomInfo)
     }
     
     func createMatch()
     {
-        let json = JSON(["msg_func":"create_match"])
+        send(.CreateMatch)
+    }
+    
+    func joinToMatch(matchId: UInt)
+    {
+        let json = JSON(["match_id":matchId])
+        send(.JoinMatch, json: json)
+    }
+    
+    private func send(action: MessageFunc, json: JSON? = nil)
+    {
+        var json = json ?? JSON([:])
+        json["msg_func"].string = action.rawValue
+        print("Sending:\n\(json)")
         let data = try! json.rawData()
         socket.writeData(data)
     }
@@ -80,8 +91,10 @@ extension WsAPI: WebSocketDelegate
         {
         
         case .Join:
-            print("joined")
-            roomInfo()
+            print("some player joined")
+            
+        case .Disjoin:
+            print("someone disjoined")
         
         case .RoomInfo:
             
@@ -119,7 +132,6 @@ extension WsAPI: WebSocketDelegate
             
         case .CreateMatch:
             print("Match created")
-            roomInfo()
             
         default:
             break
