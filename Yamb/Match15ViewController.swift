@@ -15,7 +15,10 @@ class Match15ViewController: UIViewController
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(joinedMatch), name: NotificationName.joinedMatch, object: nil)
     }
     
     deinit {
@@ -32,6 +35,12 @@ class Match15ViewController: UIViewController
     func onRoomInfo()
     {
         tableView?.reloadData()
+    }
+    
+    func joinedMatch()
+    {
+        Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
+        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
 
     @IBAction func back(sender: AnyObject)
@@ -61,11 +70,20 @@ extension Match15ViewController: UITableViewDataSource
         return titles[section]
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         
         if section == 0
         {
-            return 1
+            // allow match creation for free players only
+            
+            if Room.main.freePlayers.contains({ (player) -> Bool in
+                return player.id == playerId
+            }) {
+                return 1
+            }
+            return 0
         }
         else if section == 1
         {
@@ -107,6 +125,16 @@ extension Match15ViewController: UITableViewDataSource
         {
             let player = Room.main.freePlayers[indexPath.row]
             cell.textLabel?.text = player.alias
+        }
+        else
+        {
+            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
+                return match.state == .Playing
+            })
+            let match = filteredMatches[indexPath.row]
+            let firstPlayer = match.players.first!
+            let lastPlayer = match.players.last!
+            cell.textLabel?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
         }
         
         return cell

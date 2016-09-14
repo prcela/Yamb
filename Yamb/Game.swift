@@ -25,7 +25,7 @@ enum GameType
 {
     case SinglePlayer
     case LocalMultiplayer
-    case TurnBasedMultiplayer
+    case OnlineMultiplayer
 }
 
 class Game: NSObject, NSCoding
@@ -72,7 +72,7 @@ class Game: NSObject, NSCoding
     
     func nextPlayer()
     {
-        if gameType == .TurnBasedMultiplayer
+        if gameType == .OnlineMultiplayer
         {
             sendTurn()
         }

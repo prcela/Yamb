@@ -16,4 +16,5 @@ struct NotificationName
     static let goToMainMenu = "Notification.goToMainMenu"
     static let alertForInput = "Notification.alertForInput"
     static let onRoomInfo = "Notification.onRoomInfo"
+    static let joinedMatch = "Notification.joinedMatch"
 }

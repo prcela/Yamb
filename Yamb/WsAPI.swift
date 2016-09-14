@@ -9,6 +9,10 @@
 import Foundation
 import GameKit
 
+private let ipHome = "192.168.5.10"
+private let ipWork = "10.0.21.221"
+private let ipServer = "139.59.142.160"
+
 class WsAPI
 {
     static let shared = WsAPI()
@@ -16,10 +20,8 @@ class WsAPI
     var socket: WebSocket
     
     init() {
-        let ipHome = "192.168.5.10"
-        let ipWork = "10.0.21.221"
-        let ipServer = "139.59.142.160"
-        let strURL = "ws://\(ipWork):8080/chat/"
+        
+        let strURL = "ws://\(ipHome):8080/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -132,6 +134,9 @@ extension WsAPI: WebSocketDelegate
             
         case .CreateMatch:
             print("Match created")
+            
+        case .JoinMatch:
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: nil)
             
         default:
             break
