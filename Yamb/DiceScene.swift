@@ -63,7 +63,7 @@ class DiceScene: SCNScene
         
         let light = SCNLight()
         light.type = SCNLightTypeSpot
-        light.color = Skin.defaultLightColor
+        light.color = Skin.blue.defaultLightColor
         
         let lightNode = SCNNode()
         lightNode.name = "light"

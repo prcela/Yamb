@@ -16,6 +16,9 @@ class GameTableView: UIView
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
+        
+        let skin = (Game.shared.idxPlayer == 0) ? Skin.blue : Skin.red
+        
         // Drawing code
         
         let ctColumns = Game.shared.ctColumns
@@ -70,7 +73,7 @@ class GameTableView: UIView
         
         if let pos = player.inputPos
         {
-            CGContextSetStrokeColorWithColor(ctx, UIColor.blueColor().CGColor)
+            CGContextSetStrokeColorWithColor(ctx, skin.strokeColor.CGColor)
             
             CGContextBeginPath(ctx)
             let x = CGFloat(pos.colIdx)*colWidth
@@ -113,7 +116,7 @@ class GameTableView: UIView
         func createLabelAt(rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight))
-            lbl.backgroundColor = Skin.labelBlueBackColor
+            lbl.backgroundColor = Skin.blue.labelBackColor
             lbl.text = text
             lbl.textColor = UIColor.whiteColor()
             lbl.textAlignment = .Center
@@ -132,12 +135,12 @@ class GameTableView: UIView
             btn.frame = CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight)
             
             btn.setTitle(text, forState: .Normal)
-            btn.setTitleColor(Skin.tintColor, forState: .Normal)
-            btn.setTitleColor(Skin.tintColor, forState: .Disabled)
+            btn.setTitleColor(Skin.blue.tintColor, forState: .Normal)
+            btn.setTitleColor(Skin.blue.tintColor, forState: .Disabled)
             btn.tag = rowIdx*ctColumns + colIdx
             btn.titleLabel?.font = UIFont(name: "Noteworthy", size: isSmallScreen() ? 15:18)
             btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
-            btn.setBackgroundImage(UIImage.fromColor(Skin.lightGrayColor), forState: .Normal)
+            btn.setBackgroundImage(UIImage.fromColor(Skin.blue.lightGrayColor), forState: .Normal)
             btn.setBackgroundImage(UIImage.fromColor(UIColor.whiteColor().colorWithAlphaComponent(0)), forState: .Disabled)
             addSubview(btn)
             return btn
@@ -170,7 +173,7 @@ class GameTableView: UIView
             {
                 let sumLbl = createLabelAt(row.rawValue, colIdx: colIdx, text: "")
                 sumLbl.font = UIFont(name: "Noteworthy-Bold", size: isSmallScreen() ? 15 : 18)
-                sumLbl.textColor = Skin.tintColor
+                sumLbl.textColor = Skin.blue.tintColor
             }
         }
         
@@ -179,6 +182,8 @@ class GameTableView: UIView
     
     func updateValuesAndStates()
     {
+        let skin = (Game.shared.idxPlayer == 0) ? Skin.blue : Skin.red
+        
         let player = Game.shared.players[Game.shared.idxPlayer]
         let tableValues = player.table.values
         let inputPos = player.inputPos
@@ -189,7 +194,7 @@ class GameTableView: UIView
         for rowIdx in 1..<16
         {
             guard let lbl = viewWithTag(tag(rowIdx, 0)) as? UILabel else {continue}
-            lbl.backgroundColor = Game.shared.idxPlayer == 0 ? Skin.labelBlueBackColor : Skin.labelRedBackColor
+            lbl.backgroundColor = skin.labelBackColor
         }
         
         // set values
@@ -197,7 +202,7 @@ class GameTableView: UIView
         {
             // zero row
             guard let lbl = viewWithTag(tag(0, colIdx)) as? UILabel else {continue}
-            lbl.backgroundColor = Game.shared.idxPlayer == 0 ? Skin.labelBlueBackColor : Skin.labelRedBackColor
+            lbl.backgroundColor = skin.labelBackColor
             
             // value rows
             for row in valueRows
@@ -358,7 +363,7 @@ class GameTableView: UIView
                 {
                     lbl.text = nil
                 }
-                lbl.backgroundColor = (Game.shared.idxPlayer == 0) ? Skin.labelBlueBackColor : Skin.labelRedBackColor
+                lbl.backgroundColor = skin.labelBackColor
             }
         }
     

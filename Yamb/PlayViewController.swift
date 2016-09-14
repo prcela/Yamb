@@ -41,12 +41,12 @@ class PlayViewController: UIViewController {
         sumLbl.text = nil
         sumLbl.layer.borderWidth = 1
         sumLbl.layer.borderColor = UIColor.lightGrayColor().CGColor
-        sum1Lbl.backgroundColor = Skin.labelBlueBackColor
+        sumLbl.backgroundColor = Skin.blue.labelBackColor
         
         sum1Lbl.text = nil
         sum1Lbl.layer.borderWidth = 1
         sum1Lbl.layer.borderColor = UIColor.lightGrayColor().CGColor
-        sum1Lbl.backgroundColor = Skin.labelRedBackColor
+        sum1Lbl.backgroundColor = Skin.red.labelBackColor
         
         rollBtn.layer.borderWidth = 1
         rollBtn.layer.borderColor = UIColor.lightGrayColor().CGColor
