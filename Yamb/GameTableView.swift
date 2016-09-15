@@ -17,7 +17,7 @@ class GameTableView: UIView
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         
-        let skin = (Game.shared.idxPlayer == 0) ? Skin.blue : Skin.red
+        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
         // Drawing code
         
@@ -69,7 +69,7 @@ class GameTableView: UIView
             CGContextStrokePath(ctx)
         }
         
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         
         if let pos = player.inputPos
         {
@@ -182,9 +182,9 @@ class GameTableView: UIView
     
     func updateValuesAndStates()
     {
-        let skin = (Game.shared.idxPlayer == 0) ? Skin.blue : Skin.red
+        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         let tableValues = player.table.values
         let inputPos = player.inputPos
         let inputState = player.inputState

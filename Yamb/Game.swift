@@ -40,7 +40,7 @@ class Game: NSObject, NSCoding
     
     var gameType = GameType.SinglePlayer
     var players = [Player]()
-    var idxPlayer: Int = 0
+    var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
     
     var ctColumns = 6
@@ -62,7 +62,7 @@ class Game: NSObject, NSCoding
 //            player.table.fakeFill()
             player.printStatus()
         }
-        idxPlayer = 0
+        indexOfPlayerOnTurn = 0
         
         DiceScene.shared.start()
         
@@ -77,21 +77,21 @@ class Game: NSObject, NSCoding
             sendTurn()
         }
         
-        players[idxPlayer].next()
-        idxPlayer = (idxPlayer+1)%players.count
+        players[indexOfPlayerOnTurn].next()
+        indexOfPlayerOnTurn = (indexOfPlayerOnTurn+1)%players.count
         DiceScene.shared.recreateMaterials()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
     func roll()
     {
-        players[idxPlayer].roll()
+        players[indexOfPlayerOnTurn].roll()
     }
     
     
     func didSelectCellAtPos(pos: TablePos)
     {
-        let player = players[idxPlayer]
+        let player = players[indexOfPlayerOnTurn]
         player.didSelectCellAtPos(pos)
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
@@ -101,13 +101,13 @@ class Game: NSObject, NSCoding
     
     func onDieTouched(dieIdx: UInt)
     {
-        let player = players[idxPlayer]
+        let player = players[indexOfPlayerOnTurn]
         player.onDieTouched(dieIdx)        
     }
     
     func isRollEnabled() -> Bool
     {
-        let player = players[idxPlayer]
+        let player = players[indexOfPlayerOnTurn]
         return player.isRollEnabled()
     }
     
@@ -121,11 +121,18 @@ class Game: NSObject, NSCoding
         // ..... hm staro
     }
     
+    func isLocalPlayerTurn() -> Bool
+    {
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)
+        let player = players[indexOfPlayerOnTurn]
+        return player.id == playerId
+    }
+    
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)
     {
         aCoder.encodeObject(players, forKey: keyPlayers)
-        aCoder.encodeInteger(idxPlayer, forKey: keyIdxPlayer)
+        aCoder.encodeInteger(indexOfPlayerOnTurn, forKey: keyIdxPlayer)
         aCoder.encodeInteger(diceNum.rawValue, forKey: keyDiceNum)
         
         aCoder.encodeInteger(ctColumns, forKey: keyCtColumns)
@@ -135,7 +142,7 @@ class Game: NSObject, NSCoding
     required init?(coder aDecoder: NSCoder)
     {
         players = aDecoder.decodeObjectForKey(keyPlayers) as! [Player]
-        idxPlayer = aDecoder.decodeIntegerForKey(keyIdxPlayer)
+        indexOfPlayerOnTurn = aDecoder.decodeIntegerForKey(keyIdxPlayer)
         diceNum = DiceNum(rawValue: aDecoder.decodeIntegerForKey(keyDiceNum))!
         
         ctColumns = aDecoder.decodeIntegerForKey(keyCtColumns)

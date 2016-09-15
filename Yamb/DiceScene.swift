@@ -79,7 +79,7 @@ class DiceScene: SCNScene
     
     func recreateMaterials()
     {
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         let dieMat = player.diceMaterial.rawValue
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
@@ -130,7 +130,7 @@ class DiceScene: SCNScene
     func roll(completion: (result: [UInt]) -> Void)
     {
         let ctMaxRounds: UInt32 = 3
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         var oldValues = player.diceValues
         var values = [UInt]()
         
@@ -212,7 +212,7 @@ class DiceScene: SCNScene
     
     func updateDiceSelection()
     {
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
@@ -231,7 +231,7 @@ class DiceScene: SCNScene
     
     func updateDiceValues()
     {
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         guard let values = player.diceValues else {return}
         
         for (idx,num) in values.enumerate()

@@ -99,7 +99,7 @@ class PlayViewController: UIViewController {
         sumLbl.hidden = false
         sum1Lbl.hidden = Game.shared.players.count == 1
         
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         
         let inputPos = player.inputPos
         
@@ -150,7 +150,7 @@ class PlayViewController: UIViewController {
             playLbl.text = lstr("1. roll")
             
         case .End:
-            if Game.shared.players.count > 1 && Game.shared.idxPlayer == 0
+            if Game.shared.players.count > 1 && Game.shared.indexOfPlayerOnTurn == 0
             {
                 playLbl.text = lstr("Next player")
             }
@@ -185,7 +185,7 @@ class PlayViewController: UIViewController {
     
     func alertForInput()
     {
-        let player = Game.shared.players[Game.shared.idxPlayer]
+        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         guard let pos = player.inputPos else {return}
         let value = player.table.values[pos.colIdx][pos.rowIdx]!
         
