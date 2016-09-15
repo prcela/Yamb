@@ -57,6 +57,13 @@ class WsAPI
         send(.JoinMatch, json: json)
     }
     
+    func turn(turn: Turn, matchId: UInt, params: JSON)
+    {
+        var json = JSON(["match_id":matchId,"turn":turn.rawValue])
+        json["params"] = params
+        send(.Turn, json: json)
+    }
+    
     private func send(action: MessageFunc, json: JSON? = nil)
     {
         var json = json ?? JSON([:])

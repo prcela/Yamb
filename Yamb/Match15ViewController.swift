@@ -46,7 +46,7 @@ class Match15ViewController: UIViewController
             let match = Room.main.matches[idx]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
-            Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(firstPlayer.id,DiceMaterial.Blue),(lastPlayer.id,DiceMaterial.Red)])
+            Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(firstPlayer.id,DiceMaterial.Blue),(lastPlayer.id,DiceMaterial.Red)], matchId: matchId)
             navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         }
         

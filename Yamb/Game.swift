@@ -39,6 +39,7 @@ class Game: NSObject, NSCoding
     }
     
     var gameType = GameType.SinglePlayer
+    var matchId: UInt = 0
     var players = [Player]()
     var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
@@ -49,9 +50,10 @@ class Game: NSObject, NSCoding
         super.init()
     }
     
-    func start(gameType: GameType, playersDesc: [(id: String?,diceMat: DiceMaterial)])
+    func start(gameType: GameType, playersDesc: [(id: String?,diceMat: DiceMaterial)], matchId: UInt = 0)
     {
         self.gameType = gameType
+        self.matchId = matchId
         players.removeAll()
         for (id,diceMat) in playersDesc
         {

@@ -187,8 +187,13 @@ class Player: NSObject, NSCoding
                     newRounds[idx] = dir*Int(1+arc4random_uniform(ctMaxRounds))
                 }
                 activeRotationRounds[dieIdx][idx] = newRounds[idx]
-                
             }
+        }
+        
+        if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+        {
+            let params = JSON(values)
+            WsAPI.shared.turn(.RollDice, matchId: Game.shared.matchId, params: params)
         }
         
         DiceScene.shared.rollToValues(values, ctMaxRounds: ctMaxRounds) {

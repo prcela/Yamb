@@ -17,4 +17,5 @@ enum MessageFunc: String
     case RoomInfo = "room_info"
     case CreateMatch = "create_match"
     case JoinMatch = "join_match"
+    case Turn = "turn"
 }

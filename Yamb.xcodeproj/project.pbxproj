@@ -12,6 +12,7 @@
 		972498131D72C81B00CDC6B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 972498151D72C81B00CDC6B7 /* Localizable.strings */; };
 		9724981B1D730F7C00CDC6B7 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9724981A1D730F7C00CDC6B7 /* play.png */; };
 		9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */; };
+		9724C23A1D8B4C0C00A82EFB /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724C2391D8B4C0C00A82EFB /* Turn.swift */; };
 		972B1B9A1D83C9B600010F5F /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1B971D83C9B600010F5F /* SSLSecurity.swift */; };
 		972B1B9B1D83C9B600010F5F /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1B981D83C9B600010F5F /* WebSocket.swift */; };
 		972B1BC71D83DECC00010F5F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */; };
@@ -140,6 +141,7 @@
 		972498191D72C9B500CDC6B7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9724981A1D730F7C00CDC6B7 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Yamb/Resources/play.png; sourceTree = "<group>"; };
 		9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerViewController.swift; sourceTree = "<group>"; };
+		9724C2391D8B4C0C00A82EFB /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 		972B1B971D83C9B600010F5F /* SSLSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
 		972B1B981D83C9B600010F5F /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				972B1BC81D83DFD700010F5F /* MessageFunc.swift */,
 				972B1BCC1D842FB900010F5F /* Room.swift */,
 				97A50FFE1D874FAD0046AF34 /* Match.swift */,
+				9724C2391D8B4C0C00A82EFB /* Turn.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
 				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,
 				972B1B9B1D83C9B600010F5F /* WebSocket.swift in Sources */,
+				9724C23A1D8B4C0C00A82EFB /* Turn.swift in Sources */,
 				972B1BC91D83DFD700010F5F /* MessageFunc.swift in Sources */,
 				97C060051D757A7C00A680C1 /* Player.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */,
