@@ -372,6 +372,10 @@ class GameTableView: UIView
     @objc
     func onBtnPressed(sender: UIButton)
     {
+        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        {
+            return
+        }
         
         let ctColumns = Game.shared.ctColumns
         let rowIdx = sender.tag/ctColumns

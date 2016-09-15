@@ -227,6 +227,11 @@ class PlayViewController: UIViewController {
     
     @IBAction func roll(sender: UIButton)
     {
+        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        {
+            return
+        }
+        
         if playLbl.text == lstr("New game")
         {
             let players = Game.shared.players
@@ -245,6 +250,10 @@ class PlayViewController: UIViewController {
     @IBAction func onDiceTouched(sender: UIButton)
     {
         print("Touched: \(sender.tag)")
+        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        {
+            return
+        }
         Game.shared.onDieTouched(UInt(sender.tag))
     }
 }

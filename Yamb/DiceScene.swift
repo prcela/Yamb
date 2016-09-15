@@ -17,7 +17,7 @@ class DiceScene: SCNScene
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
     
-    var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
+    
     var audioPlayers = [AVAudioPlayer]()
     
     override init() {
@@ -127,12 +127,9 @@ class DiceScene: SCNScene
         updateDiceSelection()
     }
 
-    func roll(completion: (result: [UInt]) -> Void)
+    func rollToValues(values: [UInt], ctMaxRounds: UInt32, completion: (Void) -> Void)
     {
-        let ctMaxRounds: UInt32 = 3
         let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
-        var oldValues = player.diceValues
-        var values = [UInt]()
         
         func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
         {
@@ -141,34 +138,12 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<Game.shared.diceNum.rawValue
         {
-            if player.diceHeld.contains(UInt(dieIdx))
-            {
-                // skip it by adding same value
-                values.append(oldValues?[dieIdx] ?? 1)
-                continue
-            }
+            let num = values[dieIdx]
             
-            let num = UInt(1+arc4random_uniform(6))
-            values.append(num)
-            
-            var newRounds = [Int(1+arc4random_uniform(ctMaxRounds)),
-                             Int(1+arc4random_uniform(ctMaxRounds)),
-                             Int(1+arc4random_uniform(ctMaxRounds))]
-            
-            
-            for (idx,_) in newRounds.enumerate()
-            {
-                while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
-                    let dir = arc4random_uniform(2) == 0 ? -1:1
-                    newRounds[idx] = dir*Int(1+arc4random_uniform(ctMaxRounds))
-                }
-                activeRotationRounds[dieIdx][idx] = newRounds[idx]
-                
-            }
-            
-            var rndX = rotateAngleToDst(0, rounds: newRounds[0])
-            var rndY = rotateAngleToDst(0, rounds: newRounds[1])
-            let rndZ = rotateAngleToDst(0, rounds: newRounds[2])
+            let rounds = player.activeRotationRounds[dieIdx]
+            var rndX = rotateAngleToDst(0, rounds: rounds[0])
+            var rndY = rotateAngleToDst(0, rounds: rounds[1])
+            let rndZ = rotateAngleToDst(0, rounds: rounds[2])
             
             if num == 1
             {
@@ -176,26 +151,26 @@ class DiceScene: SCNScene
             }
             else if num == 2
             {
-                rndY = rotateAngleToDst(-CGFloat(M_PI_2), rounds: newRounds[1])
+                rndY = rotateAngleToDst(-CGFloat(M_PI_2), rounds: rounds[1])
             }
             else if num == 3
             {
-                rndY = rotateAngleToDst(CGFloat(M_PI), rounds: newRounds[1])
+                rndY = rotateAngleToDst(CGFloat(M_PI), rounds: rounds[1])
             }
             else if num == 4
             {
-                rndY = rotateAngleToDst(CGFloat(M_PI_2), rounds: newRounds[1])
+                rndY = rotateAngleToDst(CGFloat(M_PI_2), rounds: rounds[1])
             }
             else if num == 5
             {
-                rndX = rotateAngleToDst(CGFloat(M_PI_2), rounds: newRounds[0])
+                rndX = rotateAngleToDst(CGFloat(M_PI_2), rounds: rounds[0])
             }
             else
             {
-                rndX = rotateAngleToDst(-CGFloat(M_PI_2), rounds: newRounds[0])
+                rndX = rotateAngleToDst(-CGFloat(M_PI_2), rounds: rounds[0])
             }
             
-            let duration: NSTimeInterval = 0.5 + 0.5*Double(max(newRounds[0],newRounds[1],newRounds[2]))/Double(ctMaxRounds)
+            let duration: NSTimeInterval = 0.5 + 0.5*Double(max(rounds[0],rounds[1],rounds[2]))/Double(ctMaxRounds)
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: duration)
             action.timingMode = .EaseOut
             let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)!
@@ -206,7 +181,7 @@ class DiceScene: SCNScene
         audioPlayers[ctRoll-1].play()
         
         dispatchToMainQueue(delay: 1.1) { 
-            completion(result: values)
+            completion()
         }
     }
     

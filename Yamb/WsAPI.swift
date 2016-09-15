@@ -136,7 +136,8 @@ extension WsAPI: WebSocketDelegate
             print("Match created")
             
         case .JoinMatch:
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: nil)
+            let matchId = json["match_id"].uIntValue
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: matchId)
             
         default:
             break

@@ -75,6 +75,7 @@ class Player: NSObject, NSCoding
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
         }
     }
+    var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
     
     var inputPos: TablePos?
     
@@ -158,9 +159,41 @@ class Player: NSObject, NSCoding
         rollState = .Rolling
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
         
-        DiceScene.shared.roll { (result) in
+        let ctMaxRounds: UInt32 = 3
+        var oldValues = diceValues
+        var values = [UInt]()
+        
+        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        {
+            if diceHeld.contains(UInt(dieIdx))
+            {
+                // skip it by adding same value
+                values.append(oldValues?[dieIdx] ?? 1)
+                continue
+            }
+            
+            let num = UInt(1+arc4random_uniform(6))
+            values.append(num)
+            
+            var newRounds = [Int(1+arc4random_uniform(ctMaxRounds)),
+                             Int(1+arc4random_uniform(ctMaxRounds)),
+                             Int(1+arc4random_uniform(ctMaxRounds))]
+            
+            
+            for (idx,_) in newRounds.enumerate()
+            {
+                while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
+                    let dir = arc4random_uniform(2) == 0 ? -1:1
+                    newRounds[idx] = dir*Int(1+arc4random_uniform(ctMaxRounds))
+                }
+                activeRotationRounds[dieIdx][idx] = newRounds[idx]
+                
+            }
+        }
+        
+        DiceScene.shared.rollToValues(values, ctMaxRounds: ctMaxRounds) {
             self.rollState = .NotRolling
-            self.diceValues = result
+            self.diceValues = values
             self.afterRoll()
         }
     }

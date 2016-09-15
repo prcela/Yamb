@@ -336,29 +336,19 @@
 				977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */,
 				977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */,
 				977D97FF1CAEA35700AD9EF8 /* LaunchScreen.storyboard */,
-				972498201D74EE9000CDC6B7 /* ViewControllers */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
-				9787AEBF1D632491001640F7 /* DiceScene.swift */,
-				9787AECE1D6330E3001640F7 /* Game.swift */,
+				972498201D74EE9000CDC6B7 /* ViewControllers */,
+				97F16EC71D8A7A5700B8FB79 /* Model */,
+				97F16EC81D8A7A8B00B8FB79 /* Services */,
 				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
-				97C060041D757A7C00A680C1 /* Player.swift */,
-				97A6E01E1D7068E7000ED49D /* Table.swift */,
-				97C4EF551D67A36C00A1E7CD /* TableRow.swift */,
-				97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */,
-				97C4EF631D69DE1400A1E7CD /* TablePos.swift */,
+				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */,
 				97C4EF5B1D68DAA600A1E7CD /* Helper.swift */,
 				97C4EF5D1D68DB4800A1E7CD /* NotificationName.swift */,
 				97C4EF5F1D699D7B00A1E7CD /* UIImageExt.swift */,
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
-				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
-				974712E11D778CA500BB2AA9 /* GameFileManager.swift */,
-				972B1BC81D83DFD700010F5F /* MessageFunc.swift */,
-				972B1BCA1D84276B00010F5F /* WsAPI.swift */,
-				972B1BCC1D842FB900010F5F /* Room.swift */,
-				97A50FFE1D874FAD0046AF34 /* Match.swift */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -451,6 +441,32 @@
 				974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		97F16EC71D8A7A5700B8FB79 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9787AECE1D6330E3001640F7 /* Game.swift */,
+				97C060041D757A7C00A680C1 /* Player.swift */,
+				97A6E01E1D7068E7000ED49D /* Table.swift */,
+				97C4EF551D67A36C00A1E7CD /* TableRow.swift */,
+				97C4EF971D6B7D9D00A1E7CD /* TableCol.swift */,
+				97C4EF631D69DE1400A1E7CD /* TablePos.swift */,
+				972B1BC81D83DFD700010F5F /* MessageFunc.swift */,
+				972B1BCC1D842FB900010F5F /* Room.swift */,
+				97A50FFE1D874FAD0046AF34 /* Match.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		97F16EC81D8A7A8B00B8FB79 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
+				974712E11D778CA500BB2AA9 /* GameFileManager.swift */,
+				972B1BCA1D84276B00010F5F /* WsAPI.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		E12D9E9DECD0CD02EBD5C2D0 /* Frameworks */ = {

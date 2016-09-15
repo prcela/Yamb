@@ -18,7 +18,7 @@ class Match15ViewController: UIViewController
         let nc = NSNotificationCenter.defaultCenter()
         
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
-        nc.addObserver(self, selector: #selector(joinedMatch), name: NotificationName.joinedMatch, object: nil)
+        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
     }
     
     deinit {
@@ -37,10 +37,20 @@ class Match15ViewController: UIViewController
         tableView?.reloadData()
     }
     
-    func joinedMatch()
+    func joinedMatch(notification: NSNotification)
     {
-        Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(nil,DiceMaterial.Blue),(nil,DiceMaterial.Red)])
-        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        let matchId = notification.object as! UInt
+        if let idx = Room.main.matches.indexOf ({ (m) -> Bool in
+            return m.id == matchId
+        }) {
+            let match = Room.main.matches[idx]
+            let firstPlayer = match.players.first!
+            let lastPlayer = match.players.last!
+            Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(firstPlayer.id,DiceMaterial.Blue),(lastPlayer.id,DiceMaterial.Red)])
+            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        }
+        
+        
     }
 
     @IBAction func back(sender: AnyObject)
