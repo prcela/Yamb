@@ -11,5 +11,6 @@ import Foundation
 enum Turn: String
 {
     case RollDice = "roll_dice"
+    case HoldDice = "hold_dice"
     case End = "end"
 }

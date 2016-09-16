@@ -73,6 +73,12 @@ class Player: NSObject, NSCoding
         didSet {
             DiceScene.shared.updateDiceSelection()
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+            
+            if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+            {
+                let params = JSON(Array(diceHeld))
+                WsAPI.shared.turn(.HoldDice, matchId: Game.shared.matchId, params: params)
+            }
         }
     }
     var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])

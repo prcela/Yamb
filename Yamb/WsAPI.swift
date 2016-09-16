@@ -59,8 +59,11 @@ class WsAPI
     
     func turn(turn: Turn, matchId: UInt, params: JSON)
     {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let playerId = defaults.stringForKey(Prefs.playerId)!
         var json = JSON(["match_id":matchId,"turn":turn.rawValue])
         json["params"] = params
+        json["id"].string = playerId
         send(.Turn, json: json)
     }
     
@@ -158,6 +161,13 @@ extension WsAPI: WebSocketDelegate
             case .RollDice:
                 let values = params.arrayObject as! [UInt]
                 DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
+                
+            case .HoldDice:
+                let holdDice = params.arrayObject as! [UInt]
+                let playerId = json["id"].stringValue
+                guard let player = Game.shared.player(playerId) else {return}
+                player.diceHeld = Set(holdDice)
+                
             default:
                 break
             }

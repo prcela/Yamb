@@ -85,6 +85,15 @@ class Game: NSObject, NSCoding
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }
     
+    func player(id: String) -> Player?
+    {
+        if let idx = players.indexOf({$0.id == id})
+        {
+            return players[idx]
+        }
+        return nil
+    }
+    
     func roll()
     {
         players[indexOfPlayerOnTurn].roll()
