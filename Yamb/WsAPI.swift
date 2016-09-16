@@ -21,7 +21,7 @@ class WsAPI
     
     init() {
         
-        let strURL = "ws://\(ipHome):8080/chat/"
+        let strURL = "ws://\(ipWork):8080/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -145,6 +145,22 @@ extension WsAPI: WebSocketDelegate
         case .JoinMatch:
             let matchId = json["match_id"].uIntValue
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: matchId)
+            
+        case .Turn:
+            let matchId = json["match_id"].uIntValue
+            guard matchId == Game.shared.matchId else {
+                return
+            }
+            let params = json["params"]
+            let turn = Turn(rawValue: json["turn"].stringValue)!
+            switch turn
+            {
+            case .RollDice:
+                let values = params.arrayObject as! [UInt]
+                DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
+            default:
+                break
+            }
             
         default:
             break
