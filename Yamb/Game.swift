@@ -82,6 +82,7 @@ class Game: NSObject, NSCoding
         
         players[indexOfPlayerOnTurn].next()
         indexOfPlayerOnTurn = (indexOfPlayerOnTurn+1)%players.count
+        players[indexOfPlayerOnTurn].onTurn()
         DiceScene.shared.recreateMaterials()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
     }

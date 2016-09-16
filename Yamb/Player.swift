@@ -30,7 +30,7 @@ enum PlayerState: Int
     case AfterN2
     case AfterN3
     case WaitTurn
-    case End
+    case EndGame
 }
 
 enum DiceMaterial: String
@@ -131,6 +131,13 @@ class Player: NSObject, NSCoding
     func next()
     {
         state = .WaitTurn
+        inputPos = nil
+        diceHeld.removeAll()
+        inputState = .NotAllowed
+    }
+    
+    func onTurn()
+    {
         inputPos = nil
         diceHeld.removeAll()
         inputState = .NotAllowed
@@ -268,7 +275,7 @@ class Player: NSObject, NSCoding
             inputPos = nil
             diceHeld.removeAll()
             
-        case .End:
+        case .EndGame:
             break
         }
         
@@ -386,7 +393,7 @@ class Player: NSObject, NSCoding
     
     func end()
     {
-        state = .End
+        state = .EndGame
         print("kraj")
         
         // score submit
@@ -424,7 +431,7 @@ class Player: NSObject, NSCoding
             return
         }
         
-        if state == .Start || state == .End || state == .After3 || state == .AfterN3 || state == .WaitTurn
+        if state == .Start || state == .EndGame || state == .After3 || state == .AfterN3 || state == .WaitTurn
         {
             return
         }

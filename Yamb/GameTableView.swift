@@ -214,7 +214,7 @@ class GameTableView: UIView
                 
                 if value != nil
                 {
-                    if colIdx == TableCol.N.rawValue && inputPos == pos && gameState != .AfterN3 && gameState != .End
+                    if colIdx == TableCol.N.rawValue && inputPos == pos && gameState != .AfterN3 && gameState != .EndGame
                     {
                         btn.setTitle(String(value!) + " ?", forState: .Normal)
                     }

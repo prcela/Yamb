@@ -149,7 +149,7 @@ class PlayViewController: UIViewController {
         case .WaitTurn:
             playLbl.text = lstr("1. roll")
             
-        case .End:
+        case .EndGame:
             if Game.shared.players.count > 1 && Game.shared.indexOfPlayerOnTurn == 0
             {
                 playLbl.text = lstr("Next player")
@@ -211,7 +211,7 @@ class PlayViewController: UIViewController {
         {
             for player in game.players
             {
-                if player.state == .Start || player.state == .End
+                if player.state == .Start || player.state == .EndGame
                 {
                     return false
                 }
