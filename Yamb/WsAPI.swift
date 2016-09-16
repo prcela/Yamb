@@ -9,9 +9,9 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.10"
-private let ipWork = "10.0.21.221"
-private let ipServer = "139.59.142.160"
+private let ipHome = "192.168.5.10:8080"
+private let ipWork = "10.0.21.221:8080"
+private let ipServer = "139.59.142.160:80"
 
 class WsAPI
 {
@@ -21,7 +21,7 @@ class WsAPI
     
     init() {
         
-        let strURL = "ws://\(ipWork):8080/chat/"
+        let strURL = "ws://\(ipWork)/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -159,7 +159,11 @@ extension WsAPI: WebSocketDelegate
             switch turn
             {
             case .RollDice:
-                let values = params.arrayObject as! [UInt]
+                let playerId = json["id"].stringValue
+                let values = params["values"].arrayObject as! [UInt]
+                let rounds = params["rounds"].arrayObject as! [[Int]]
+                guard let player = Game.shared.player(playerId) else {return}
+                player.activeRotationRounds = rounds
                 DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
                 
             case .HoldDice:

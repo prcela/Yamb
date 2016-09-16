@@ -205,7 +205,7 @@ class Player: NSObject, NSCoding
         
         if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
         {
-            let params = JSON(values)
+            let params = JSON(["values":values,"rounds":activeRotationRounds])
             WsAPI.shared.turn(.RollDice, matchId: Game.shared.matchId, params: params)
         }
         
