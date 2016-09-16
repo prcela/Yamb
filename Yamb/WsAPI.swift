@@ -168,6 +168,9 @@ extension WsAPI: WebSocketDelegate
                 guard let player = Game.shared.player(playerId) else {return}
                 player.diceHeld = Set(holdDice)
                 
+            case .End:
+                Game.shared.nextPlayer()
+                
             default:
                 break
             }

@@ -74,9 +74,10 @@ class Game: NSObject, NSCoding
     
     func nextPlayer()
     {
-        if gameType == .OnlineMultiplayer
+        if gameType == .OnlineMultiplayer && isLocalPlayerTurn()
         {
-            sendTurn()
+            let params = JSON([:])
+            WsAPI.shared.turn(.End, matchId: Game.shared.matchId, params: params)
         }
         
         players[indexOfPlayerOnTurn].next()
@@ -127,10 +128,6 @@ class Game: NSObject, NSCoding
         return nil
     }
     
-    func sendTurn()
-    {
-        // ..... hm staro
-    }
     
     func isLocalPlayerTurn() -> Bool
     {
