@@ -108,7 +108,7 @@
                                 </state>
                                 <connections>
                                     <action selector="multiPlayer:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="mxP-LH-IV4"/>
-                                    <segue destination="KcI-sz-EiD" kind="show" id="Qcp-qP-rYY"/>
+                                    <segue destination="V7M-Hp-OMl" kind="show" id="vmI-Ea-KLi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -223,77 +223,10 @@
             </objects>
             <point key="canvasLocation" x="2496" y="380"/>
         </scene>
-        <!--Multi Player View Controller-->
-        <scene sceneID="Ujb-AV-RfA">
-            <objects>
-                <viewController id="KcI-sz-EiD" customClass="MultiPlayerViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HAe-dR-b20"/>
-                        <viewControllerLayoutGuide type="bottom" id="lgT-wo-VqH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XdI-RP-838">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qT-bn-dJK">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="6Zw-y7-qNe"/>
-                                    <constraint firstAttribute="width" constant="200" id="zEn-rt-Mc9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="KcI-sz-EiD" eventType="touchUpInside" id="5cu-ug-pbS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpV-Rk-wos">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="hCO-hg-mm9"/>
-                                    <constraint firstAttribute="width" constant="300" id="hKD-ET-K9d"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="28"/>
-                                <state key="normal" title="All play on this device">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="localMatch:" destination="KcI-sz-EiD" eventType="touchUpInside" id="7I2-jm-Blv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-9A-wH7">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="3BW-LW-O8s"/>
-                                    <constraint firstAttribute="width" constant="300" id="D1B-Ek-NVd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                <state key="normal" title="Internet">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="V7M-Hp-OMl" kind="show" id="vq4-Tk-qs3"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="wpV-Rk-wos" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="1Tt-1J-nai"/>
-                            <constraint firstItem="9qT-bn-dJK" firstAttribute="top" secondItem="HAe-dR-b20" secondAttribute="bottom" constant="37" id="25S-f2-hxK"/>
-                            <constraint firstItem="wpV-Rk-wos" firstAttribute="top" secondItem="9qT-bn-dJK" secondAttribute="bottom" constant="37" id="2YY-US-ftC"/>
-                            <constraint firstItem="7Ft-9A-wH7" firstAttribute="top" secondItem="wpV-Rk-wos" secondAttribute="bottom" constant="37" id="89g-MI-tYU"/>
-                            <constraint firstItem="9qT-bn-dJK" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="AKt-8S-xIc"/>
-                            <constraint firstItem="7Ft-9A-wH7" firstAttribute="centerX" secondItem="XdI-RP-838" secondAttribute="centerX" id="u7F-F5-rj8"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hx4-Ru-U0Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2497" y="1137"/>
-        </scene>
-        <!--Match15 View Controller-->
+        <!--Room View Controller-->
         <scene sceneID="qfb-0k-0dW">
             <objects>
-                <viewController id="V7M-Hp-OMl" customClass="Match15ViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V7M-Hp-OMl" customClass="RoomViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRD-Ad-GZ1"/>
                         <viewControllerLayoutGuide type="bottom" id="Gdl-6O-tPP"/>
@@ -358,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJ4-R2-mxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2497" y="1939"/>
+            <point key="canvasLocation" x="2495" y="1137"/>
         </scene>
         <!--Rules View Controller-->
         <scene sceneID="ru8-Ym-QDJ">
@@ -711,7 +644,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5o3-Gb-59i"/>
+        <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

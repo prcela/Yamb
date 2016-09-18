@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Match15ViewController: UIViewController
+class RoomViewController: UIViewController
 {
     @IBOutlet weak var tableView: UITableView?
     
@@ -60,7 +60,7 @@ class Match15ViewController: UIViewController
     
 }
 
-extension Match15ViewController: UITableViewDataSource
+extension RoomViewController: UITableViewDataSource
 {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -146,7 +146,7 @@ extension Match15ViewController: UITableViewDataSource
     
 }
 
-extension Match15ViewController: UITableViewDelegate
+extension RoomViewController: UITableViewDelegate
 {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0
