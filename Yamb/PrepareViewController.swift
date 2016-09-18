@@ -85,7 +85,7 @@ class PrepareViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        Game.shared.start(GameType.SinglePlayer, playersDesc: [(nil,diceMats[diceMatSelected])])
+        Game.shared.start(GameType.SinglePlayer, playersDesc: [(nil,nil,diceMats[diceMatSelected])])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         
     }

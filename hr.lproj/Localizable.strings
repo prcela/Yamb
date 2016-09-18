@@ -21,4 +21,7 @@
 "Free matches" = "Slobodne igre";
 "Free players" = "Slobodni igrači";
 "Active matches" = "Igre u tijeku";
-
+"Do you want to leave current match?" = "Želite li napustiti trenutnu igru?";
+"Leave match" = "Napusti igru";
+"Continue match" = "Nastavi igru";
+"Opponent has leave the match" = "Protivnik je napustio igru.";

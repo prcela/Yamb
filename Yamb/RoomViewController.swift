@@ -46,13 +46,12 @@ class RoomViewController: UIViewController
             let match = Room.main.matches[idx]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
-            Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(firstPlayer.id,DiceMaterial.Blue),(lastPlayer.id,DiceMaterial.Red)], matchId: matchId)
+            Game.shared.start(GameType.OnlineMultiplayer, playersDesc: [(firstPlayer.id,firstPlayer.alias,DiceMaterial.Blue),(lastPlayer.id,lastPlayer.alias,DiceMaterial.Red)], matchId: matchId)
             navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         }
-        
-        
     }
-
+    
+    
     @IBAction func back(sender: AnyObject)
     {
         navigationController?.popViewControllerAnimated(true)
@@ -103,12 +102,10 @@ extension RoomViewController: UITableViewDataSource
         }
         else if section == 2
         {
-            var ctFreePlayers = Room.main.freePlayers.count
-            if isFreePlayer
-            {
-               ctFreePlayers -= 1
-            }
-            return ctFreePlayers
+            let players = Room.main.freePlayers.filter({ (player) -> Bool in
+                return player.id != playerId
+            })
+            return players.count
         }
         else
         {

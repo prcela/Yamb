@@ -464,25 +464,25 @@ bacanje</string>
                                 <color key="backgroundColor" red="0.7843137255" green="0.84313725490000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="45D-pD-B3L"/>
-                                    <constraint firstAttribute="height" constant="25" id="x65-fD-AHf"/>
+                                    <constraint firstAttribute="height" constant="27" id="x65-fD-AHf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.20000000000000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-FD-lpu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-FD-lpu">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="VCq-gj-jRh"/>
+                                    <constraint firstAttribute="height" constant="27" id="VCq-gj-jRh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="13"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-On-pUH" userLabel="Sum1">
                                 <color key="backgroundColor" red="1" green="0.46666666666666667" blue="0.46666666666666667" alpha="0.8486260775862069" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="35f-At-VZ8"/>
-                                    <constraint firstAttribute="height" constant="25" id="I1S-dx-OHX"/>
+                                    <constraint firstAttribute="height" constant="27" id="I1S-dx-OHX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.20000000000000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -497,17 +497,15 @@ bacanje</string>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" id="3ce-Vg-gD9"/>
                             <constraint firstItem="1Dr-il-Q5L" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="-50" id="3qe-ps-ESU"/>
                             <constraint firstItem="BYH-H4-IEJ" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="4Kr-nT-ta3"/>
-                            <constraint firstItem="dLn-kT-Moy" firstAttribute="leading" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="-2" id="6ZE-PE-0JO"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="yEi-FD-lpu" secondAttribute="bottom" constant="-2" id="8Fl-zn-r5b"/>
                             <constraint firstItem="8KR-KZ-IJX" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="-40" id="8da-td-atd"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" id="9ak-eA-Zje"/>
                             <constraint firstItem="1Dr-il-Q5L" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="-25" id="Ay1-oS-XXf"/>
                             <constraint firstAttribute="trailing" secondItem="dOz-Xm-yYs" secondAttribute="trailing" constant="20" id="BoL-9Y-uYs"/>
-                            <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="20" id="BxJ-dU-SZH"/>
+                            <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="28" id="BxJ-dU-SZH"/>
                             <constraint firstAttribute="trailing" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="100" id="EAg-cA-CKP"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="8KR-KZ-IJX" secondAttribute="bottom" constant="30" id="Edz-dU-LAI"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="25" id="Kf9-tg-pn1"/>
-                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="yEi-FD-lpu" secondAttribute="bottom" constant="120" id="MRv-6q-pcs"/>
                             <constraint firstItem="xDD-Ze-2Kl" firstAttribute="centerY" secondItem="dOz-Xm-yYs" secondAttribute="centerY" constant="-20" id="Nbn-Bo-bm0"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="50" id="O1k-qA-SzM"/>
                             <constraint firstItem="dOz-Xm-yYs" firstAttribute="leading" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="15" id="Qbf-Ke-nIp"/>
@@ -522,14 +520,16 @@ bacanje</string>
                             <constraint firstItem="zYO-5M-WIC" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" id="Z7q-Ob-5bU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dLn-kT-Moy" secondAttribute="trailing" id="ZNs-wl-j4w"/>
                             <constraint firstAttribute="leadingMargin" secondItem="BYH-H4-IEJ" secondAttribute="leading" id="ado-oa-dh2"/>
+                            <constraint firstItem="yEi-FD-lpu" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" id="b0v-iw-O0S"/>
+                            <constraint firstItem="oLa-On-pUH" firstAttribute="leading" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="5" id="cm4-Bu-e5L"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Ir-AP-vC0" secondAttribute="trailing" id="dKo-4M-KID"/>
                             <constraint firstItem="oLa-On-pUH" firstAttribute="top" secondItem="dLn-kT-Moy" secondAttribute="top" id="eJp-jr-YRn"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="Vz9-WK-T5k" secondAttribute="bottom" constant="30" id="etN-Vn-lw4"/>
                             <constraint firstItem="yEi-FD-lpu" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="1" id="gDZ-Rw-Azf"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="60" id="lh7-ZW-1Pg"/>
-                            <constraint firstItem="yEi-FD-lpu" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="80" id="peP-qw-bMF"/>
+                            <constraint firstItem="yEi-FD-lpu" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="20" id="peP-qw-bMF"/>
                             <constraint firstAttribute="trailing" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="88" id="wDX-vM-t4x"/>
-                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" constant="8" id="wJ1-mb-gP7"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" id="wJ1-mb-gP7"/>
                             <constraint firstItem="2Ir-AP-vC0" firstAttribute="top" secondItem="EVN-MP-pZt" secondAttribute="bottom" id="wPM-1p-uHs"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="cCI-gJ-kED" secondAttribute="bottom" constant="30" id="yCH-uS-Ujk"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="40" id="yeJ-fv-Grm"/>
@@ -555,10 +555,10 @@ bacanje</string>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="gameTableView" destination="2Ir-AP-vC0" id="FQr-ns-Vg1"/>
+                        <outlet property="nameLbl" destination="yEi-FD-lpu" id="iHc-zt-Xho"/>
                         <outlet property="playLbl" destination="xDD-Ze-2Kl" id="yr8-Hv-VPA"/>
                         <outlet property="rollBtn" destination="dOz-Xm-yYs" id="Ap6-h2-hh4"/>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
-                        <outlet property="statusLbl" destination="yEi-FD-lpu" id="WuP-ev-g2i"/>
                         <outlet property="sum1Lbl" destination="oLa-On-pUH" id="JrU-pN-N0K"/>
                         <outlet property="sumLbl" destination="dLn-kT-Moy" id="rbE-De-lmY"/>
                     </connections>

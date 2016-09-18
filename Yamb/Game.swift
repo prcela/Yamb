@@ -50,15 +50,16 @@ class Game: NSObject, NSCoding
         super.init()
     }
     
-    func start(gameType: GameType, playersDesc: [(id: String?,diceMat: DiceMaterial)], matchId: UInt = 0)
+    func start(gameType: GameType, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
     {
         self.gameType = gameType
         self.matchId = matchId
         players.removeAll()
-        for (id,diceMat) in playersDesc
+        for (id,alias,diceMat) in playersDesc
         {
             let player = Player()
             player.id = id
+            player.alias = alias
             player.diceMaterial = diceMat
             players.append(player)
 //            player.table.fakeFill()
@@ -123,12 +124,7 @@ class Game: NSObject, NSCoding
         let player = players[indexOfPlayerOnTurn]
         return player.isRollEnabled()
     }
-    
-    func status() -> String?
-    {
-        return nil
-    }
-    
+        
     
     func isLocalPlayerTurn() -> Bool
     {

@@ -23,7 +23,7 @@ class WsAPI
     
     init() {
         
-        let strURL = "ws://\(ipServer)/chat/"
+        let strURL = "ws://\(ipHome)/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -57,6 +57,12 @@ class WsAPI
     {
         let json = JSON(["match_id":matchId])
         send(.JoinMatch, json: json)
+    }
+    
+    func leaveMatch(matchId: UInt)
+    {
+        let json = JSON(["match_id":matchId])
+        send(.LeaveMatch, json: json)
     }
     
     func turn(turn: Turn, matchId: UInt, params: JSON)
@@ -104,7 +110,7 @@ class WsAPI
 extension WsAPI: WebSocketDelegate
 {
     func websocketDidConnect(socket: WebSocket) {
-        print("didConnect")
+        print("didConnect to \(socket.currentURL)")
         retryCount = 0
         joinToRoom()
         sendUnsentMessages()
@@ -179,6 +185,11 @@ extension WsAPI: WebSocketDelegate
         case .JoinMatch:
             let matchId = json["match_id"].uIntValue
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: matchId)
+            
+        case .LeaveMatch:
+            let matchId = json["match_id"].uIntValue
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentLeavedMatch, object: matchId)
+            break
             
         case .Turn:
             let matchId = json["match_id"].uIntValue

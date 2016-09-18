@@ -20,7 +20,7 @@ class PlayViewController: UIViewController {
     @IBOutlet private weak var rollBtn: UIButton!
     @IBOutlet weak var sumLbl: UILabel!
     @IBOutlet weak var sum1Lbl: UILabel!
-    @IBOutlet weak var statusLbl: UILabel!
+    @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var playLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,6 +29,8 @@ class PlayViewController: UIViewController {
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.gameStateChanged, object: nil)
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
+        nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
+
     }
     
     
@@ -101,6 +103,7 @@ class PlayViewController: UIViewController {
         
         let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         
+        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
         
         let isWaitingForTurn = (Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn())
@@ -168,7 +171,8 @@ class PlayViewController: UIViewController {
         }
         
         rollBtn.enabled = Game.shared.isRollEnabled()
-        statusLbl.text = Game.shared.status()
+        nameLbl.text = player.alias
+        nameLbl.textColor = skin.strokeColor
         
         let sumLbls = [sumLbl,sum1Lbl]
         
@@ -208,27 +212,55 @@ class PlayViewController: UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    func opponentLeavedMatch(notification: NSNotification)
+    {
+        let matchId = notification.object as! UInt
+        guard matchId == Game.shared.matchId else {
+            return
+        }
+        let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+            self.dismiss()
+        }))
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
+    
     @IBAction func back(sender: AnyObject)
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
-        dismissViewControllerAnimated(true, completion: nil)
-        let game = Game.shared
-        
-        func allPlaying() -> Bool
+        if Game.shared.gameType == .OnlineMultiplayer
         {
-            for player in game.players
+            let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+                WsAPI.shared.leaveMatch(Game.shared.matchId)
+                self.dismiss()
+            }))
+            alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .Default, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
+        else
+        {
+            dismiss()
+        }
+    }
+    
+    func dismiss()
+    {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        let game = Game.shared
+        if game.gameType == GameType.SinglePlayer
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
+        
+            if let player = game.players.first
             {
-                if player.state == .Start || player.state == .EndGame
+                if player.state != .Start && player.state != .EndGame
                 {
-                    return false
+                    GameFileManager.saveGame(game)
                 }
             }
-            return true
-        }
-        
-        if allPlaying()
-        {
-            GameFileManager.saveGame(game)
         }
     }
     
@@ -242,7 +274,7 @@ class PlayViewController: UIViewController {
         if playLbl.text == lstr("New game")
         {
             let players = Game.shared.players
-            Game.shared.start(Game.shared.gameType, playersDesc: players.map({($0.id, $0.diceMaterial)}))
+            Game.shared.start(Game.shared.gameType, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
         }
         else if playLbl.text == lstr("Next player")
         {
