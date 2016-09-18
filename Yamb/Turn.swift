@@ -8,9 +8,11 @@
 
 import Foundation
 
-enum Turn: String
+enum Turn: Int
 {
-    case RollDice = "roll_dice"
-    case HoldDice = "hold_dice"
-    case End = "end"
+    case RollDice = 0
+    case HoldDice
+    case SetValueAtTablePos
+    case InputPos
+    case End
 }

@@ -97,10 +97,8 @@ extension Match15ViewController: UITableViewDataSource
         }
         else if section == 1
         {
-            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
-                return match.state == .WaitingForPlayers
-            })
-            return filteredMatches.count
+            let waitingMatches = Room.main.matches(.WaitingForPlayers)
+            return waitingMatches.count
         }
         else if section == 2
         {
@@ -108,10 +106,8 @@ extension Match15ViewController: UITableViewDataSource
         }
         else
         {
-            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
-                return match.state == .Playing
-            })
-            return filteredMatches.count
+            let playingMatches = Room.main.matches(.Playing)
+            return playingMatches.count
         }
     }
     
@@ -125,10 +121,8 @@ extension Match15ViewController: UITableViewDataSource
         }
         else if indexPath.section == 1
         {
-            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
-                return match.state == .WaitingForPlayers
-            })
-            let match = filteredMatches[indexPath.row]
+            let waitingMatches = Room.main.matches(.WaitingForPlayers)
+            let match = waitingMatches[indexPath.row]
             cell.textLabel?.text = match.players.first!.alias
         }
         else if indexPath.section == 2
@@ -138,10 +132,8 @@ extension Match15ViewController: UITableViewDataSource
         }
         else
         {
-            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
-                return match.state == .Playing
-            })
-            let match = filteredMatches[indexPath.row]
+            let playingMatches = Room.main.matches(.Playing)
+            let match = playingMatches[indexPath.row]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
             cell.textLabel?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
@@ -150,6 +142,8 @@ extension Match15ViewController: UITableViewDataSource
         return cell
         
     }
+    
+    
 }
 
 extension Match15ViewController: UITableViewDelegate

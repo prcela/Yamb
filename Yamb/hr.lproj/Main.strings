@@ -20,8 +20,8 @@
 /* Class = "UILabel"; text = "Yamb"; ObjectID = "RIc-E4-osf"; */
 "RIc-E4-osf.text" = "Yamb";
 
-/* Class = "UIButton"; normalTitle = "Jedan igrac"; ObjectID = "Rwa-2u-xU7"; */
-"Rwa-2u-xU7.normalTitle" = "Jedan igrac";
+/* Class = "UIButton"; normalTitle = "Jedan igrač"; ObjectID = "Rwa-2u-xU7"; */
+"Rwa-2u-xU7.normalTitle" = "Jedan igrač";
 
 /* Class = "UIButton"; normalTitle = "Natrag"; ObjectID = "Tbq-ag-QlV"; */
 "Tbq-ag-QlV.normalTitle" = "Natrag";
@@ -42,7 +42,7 @@
 "fHT-fD-qE3.normalTitle" = "Natrag";
 
 /* Class = "UIButton"; normalTitle = "Vise igraca"; ObjectID = "nSW-yA-QpT"; */
-"nSW-yA-QpT.normalTitle" = "Vise igraca";
+"nSW-yA-QpT.normalTitle" = "Više igrača";
 
 /* Class = "UILabel"; text = "100"; ObjectID = "oLa-On-pUH"; */
 "oLa-On-pUH.text" = "100";

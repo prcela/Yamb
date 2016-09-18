@@ -14,4 +14,10 @@ class Room
     var freePlayers = [Player]()
     var matches = [Match]()
     
+    func matches(state: MatchState) -> [Match]
+    {
+        return matches.filter({ (match) -> Bool in
+            return match.state == state
+        })
+    }
 }

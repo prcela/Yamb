@@ -35,8 +35,8 @@ class PrepareViewController: UIViewController {
     func updateDiceBtn()
     {
         let title = lstr("Dice 5/6")
-        let thinFont = UIFont(name: "AppleSDGothicNeo-Thin", size: 30)!
-        let defaultFont = UIFont(name: "Apple SD Gothic Neo", size: 30)!
+        let thinFont = UIFont.systemFontOfSize(30, weight: UIFontWeightThin)
+        let defaultFont = UIFont.systemFontOfSize(30)
         
         let attrString = NSMutableAttributedString(string: title, attributes: [
             NSFontAttributeName:thinFont,

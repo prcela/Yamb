@@ -16,12 +16,14 @@ private let ipServer = "139.59.142.160:80"
 class WsAPI
 {
     static let shared = WsAPI()
+    private var retryCount = 0
+    private var unsentMessages = [NSData]()
     
     var socket: WebSocket
     
     init() {
         
-        let strURL = "ws://\(ipWork)/chat/"
+        let strURL = "ws://\(ipServer)/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -71,9 +73,31 @@ class WsAPI
     {
         var json = json ?? JSON([:])
         json["msg_func"].string = action.rawValue
-        print("Sending:\n\(json)")
+        
         let data = try! json.rawData()
-        socket.writeData(data)
+        
+        if socket.isConnected
+        {
+            print("Sending:\n\(json)")
+            socket.writeData(data)
+        }
+        else
+        {
+            print("Keeping:\n\(json)")
+            unsentMessages.append(data)
+        }
+    }
+    
+    private func sendUnsentMessages()
+    {
+        guard socket.isConnected else {
+            return
+        }
+        for data in unsentMessages
+        {
+            socket.writeData(data)
+        }
+        unsentMessages.removeAll()
     }
 }
 
@@ -81,8 +105,9 @@ extension WsAPI: WebSocketDelegate
 {
     func websocketDidConnect(socket: WebSocket) {
         print("didConnect")
-        
+        retryCount = 0
         joinToRoom()
+        sendUnsentMessages()
     }
     
     func websocketDidReceiveData(socket: WebSocket, data: NSData) {
@@ -91,6 +116,12 @@ extension WsAPI: WebSocketDelegate
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         print("websocketDidDisconnect")
+        
+        dispatchToMainQueue(delay: min(Double(retryCount), 5)) {
+            print("retry connect")
+            self.connect()
+            self.retryCount += 1
+        }
     }
     
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
@@ -155,7 +186,7 @@ extension WsAPI: WebSocketDelegate
                 return
             }
             let params = json["params"]
-            let turn = Turn(rawValue: json["turn"].stringValue)!
+            let turn = Turn(rawValue: json["turn"].intValue)!
             switch turn
             {
             case .RollDice:
@@ -175,9 +206,29 @@ extension WsAPI: WebSocketDelegate
             case .End:
                 Game.shared.nextPlayer()
                 
-            default:
-                break
+            case .SetValueAtTablePos:
+                let playerId = json["id"].stringValue
+                let posColIdx = params["posColIdx"].intValue
+                let posRowIdx = params["posRowIdx"].intValue
+                let value = params["value"].uInt
+                guard let player = Game.shared.player(playerId) else {return}
+                player.table.values[posColIdx][posRowIdx] = value
+                
+            case .InputPos:
+                let playerId = json["id"].stringValue
+                guard let player = Game.shared.player(playerId) else {return}
+                if params.dictionary!.isEmpty
+                {
+                    player.inputPos = nil
+                }
+                else
+                {
+                    let colIdx = params["colIdx"].intValue
+                    let rowIdx = params["rowIdx"].intValue
+                    player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
+                }
             }
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
             
         default:
             break

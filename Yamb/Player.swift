@@ -83,7 +83,20 @@ class Player: NSObject, NSCoding
     }
     var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
     
-    var inputPos: TablePos?
+    var inputPos: TablePos? {
+        didSet {
+            if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+            {
+                var params = JSON([:])
+                if inputPos != nil
+                {
+                    params["colIdx"].intValue = inputPos!.colIdx
+                    params["rowIdx"].intValue = inputPos!.rowIdx
+                }
+                WsAPI.shared.turn(.InputPos, matchId: Game.shared.matchId, params: params)
+            }
+        }
+    }
     
     override init() {
         super.init()
@@ -312,6 +325,13 @@ class Player: NSObject, NSCoding
             {
                 table.values[oldPos.colIdx][oldPos.rowIdx] = nil
                 table.recalculateSumsForColumn(oldPos.colIdx, diceValues: diceValues)
+                
+                if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+                {
+                    var params = JSON(["posColIdx":oldPos.colIdx, "posRowIdx":oldPos.rowIdx])
+                    params["value"].uInt = nil
+                    WsAPI.shared.turn(.SetValueAtTablePos, matchId: Game.shared.matchId, params: params)
+                }
             }
         }
         

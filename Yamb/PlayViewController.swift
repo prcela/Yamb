@@ -101,6 +101,13 @@ class PlayViewController: UIViewController {
         
         let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
         
+        
+        
+        let isWaitingForTurn = (Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn())
+        
+        rollBtn.hidden = isWaitingForTurn
+        playLbl.hidden = isWaitingForTurn
+        
         let inputPos = player.inputPos
         
         func endOfTurnText() -> String
