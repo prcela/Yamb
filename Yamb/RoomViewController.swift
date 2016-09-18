@@ -83,14 +83,15 @@ extension RoomViewController: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let isFreePlayer = Room.main.freePlayers.contains({ (player) -> Bool in
+            return player.id == playerId
+        })
         
         if section == 0
         {
             // allow match creation for free players only
-            
-            if Room.main.freePlayers.contains({ (player) -> Bool in
-                return player.id == playerId
-            }) {
+            if isFreePlayer
+            {
                 return 1
             }
             return 0
@@ -102,7 +103,12 @@ extension RoomViewController: UITableViewDataSource
         }
         else if section == 2
         {
-            return Room.main.freePlayers.count
+            var ctFreePlayers = Room.main.freePlayers.count
+            if isFreePlayer
+            {
+               ctFreePlayers -= 1
+            }
+            return ctFreePlayers
         }
         else
         {
@@ -114,6 +120,7 @@ extension RoomViewController: UITableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         
         if indexPath.section == 0
         {
@@ -127,7 +134,9 @@ extension RoomViewController: UITableViewDataSource
         }
         else if indexPath.section == 2
         {
-            let player = Room.main.freePlayers[indexPath.row]
+            let player = Room.main.freePlayers.filter({ (player) -> Bool in
+                return player.id != playerId
+            })[indexPath.row]
             cell.textLabel?.text = player.alias
         }
         else

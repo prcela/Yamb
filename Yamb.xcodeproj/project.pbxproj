@@ -89,7 +89,7 @@
 		977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */; };
 		977D980B1CAF30E300AD9EF8 /* PrepareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980A1CAF30E300AD9EF8 /* PrepareViewController.swift */; };
 		977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */; };
-		978397DC1D816538000C1183 /* Match15ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978397DB1D816538000C1183 /* Match15ViewController.swift */; };
+		978397DC1D816538000C1183 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978397DB1D816538000C1183 /* RoomViewController.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AECF1D6330E3001640F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Game.swift */; };
 		97A50FFF1D874FAD0046AF34 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A50FFE1D874FAD0046AF34 /* Match.swift */; };
@@ -220,7 +220,7 @@
 		977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		977D980A1CAF30E300AD9EF8 /* PrepareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
 		977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
-		978397DB1D816538000C1183 /* Match15ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match15ViewController.swift; sourceTree = "<group>"; };
+		978397DB1D816538000C1183 /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		978397DE1D81781A000C1183 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Main.strings; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 				977D980C1CAF330E00AD9EF8 /* PlayViewController.swift */,
 				9724980E1D72B84800CDC6B7 /* RulesViewController.swift */,
 				9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */,
-				978397DB1D816538000C1183 /* Match15ViewController.swift */,
+				978397DB1D816538000C1183 /* RoomViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -735,7 +735,7 @@
 				97A50FFF1D874FAD0046AF34 /* Match.swift in Sources */,
 				97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */,
 				97C4EF641D69DE1400A1E7CD /* TablePos.swift in Sources */,
-				978397DC1D816538000C1183 /* Match15ViewController.swift in Sources */,
+				978397DC1D816538000C1183 /* RoomViewController.swift in Sources */,
 				97C4EF561D67A36C00A1E7CD /* TableRow.swift in Sources */,
 				972B1B9A1D83C9B600010F5F /* SSLSecurity.swift in Sources */,
 				97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */,
