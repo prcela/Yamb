@@ -12,9 +12,9 @@ class Room
 {
     static let main = Room()
     var freePlayers = [Player]()
-    var matches = [Match]()
+    var matches = [MatchInfo]()
     
-    func matches(state: MatchState) -> [Match]
+    func matches(state: MatchState) -> [MatchInfo]
     {
         return matches.filter({ (match) -> Bool in
             return match.state == state

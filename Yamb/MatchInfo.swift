@@ -14,7 +14,7 @@ enum MatchState: String
     case Finished = "Finished"
 }
 
-class Match
+class MatchInfo
 {
     var id:UInt = 0
     var state:MatchState = .WaitingForPlayers

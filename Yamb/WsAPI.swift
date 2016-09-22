@@ -162,7 +162,7 @@ extension WsAPI: WebSocketDelegate
             let matches = json["matches"].arrayValue
             for m in matches
             {
-                let match = Match()
+                let match = MatchInfo()
                 match.id = m["id"].uIntValue
                 match.state = MatchState(rawValue: m["state"].stringValue)!
                 

@@ -62,7 +62,7 @@ class Game: NSObject, NSCoding
             player.alias = alias
             player.diceMaterial = diceMat
             players.append(player)
-//            player.table.fakeFill()
+            player.table.fakeFill()
             player.printStatus()
         }
         indexOfPlayerOnTurn = 0
