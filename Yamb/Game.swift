@@ -21,16 +21,16 @@ enum DiceNum: Int
     case Six = 6
 }
 
-enum GameType
+enum MatchType: String
 {
-    case SinglePlayer
-    case LocalMultiplayer
-    case OnlineMultiplayer
+    case SinglePlayer = "sp"
+    case LocalMultiplayer = "lmp"
+    case OnlineMultiplayer = "omp"
 }
 
-class Game: NSObject, NSCoding
+class Match: NSObject, NSCoding
 {
-    static var shared = Game() {
+    static var shared = Match() {
         didSet {
             print("Game did set")
             DiceScene.shared.updateDiceValues()
@@ -38,8 +38,8 @@ class Game: NSObject, NSCoding
         }
     }
     
-    var gameType = GameType.SinglePlayer
-    var matchId: UInt = 0
+    var matchType = MatchType.SinglePlayer
+    var id: UInt = 0
     var players = [Player]()
     var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
@@ -50,10 +50,10 @@ class Game: NSObject, NSCoding
         super.init()
     }
     
-    func start(gameType: GameType, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
+    func start(matchType: MatchType, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
     {
-        self.gameType = gameType
-        self.matchId = matchId
+        self.matchType = matchType
+        id = matchId
         players.removeAll()
         for (id,alias,diceMat) in playersDesc
         {
@@ -69,23 +69,23 @@ class Game: NSObject, NSCoding
         
         DiceScene.shared.start()
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
     }
     
     func nextPlayer()
     {
-        if gameType == .OnlineMultiplayer && isLocalPlayerTurn()
+        if matchType == .OnlineMultiplayer && isLocalPlayerTurn()
         {
             let params = JSON([:])
-            WsAPI.shared.turn(.End, matchId: Game.shared.matchId, params: params)
+            WsAPI.shared.turn(.End, matchId: id, params: params)
         }
         
         players[indexOfPlayerOnTurn].next()
         indexOfPlayerOnTurn = (indexOfPlayerOnTurn+1)%players.count
         players[indexOfPlayerOnTurn].onTurn()
         DiceScene.shared.recreateMaterials()
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
     }
     
     func player(id: String) -> Player?
@@ -108,7 +108,7 @@ class Game: NSObject, NSCoding
         let player = players[indexOfPlayerOnTurn]
         player.didSelectCellAtPos(pos)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
     }
     
     

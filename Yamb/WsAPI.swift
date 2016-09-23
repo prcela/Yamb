@@ -193,7 +193,7 @@ extension WsAPI: WebSocketDelegate
             
         case .Turn:
             let matchId = json["match_id"].uIntValue
-            guard matchId == Game.shared.matchId else {
+            guard matchId == Match.shared.id else {
                 return
             }
             let params = json["params"]
@@ -204,30 +204,30 @@ extension WsAPI: WebSocketDelegate
                 let playerId = json["id"].stringValue
                 let values = params["values"].arrayObject as! [UInt]
                 let rounds = params["rounds"].arrayObject as! [[Int]]
-                guard let player = Game.shared.player(playerId) else {return}
+                guard let player = Match.shared.player(playerId) else {return}
                 player.activeRotationRounds = rounds
                 DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
                 
             case .HoldDice:
                 let holdDice = params.arrayObject as! [UInt]
                 let playerId = json["id"].stringValue
-                guard let player = Game.shared.player(playerId) else {return}
+                guard let player = Match.shared.player(playerId) else {return}
                 player.diceHeld = Set(holdDice)
                 
             case .End:
-                Game.shared.nextPlayer()
+                Match.shared.nextPlayer()
                 
             case .SetValueAtTablePos:
                 let playerId = json["id"].stringValue
                 let posColIdx = params["posColIdx"].intValue
                 let posRowIdx = params["posRowIdx"].intValue
                 let value = params["value"].uInt
-                guard let player = Game.shared.player(playerId) else {return}
+                guard let player = Match.shared.player(playerId) else {return}
                 player.table.values[posColIdx][posRowIdx] = value
                 
             case .InputPos:
                 let playerId = json["id"].stringValue
-                guard let player = Game.shared.player(playerId) else {return}
+                guard let player = Match.shared.player(playerId) else {return}
                 if params.dictionary!.isEmpty
                 {
                     player.inputPos = nil
@@ -239,7 +239,7 @@ extension WsAPI: WebSocketDelegate
                     player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
                 }
             }
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             
         default:
             break

@@ -36,7 +36,7 @@ class DiceScene: SCNScene
         
         recreateMaterials()
         
-        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        for dieIdx in 0..<Match.shared.diceNum.rawValue
         {
             let row = dieIdx / 3
             let col = dieIdx % 3
@@ -79,7 +79,7 @@ class DiceScene: SCNScene
     
     func recreateMaterials()
     {
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         let dieMat = player.diceMaterial.rawValue
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
@@ -99,7 +99,7 @@ class DiceScene: SCNScene
             dieMaterialsSelected.append(selectedMaterial)
         }
         
-        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        for dieIdx in 0..<Match.shared.diceNum.rawValue
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
             {
@@ -110,7 +110,7 @@ class DiceScene: SCNScene
     
     func start()
     {
-        let game = Game.shared
+        let match = Match.shared
         
         for idx in 0..<6
         {
@@ -122,21 +122,21 @@ class DiceScene: SCNScene
         
         if let node = rootNode.childNodeWithName("5", recursively: false)
         {
-            node.hidden = game.diceNum == .Five
+            node.hidden = match.diceNum == .Five
         }
         updateDiceSelection()
     }
 
     func rollToValues(values: [UInt], ctMaxRounds: UInt32, completion: (Void) -> Void)
     {
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
         {
             return dst + CGFloat(rounds)*2*CGFloat(M_PI)
         }
         
-        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        for dieIdx in 0..<Match.shared.diceNum.rawValue
         {
             let num = values[dieIdx]
             
@@ -177,7 +177,7 @@ class DiceScene: SCNScene
             node.runAction(action)
         }
         
-        let ctRoll = Game.shared.diceNum.rawValue-player.diceHeld.count
+        let ctRoll = Match.shared.diceNum.rawValue-player.diceHeld.count
         audioPlayers[ctRoll-1].play()
         
         dispatchToMainQueue(delay: 1.1) { 
@@ -187,8 +187,8 @@ class DiceScene: SCNScene
     
     func updateDiceSelection()
     {
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
-        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
+        for dieIdx in 0..<Match.shared.diceNum.rawValue
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
             {
@@ -206,7 +206,7 @@ class DiceScene: SCNScene
     
     func updateDiceValues()
     {
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         guard let values = player.diceValues else {return}
         
         for (idx,num) in values.enumerate()

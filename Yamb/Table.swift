@@ -60,11 +60,11 @@ class Table: NSObject, NSCoding
         let newValue = calculateValueForPos(pos, diceValues: diceValues)
         values[pos.colIdx][pos.rowIdx] = newValue
         
-        if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+        if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
         {
             var params = JSON(["posColIdx":pos.colIdx, "posRowIdx":pos.rowIdx])
             params["value"].uInt = newValue
-            WsAPI.shared.turn(.SetValueAtTablePos, matchId: Game.shared.matchId, params: params)
+            WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
         }
         
         return newValue

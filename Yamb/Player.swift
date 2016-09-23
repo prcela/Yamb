@@ -72,12 +72,12 @@ class Player: NSObject, NSCoding
     var diceHeld = Set<UInt>() {
         didSet {
             DiceScene.shared.updateDiceSelection()
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             
-            if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+            if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
             {
                 let params = JSON(Array(diceHeld))
-                WsAPI.shared.turn(.HoldDice, matchId: Game.shared.matchId, params: params)
+                WsAPI.shared.turn(.HoldDice, matchId: Match.shared.id, params: params)
             }
         }
     }
@@ -85,7 +85,7 @@ class Player: NSObject, NSCoding
     
     var inputPos: TablePos? {
         didSet {
-            if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+            if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
             {
                 var params = JSON([:])
                 if inputPos != nil
@@ -93,7 +93,7 @@ class Player: NSObject, NSCoding
                     params["colIdx"].intValue = inputPos!.colIdx
                     params["rowIdx"].intValue = inputPos!.rowIdx
                 }
-                WsAPI.shared.turn(.InputPos, matchId: Game.shared.matchId, params: params)
+                WsAPI.shared.turn(.InputPos, matchId: Match.shared.id, params: params)
             }
         }
     }
@@ -183,13 +183,13 @@ class Player: NSObject, NSCoding
         }
         
         rollState = .Rolling
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         
         let ctMaxRounds: UInt32 = 3
         var oldValues = diceValues
         var values = [UInt]()
         
-        for dieIdx in 0..<Game.shared.diceNum.rawValue
+        for dieIdx in 0..<Match.shared.diceNum.rawValue
         {
             if diceHeld.contains(UInt(dieIdx))
             {
@@ -216,10 +216,10 @@ class Player: NSObject, NSCoding
             }
         }
         
-        if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+        if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
         {
             let params = JSON(["values":values,"rounds":activeRotationRounds])
-            WsAPI.shared.turn(.RollDice, matchId: Game.shared.matchId, params: params)
+            WsAPI.shared.turn(.RollDice, matchId: Match.shared.id, params: params)
         }
         
         DiceScene.shared.rollToValues(values, ctMaxRounds: ctMaxRounds) {
@@ -293,7 +293,7 @@ class Player: NSObject, NSCoding
         }
         
         printStatus()
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.gameStateChanged, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
     }
     
     func updateNajavaValue()
@@ -326,11 +326,11 @@ class Player: NSObject, NSCoding
                 table.values[oldPos.colIdx][oldPos.rowIdx] = nil
                 table.recalculateSumsForColumn(oldPos.colIdx, diceValues: diceValues)
                 
-                if Game.shared.gameType == .OnlineMultiplayer && Game.shared.isLocalPlayerTurn()
+                if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
                 {
                     var params = JSON(["posColIdx":oldPos.colIdx, "posRowIdx":oldPos.rowIdx])
                     params["value"].uInt = nil
-                    WsAPI.shared.turn(.SetValueAtTablePos, matchId: Game.shared.matchId, params: params)
+                    WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
                 }
             }
         }
@@ -419,7 +419,7 @@ class Player: NSObject, NSCoding
         // score submit
         if GameKitHelper.shared.authenticated
         {
-            let score = GKScore(leaderboardIdentifier: Game.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
+            let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
             
             if let totalScore = table.totalScore()
             {
@@ -465,7 +465,7 @@ class Player: NSObject, NSCoding
             diceHeld.insert(dieIdx)
         }
         
-        if diceHeld.count == Game.shared.diceNum.rawValue && inputPos?.colIdx == TableCol.N.rawValue
+        if diceHeld.count == Match.shared.diceNum.rawValue && inputPos?.colIdx == TableCol.N.rawValue
         {
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.alertForInput, object: nil)
         }
@@ -483,7 +483,7 @@ class Player: NSObject, NSCoding
             return false
         }
         
-        if diceHeld.count == Game.shared.diceNum.rawValue
+        if diceHeld.count == Match.shared.diceNum.rawValue
         {
             return false
         }

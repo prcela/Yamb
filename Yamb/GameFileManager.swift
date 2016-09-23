@@ -17,10 +17,10 @@ class GameFileManager
         return filePath
     }
     
-    class func saveGame(game: Game)
+    class func saveMatch(match: Match)
     {
-        let gameName = game.players.count == 1 ? "singlePlayer":"multiPlayer"
-        NSKeyedArchiver.archiveRootObject(game, toFile: filePathForGameName(gameName))
+        let matchName = match.matchType.rawValue
+        NSKeyedArchiver.archiveRootObject(match, toFile: filePathForGameName(matchName))
     }
     
     class func existsSavedGame(gameName: String) -> Bool
@@ -29,13 +29,13 @@ class GameFileManager
         return NSFileManager.defaultManager().fileExistsAtPath(filePath)
     }
     
-    class func loadGame(gameName: String) -> Game?
+    class func loadMatch(matchType: MatchType) -> Match?
     {
-        let filePath = filePathForGameName(gameName)
+        let filePath = filePathForGameName(matchType.rawValue)
         if NSFileManager.defaultManager().fileExistsAtPath(filePath)
         {
-            let game = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? Game
-            return game
+            let match = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? Match
+            return match
         }
         return nil
     }

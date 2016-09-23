@@ -43,7 +43,7 @@ class PrepareViewController: UIViewController {
             NSForegroundColorAttributeName:UIColor.blackColor()
             ])
         
-        let loc = title.characters.indexOf(Game.shared.diceNum == .Five ? "5":"6")!
+        let loc = title.characters.indexOf(Match.shared.diceNum == .Five ? "5":"6")!
         attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
         
         
@@ -56,8 +56,8 @@ class PrepareViewController: UIViewController {
     
     @IBAction func toggleDiceCount(sender: AnyObject)
     {
-        let old = Game.shared.diceNum
-        Game.shared.diceNum = (old == .Five) ? .Six : .Five
+        let old = Match.shared.diceNum
+        Match.shared.diceNum = (old == .Five) ? .Six : .Five
         updateDiceBtn()
     }
 
@@ -68,9 +68,9 @@ class PrepareViewController: UIViewController {
     
     @IBAction func resumeGame(sender: AnyObject)
     {
-        if let game = GameFileManager.loadGame("singlePlayer")
+        if let match = GameFileManager.loadMatch(.SinglePlayer)
         {
-            Game.shared = game
+            Match.shared = match
             GameFileManager.deleteGame("singlePlayer")
         }
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
@@ -85,7 +85,7 @@ class PrepareViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        Game.shared.start(GameType.SinglePlayer, playersDesc: [(nil,nil,diceMats[diceMatSelected])])
+        Match.shared.start(.SinglePlayer, playersDesc: [(nil,nil,diceMats[diceMatSelected])])
         navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         
     }

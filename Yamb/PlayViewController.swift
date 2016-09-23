@@ -27,7 +27,7 @@ class PlayViewController: UIViewController {
         super.init(coder: aDecoder)
         
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.gameStateChanged, object: nil)
+        nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.matchStateChanged, object: nil)
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
 
@@ -63,7 +63,7 @@ class PlayViewController: UIViewController {
         
         if chartboostAllowed && finishedOnce
         {
-            if Game.shared.players.first?.state == .Start
+            if Match.shared.players.first?.state == .Start
             {
                 dispatchToMainQueue(delay: 45, closure: {[weak self] in
                     guard self != nil else {return}
@@ -99,14 +99,14 @@ class PlayViewController: UIViewController {
         gameTableView?.updateValuesAndStates()
         gameTableView?.setNeedsDisplay()
         sumLbl.hidden = false
-        sum1Lbl.hidden = Game.shared.players.count == 1
+        sum1Lbl.hidden = Match.shared.players.count == 1
         
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
-        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
+        let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
         
-        let isWaitingForTurn = (Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn())
+        let isWaitingForTurn = (Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn())
         
         rollBtn.hidden = isWaitingForTurn
         playLbl.hidden = isWaitingForTurn
@@ -115,7 +115,7 @@ class PlayViewController: UIViewController {
         
         func endOfTurnText() -> String
         {
-            let gameType = Game.shared.gameType
+            let gameType = Match.shared.matchType
             if gameType == .SinglePlayer
             {
                 return lstr("1. roll")
@@ -160,7 +160,7 @@ class PlayViewController: UIViewController {
             playLbl.text = lstr("1. roll")
             
         case .EndGame:
-            if Game.shared.players.count > 1 && Game.shared.indexOfPlayerOnTurn == 0
+            if Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn == 0
             {
                 playLbl.text = lstr("Next player")
             }
@@ -170,7 +170,7 @@ class PlayViewController: UIViewController {
             }
         }
         
-        rollBtn.enabled = Game.shared.isRollEnabled()
+        rollBtn.enabled = Match.shared.isRollEnabled()
         nameLbl.text = player.alias
         nameLbl.textColor = skin.strokeColor
         
@@ -178,9 +178,9 @@ class PlayViewController: UIViewController {
         
         for (idx,lbl) in sumLbls.enumerate()
         {
-            if idx < Game.shared.players.count
+            if idx < Match.shared.players.count
             {
-                let player = Game.shared.players[idx]
+                let player = Match.shared.players[idx]
                 if let score = player.table.totalScore()
                 {
                     lbl.text = String(score)
@@ -196,7 +196,7 @@ class PlayViewController: UIViewController {
     
     func alertForInput()
     {
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         guard let pos = player.inputPos else {return}
         let value = player.table.values[pos.colIdx][pos.rowIdx]!
         
@@ -215,7 +215,7 @@ class PlayViewController: UIViewController {
     func opponentLeavedMatch(notification: NSNotification)
     {
         let matchId = notification.object as! UInt
-        guard matchId == Game.shared.matchId else {
+        guard matchId == Match.shared.id else {
             return
         }
         let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
@@ -229,11 +229,11 @@ class PlayViewController: UIViewController {
     
     @IBAction func back(sender: AnyObject)
     {
-        if Game.shared.gameType == .OnlineMultiplayer
+        if Match.shared.matchType == .OnlineMultiplayer
         {
             let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
-                WsAPI.shared.leaveMatch(Game.shared.matchId)
+                WsAPI.shared.leaveMatch(Match.shared.id)
                 self.dismiss()
             }))
             alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .Default, handler: nil))
@@ -249,16 +249,16 @@ class PlayViewController: UIViewController {
     {
         dismissViewControllerAnimated(true, completion: nil)
         
-        let game = Game.shared
-        if game.gameType == GameType.SinglePlayer
+        let match = Match.shared
+        if match.matchType == .SinglePlayer
         {
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
         
-            if let player = game.players.first
+            if let player = match.players.first
             {
                 if player.state != .Start && player.state != .EndGame
                 {
-                    GameFileManager.saveGame(game)
+                    GameFileManager.saveMatch(match)
                 }
             }
         }
@@ -266,34 +266,34 @@ class PlayViewController: UIViewController {
     
     @IBAction func roll(sender: UIButton)
     {
-        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
         {
             return
         }
         
         if playLbl.text == lstr("New game")
         {
-            let players = Game.shared.players
-            Game.shared.start(Game.shared.gameType, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
+            let players = Match.shared.players
+            Match.shared.start(Match.shared.matchType, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
         }
         else if playLbl.text == lstr("Next player")
         {
-            Game.shared.nextPlayer()
+            Match.shared.nextPlayer()
         }
         else
         {
-            Game.shared.roll()
+            Match.shared.roll()
         }
     }
     
     @IBAction func onDiceTouched(sender: UIButton)
     {
         print("Touched: \(sender.tag)")
-        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
         {
             return
         }
-        Game.shared.onDieTouched(UInt(sender.tag))
+        Match.shared.onDieTouched(UInt(sender.tag))
     }
 }
 

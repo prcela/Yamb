@@ -17,11 +17,11 @@ class GameTableView: UIView
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         
-        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
+        let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
         // Drawing code
         
-        let ctColumns = Game.shared.ctColumns
+        let ctColumns = Match.shared.ctColumns
         let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns)-0.5)
         let rowHeight = round(CGRectGetHeight(rect)/16-0.5)
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
@@ -69,7 +69,7 @@ class GameTableView: UIView
             CGContextStrokePath(ctx)
         }
         
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         if let pos = player.inputPos
         {
@@ -90,7 +90,7 @@ class GameTableView: UIView
     
     func updateFrames()
     {
-        let ctColumns = Game.shared.ctColumns
+        let ctColumns = Match.shared.ctColumns
         
         let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
         let rowHeight = round(CGRectGetHeight(frame)/CGFloat(ctRows)-0.5)
@@ -109,7 +109,7 @@ class GameTableView: UIView
     
     override func awakeFromNib()
     {
-        let ctColumns = Game.shared.ctColumns
+        let ctColumns = Match.shared.ctColumns
         let colWidth = round(CGRectGetWidth(self.frame)/CGFloat(ctColumns)-0.5)
         let rowHeight = round(CGRectGetHeight(self.frame)/16-0.5)
         
@@ -182,9 +182,9 @@ class GameTableView: UIView
     
     func updateValuesAndStates()
     {
-        let skin = (Game.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
+        let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
-        let player = Game.shared.players[Game.shared.indexOfPlayerOnTurn]
+        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         let tableValues = player.table.values
         let inputPos = player.inputPos
         let inputState = player.inputState
@@ -198,7 +198,7 @@ class GameTableView: UIView
         }
         
         // set values
-        for colIdx in 1..<Game.shared.ctColumns
+        for colIdx in 1..<Match.shared.ctColumns
         {
             // zero row
             guard let lbl = viewWithTag(tag(0, colIdx)) as? UILabel else {continue}
@@ -347,7 +347,7 @@ class GameTableView: UIView
         }
         
         // sum labels
-        for colIdx in 1..<Game.shared.ctColumns
+        for colIdx in 1..<Match.shared.ctColumns
         {
             for rowIdx in [
                 TableRow.SumNumbers.rawValue,
@@ -372,23 +372,23 @@ class GameTableView: UIView
     @objc
     func onBtnPressed(sender: UIButton)
     {
-        if Game.shared.gameType == .OnlineMultiplayer && !Game.shared.isLocalPlayerTurn()
+        if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
         {
             return
         }
         
-        let ctColumns = Game.shared.ctColumns
+        let ctColumns = Match.shared.ctColumns
         let rowIdx = sender.tag/ctColumns
         let colIdx = sender.tag-rowIdx*ctColumns
         let pos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
         print(rowIdx,colIdx)
         
-        Game.shared.didSelectCellAtPos(pos)
+        Match.shared.didSelectCellAtPos(pos)
     }
     
     func tag(rowIdx: Int, _ colIdx: Int) -> Int
     {
-        return rowIdx*Game.shared.ctColumns + colIdx
+        return rowIdx*Match.shared.ctColumns + colIdx
     }
 
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct NotificationName
 {
-    static let gameStateChanged = "Notification.GameStateChanged"
+    static let matchStateChanged = "Notification.GameStateChanged"
     static let authenticatedLocalPlayer = "Notification.AuthenticatedLocalPlayer"
     static let goToMainMenu = "Notification.goToMainMenu"
     static let alertForInput = "Notification.alertForInput"
