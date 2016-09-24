@@ -10,7 +10,7 @@ import UIKit
 
 private let diceMats:[DiceMaterial] = [.White, .Black, .Blue, .Rose, .Red, .Yellow]
 
-class PrepareViewController: UIViewController {
+class PrepareSPViewController: UIViewController {
 
     @IBOutlet weak var dice56Btn: UIButton?
     @IBOutlet weak var diceTextureBtn: UIButton?

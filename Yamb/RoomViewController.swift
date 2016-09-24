@@ -155,9 +155,11 @@ extension RoomViewController: UITableViewDataSource
 extension RoomViewController: UITableViewDelegate
 {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         if indexPath.section == 0
         {
-            WsAPI.shared.createMatch()
+            performSegueWithIdentifier("prepareMP", sender: self)
         }
         else if indexPath.section == 1
         {
