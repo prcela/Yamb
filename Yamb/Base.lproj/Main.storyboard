@@ -221,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="est-N0-ze9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2496" y="380"/>
+            <point key="canvasLocation" x="2718" y="379"/>
         </scene>
         <!--Room View Controller-->
         <scene sceneID="qfb-0k-0dW">
@@ -325,6 +325,9 @@
                                     <constraint firstAttribute="width" constant="50" id="ii2-hD-X6O"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="1d.png"/>
+                                <connections>
+                                    <action selector="changeFirstDiceMaterial:" destination="b1o-Sb-0QA" eventType="touchUpInside" id="oPk-R8-c1N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFv-kI-dfv">
                                 <constraints>
@@ -332,6 +335,9 @@
                                     <constraint firstAttribute="width" constant="50" id="cut-Yg-vM9"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="1c.png"/>
+                                <connections>
+                                    <action selector="changeSecondDiceMAterial:" destination="b1o-Sb-0QA" eventType="touchUpInside" id="zVP-gc-7fe"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22F-RO-a5m">
                                 <constraints>
@@ -370,8 +376,8 @@
                             <constraint firstItem="PED-rx-ILD" firstAttribute="top" secondItem="En1-5l-DaL" secondAttribute="bottom" constant="37" id="A04-7U-gEJ"/>
                             <constraint firstItem="7KQ-52-yzw" firstAttribute="top" secondItem="ktU-sc-ZFO" secondAttribute="bottom" constant="37" id="Aiq-e6-QhL"/>
                             <constraint firstItem="aYn-NR-3fQ" firstAttribute="top" secondItem="PED-rx-ILD" secondAttribute="bottom" constant="8" id="ObN-n8-Mra"/>
-                            <constraint firstItem="ZFv-kI-dfv" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="30" id="RzR-eU-jU5"/>
-                            <constraint firstItem="hyd-5R-Bep" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="-30" id="VfL-Ht-aGa"/>
+                            <constraint firstItem="ZFv-kI-dfv" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="40" id="RzR-eU-jU5"/>
+                            <constraint firstItem="hyd-5R-Bep" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="-40" id="VfL-Ht-aGa"/>
                             <constraint firstItem="En1-5l-DaL" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="X5O-R4-GlI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PED-rx-ILD" secondAttribute="trailing" id="cWn-Yg-rZB"/>
                             <constraint firstItem="En1-5l-DaL" firstAttribute="top" secondItem="ZFv-kI-dfv" secondAttribute="bottom" constant="37" id="eGj-Uo-Ag9"/>
@@ -382,6 +388,11 @@
                             <constraint firstItem="aYn-NR-3fQ" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="v9k-Gl-dl8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dice56Btn" destination="22F-RO-a5m" id="UHg-KW-072"/>
+                        <outlet property="diceTexBtnFirst" destination="hyd-5R-Bep" id="GtW-7u-zRQ"/>
+                        <outlet property="diceTexBtnSecond" destination="ZFv-kI-dfv" id="J7F-b8-CRt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xbo-QZ-IuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -729,7 +740,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LR3-mH-ZOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2496" y="-414"/>
+            <point key="canvasLocation" x="2718" y="-379"/>
         </scene>
     </scenes>
     <resources>
@@ -739,7 +750,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qNf-kJ-iJq"/>
+        <segue reference="5o3-Gb-59i"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

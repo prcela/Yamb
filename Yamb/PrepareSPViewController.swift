@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let diceMats:[DiceMaterial] = [.White, .Black, .Blue, .Rose, .Red, .Yellow]
+let diceMats:[DiceMaterial] = [.White, .Black, .Blue, .Rose, .Red, .Yellow]
 
 class PrepareSPViewController: UIViewController {
 

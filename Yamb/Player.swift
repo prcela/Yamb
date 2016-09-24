@@ -33,15 +33,6 @@ enum PlayerState: Int
     case EndGame
 }
 
-enum DiceMaterial: String
-{
-    case White = "a"
-    case Black = "b"
-    case Rose = "c"
-    case Blue = "d"
-    case Red = "e"
-    case Yellow = "f"
-}
 
 
 enum RollState: Int {

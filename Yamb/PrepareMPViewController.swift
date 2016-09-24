@@ -10,17 +10,75 @@ import UIKit
 
 class PrepareMPViewController: UIViewController {
 
+    @IBOutlet weak var dice56Btn: UIButton!
+    @IBOutlet weak var diceTexBtnFirst: UIButton!
+    @IBOutlet weak var diceTexBtnSecond: UIButton!
+    
+    var diceNum: DiceNum = .Six
+    var selectedDiceMats = [2,3]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        for btn in [diceTexBtnFirst,diceTexBtnSecond]
+        {
+            btn.layer.cornerRadius = 5
+            btn.layer.borderColor = UIColor.lightGrayColor().CGColor
+            btn.layer.borderWidth = 1
+            btn.clipsToBounds = true
+        }
+        
+        updateDiceBtn()
     }
+    
+    func updateDiceBtn()
+    {
+        let title = lstr("Dice 5/6")
+        let thinFont = UIFont.systemFontOfSize(30, weight: UIFontWeightThin)
+        let defaultFont = UIFont.systemFontOfSize(30)
+        
+        let attrString = NSMutableAttributedString(string: title, attributes: [
+            NSFontAttributeName:thinFont,
+            NSForegroundColorAttributeName:UIColor.blackColor()
+            ])
+        
+        let loc = title.characters.indexOf(diceNum == .Five ? "5":"6")!
+        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
+        
+        dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
+        
+        let btns = [diceTexBtnFirst,diceTexBtnSecond]
+        
+        for (idx,matIdx) in selectedDiceMats.enumerate()
+        {
+            let current = diceMats[matIdx]
+            btns[idx].setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
+        }
+    }
+    
     
     @IBAction func back(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func changeFirstDiceMaterial(sender: AnyObject) {
+        selectedDiceMats[0] = (selectedDiceMats[0]+1)%diceMats.count
+        let diceMat = diceMats[selectedDiceMats[0]]
+        diceTexBtnFirst.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
+    }
+    
+    @IBAction func changeSecondDiceMAterial(sender: AnyObject) {
+        
+        selectedDiceMats[1] = (selectedDiceMats[1]+1)%diceMats.count
+        let diceMat = diceMats[selectedDiceMats[1]]
+        diceTexBtnSecond.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
+    }
+    
     @IBAction func createMatch(sender: AnyObject) {
-        WsAPI.shared.createMatch()
+        WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
+            return diceMats[idx]
+        }))
     }
 }

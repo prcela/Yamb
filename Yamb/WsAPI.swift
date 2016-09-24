@@ -48,9 +48,12 @@ class WsAPI
         send(.RoomInfo)
     }
     
-    func createMatch()
+    func createMatch(diceNum: DiceNum, diceMaterials: [DiceMaterial])
     {
-        send(.CreateMatch)
+        let json = JSON(["dice_num":diceNum.rawValue, "dice_materials": diceMaterials.map({ (dm) -> String in
+            return dm.rawValue
+        })])
+        send(.CreateMatch, json: json)
     }
     
     func joinToMatch(matchId: UInt)
