@@ -151,7 +151,7 @@ extension WsAPI: WebSocketDelegate
         case .RoomInfo:
             
             Room.main.freePlayers.removeAll()
-            Room.main.matches.removeAll()
+            Room.main.matchesInfo.removeAll()
             
             let freePlayers = json["free_players"].arrayValue
             for p in freePlayers
@@ -165,9 +165,9 @@ extension WsAPI: WebSocketDelegate
             let matches = json["matches"].arrayValue
             for m in matches
             {
-                let match = MatchInfo()
-                match.id = m["id"].uIntValue
-                match.state = MatchState(rawValue: m["state"].stringValue)!
+                let matchInfo = MatchInfo()
+                matchInfo.id = m["id"].uIntValue
+                matchInfo.state = MatchState(rawValue: m["state"].stringValue)!
                 
                 let players = m["players"].arrayValue
                 for p in players
@@ -175,9 +175,11 @@ extension WsAPI: WebSocketDelegate
                     let player = Player()
                     player.id = p["id"].stringValue
                     player.alias = p["alias"].stringValue
-                    match.players.append(player)
+                    matchInfo.players.append(player)
                 }
-                Room.main.matches.append(match)
+                matchInfo.diceNum = m["dice_num"].intValue
+                matchInfo.diceMaterials = m["dice_materials"].arrayObject as! [String]
+                Room.main.matchesInfo.append(matchInfo)
             }
             
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onRoomInfo, object: nil)

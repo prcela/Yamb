@@ -40,13 +40,17 @@ class RoomViewController: UIViewController
     func joinedMatch(notification: NSNotification)
     {
         let matchId = notification.object as! UInt
-        if let idx = Room.main.matches.indexOf ({ (m) -> Bool in
+        if let idx = Room.main.matchesInfo.indexOf ({ (m) -> Bool in
             return m.id == matchId
         }) {
-            let match = Room.main.matches[idx]
-            let firstPlayer = match.players.first!
-            let lastPlayer = match.players.last!
-            Match.shared.start(.OnlineMultiplayer, playersDesc: [(firstPlayer.id,firstPlayer.alias,DiceMaterial.Blue),(lastPlayer.id,lastPlayer.alias,DiceMaterial.Red)], matchId: matchId)
+            let matchInfo = Room.main.matchesInfo[idx]
+            let firstPlayer = matchInfo.players.first!
+            let lastPlayer = matchInfo.players.last!
+            Match.shared.start(.OnlineMultiplayer,
+                               playersDesc: [
+                                (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
+                                (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                               matchId: matchId)
             navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         }
     }
@@ -97,7 +101,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else if section == 1
         {
-            let waitingMatches = Room.main.matches(.WaitingForPlayers)
+            let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
             return waitingMatches.count
         }
         else if section == 2
@@ -109,7 +113,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else
         {
-            let playingMatches = Room.main.matches(.Playing)
+            let playingMatches = Room.main.matchesInfo(.Playing)
             return playingMatches.count
         }
     }
@@ -125,7 +129,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else if indexPath.section == 1
         {
-            let waitingMatches = Room.main.matches(.WaitingForPlayers)
+            let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
             let match = waitingMatches[indexPath.row]
             cell.textLabel?.text = match.players.first!.alias
         }
@@ -138,7 +142,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else
         {
-            let playingMatches = Room.main.matches(.Playing)
+            let playingMatches = Room.main.matchesInfo(.Playing)
             let match = playingMatches[indexPath.row]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
@@ -163,7 +167,7 @@ extension RoomViewController: UITableViewDelegate
         }
         else if indexPath.section == 1
         {
-            let filteredMatches = Room.main.matches.filter({ (match) -> Bool in
+            let filteredMatches = Room.main.matchesInfo.filter({ (match) -> Bool in
                 return match.state == .WaitingForPlayers
             })
             let match = filteredMatches[indexPath.row]
