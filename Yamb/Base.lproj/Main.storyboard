@@ -255,6 +255,47 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MatchCellId" id="AMM-SO-qQp" customClass="MatchCell" customModule="Yamb" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMM-SO-qQp" id="czI-Ri-fCS">
+                                            <frame key="frameInset" width="343" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1b.png" translatesAutoresizingMaskIntoConstraints="NO" id="frD-9z-8Ud">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="15R-G1-qWW"/>
+                                                        <constraint firstAttribute="height" constant="20" id="Skm-lQ-Xw5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2c.png" translatesAutoresizingMaskIntoConstraints="NO" id="CVs-sp-FUC">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="83s-mG-X5j"/>
+                                                        <constraint firstAttribute="width" constant="20" id="k65-aS-yfC"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyB-rf-qgR">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gyB-rf-qgR" firstAttribute="leading" secondItem="CVs-sp-FUC" secondAttribute="trailing" constant="8" id="0HE-gh-mYT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gyB-rf-qgR" secondAttribute="trailing" id="AcX-Ib-Sqh"/>
+                                                <constraint firstItem="CVs-sp-FUC" firstAttribute="leading" secondItem="frD-9z-8Ud" secondAttribute="trailing" constant="5" id="BA2-FS-3Uc"/>
+                                                <constraint firstItem="frD-9z-8Ud" firstAttribute="centerY" secondItem="czI-Ri-fCS" secondAttribute="centerY" id="G37-z4-aKh"/>
+                                                <constraint firstItem="CVs-sp-FUC" firstAttribute="centerY" secondItem="czI-Ri-fCS" secondAttribute="centerY" id="Obr-WS-CKJ"/>
+                                                <constraint firstItem="frD-9z-8Ud" firstAttribute="leading" secondItem="czI-Ri-fCS" secondAttribute="leadingMargin" constant="7" id="PVp-dE-dgU"/>
+                                                <constraint firstItem="gyB-rf-qgR" firstAttribute="centerY" secondItem="czI-Ri-fCS" secondAttribute="centerY" id="dN3-rZ-Sjg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="diceIconFirst" destination="frD-9z-8Ud" id="DfI-8S-Aek"/>
+                                            <outlet property="diceIconSecond" destination="CVs-sp-FUC" id="H4Q-u6-c1c"/>
+                                            <outlet property="titleLbl" destination="gyB-rf-qgR" id="vGD-uN-wdn"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="V7M-Hp-OMl" id="vrr-He-s8Y"/>
@@ -744,8 +785,10 @@ bacanje</string>
         </scene>
     </scenes>
     <resources>
+        <image name="1b.png" width="171" height="171"/>
         <image name="1c.png" width="171" height="171"/>
         <image name="1d.png" width="171" height="171"/>
+        <image name="2c.png" width="171" height="171"/>
         <image name="menu.png" width="170" height="170"/>
         <image name="play.png" width="140" height="180"/>
     </resources>

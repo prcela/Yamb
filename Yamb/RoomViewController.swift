@@ -120,36 +120,42 @@ extension RoomViewController: UITableViewDataSource
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
+        
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         
         if indexPath.section == 0
         {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
             cell.textLabel?.text = lstr("Create new match")
+            return cell
         }
         else if indexPath.section == 1
         {
+            let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
             let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
             let match = waitingMatches[indexPath.row]
-            cell.textLabel?.text = match.players.first!.alias
+            cell.titleLbl?.text = match.players.first!.alias
+            return cell
         }
         else if indexPath.section == 2
         {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
             let player = Room.main.freePlayers.filter({ (player) -> Bool in
                 return player.id != playerId
             })[indexPath.row]
             cell.textLabel?.text = player.alias
+            return cell
         }
         else
         {
+            let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
             let playingMatches = Room.main.matchesInfo(.Playing)
             let match = playingMatches[indexPath.row]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
-            cell.textLabel?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
+            cell.titleLbl?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
+            return cell
         }
-        
-        return cell
         
     }
     
