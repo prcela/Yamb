@@ -389,6 +389,9 @@
                                 <state key="normal" title="Dice 5/6">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="En1-5l-DaL">
                                 <constraints>
@@ -403,7 +406,7 @@
                                     <action selector="createMatch:" destination="b1o-Sb-0QA" eventType="touchUpInside" id="f5p-0H-vVr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for opponent player..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PED-rx-ILD">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for opponent player..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PED-rx-ILD">
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -430,9 +433,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="aYn-NR-3fQ" id="twC-tS-Xv0"/>
                         <outlet property="dice56Btn" destination="22F-RO-a5m" id="UHg-KW-072"/>
                         <outlet property="diceTexBtnFirst" destination="hyd-5R-Bep" id="GtW-7u-zRQ"/>
                         <outlet property="diceTexBtnSecond" destination="ZFv-kI-dfv" id="J7F-b8-CRt"/>
+                        <outlet property="waitingLbl" destination="PED-rx-ILD" id="u9p-CK-otD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xbo-QZ-IuV" userLabel="First Responder" sceneMemberID="firstResponder"/>

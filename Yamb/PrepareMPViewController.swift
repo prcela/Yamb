@@ -13,6 +13,8 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var dice56Btn: UIButton!
     @IBOutlet weak var diceTexBtnFirst: UIButton!
     @IBOutlet weak var diceTexBtnSecond: UIButton!
+    @IBOutlet weak var waitingLbl: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
@@ -44,10 +46,20 @@ class PrepareMPViewController: UIViewController {
             NSForegroundColorAttributeName:UIColor.blackColor()
             ])
         
+        let attrStringDisabled = NSMutableAttributedString(string: title, attributes: [
+            NSFontAttributeName:thinFont,
+            NSForegroundColorAttributeName:UIColor.grayColor()
+            ])
+        
         let loc = title.characters.indexOf(diceNum == .Five ? "5":"6")!
+        
         attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
         
+        attrStringDisabled.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
+        
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
+        
+        dice56Btn.setAttributedTitle(attrStringDisabled, forState: .Disabled)
         
         let btns = [diceTexBtnFirst,diceTexBtnSecond]
         
@@ -76,7 +88,14 @@ class PrepareMPViewController: UIViewController {
         diceTexBtnSecond.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
     }
     
-    @IBAction func createMatch(sender: AnyObject) {
+    @IBAction func createMatch(sender: UIButton) {
+        sender.hidden = true
+        dice56Btn.enabled = false
+        diceTexBtnFirst.enabled = false
+        diceTexBtnSecond.enabled = false
+        waitingLbl.hidden = false
+        activityIndicator.startAnimating()
+        
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]
         }))

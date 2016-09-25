@@ -134,7 +134,9 @@ extension RoomViewController: UITableViewDataSource
             let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
             let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
             let match = waitingMatches[indexPath.row]
-            cell.titleLbl?.text = match.players.first!.alias
+            cell.diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
+            cell.diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
+            cell.titleLbl?.text = "\(match.diceNum) \(match.players.first!.alias!)"
             return cell
         }
         else if indexPath.section == 2
