@@ -71,7 +71,14 @@ class PrepareMPViewController: UIViewController {
     }
     
     
-    @IBAction func back(sender: AnyObject) {
+    @IBAction func back(sender: AnyObject)
+    {
+        // TODO: leave all my matches
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        for matchInfo in Room.main.matchesInfo(playerId)
+        {
+            WsAPI.shared.leaveMatch(matchInfo.id)
+        }
         navigationController?.popViewControllerAnimated(true)
     }
     

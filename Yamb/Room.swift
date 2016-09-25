@@ -20,4 +20,13 @@ class Room
             return match.state == state
         })
     }
+    
+    func matchesInfo(playerId: String) -> [MatchInfo]
+    {
+        return matchesInfo.filter({ (match) -> Bool in
+            return match.players.contains({ (player) -> Bool in
+                return player.id == playerId
+            })
+        })
+    }
 }
