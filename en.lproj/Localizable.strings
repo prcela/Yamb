@@ -9,3 +9,6 @@
 "lang" = "en";
 "New game" = "New game";
 "Confirm input" = "Confirm input of %@ to N column";
+"Opponent invites you to reply the game" = "Protivnik je zatražio novu igru.";
+"Accept" = "Prihvati";
+"Continue alone" = "Nastavi sam";

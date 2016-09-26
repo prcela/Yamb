@@ -30,6 +30,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.matchStateChanged, object: nil)
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
+        nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
 
     }
     
@@ -219,11 +220,48 @@ class PlayViewController: UIViewController {
             return
         }
         let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Continue alone", style: .Default, handler: { (action) in
+            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+            let match = Match.shared
+            if let idx = match.players.indexOf({ (player) -> Bool in
+                return player.id == playerId
+            }) where match.players.count == 2 {
+                match.players.removeAtIndex((idx+1)%2)
+                match.indexOfPlayerOnTurn = 0
+                match.matchType = .SinglePlayer
+                
+                DiceScene.shared.updateDiceValues()
+                DiceScene.shared.updateDiceSelection()
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+            }
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Leave match", style: .Destructive, handler: { (action) in
+            WsAPI.shared.leaveMatch(matchId)
             self.dismiss()
         }))
         presentViewController(alert, animated: true, completion: nil)
         
+    }
+    
+    func opponentStartedNewGame(notification: NSNotification)
+    {
+        let matchId = notification.object as! UInt
+        if let match = Room.main.matchInfo(matchId)
+        {
+            let alert = UIAlertController(title: "Yamb", message: lstr("Opponent invites you to reply the game"), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Accept", style: .Default, handler: { (action) in
+                let desc = match.players.map({ (player) -> (id: String?, alias: String?, diceMat: DiceMaterial) in
+                    return (id: player.id, alias: player.alias, diceMat: player.diceMaterial)
+                })
+                Match.shared.start(.OnlineMultiplayer, playersDesc: desc)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .Destructive, handler: { (action) in
+                WsAPI.shared.leaveMatch(matchId)
+                self.dismiss()
+            }))
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
     
@@ -262,6 +300,10 @@ class PlayViewController: UIViewController {
                 }
             }
         }
+        else
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainRoom, object: nil)
+        }
     }
     
     @IBAction func roll(sender: UIButton)
@@ -275,6 +317,11 @@ class PlayViewController: UIViewController {
         {
             let players = Match.shared.players
             Match.shared.start(Match.shared.matchType, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
+            
+            if Match.shared.matchType == .OnlineMultiplayer
+            {
+                WsAPI.shared.turn(.NewGame, matchId: Match.shared.id, params: JSON([:]))
+            }
         }
         else if playLbl.text == lstr("Next player")
         {

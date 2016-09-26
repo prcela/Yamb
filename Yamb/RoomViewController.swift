@@ -19,6 +19,7 @@ class RoomViewController: UIViewController
         
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
+        nc.addObserver(self, selector: #selector(popToHere), name: NotificationName.goToMainRoom, object: nil)
     }
     
     deinit {
@@ -53,6 +54,11 @@ class RoomViewController: UIViewController
                                matchId: matchId)
             navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         }
+    }
+    
+    func popToHere()
+    {
+        navigationController?.popToViewController(self, animated: false)
     }
     
     

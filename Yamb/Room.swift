@@ -14,6 +14,18 @@ class Room
     var freePlayers = [Player]()
     var matchesInfo = [MatchInfo]()
     
+    func matchInfo(id: UInt) -> MatchInfo?
+    {
+        for m in matchesInfo
+        {
+            if m.id == id
+            {
+                return m
+            }
+        }
+        return nil
+    }
+    
     func matchesInfo(state: MatchState) -> [MatchInfo]
     {
         return matchesInfo.filter({ (match) -> Bool in

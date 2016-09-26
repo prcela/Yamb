@@ -23,7 +23,7 @@ class WsAPI
     
     init() {
         
-        let strURL = "ws://\(ipHome)/chat/"
+        let strURL = "ws://\(ipServer)/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
@@ -243,6 +243,8 @@ extension WsAPI: WebSocketDelegate
                     let rowIdx = params["rowIdx"].intValue
                     player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
                 }
+            case .NewGame:
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentNewGame, object: matchId)
             }
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             

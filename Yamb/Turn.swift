@@ -15,4 +15,5 @@ enum Turn: Int
     case SetValueAtTablePos
     case InputPos
     case End
+    case NewGame
 }
