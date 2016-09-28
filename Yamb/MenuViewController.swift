@@ -14,6 +14,7 @@ class MenuViewController: UIViewController
 {
     @IBOutlet weak var trainingBtn: UIButton!
     @IBOutlet weak var nearbyBtn: UIButton!
+    @IBOutlet weak var onlinePlayersLbl: UILabel!
     
     var waitForLocalPlayerAuth = false
 
@@ -32,6 +33,26 @@ class MenuViewController: UIViewController
         
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
+        
+        ServerAPI.onlineStatus {(data, response, error) in
+            if error == nil
+            {
+                let json = JSON(data: data!)
+                let ct = json["room_main_ct"].intValue
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.onlinePlayersLbl.hidden = (ct == 0)
+                    self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
+                })
+                
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.onlinePlayersLbl.hidden = true
+                })
+                print(error)
+            }
+        }
     }
     
     @IBAction func singlePlayer(sender: AnyObject)

@@ -111,15 +111,22 @@
                                     <segue destination="V7M-Hp-OMl" kind="show" id="vmI-Ea-KLi"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online players: 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXB-fm-W7b">
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="MeS-bc-DLr" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="34f-XG-uMr"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="3mg-MX-hH3"/>
-                            <constraint firstItem="MeS-bc-DLr" firstAttribute="top" secondItem="nSW-yA-QpT" secondAttribute="bottom" constant="37" id="N3d-mq-vGe"/>
+                            <constraint firstItem="MeS-bc-DLr" firstAttribute="top" secondItem="vXB-fm-W7b" secondAttribute="bottom" constant="37" id="GQr-1H-xvQ"/>
+                            <constraint firstItem="vXB-fm-W7b" firstAttribute="top" secondItem="nSW-yA-QpT" secondAttribute="bottom" constant="8" id="QJY-NL-QTg"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="QzW-3q-ORa"/>
                             <constraint firstItem="Qnf-Cy-dxw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="UJT-KE-UKT"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="aOl-ju-7hr"/>
+                            <constraint firstItem="vXB-fm-W7b" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="e1l-9M-sHL"/>
                             <constraint firstItem="Rwa-2u-xU7" firstAttribute="top" secondItem="RIc-E4-osf" secondAttribute="bottom" constant="54" id="h2b-xQ-JFb"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="top" secondItem="Rwa-2u-xU7" secondAttribute="bottom" constant="37" id="liq-9m-Ufq"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="top" secondItem="84V-Oz-I6T" secondAttribute="bottom" constant="34" id="nfT-J9-tVa"/>
@@ -131,6 +138,7 @@
                     <navigationItem key="navigationItem" id="WMf-2V-Q02"/>
                     <connections>
                         <outlet property="nearbyBtn" destination="MeS-bc-DLr" id="We4-i6-vkg"/>
+                        <outlet property="onlinePlayersLbl" destination="vXB-fm-W7b" id="bdp-tu-xGG"/>
                         <outlet property="trainingBtn" destination="Rwa-2u-xU7" id="0jh-fC-NNu"/>
                         <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
                         <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="qNf-kJ-iJq"/>
@@ -259,7 +267,7 @@
                                         <rect key="frame" x="0.0" y="72" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMM-SO-qQp" id="czI-Ri-fCS">
-                                            <frame key="frameInset" width="343" height="43"/>
+                                            <frame key="frameInset" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1b.png" translatesAutoresizingMaskIntoConstraints="NO" id="frD-9z-8Ud">
@@ -412,15 +420,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-NR-3fQ"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free players: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTo-JT-Sdt">
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="jTo-JT-Sdt" secondAttribute="leading" id="4d8-a9-d7Y"/>
                             <constraint firstItem="22F-RO-a5m" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="6Z0-XD-0LL"/>
                             <constraint firstItem="7KQ-52-yzw" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="7R7-TT-meb"/>
+                            <constraint firstItem="jTo-JT-Sdt" firstAttribute="top" secondItem="aYn-NR-3fQ" secondAttribute="bottom" constant="7.5" id="9c9-Uu-DwW"/>
                             <constraint firstItem="PED-rx-ILD" firstAttribute="top" secondItem="En1-5l-DaL" secondAttribute="bottom" constant="37" id="A04-7U-gEJ"/>
                             <constraint firstItem="7KQ-52-yzw" firstAttribute="top" secondItem="ktU-sc-ZFO" secondAttribute="bottom" constant="37" id="Aiq-e6-QhL"/>
                             <constraint firstItem="aYn-NR-3fQ" firstAttribute="top" secondItem="PED-rx-ILD" secondAttribute="bottom" constant="8" id="ObN-n8-Mra"/>
                             <constraint firstItem="ZFv-kI-dfv" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="40" id="RzR-eU-jU5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jTo-JT-Sdt" secondAttribute="trailing" id="SY9-I9-GeO"/>
                             <constraint firstItem="hyd-5R-Bep" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" constant="-40" id="VfL-Ht-aGa"/>
                             <constraint firstItem="En1-5l-DaL" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="X5O-R4-GlI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PED-rx-ILD" secondAttribute="trailing" id="cWn-Yg-rZB"/>
@@ -437,6 +453,7 @@
                         <outlet property="dice56Btn" destination="22F-RO-a5m" id="UHg-KW-072"/>
                         <outlet property="diceTexBtnFirst" destination="hyd-5R-Bep" id="GtW-7u-zRQ"/>
                         <outlet property="diceTexBtnSecond" destination="ZFv-kI-dfv" id="J7F-b8-CRt"/>
+                        <outlet property="freePlayersLbl" destination="jTo-JT-Sdt" id="znh-Tj-M0k"/>
                         <outlet property="waitingLbl" destination="PED-rx-ILD" id="u9p-CK-otD"/>
                     </connections>
                 </viewController>
@@ -798,7 +815,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5o3-Gb-59i"/>
+        <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -12,6 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.10:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
+let ipCurrent = ipServer
 
 class WsAPI
 {
@@ -23,7 +24,7 @@ class WsAPI
     
     init() {
         
-        let strURL = "ws://\(ipServer)/chat/"
+        let strURL = "ws://\(ipCurrent)/chat/"
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self

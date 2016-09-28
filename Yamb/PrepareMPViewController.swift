@@ -16,8 +16,16 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var freePlayersLbl: UILabel!
+    
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreePlayersCount), name: NotificationName.onRoomInfo, object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,7 @@ class PrepareMPViewController: UIViewController {
         }
         
         updateDiceBtn()
+        updateFreePlayersCount()
     }
     
     func updateDiceBtn()
@@ -70,6 +79,11 @@ class PrepareMPViewController: UIViewController {
         }
     }
     
+    func updateFreePlayersCount()
+    {
+        freePlayersLbl.text = lstr("Free players") + ": \(Room.main.freePlayers.count)"
+    }
+    
     
     @IBAction func back(sender: AnyObject)
     {
@@ -102,6 +116,7 @@ class PrepareMPViewController: UIViewController {
         diceTexBtnSecond.enabled = false
         waitingLbl.hidden = false
         activityIndicator.startAnimating()
+        freePlayersLbl.hidden = false
         
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]
