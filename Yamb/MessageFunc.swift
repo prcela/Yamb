@@ -11,7 +11,7 @@ import Foundation
 enum MessageFunc: String
 {
     case Join = "join"
-    case Disjoin = "disjoin"
+    case Disconnected = "disconnected"
     case Match = "match"
     case Message = "message"
     case RoomInfo = "room_info"

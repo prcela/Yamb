@@ -22,6 +22,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var sum1Lbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var playLbl: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,6 +32,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
         nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
+        nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
 
     }
     
@@ -263,7 +265,67 @@ class PlayViewController: UIViewController {
             presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
+    func someoneDisconnected(notification: NSNotification)
+    {
+        guard Match.shared.matchType == .OnlineMultiplayer else {
+            return
+        }
+        let id = notification.object as! String
+        let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        if let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
+            return player.id == id
+        }) {
+            let player = Match.shared.players[playerIdx]
+            if player.id == localPlayerId
+            {
+                
+            }
+            else
+            {
+                nameLbl.text = lstr("Connection problems. Waiting for ") + player.alias!
+                progressView.setProgress(0, animated: false)
+                progressView.hidden = false
+                var retryCount = 0
+                let matchId = Match.shared.id
+                dispatchToMainQueue(delay: 1, closure: {[weak self] in
+                    self?.checkIsPlayerJoined(matchId, playerId: player.id!, retryCount: &retryCount)
+                })
+            }
+        }
+    }
 
+    func checkIsPlayerJoined(matchId: UInt, playerId: String, inout retryCount: Int) -> Bool
+    {
+        let ctMaxRetry = 30
+        retryCount += 1
+        guard let matchInfo = Room.main.matchInfo(matchId),
+            let idx = matchInfo.players.indexOf( { (p) -> Bool in
+                return p.id == playerId
+            }) else {
+                return false
+        }
+        let player = matchInfo.players[idx]
+        if player.connected
+        {
+            progressView.hidden = true
+            return true
+        }
+        else if retryCount < ctMaxRetry
+        {
+            // retry every second
+            progressView.setProgress(Float(retryCount)/Float(ctMaxRetry), animated: true)
+            dispatchToMainQueue(delay: 1, closure: {[weak self] in
+                self?.checkIsPlayerJoined(matchId, playerId: player.id!, retryCount: &retryCount)
+                })
+        }
+        else
+        {
+            // reached max number of retries
+            print("Declare the winner................")
+        }
+        return false
+    }
     
     @IBAction func back(sender: AnyObject)
     {

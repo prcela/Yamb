@@ -209,6 +209,9 @@ class GameTableView: UIView
             {
                 guard let btn = viewWithTag(tag(row.rawValue, colIdx)) as? UIButton else {continue}
                 
+                btn.setTitleColor(skin.tintColor, forState: .Normal)
+                btn.setTitleColor(skin.tintColor, forState: .Disabled)
+                
                 let value = tableValues[colIdx][row.rawValue]
                 let pos = TablePos(rowIdx: row.rawValue, colIdx: colIdx)
                 
@@ -364,6 +367,7 @@ class GameTableView: UIView
                     lbl.text = nil
                 }
                 lbl.backgroundColor = skin.labelBackColor
+                lbl.textColor = skin.tintColor
             }
         }
     

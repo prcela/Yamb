@@ -17,6 +17,7 @@ struct NotificationName
     static let alertForInput = "Notification.alertForInput"
     static let onRoomInfo = "Notification.onRoomInfo"
     static let joinedMatch = "Notification.joinedMatch"
+    static let disconnected = "Notification.disconnected"
     static let opponentLeavedMatch = "Notification.opponentLeavedMatch"
     static let opponentNewGame = "Notification.opponentNewGame"
 }

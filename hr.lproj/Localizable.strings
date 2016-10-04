@@ -25,3 +25,4 @@
 "Leave match" = "Napusti igru";
 "Continue match" = "Nastavi igru";
 "Opponent has leave the match" = "Protivnik je napustio igru.";
+"Connection problems. Waiting for " = "Problemi sa vezom. Čeka se igrač ";

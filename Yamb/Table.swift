@@ -13,7 +13,7 @@ private let keyValue = "keyValue"
 class Table: NSObject, NSCoding
 {
     // table ordered with colIdx, rowIdx
-    var values = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
+    var values = [[UInt?]](count: 6, repeatedValue: [UInt?](count: 16, repeatedValue: nil))
     
     func encodeWithCoder(aCoder: NSCoder)
     {
@@ -52,7 +52,7 @@ class Table: NSObject, NSCoding
     
     func resetValues()
     {
-        values = Array<Array<UInt?>>(count: 6, repeatedValue: Array<UInt?>(count: 16, repeatedValue: nil))
+        values = [[UInt?]](count: 6, repeatedValue: [UInt?](count: 16, repeatedValue: nil))
     }
     
     func updateValue(pos: TablePos, diceValues: [UInt]?) -> UInt?

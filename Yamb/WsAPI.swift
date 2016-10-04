@@ -9,10 +9,10 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.10:8080"
+private let ipHome = "192.168.5.14:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipWork
 
 class WsAPI
 {
@@ -28,6 +28,7 @@ class WsAPI
         socket = WebSocket(url: NSURL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
+        
     }
     
     func connect()
@@ -146,8 +147,9 @@ extension WsAPI: WebSocketDelegate
         case .Join:
             print("some player joined")
             
-        case .Disjoin:
+        case .Disconnected:
             print("someone disjoined")
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.disconnected, object: json["id"].stringValue)
         
         case .RoomInfo:
             
@@ -160,6 +162,7 @@ extension WsAPI: WebSocketDelegate
                 let player = Player()
                 player.id = p["id"].stringValue
                 player.alias = p["alias"].stringValue
+                player.connected = p["connected"].boolValue
                 Room.main.freePlayers.append(player)
             }
             
