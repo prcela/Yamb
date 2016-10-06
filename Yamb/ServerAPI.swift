@@ -10,9 +10,9 @@ import Foundation
 
 class ServerAPI
 {
-    class func onlineStatus(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func info(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/online_status")
+        let url = NSURL(string: "http://\(ipCurrent)/info")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
         
         task.resume()

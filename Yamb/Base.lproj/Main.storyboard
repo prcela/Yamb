@@ -108,7 +108,6 @@
                                 </state>
                                 <connections>
                                     <action selector="multiPlayer:" destination="AxX-Bx-ZU7" eventType="touchUpInside" id="mxP-LH-IV4"/>
-                                    <segue destination="V7M-Hp-OMl" kind="show" id="vmI-Ea-KLi"/>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online players: 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXB-fm-W7b">
@@ -142,6 +141,8 @@
                         <outlet property="trainingBtn" destination="Rwa-2u-xU7" id="0jh-fC-NNu"/>
                         <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
                         <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="qNf-kJ-iJq"/>
+                        <segue destination="V7M-Hp-OMl" kind="show" identifier="showRoom" id="5wc-WB-gBW"/>
+                        <segue destination="bw5-EG-hfv" kind="presentation" identifier="mpNotAllowed" modalPresentationStyle="overCurrentContext" id="1bm-KK-xV3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cxl-5d-MX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -247,14 +248,14 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellId" textLabel="ihB-dA-Jpu" style="IBUITableViewCellStyleDefault" id="8FG-ed-UyZ">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8FG-ed-UyZ" id="aFm-90-pYv">
-                                            <frame key="frameInset" width="1000" height="43"/>
+                                            <frame key="frameInset" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ihB-dA-Jpu">
-                                                    <frame key="frameInset" minX="164" width="672" height="43"/>
+                                                    <frame key="frameInset" minX="15" width="313" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -264,10 +265,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MatchCellId" id="AMM-SO-qQp" customClass="MatchCell" customModule="Yamb" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMM-SO-qQp" id="czI-Ri-fCS">
-                                            <frame key="frameInset" width="1000" height="43"/>
+                                            <frame key="frameInset" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1b.png" translatesAutoresizingMaskIntoConstraints="NO" id="frD-9z-8Ud">
@@ -341,7 +342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJ4-R2-mxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="1137"/>
+            <point key="canvasLocation" x="3642" y="1174"/>
         </scene>
         <!--PrepareMP View Controller-->
         <scene sceneID="9KK-wP-2w4">
@@ -459,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xbo-QZ-IuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3252" y="1137"/>
+            <point key="canvasLocation" x="4391" y="1174"/>
         </scene>
         <!--Rules View Controller-->
         <scene sceneID="ru8-Ym-QDJ">
@@ -506,7 +507,84 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lC6-aB-PcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1752" y="1137"/>
+            <point key="canvasLocation" x="1751" y="1175"/>
+        </scene>
+        <!--Update View Controller-->
+        <scene sceneID="lHT-eD-uhC">
+            <objects>
+                <viewController id="bw5-EG-hfv" customClass="UpdateViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HBI-Ci-kcy"/>
+                        <viewControllerLayoutGuide type="bottom" id="K8b-tj-lqD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Nvm-Rn-NMi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zb-Gt-zKy">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please update to the latest version in order to play game online" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imz-GY-Efl">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="130" id="RDe-dZ-o3Y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-Af-csi">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="5Xo-qk-WzQ"/>
+                                            <constraint firstAttribute="width" constant="200" id="RIR-4a-6d1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                        <state key="normal" title="Update">
+                                            <color key="titleColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="update:" destination="bw5-EG-hfv" eventType="touchUpInside" id="bqw-KO-MRh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYU-Bz-ldF">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="7pZ-Uu-KQz"/>
+                                            <constraint firstAttribute="height" constant="30" id="dQZ-HC-NBh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismiss:" destination="bw5-EG-hfv" eventType="touchUpInside" id="mCA-fW-aXA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="BYU-Bz-ldF" firstAttribute="centerX" secondItem="9zb-Gt-zKy" secondAttribute="centerX" id="AOh-TL-Rdj"/>
+                                    <constraint firstItem="sd5-Af-csi" firstAttribute="top" secondItem="imz-GY-Efl" secondAttribute="bottom" constant="40" id="Evm-9X-TGC"/>
+                                    <constraint firstItem="imz-GY-Efl" firstAttribute="leading" secondItem="9zb-Gt-zKy" secondAttribute="leading" constant="20" id="Ibr-f5-e9J"/>
+                                    <constraint firstItem="sd5-Af-csi" firstAttribute="centerX" secondItem="9zb-Gt-zKy" secondAttribute="centerX" id="X8D-6s-egv"/>
+                                    <constraint firstAttribute="trailing" secondItem="imz-GY-Efl" secondAttribute="trailing" constant="20" id="dGN-iK-7cp"/>
+                                    <constraint firstAttribute="height" constant="350" id="fhz-tw-cyT"/>
+                                    <constraint firstItem="BYU-Bz-ldF" firstAttribute="top" secondItem="sd5-Af-csi" secondAttribute="bottom" constant="37" id="pKP-n4-QnT"/>
+                                    <constraint firstItem="imz-GY-Efl" firstAttribute="top" secondItem="9zb-Gt-zKy" secondAttribute="top" constant="10" id="zK9-eV-27d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.80724676724137934" colorSpace="deviceWhite"/>
+                        <constraints>
+                            <constraint firstItem="9zb-Gt-zKy" firstAttribute="leading" secondItem="Nvm-Rn-NMi" secondAttribute="leadingMargin" id="FJZ-qm-CbK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9zb-Gt-zKy" secondAttribute="trailing" id="PL2-Sa-Udb"/>
+                            <constraint firstItem="9zb-Gt-zKy" firstAttribute="centerY" secondItem="Nvm-Rn-NMi" secondAttribute="centerY" id="xO4-NV-aRF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="holderView" destination="9zb-Gt-zKy" id="nsv-ef-XkB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPC-5v-Q8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2728.8000000000002" y="1172.5637181409297"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="T7e-KP-2ka">
@@ -713,14 +791,14 @@ bacanje</string>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="gDZ-Rw-Azf"/>
-                                <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="8Fl-zn-r5b"/>
                                 <exclude reference="EAg-cA-CKP"/>
                                 <exclude reference="8da-td-atd"/>
                                 <exclude reference="4Kr-nT-ta3"/>
-                                <exclude reference="9ak-eA-Zje"/>
                                 <exclude reference="yeJ-fv-Grm"/>
+                                <exclude reference="9ak-eA-Zje"/>
+                                <exclude reference="gDZ-Rw-Azf"/>
+                                <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="Edz-dU-LAI"/>
                                 <exclude reference="etN-Vn-lw4"/>
                                 <exclude reference="yCH-uS-Ujk"/>
@@ -741,7 +819,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1000.8" y="1136.5817091454273"/>
+            <point key="canvasLocation" x="1001" y="1174"/>
         </scene>
         <!--Prepare View Controller-->
         <scene sceneID="7zg-Qj-HUu">

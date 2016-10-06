@@ -35,6 +35,7 @@ class RoomViewController: UIViewController
     
     func onRoomInfo()
     {
+        print("window: \(tableView?.window)")
         tableView?.reloadData()
     }
     

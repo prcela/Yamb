@@ -17,6 +17,8 @@ class MenuViewController: UIViewController
     @IBOutlet weak var onlinePlayersLbl: UILabel!
     
     var waitForLocalPlayerAuth = false
+    var currentVersionMP = 0
+    var minRequiredVersion = 0
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -24,7 +26,6 @@ class MenuViewController: UIViewController
         let nc = NSNotificationCenter.defaultCenter()
         
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
-        
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
     }
     
@@ -34,7 +35,7 @@ class MenuViewController: UIViewController
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
         
-        ServerAPI.onlineStatus {(data, response, error) in
+        ServerAPI.info {(data, response, error) in
             if error == nil
             {
                 let json = JSON(data: data!)
@@ -42,7 +43,9 @@ class MenuViewController: UIViewController
                 dispatch_async(dispatch_get_main_queue(), { 
                     self.onlinePlayersLbl.hidden = (ct == 0)
                     self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
+                    self.minRequiredVersion = json["min_required_version"].intValue
                 })
+                
                 
             }
             else
@@ -67,7 +70,16 @@ class MenuViewController: UIViewController
         }
     }
         
-    @IBAction func multiPlayer(sender: AnyObject) {
+    @IBAction func multiPlayer(sender: AnyObject)
+    {
+        if currentVersionMP >= minRequiredVersion
+        {
+            performSegueWithIdentifier("showRoom", sender: sender)
+        }
+        else
+        {
+            performSegueWithIdentifier("mpNotAllowed", sender: sender)
+        }
     }
     
     @IBAction func onGameCenter(sender: AnyObject)

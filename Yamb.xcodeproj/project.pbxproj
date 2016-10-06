@@ -132,6 +132,7 @@
 		97C4EFA21D6DBBDC00A1E7CD /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA11D6DBBDC00A1E7CD /* menu.png */; };
 		97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EFA51D6DC2A100A1E7CD /* Constants.swift */; };
 		97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA71D6DC55D00A1E7CD /* coin.png */; };
+		97F6BFAB1DA662CB0035AE68 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6BFAA1DA662CB0035AE68 /* UpdateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -270,6 +271,7 @@
 		97C4EFA51D6DC2A100A1E7CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		97C4EFA71D6DC55D00A1E7CD /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Yamb/Resources/coin.png; sourceTree = "<group>"; };
 		97F16EC61D89F54900B8FB79 /* Yamb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Yamb.entitlements; sourceTree = "<group>"; };
+		97F6BFAA1DA662CB0035AE68 /* UpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				9724980E1D72B84800CDC6B7 /* RulesViewController.swift */,
 				9724981E1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift */,
 				978397DB1D816538000C1183 /* RoomViewController.swift */,
+				97F6BFAA1DA662CB0035AE68 /* UpdateViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				97C060051D757A7C00A680C1 /* Player.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareSPViewController.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,
+				97F6BFAB1DA662CB0035AE68 /* UpdateViewController.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
 				972B1BCD1D842FB900010F5F /* Room.swift in Sources */,
 				974951CF1D96A942002BEEFB /* MatchCell.swift in Sources */,

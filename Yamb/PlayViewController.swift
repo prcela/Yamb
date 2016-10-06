@@ -217,12 +217,14 @@ class PlayViewController: UIViewController {
     
     func opponentLeavedMatch(notification: NSNotification)
     {
+        
         let matchId = notification.object as! UInt
         guard matchId == Match.shared.id else {
             return
         }
+        WsAPI.shared.leaveMatch(matchId)
         let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Continue alone", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
             let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
             let match = Match.shared
             if let idx = match.players.indexOf({ (player) -> Bool in
@@ -238,8 +240,7 @@ class PlayViewController: UIViewController {
             }
             
         }))
-        alert.addAction(UIAlertAction(title: "Leave match", style: .Destructive, handler: { (action) in
-            WsAPI.shared.leaveMatch(matchId)
+        alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
             self.dismiss()
         }))
         presentViewController(alert, animated: true, completion: nil)
