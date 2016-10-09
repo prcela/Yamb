@@ -16,12 +16,16 @@
 "Tell friends" = "Reci prijateljima";
 "Online players: " = "Online igrači: ";
 
-// Prepare
+// Prepare SP
 "Back" = "Natrag";
 "Resume game" = "Nastavi igru";
 "New game" = "Nova igra";
 "Dice 5/6" = "5/6 kockica";
 "Play" = "Kreni";
+
+// Prepare MP
+"Start match" = "Započni igru";
+"Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
 
 "1. roll" = "1. bacanje";
 "2. roll" = "2. bacanje";
@@ -38,6 +42,7 @@
 "Active matches" = "Igre u tijeku";
 "Do you want to leave current match?" = "Želite li napustiti trenutnu igru?";
 "Leave match" = "Napusti igru";
+"Continue alone" = "Nastavi sam";
 "Continue match" = "Nastavi igru";
 "Opponent has leave the match" = "Protivnik je napustio igru.";
 "Connection problems. Waiting for " = "Problemi sa vezom. Čeka se igrač ";

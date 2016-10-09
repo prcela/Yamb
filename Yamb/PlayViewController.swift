@@ -223,29 +223,11 @@ class PlayViewController: UIViewController {
             return
         }
         WsAPI.shared.leaveMatch(matchId)
-        let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
-            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
-            let match = Match.shared
-            if let idx = match.players.indexOf({ (player) -> Bool in
-                return player.id == playerId
-            }) where match.players.count == 2 {
-                match.players.removeAtIndex((idx+1)%2)
-                match.indexOfPlayerOnTurn = 0
-                match.matchType = .SinglePlayer
-                
-                DiceScene.shared.updateDiceValues()
-                DiceScene.shared.updateDiceSelection()
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
-            }
-            
-        }))
-        alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
-            self.dismiss()
-        }))
-        presentViewController(alert, animated: true, completion: nil)
         
+        alertOnOpponentLeave()
     }
+    
+    
     
     func opponentStartedNewGame(notification: NSNotification)
     {
@@ -277,16 +259,38 @@ class PlayViewController: UIViewController {
         if let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
             return player.id == id
         }) {
+            WsAPI.shared.leaveMatch(Match.shared.id)
             let player = Match.shared.players[playerIdx]
-            if player.id == localPlayerId
-            {
-                
-            }
-            else
+            if player.id != localPlayerId
             {
                 print("Oponnent disconnected")
+                alertOnOpponentLeave()
             }
         }
+    }
+    
+    func alertOnOpponentLeave()
+    {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
+            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+            let match = Match.shared
+            if let idx = match.players.indexOf({ (player) -> Bool in
+                return player.id == playerId
+            }) where match.players.count == 2 {
+                match.players.removeAtIndex((idx+1)%2)
+                match.indexOfPlayerOnTurn = 0
+                match.matchType = .SinglePlayer
+                
+                DiceScene.shared.updateDiceValues()
+                DiceScene.shared.updateDiceSelection()
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+            self.dismiss()
+        }))
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func back(sender: AnyObject)

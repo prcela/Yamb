@@ -414,7 +414,7 @@
                                     <constraint firstAttribute="height" constant="30" id="gXt-8n-Xa0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                <state key="normal" title="Create match">
+                                <state key="normal" title="Start match">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -457,6 +457,8 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="aYn-NR-3fQ" id="twC-tS-Xv0"/>
+                        <outlet property="bacBtn" destination="7KQ-52-yzw" id="VVa-cV-a5J"/>
+                        <outlet property="createMatchBtn" destination="En1-5l-DaL" id="QVF-kS-nes"/>
                         <outlet property="dice56Btn" destination="22F-RO-a5m" id="UHg-KW-072"/>
                         <outlet property="diceTexBtnFirst" destination="hyd-5R-Bep" id="GtW-7u-zRQ"/>
                         <outlet property="diceTexBtnSecond" destination="ZFv-kI-dfv" id="J7F-b8-CRt"/>

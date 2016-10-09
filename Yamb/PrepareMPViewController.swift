@@ -10,9 +10,11 @@ import UIKit
 
 class PrepareMPViewController: UIViewController {
 
+    @IBOutlet weak var bacBtn: UIButton!
     @IBOutlet weak var dice56Btn: UIButton!
     @IBOutlet weak var diceTexBtnFirst: UIButton!
     @IBOutlet weak var diceTexBtnSecond: UIButton!
+    @IBOutlet weak var createMatchBtn: UIButton!
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -31,6 +33,10 @@ class PrepareMPViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        bacBtn.setTitle(lstr("Back"), forState: .Normal)
+        createMatchBtn.setTitle(lstr("Start match"), forState: .Normal)
+        waitingLbl.text = lstr("Waiting for opponent player...")
         
         for btn in [diceTexBtnFirst,diceTexBtnSecond]
         {
