@@ -13,12 +13,15 @@ import MessageUI
 class MenuViewController: UIViewController
 {
     @IBOutlet weak var trainingBtn: UIButton!
-    @IBOutlet weak var nearbyBtn: UIButton!
+    @IBOutlet weak var mpBtn: UIButton!
+    @IBOutlet weak var leaderboardBtn: UIButton!
     @IBOutlet weak var onlinePlayersLbl: UILabel!
+    @IBOutlet weak var rulesBtn: UIButton!
+    @IBOutlet weak var tellFriendsBtn: UIButton!
     
     var waitForLocalPlayerAuth = false
-    var currentVersionMP = 0
-    var minRequiredVersion = 0
+    var currentVersionMP = 1
+    var minRequiredVersion = 1
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,6 +34,14 @@ class MenuViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // localization
+        trainingBtn.setTitle(lstr("Single player"), forState: .Normal)
+        mpBtn.setTitle(lstr("Multiplayer"), forState: .Normal)
+        leaderboardBtn.setTitle(lstr("Leaderboard"), forState: .Normal)
+        rulesBtn.setTitle(lstr("Rules"), forState: .Normal)
+        tellFriendsBtn.setTitle(lstr("Tell friends"), forState: .Normal)
+        
         
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
@@ -60,7 +71,7 @@ class MenuViewController: UIViewController
     
     @IBAction func singlePlayer(sender: AnyObject)
     {
-        if GameFileManager.existsSavedGame("singlePlayer")
+        if GameFileManager.existsSavedGame(MatchType.SinglePlayer.rawValue)
         {
             performSegueWithIdentifier("resumeOrNewId", sender: self)
         }

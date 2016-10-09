@@ -10,10 +10,13 @@ import UIKit
 
 class RulesViewController: UIViewController {
 
+    @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var webView: UIWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backBtn?.setTitle(lstr("Back"), forState: .Normal)
 
         // Do any additional setup after loading the view.
         let lang = lstr("lang")

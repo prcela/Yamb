@@ -7,11 +7,26 @@
 */
 
 "lang" = "hr";
+
+// Menu
+"Single player" = "Jedan igrač";
+"Multiplayer" = "Više igrača";
+"Leaderboard" = "Najbolji rezultati";
+"Rules" = "Pravila";
+"Tell friends" = "Reci prijateljima";
+"Online players: " = "Online igrači: ";
+
+// Prepare
+"Back" = "Natrag";
+"Resume game" = "Nastavi igru";
 "New game" = "Nova igra";
+"Dice 5/6" = "5/6 kockica";
+"Play" = "Kreni";
+
 "1. roll" = "1. bacanje";
 "2. roll" = "2. bacanje";
 "3. roll" = "3. bacanje";
-"Dice 5/6" = "5/6 kockica";
+
 "Straight" = "Skala";
 "Confirm input" = "Potvrdite unos %@ u stupac od najave";
 "Confirm" = "Potvrdi";

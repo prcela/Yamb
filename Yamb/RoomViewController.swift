@@ -10,6 +10,7 @@ import UIKit
 
 class RoomViewController: UIViewController
 {
+    @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var tableView: UITableView?
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,6 +30,7 @@ class RoomViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backBtn?.setTitle(lstr("Back"), forState: .Normal)
         // Do any additional setup after loading the view.
         WsAPI.shared.connect()
     }

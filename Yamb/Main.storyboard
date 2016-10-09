@@ -136,13 +136,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="WMf-2V-Q02"/>
                     <connections>
-                        <outlet property="nearbyBtn" destination="MeS-bc-DLr" id="We4-i6-vkg"/>
+                        <outlet property="leaderboardBtn" destination="MeS-bc-DLr" id="VOd-Oz-9Cf"/>
+                        <outlet property="mpBtn" destination="nSW-yA-QpT" id="HTO-XS-aZe"/>
                         <outlet property="onlinePlayersLbl" destination="vXB-fm-W7b" id="bdp-tu-xGG"/>
+                        <outlet property="rulesBtn" destination="zZ1-9K-eRw" id="72w-UI-BDc"/>
+                        <outlet property="tellFriendsBtn" destination="Qnf-Cy-dxw" id="tNW-1b-Yk8"/>
                         <outlet property="trainingBtn" destination="Rwa-2u-xU7" id="0jh-fC-NNu"/>
                         <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
                         <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="qNf-kJ-iJq"/>
                         <segue destination="V7M-Hp-OMl" kind="show" identifier="showRoom" id="5wc-WB-gBW"/>
-                        <segue destination="bw5-EG-hfv" kind="presentation" identifier="mpNotAllowed" modalPresentationStyle="overCurrentContext" id="1bm-KK-xV3"/>
+                        <segue destination="bw5-EG-hfv" kind="presentation" identifier="mpNotAllowed" animates="NO" modalPresentationStyle="overCurrentContext" id="1bm-KK-xV3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cxl-5d-MX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -224,8 +227,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="fHT-fD-qE3" id="YtQ-BD-DFr"/>
                         <outlet property="dice56Btn" destination="crm-fc-xNQ" id="pjJ-Cc-Xpg"/>
                         <outlet property="diceTextureBtn" destination="Gyw-RE-efM" id="1g3-Ve-adg"/>
+                        <outlet property="playBtn" destination="OvI-0e-qLl" id="WK2-3V-XmE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="est-N0-ze9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,11 +256,11 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8FG-ed-UyZ" id="aFm-90-pYv">
-                                            <frame key="frameInset" width="343" height="43.5"/>
+                                            <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ihB-dA-Jpu">
-                                                    <frame key="frameInset" minX="15" width="313" height="43.5"/>
+                                                    <frame key="frameInset" minX="15" width="313" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -268,7 +273,7 @@
                                         <rect key="frame" x="0.0" y="72" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMM-SO-qQp" id="czI-Ri-fCS">
-                                            <frame key="frameInset" width="343" height="44"/>
+                                            <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1b.png" translatesAutoresizingMaskIntoConstraints="NO" id="frD-9z-8Ud">
@@ -336,6 +341,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="0lG-Wk-bB7" id="sgA-4B-dD8"/>
                         <outlet property="tableView" destination="Gt7-ev-eHZ" id="qr7-CY-BjK"/>
                         <segue destination="b1o-Sb-0QA" kind="show" identifier="prepareMP" id="klh-1O-kkW"/>
                     </connections>
@@ -502,6 +508,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="uHe-Q8-Vdx" id="qVS-Ga-hxO"/>
                         <outlet property="webView" destination="lMu-1q-FBn" id="aHw-to-OPZ"/>
                     </connections>
                 </viewController>
@@ -725,13 +732,13 @@ bacanje</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-On-pUH" userLabel="Sum1">
-                                <color key="backgroundColor" red="1" green="0.46666666666666667" blue="0.46666666666666667" alpha="0.8486260775862069" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.46666666666666667" blue="0.46666666666666667" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="35f-At-VZ8"/>
                                     <constraint firstAttribute="height" constant="27" id="I1S-dx-OHX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.20000000000000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="b8H-VI-HrA">
@@ -821,10 +828,10 @@ bacanje</string>
             </objects>
             <point key="canvasLocation" x="1001" y="1174"/>
         </scene>
-        <!--Prepare View Controller-->
+        <!--PrepareSP View Controller-->
         <scene sceneID="7zg-Qj-HUu">
             <objects>
-                <viewController id="gEx-9a-YxG" customClass="PrepareViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gEx-9a-YxG" customClass="PrepareSPViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vbW-BX-zcY"/>
                         <viewControllerLayoutGuide type="bottom" id="IqS-lI-LiF"/>
@@ -884,6 +891,9 @@ bacanje</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="Tbq-ag-QlV" id="d3s-gc-9Fd"/>
+                        <outlet property="newGameBtn" destination="zFl-Cr-22D" id="OS1-lM-TfH"/>
+                        <outlet property="resumeBtn" destination="VYY-iA-dNr" id="TzD-UX-Lzu"/>
                         <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="5o3-Gb-59i"/>
                     </connections>
                 </viewController>
@@ -901,7 +911,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qNf-kJ-iJq"/>
+        <segue reference="5o3-Gb-59i"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -12,15 +12,26 @@ let diceMats:[DiceMaterial] = [.White, .Black, .Blue, .Rose, .Red, .Yellow]
 
 class PrepareSPViewController: UIViewController {
 
+    @IBOutlet weak var backBtn: UIButton?
+    @IBOutlet weak var resumeBtn: UIButton?
+    @IBOutlet weak var newGameBtn: UIButton?
     @IBOutlet weak var dice56Btn: UIButton?
     @IBOutlet weak var diceTextureBtn: UIButton?
+    @IBOutlet weak var playBtn: UIButton?
     
     var diceMatSelected = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // localization
+        backBtn?.setTitle(lstr("Back"), forState: .Normal)
+        resumeBtn?.setTitle(lstr("Resume game"), forState: .Normal)
+        newGameBtn?.setTitle(lstr("New game"), forState: .Normal)
+        playBtn?.setTitle(lstr("Play"), forState: .Normal)
 
         // Do any additional setup after loading the view.
+        
         diceTextureBtn?.layer.cornerRadius = 5
         diceTextureBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
         diceTextureBtn?.layer.borderWidth = 1

@@ -284,48 +284,9 @@ class PlayViewController: UIViewController {
             }
             else
             {
-                nameLbl.text = lstr("Connection problems. Waiting for ") + player.alias!
-                progressView.setProgress(0, animated: false)
-                progressView.hidden = false
-                var retryCount = 0
-                let matchId = Match.shared.id
-                dispatchToMainQueue(delay: 1, closure: {[weak self] in
-                    self?.checkIsPlayerJoined(matchId, playerId: player.id!, retryCount: &retryCount)
-                })
+                print("Oponnent disconnected")
             }
         }
-    }
-
-    func checkIsPlayerJoined(matchId: UInt, playerId: String, inout retryCount: Int) -> Bool
-    {
-        let ctMaxRetry = 30
-        retryCount += 1
-        guard let matchInfo = Room.main.matchInfo(matchId),
-            let idx = matchInfo.players.indexOf( { (p) -> Bool in
-                return p.id == playerId
-            }) else {
-                return false
-        }
-        let player = matchInfo.players[idx]
-        if player.connected
-        {
-            progressView.hidden = true
-            return true
-        }
-        else if retryCount < ctMaxRetry
-        {
-            // retry every second
-            progressView.setProgress(Float(retryCount)/Float(ctMaxRetry), animated: true)
-            dispatchToMainQueue(delay: 1, closure: {[weak self] in
-                self?.checkIsPlayerJoined(matchId, playerId: player.id!, retryCount: &retryCount)
-                })
-        }
-        else
-        {
-            // reached max number of retries
-            print("Declare the winner................")
-        }
-        return false
     }
     
     @IBAction func back(sender: AnyObject)

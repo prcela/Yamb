@@ -42,6 +42,6 @@ class UpdateViewController: UIViewController {
     }
 
     @IBAction func dismiss(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(false, completion: nil)
     }
 }
