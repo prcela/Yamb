@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let prefs: [String:AnyObject] = [
             Prefs.firstRun: true,
-            Prefs.finishedOnce: false
+            Prefs.finishedOnce: false,
+            Prefs.lastPlayedGameType: LeaderboardId.dice6
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()

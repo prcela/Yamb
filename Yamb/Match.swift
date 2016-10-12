@@ -69,6 +69,8 @@ class Match: NSObject, NSCoding
         
         DiceScene.shared.start()
         
+        NSUserDefaults.standardUserDefaults().setObject(diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
+        
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
     }

@@ -147,10 +147,11 @@ class MenuViewController: UIViewController
     
     func showLeaderboard()
     {
+        let defaults = NSUserDefaults.standardUserDefaults()
         let leaderboardVC = GKGameCenterViewController()
         leaderboardVC.gameCenterDelegate = self
         leaderboardVC.viewState = .Leaderboards
-        leaderboardVC.leaderboardIdentifier = LeaderboardId.dice5
+        leaderboardVC.leaderboardIdentifier = defaults.objectForKey(Prefs.lastPlayedGameType) as? String
         
         navigationController?.presentViewController(leaderboardVC, animated: true, completion: nil)
     }
