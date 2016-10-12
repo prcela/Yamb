@@ -145,7 +145,6 @@
                         <segue destination="gEx-9a-YxG" kind="show" identifier="resumeOrNewId" id="OyC-a9-7bB"/>
                         <segue destination="vJz-z9-bhl" kind="show" identifier="newId" id="qNf-kJ-iJq"/>
                         <segue destination="V7M-Hp-OMl" kind="show" identifier="showRoom" id="5wc-WB-gBW"/>
-                        <segue destination="bw5-EG-hfv" kind="presentation" identifier="mpNotAllowed" animates="NO" modalPresentationStyle="overCurrentContext" id="1bm-KK-xV3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cxl-5d-MX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -348,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJ4-R2-mxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3642" y="1174"/>
+            <point key="canvasLocation" x="3287" y="1173"/>
         </scene>
         <!--PrepareMP View Controller-->
         <scene sceneID="9KK-wP-2w4">
@@ -468,7 +467,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xbo-QZ-IuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4391" y="1174"/>
+            <point key="canvasLocation" x="4071" y="1173"/>
         </scene>
         <!--Rules View Controller-->
         <scene sceneID="ru8-Ym-QDJ">
@@ -517,83 +516,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lC6-aB-PcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1751" y="1175"/>
-        </scene>
-        <!--Update View Controller-->
-        <scene sceneID="lHT-eD-uhC">
-            <objects>
-                <viewController id="bw5-EG-hfv" customClass="UpdateViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HBI-Ci-kcy"/>
-                        <viewControllerLayoutGuide type="bottom" id="K8b-tj-lqD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Nvm-Rn-NMi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zb-Gt-zKy">
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please update to the latest version in order to play game online" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imz-GY-Efl">
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="RDe-dZ-o3Y"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-Af-csi">
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="5Xo-qk-WzQ"/>
-                                            <constraint firstAttribute="width" constant="200" id="RIR-4a-6d1"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                        <state key="normal" title="Update">
-                                            <color key="titleColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="update:" destination="bw5-EG-hfv" eventType="touchUpInside" id="bqw-KO-MRh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYU-Bz-ldF">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="7pZ-Uu-KQz"/>
-                                            <constraint firstAttribute="height" constant="30" id="dQZ-HC-NBh"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="dismiss:" destination="bw5-EG-hfv" eventType="touchUpInside" id="mCA-fW-aXA"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="BYU-Bz-ldF" firstAttribute="centerX" secondItem="9zb-Gt-zKy" secondAttribute="centerX" id="AOh-TL-Rdj"/>
-                                    <constraint firstItem="sd5-Af-csi" firstAttribute="top" secondItem="imz-GY-Efl" secondAttribute="bottom" constant="40" id="Evm-9X-TGC"/>
-                                    <constraint firstItem="imz-GY-Efl" firstAttribute="leading" secondItem="9zb-Gt-zKy" secondAttribute="leading" constant="20" id="Ibr-f5-e9J"/>
-                                    <constraint firstItem="sd5-Af-csi" firstAttribute="centerX" secondItem="9zb-Gt-zKy" secondAttribute="centerX" id="X8D-6s-egv"/>
-                                    <constraint firstAttribute="trailing" secondItem="imz-GY-Efl" secondAttribute="trailing" constant="20" id="dGN-iK-7cp"/>
-                                    <constraint firstAttribute="height" constant="350" id="fhz-tw-cyT"/>
-                                    <constraint firstItem="BYU-Bz-ldF" firstAttribute="top" secondItem="sd5-Af-csi" secondAttribute="bottom" constant="37" id="pKP-n4-QnT"/>
-                                    <constraint firstItem="imz-GY-Efl" firstAttribute="top" secondItem="9zb-Gt-zKy" secondAttribute="top" constant="10" id="zK9-eV-27d"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.80724676724137934" colorSpace="deviceWhite"/>
-                        <constraints>
-                            <constraint firstItem="9zb-Gt-zKy" firstAttribute="leading" secondItem="Nvm-Rn-NMi" secondAttribute="leadingMargin" id="FJZ-qm-CbK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9zb-Gt-zKy" secondAttribute="trailing" id="PL2-Sa-Udb"/>
-                            <constraint firstItem="9zb-Gt-zKy" firstAttribute="centerY" secondItem="Nvm-Rn-NMi" secondAttribute="centerY" id="xO4-NV-aRF"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="holderView" destination="9zb-Gt-zKy" id="nsv-ef-XkB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OPC-5v-Q8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2728.8000000000002" y="1172.5637181409297"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="T7e-KP-2ka">
@@ -913,7 +835,7 @@ bacanje</string>
         <image name="play.png" width="140" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5o3-Gb-59i"/>
+        <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

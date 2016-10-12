@@ -27,6 +27,10 @@
 "Start match" = "Započni igru";
 "Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
 
+// Update
+"Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";
+"Update" = "Ažuriraj";
+
 "1. roll" = "1. bacanje";
 "2. roll" = "2. bacanje";
 "3. roll" = "3. bacanje";

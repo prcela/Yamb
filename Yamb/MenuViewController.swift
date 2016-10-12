@@ -20,7 +20,7 @@ class MenuViewController: UIViewController
     @IBOutlet weak var tellFriendsBtn: UIButton!
     
     var waitForLocalPlayerAuth = false
-    var currentVersionMP = 1
+    var currentVersionMP = 0
     var minRequiredVersion = 1
 
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +89,18 @@ class MenuViewController: UIViewController
         }
         else
         {
-            performSegueWithIdentifier("mpNotAllowed", sender: sender)
+            let alertController = UIAlertController(title: "Yamb",
+                                                    message: lstr("Update message"),
+                                                    preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: lstr("Cancel"), style: .Destructive, handler: { (action) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: lstr("Update"), style: .Default, handler: { (action) in
+                let url = NSURL(string: "https://itunes.apple.com/hr/app/yamb/id354188615?mt=8")!
+                UIApplication.sharedApplication().openURL(url)
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
