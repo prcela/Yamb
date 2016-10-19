@@ -12,5 +12,7 @@ pod 'Firebase/Core'
 pod 'Firebase/RemoteConfig'
 pod 'Firebase/Messaging'
 pod 'ChartboostSDK'
+pod 'Fabric'
+pod 'Crashlytics'
 
 end

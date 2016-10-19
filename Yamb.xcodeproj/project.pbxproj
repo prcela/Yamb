@@ -512,6 +512,7 @@
 				977D97F11CAEA35700AD9EF8 /* Resources */,
 				5B8AB68B320F268755DCA9D8 /* [CP] Embed Pods Frameworks */,
 				20BA801EF6AC8AEDD2540784 /* [CP] Copy Pods Resources */,
+				972066B41DB789BE008C3647 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -693,6 +694,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Yamb/Pods-Yamb-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		972066B41DB789BE008C3647 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" bf8485d9e6049d246f3cfcfe785d25e623b14783 986f61e60e52fb24818630ec1f9c812fe6ac2ddaccf779cfe92bea3bfe48875f";
 		};
 		FFC96E82CB6096046080C32B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
