@@ -51,6 +51,7 @@ class RoomViewController: UIViewController
             let firstPlayer = matchInfo.players.first!
             let lastPlayer = matchInfo.players.last!
             Match.shared.start(.OnlineMultiplayer,
+                               diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
                                playersDesc: [
                                 (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
                                 (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],

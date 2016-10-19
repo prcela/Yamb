@@ -239,7 +239,7 @@ class PlayViewController: UIViewController {
                 let desc = match.players.map({ (player) -> (id: String?, alias: String?, diceMat: DiceMaterial) in
                     return (id: player.id, alias: player.alias, diceMat: player.diceMaterial)
                 })
-                Match.shared.start(.OnlineMultiplayer, playersDesc: desc)
+                Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .Destructive, handler: { (action) in
                 WsAPI.shared.leaveMatch(matchId)
@@ -344,7 +344,7 @@ class PlayViewController: UIViewController {
         if playLbl.text == lstr("New game")
         {
             let players = Match.shared.players
-            Match.shared.start(Match.shared.matchType, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
+            Match.shared.start(Match.shared.matchType, diceNum: Match.shared.diceNum, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
             
             if Match.shared.matchType == .OnlineMultiplayer
             {

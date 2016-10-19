@@ -102,6 +102,11 @@ class PrepareMPViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func toggleDiceCount(sender: UIButton) {
+        diceNum = diceNum == .Five ? .Six : .Five
+        updateDiceBtn()
+    }
+    
     @IBAction func changeFirstDiceMaterial(sender: AnyObject) {
         selectedDiceMats[0] = (selectedDiceMats[0]+1)%diceMats.count
         let diceMat = diceMats[selectedDiceMats[0]]

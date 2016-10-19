@@ -50,9 +50,10 @@ class Match: NSObject, NSCoding
         super.init()
     }
     
-    func start(matchType: MatchType, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
+    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
     {
         self.matchType = matchType
+        self.diceNum = diceNum
         id = matchId
         players.removeAll()
         for (id,alias,diceMat) in playersDesc
