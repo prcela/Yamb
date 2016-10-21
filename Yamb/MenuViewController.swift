@@ -30,6 +30,7 @@ class MenuViewController: UIViewController
         
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
+        nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
     }
     
     override func viewDidLoad() {
@@ -160,6 +161,13 @@ class MenuViewController: UIViewController
     func goToMainMenu()
     {
         navigationController?.popToRootViewControllerAnimated(false)
+    }
+    
+    func onRoomInfo()
+    {
+        let ct = Room.main.freePlayers.count
+        self.onlinePlayersLbl.hidden = (ct == 0)
+        self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
     }
 }
 
