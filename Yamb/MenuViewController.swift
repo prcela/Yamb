@@ -31,6 +31,7 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
     }
     
     override func viewDidLoad() {
@@ -47,12 +48,17 @@ class MenuViewController: UIViewController
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
         
+        updateOnlinePlayersCount()
+    }
+    
+    func updateOnlinePlayersCount()
+    {
         ServerAPI.info {(data, response, error) in
             if error == nil
             {
                 let json = JSON(data: data!)
                 let ct = json["room_main_ct"].intValue
-                dispatch_async(dispatch_get_main_queue(), { 
+                dispatch_async(dispatch_get_main_queue(), {
                     self.onlinePlayersLbl.hidden = (ct == 0)
                     self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
                     self.minRequiredVersion = json["min_required_version"].intValue
@@ -169,6 +175,7 @@ class MenuViewController: UIViewController
         self.onlinePlayersLbl.hidden = (ct == 0)
         self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
     }
+    
 }
 
 extension MenuViewController: GKGameCenterControllerDelegate
