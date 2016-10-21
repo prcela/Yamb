@@ -317,8 +317,8 @@
 			isa = PBXGroup;
 			children = (
 				972B1BC61D83DECC00010F5F /* SwiftyJSON.swift */,
-				972B1B991D83C9B600010F5F /* Starscream */,
 				977D97F51CAEA35700AD9EF8 /* Yamb */,
+				972B1B991D83C9B600010F5F /* Starscream */,
 				972498121D72C7A700CDC6B7 /* Locale */,
 				9787AEC11D632661001640F7 /* Resources */,
 				977D97F41CAEA35700AD9EF8 /* Products */,

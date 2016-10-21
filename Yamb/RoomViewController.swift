@@ -137,6 +137,7 @@ extension RoomViewController: UITableViewDataSource
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
             cell.textLabel?.text = lstr("Create new match")
+            cell.accessoryType = .DisclosureIndicator
             return cell
         }
         else if indexPath.section == 1
@@ -147,6 +148,7 @@ extension RoomViewController: UITableViewDataSource
             cell.diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
             cell.diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
             cell.titleLbl?.text = "\(match.diceNum) \(match.players.first!.alias!)"
+            cell.accessoryType = .DisclosureIndicator
             return cell
         }
         else if indexPath.section == 2

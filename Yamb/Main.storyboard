@@ -111,7 +111,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online players: 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXB-fm-W7b">
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -122,6 +122,7 @@
                             <constraint firstItem="RIc-E4-osf" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="3mg-MX-hH3"/>
                             <constraint firstItem="MeS-bc-DLr" firstAttribute="top" secondItem="vXB-fm-W7b" secondAttribute="bottom" constant="37" id="GQr-1H-xvQ"/>
                             <constraint firstItem="vXB-fm-W7b" firstAttribute="top" secondItem="nSW-yA-QpT" secondAttribute="bottom" constant="8" id="QJY-NL-QTg"/>
+                            <constraint firstItem="KbM-dB-RNU" firstAttribute="top" secondItem="Qnf-Cy-dxw" secondAttribute="bottom" constant="10" id="Qya-cm-8bz"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="QzW-3q-ORa"/>
                             <constraint firstItem="Qnf-Cy-dxw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="UJT-KE-UKT"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="aOl-ju-7hr"/>
@@ -130,7 +131,6 @@
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="top" secondItem="Rwa-2u-xU7" secondAttribute="bottom" constant="37" id="liq-9m-Ufq"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="top" secondItem="84V-Oz-I6T" secondAttribute="bottom" constant="34" id="nfT-J9-tVa"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="top" secondItem="MeS-bc-DLr" secondAttribute="bottom" constant="37" id="p51-df-9U4"/>
-                            <constraint firstItem="Qnf-Cy-dxw" firstAttribute="top" secondItem="zZ1-9K-eRw" secondAttribute="bottom" constant="57" id="qoG-d7-ZNk"/>
                             <constraint firstItem="Rwa-2u-xU7" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="rsf-cq-44e"/>
                         </constraints>
                     </view>
