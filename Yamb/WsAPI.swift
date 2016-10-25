@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipHome
 
 class WsAPI
 {
@@ -80,6 +80,14 @@ class WsAPI
         send(.Turn, json: json)
     }
     
+    func invitePlayer(player: Player)
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let json = JSON(["from":playerId, "to":player.id!])
+        send(.InvitePlayer, json: json)
+    }
+    
     private func send(action: MessageFunc, json: JSON? = nil)
     {
         var json = json ?? JSON([:])
@@ -141,7 +149,11 @@ extension WsAPI: WebSocketDelegate
         guard let data = text.dataUsingEncoding(NSUTF8StringEncoding) else {return}
         let json = JSON(data: data)
         
-        switch MessageFunc(rawValue: json["msg_func"].stringValue)!
+        guard let msgFunc = MessageFunc(rawValue: json["msg_func"].stringValue) else {
+            return
+        }
+        
+        switch msgFunc
         {
         
         case .Join:

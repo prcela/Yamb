@@ -103,6 +103,7 @@
 		97A6E0271D71FB5C000ED49D /* 3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97A6E0221D71F7E2000ED49D /* 3.m4a */; };
 		97A6E0281D71FB5F000ED49D /* 4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97A6E0231D71F7E2000ED49D /* 4.m4a */; };
 		97A6E0291D71FB61000ED49D /* 5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97A6E0241D71F7E2000ED49D /* 5.m4a */; };
+		97B0D5781DBA3EDE004DC903 /* FreePlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */; };
 		97C060051D757A7C00A680C1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C060041D757A7C00A680C1 /* Player.swift */; };
 		97C4EF561D67A36C00A1E7CD /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF551D67A36C00A1E7CD /* TableRow.swift */; };
 		97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */; };
@@ -237,6 +238,7 @@
 		97A6E0221D71F7E2000ED49D /* 3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 3.m4a; path = Yamb/Resources/3.m4a; sourceTree = "<group>"; };
 		97A6E0231D71F7E2000ED49D /* 4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 4.m4a; path = Yamb/Resources/4.m4a; sourceTree = "<group>"; };
 		97A6E0241D71F7E2000ED49D /* 5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 5.m4a; path = Yamb/Resources/5.m4a; sourceTree = "<group>"; };
+		97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlayerCell.swift; sourceTree = "<group>"; };
 		97C060041D757A7C00A680C1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		97C4EF551D67A36C00A1E7CD /* TableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableView.swift; sourceTree = "<group>"; };
@@ -348,7 +350,7 @@
 				972498201D74EE9000CDC6B7 /* ViewControllers */,
 				97F16EC71D8A7A5700B8FB79 /* Model */,
 				97F16EC81D8A7A8B00B8FB79 /* Services */,
-				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
+				97B0D5761DBA3EB2004DC903 /* Views */,
 				9787AEBF1D632491001640F7 /* DiceScene.swift */,
 				97C4EF591D67DD0A00A1E7CD /* UIColorExt.swift */,
 				97C4EF5B1D68DAA600A1E7CD /* Helper.swift */,
@@ -356,7 +358,6 @@
 				97C4EF5F1D699D7B00A1E7CD /* UIImageExt.swift */,
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
-				974951CE1D96A942002BEEFB /* MatchCell.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
 			);
 			path = Yamb;
@@ -450,6 +451,16 @@
 				974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		97B0D5761DBA3EB2004DC903 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
+				974951CE1D96A942002BEEFB /* MatchCell.swift */,
+				97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		97F16EC71D8A7A5700B8FB79 /* Model */ = {
@@ -732,6 +743,7 @@
 			files = (
 				97C4EF9E1D6C6BAA00A1E7CD /* GameKitHelper.swift in Sources */,
 				97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */,
+				97B0D5781DBA3EDE004DC903 /* FreePlayerCell.swift in Sources */,
 				97C4EF5C1D68DAA600A1E7CD /* Helper.swift in Sources */,
 				974951C81D964D01002BEEFB /* PrepareMPViewController.swift in Sources */,
 				97C4EF5E1D68DB4800A1E7CD /* NotificationName.swift in Sources */,

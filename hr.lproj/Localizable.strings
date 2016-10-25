@@ -26,6 +26,7 @@
 // Prepare MP
 "Start match" = "Započni igru";
 "Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
+"Invite someone" = "Pozovi nekoga";
 
 // Update
 "Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";

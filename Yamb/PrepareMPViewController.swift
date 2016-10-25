@@ -17,8 +17,7 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var createMatchBtn: UIButton!
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    @IBOutlet weak var freePlayersLbl: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
@@ -26,7 +25,7 @@ class PrepareMPViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreePlayersCount), name: NotificationName.onRoomInfo, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
     }
     
     override func viewDidLoad() {
@@ -38,6 +37,8 @@ class PrepareMPViewController: UIViewController {
         createMatchBtn.setTitle(lstr("Start match"), forState: .Normal)
         waitingLbl.text = lstr("Waiting for opponent player...")
         
+        tableView.hidden = true
+        
         for btn in [diceTexBtnFirst,diceTexBtnSecond]
         {
             btn.layer.cornerRadius = 5
@@ -47,7 +48,7 @@ class PrepareMPViewController: UIViewController {
         }
         
         updateDiceBtn()
-        updateFreePlayersCount()
+        updateFreePlayers()
     }
     
     func updateDiceBtn()
@@ -85,9 +86,8 @@ class PrepareMPViewController: UIViewController {
         }
     }
     
-    func updateFreePlayersCount()
+    func updateFreePlayers()
     {
-        freePlayersLbl.text = lstr("Free players") + ": \(Room.main.freePlayers.count)"
     }
     
     
@@ -127,10 +127,49 @@ class PrepareMPViewController: UIViewController {
         diceTexBtnSecond.enabled = false
         waitingLbl.hidden = false
         activityIndicator.startAnimating()
-        freePlayersLbl.hidden = false
+        tableView.hidden = false
         
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]
         }))
     }
+}
+
+extension PrepareMPViewController: UITableViewDelegate
+{
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let player = players()[indexPath.row]
+        WsAPI.shared.invitePlayer(player)
+    }
+}
+
+extension PrepareMPViewController: UITableViewDataSource
+{
+    func players() -> [Player]
+    {
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let players = Room.main.freePlayers.filter({ (player) -> Bool in
+            return player.id != playerId
+        })
+        return players
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return players().count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return lstr("Invite someone")
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let player = players()[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! FreePlayerCell
+        cell.nameLbl.text = player.alias
+        return cell
+    }
+    
+    
 }

@@ -167,6 +167,8 @@ extension RoomViewController: UITableViewDataSource
             let match = playingMatches[indexPath.row]
             let firstPlayer = match.players.first!
             let lastPlayer = match.players.last!
+            cell.diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
+            cell.diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
             cell.titleLbl?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
             return cell
         }
