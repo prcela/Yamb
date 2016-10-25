@@ -86,6 +86,8 @@ class WsAPI
         let playerId = defaults.stringForKey(Prefs.playerId)!
         let json = JSON(["from":playerId, "to":player.id!])
         send(.InvitePlayer, json: json)
+        
+        // TODO: Show invited popup ...
     }
     
     private func send(action: MessageFunc, json: JSON? = nil)
@@ -211,6 +213,11 @@ extension WsAPI: WebSocketDelegate
             let matchId = json["match_id"].uIntValue
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentLeavedMatch, object: matchId)
             break
+            
+        case .InvitePlayer:
+            let fromPlayerId = json["from"].stringValue
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationArrived, object: fromPlayerId)
+            
             
         case .Turn:
             let matchId = json["match_id"].uIntValue

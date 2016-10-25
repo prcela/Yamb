@@ -17,7 +17,7 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var createMatchBtn: UIButton!
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView?
     
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
@@ -25,7 +25,9 @@ class PrepareMPViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
     }
     
     override func viewDidLoad() {
@@ -37,7 +39,7 @@ class PrepareMPViewController: UIViewController {
         createMatchBtn.setTitle(lstr("Start match"), forState: .Normal)
         waitingLbl.text = lstr("Waiting for opponent player...")
         
-        tableView.hidden = true
+        tableView?.hidden = true
         
         for btn in [diceTexBtnFirst,diceTexBtnSecond]
         {
@@ -86,8 +88,14 @@ class PrepareMPViewController: UIViewController {
         }
     }
     
+    func someoneDisconnected()
+    {
+        WsAPI.shared.roomInfo()
+    }
+    
     func updateFreePlayers()
     {
+        tableView?.reloadData()
     }
     
     
@@ -113,21 +121,22 @@ class PrepareMPViewController: UIViewController {
         diceTexBtnFirst.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
     }
     
-    @IBAction func changeSecondDiceMAterial(sender: AnyObject) {
-        
+    @IBAction func changeSecondDiceMAterial(sender: AnyObject)
+    {
         selectedDiceMats[1] = (selectedDiceMats[1]+1)%diceMats.count
         let diceMat = diceMats[selectedDiceMats[1]]
         diceTexBtnSecond.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
     }
     
-    @IBAction func createMatch(sender: UIButton) {
+    @IBAction func createMatch(sender: UIButton)
+    {
         sender.hidden = true
         dice56Btn.enabled = false
         diceTexBtnFirst.enabled = false
         diceTexBtnSecond.enabled = false
         waitingLbl.hidden = false
         activityIndicator.startAnimating()
-        tableView.hidden = false
+        tableView?.hidden = false
         
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]

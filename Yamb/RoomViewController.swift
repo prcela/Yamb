@@ -19,7 +19,6 @@ class RoomViewController: UIViewController
         let nc = NSNotificationCenter.defaultCenter()
         
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
-        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
         nc.addObserver(self, selector: #selector(popToHere), name: NotificationName.goToMainRoom, object: nil)
     }
     
@@ -41,24 +40,7 @@ class RoomViewController: UIViewController
         tableView?.reloadData()
     }
     
-    func joinedMatch(notification: NSNotification)
-    {
-        let matchId = notification.object as! UInt
-        if let idx = Room.main.matchesInfo.indexOf ({ (m) -> Bool in
-            return m.id == matchId
-        }) {
-            let matchInfo = Room.main.matchesInfo[idx]
-            let firstPlayer = matchInfo.players.first!
-            let lastPlayer = matchInfo.players.last!
-            Match.shared.start(.OnlineMultiplayer,
-                               diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
-                               playersDesc: [
-                                (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
-                               matchId: matchId)
-            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
-        }
-    }
+    
     
     func popToHere()
     {

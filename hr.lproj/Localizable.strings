@@ -15,6 +15,8 @@
 "Rules" = "Pravila";
 "Tell friends" = "Reci prijateljima";
 "Online players: " = "Online igrači: ";
+"Invitation message" = "%@ te je pozvao/la da igraš sa %@ kockica.";
+"SP progress will be saved" = "Možete kasnije nastaviti i dovršiti ovu igru.";
 
 // Prepare SP
 "Back" = "Natrag";
@@ -39,6 +41,8 @@
 "Straight" = "Skala";
 "Confirm input" = "Potvrdite unos %@ u stupac od najave";
 "Confirm" = "Potvrdi";
+"Accept" = "Prihvati";
+"Ignore" = "Zanemari";
 "Cancel" = "Poništi";
 "Next player" = "Sljedeći igrač";
 "Create new match" = "Započni novu igru";

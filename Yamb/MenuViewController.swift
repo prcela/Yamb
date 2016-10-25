@@ -32,6 +32,8 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
+        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
     }
     
     override func viewDidLoad() {
@@ -73,6 +75,77 @@ class MenuViewController: UIViewController
                 })
                 print(error)
             }
+        }
+    }
+    
+    func matchInvitationArrived(notification: NSNotification)
+    {
+        let fromPlayerId = notification.object as! String
+        var matchInfo: MatchInfo?
+        for mInfo in Room.main.matchesInfo
+        {
+            if mInfo.players.first?.id == fromPlayerId
+            {
+                matchInfo = mInfo
+                break
+            }
+        }
+        
+        guard matchInfo != nil else {
+            return
+        }
+        
+        var message = lstr("Invitation message")
+        
+        if Match.shared.matchType == MatchType.SinglePlayer
+        {
+            message += lstr("SP progress will be saved")
+        }
+        
+        let alert = UIAlertController(title: "Yamb",
+                                      message: message,
+                                      preferredStyle: .Alert)
+        
+        alert.addAction(UIAlertAction(title: lstr("Accept"), style: .Default, handler: { (action) in
+            print("prihat igre...")
+            dispatch_async(dispatch_get_main_queue(), {
+                if self.navigationController?.presentedViewController != nil
+                {
+                    self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
+                }
+                self.navigationController?.popToRootViewControllerAnimated(false)
+                WsAPI.shared.joinToMatch(matchInfo!.id)
+            })
+        }))
+        
+        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Cancel, handler: nil))
+        
+        if let presentedVC = navigationController?.presentedViewController
+        {
+            presentedVC.presentViewController(alert, animated: true, completion: nil)
+        }
+        else
+        {
+            navigationController?.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func joinedMatch(notification: NSNotification)
+    {
+        let matchId = notification.object as! UInt
+        if let idx = Room.main.matchesInfo.indexOf ({ (m) -> Bool in
+            return m.id == matchId
+        }) {
+            let matchInfo = Room.main.matchesInfo[idx]
+            let firstPlayer = matchInfo.players.first!
+            let lastPlayer = matchInfo.players.last!
+            Match.shared.start(.OnlineMultiplayer,
+                               diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
+                               playersDesc: [
+                                (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
+                                (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                               matchId: matchId)
+            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
         }
     }
     
