@@ -21,6 +21,7 @@ class PrepareMPViewController: UIViewController {
     
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
+    var playersIgnoredInvitation = [String]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,6 +29,7 @@ class PrepareMPViewController: UIViewController {
         let nc = NSNotificationCenter.defaultCenter()
         
         nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
     }
     
     override func viewDidLoad() {
@@ -98,6 +100,13 @@ class PrepareMPViewController: UIViewController {
         tableView?.reloadData()
     }
     
+    func matchInvitationIgnored(notification: NSNotification)
+    {
+        let recipientPlayerId = notification.object as! String
+        playersIgnoredInvitation.append(recipientPlayerId)
+        tableView?.reloadData()
+    }
+    
     
     @IBAction func back(sender: AnyObject)
     {
@@ -147,6 +156,7 @@ class PrepareMPViewController: UIViewController {
 extension PrepareMPViewController: UITableViewDelegate
 {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let player = players()[indexPath.row]
         WsAPI.shared.invitePlayer(player)
     }
@@ -158,7 +168,7 @@ extension PrepareMPViewController: UITableViewDataSource
     {
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         let players = Room.main.freePlayers.filter({ (player) -> Bool in
-            return player.id != playerId
+            return player.id != playerId && !playersIgnoredInvitation.contains[player.id]
         })
         return players
     }

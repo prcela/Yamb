@@ -20,4 +20,5 @@ enum MessageFunc: String
     case LeaveMatch = "leave_match"
     case Turn = "turn"
     case InvitePlayer = "invite_player"
+    case IgnoreInvitation = "ignore_invitation"
 }

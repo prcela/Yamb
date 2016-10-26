@@ -17,6 +17,7 @@
 "Online players: " = "Online igrači: ";
 "Invitation message" = "%@ te je pozvao/la da igraš sa %@ kockica.";
 "SP progress will be saved" = "Možete kasnije nastaviti i dovršiti ovu igru.";
+"Invitation ignored" = "%@ je zanemario/la vaš poziv u igru.";
 
 // Prepare SP
 "Back" = "Natrag";

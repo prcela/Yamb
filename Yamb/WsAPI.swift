@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipHome
+let ipCurrent = ipWork
 
 class WsAPI
 {
@@ -84,10 +84,18 @@ class WsAPI
     {
         let defaults = NSUserDefaults.standardUserDefaults()
         let playerId = defaults.stringForKey(Prefs.playerId)!
-        let json = JSON(["from":playerId, "to":player.id!])
+        let json = JSON(["sender":playerId, "recipient":player.id!])
         send(.InvitePlayer, json: json)
         
         // TODO: Show invited popup ...
+    }
+    
+    func ignoreInvitation(senderPlayerId: String)
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let json = JSON(["recipient":playerId, "sender":senderPlayerId])
+        send(.IgnoreInvitation, json: json)
     }
     
     private func send(action: MessageFunc, json: JSON? = nil)
@@ -215,8 +223,12 @@ extension WsAPI: WebSocketDelegate
             break
             
         case .InvitePlayer:
-            let fromPlayerId = json["from"].stringValue
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationArrived, object: fromPlayerId)
+            let senderPlayerId = json["sender"].stringValue
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationArrived, object: senderPlayerId)
+            
+        case .IgnoreInvitation:
+            let recipientPlayerId = json["recipient"].stringValue
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationIgnored, object: recipientPlayerId)
             
             
         case .Turn:

@@ -33,6 +33,7 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
     }
     
@@ -80,11 +81,11 @@ class MenuViewController: UIViewController
     
     func matchInvitationArrived(notification: NSNotification)
     {
-        let fromPlayerId = notification.object as! String
+        let senderPlayerId = notification.object as! String
         var matchInfo: MatchInfo?
         for mInfo in Room.main.matchesInfo
         {
-            if mInfo.players.first?.id == fromPlayerId
+            if mInfo.players.first?.id == senderPlayerId
             {
                 matchInfo = mInfo
                 break
@@ -111,6 +112,19 @@ class MenuViewController: UIViewController
             dispatch_async(dispatch_get_main_queue(), {
                 if self.navigationController?.presentedViewController != nil
                 {
+                    if Match.shared.matchType == MatchType.SinglePlayer
+                    {
+                        let spMatch = Match.shared
+                        
+                        if let player = spMatch.players.first
+                        {
+                            if player.state != .Start && player.state != .EndGame
+                            {
+                                GameFileManager.saveMatch(spMatch)
+                            }
+                        }
+                    }
+                    
                     self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
                 }
                 self.navigationController?.popToRootViewControllerAnimated(false)
@@ -118,7 +132,9 @@ class MenuViewController: UIViewController
             })
         }))
         
-        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Cancel, handler: { (action) in
+            WsAPI.shared.ignoreInvitation(senderPlayerId)
+        }))
         
         if let presentedVC = navigationController?.presentedViewController
         {
@@ -128,6 +144,27 @@ class MenuViewController: UIViewController
         {
             navigationController?.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    func matchInvitationIgnored(notification: NSNotification)
+    {
+        let recipientPlayerId = notification.object as! String
+        
+        let alert = UIAlertController(title: "Yamb",
+                                      message: lstr("Invitation ignored"),
+                                      preferredStyle: .Alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        
+        if let presentedVC = navigationController?.presentedViewController
+        {
+            presentedVC.presentViewController(alert, animated: true, completion: nil)
+        }
+        else
+        {
+            navigationController?.presentViewController(alert, animated: true, completion: nil)
+        }
+        
     }
     
     func joinedMatch(notification: NSNotification)

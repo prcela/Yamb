@@ -20,5 +20,6 @@ struct NotificationName
     static let disconnected = "Notification.disconnected"
     static let opponentLeavedMatch = "Notification.opponentLeavedMatch"
     static let opponentNewGame = "Notification.opponentNewGame"
-    static let matchInvitationArrived = "Notification.MatchInvitationArrived"
+    static let matchInvitationArrived = "Notification.matchInvitationArrived"
+    static let matchInvitationIgnored = "Notification.matchInvitationIgnored"
 }
