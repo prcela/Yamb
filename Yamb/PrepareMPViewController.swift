@@ -168,7 +168,7 @@ extension PrepareMPViewController: UITableViewDataSource
     {
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         let players = Room.main.freePlayers.filter({ (player) -> Bool in
-            return player.id != playerId && !playersIgnoredInvitation.contains[player.id]
+            return player.id != playerId && !playersIgnoredInvitation.contains(player.id!)
         })
         return players
     }
@@ -179,7 +179,7 @@ extension PrepareMPViewController: UITableViewDataSource
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return lstr("Invite someone")
+        return lstr("Or invite someone")
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell

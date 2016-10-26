@@ -15,7 +15,7 @@
 "Rules" = "Pravila";
 "Tell friends" = "Reci prijateljima";
 "Online players: " = "Online igrači: ";
-"Invitation message" = "%@ te je pozvao/la da igraš sa %@ kockica.";
+"Invitation message" = "%@ te je pozvao/la da igraš sa %d kockica.";
 "SP progress will be saved" = "Možete kasnije nastaviti i dovršiti ovu igru.";
 "Invitation ignored" = "%@ je zanemario/la vaš poziv u igru.";
 
@@ -29,7 +29,7 @@
 // Prepare MP
 "Start match" = "Započni igru";
 "Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
-"Invite someone" = "Pozovi nekoga";
+"Or invite someone" = "Ili pozovi nekoga";
 
 // Update
 "Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";

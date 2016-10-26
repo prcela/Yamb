@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipWork
+let ipCurrent = ipServer
 
 class WsAPI
 {

@@ -92,37 +92,44 @@ class MenuViewController: UIViewController
             }
         }
         
-        guard matchInfo != nil else {
+        guard matchInfo != nil,
+            let senderPlayer = matchInfo!.players.first else {
             return
         }
         
-        var message = lstr("Invitation message")
         
+        var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
+        
+        var shouldSaveSP = false
         if Match.shared.matchType == MatchType.SinglePlayer
         {
-            message += lstr("SP progress will be saved")
+            let spMatch = Match.shared
+            if let player = spMatch.players.first
+            {
+                if player.state != .Start && player.state != .EndGame
+                {
+                    shouldSaveSP = true
+                    message += lstr("SP progress will be saved")
+                }
+            }
         }
         
         let alert = UIAlertController(title: "Yamb",
                                       message: message,
                                       preferredStyle: .Alert)
         
+        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Default, handler: { (action) in
+            WsAPI.shared.ignoreInvitation(senderPlayerId)
+        }))
+        
         alert.addAction(UIAlertAction(title: lstr("Accept"), style: .Default, handler: { (action) in
             print("prihat igre...")
             dispatch_async(dispatch_get_main_queue(), {
                 if self.navigationController?.presentedViewController != nil
                 {
-                    if Match.shared.matchType == MatchType.SinglePlayer
+                    if shouldSaveSP
                     {
-                        let spMatch = Match.shared
-                        
-                        if let player = spMatch.players.first
-                        {
-                            if player.state != .Start && player.state != .EndGame
-                            {
-                                GameFileManager.saveMatch(spMatch)
-                            }
-                        }
+                        GameFileManager.saveMatch(Match.shared)
                     }
                     
                     self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
@@ -132,9 +139,7 @@ class MenuViewController: UIViewController
             })
         }))
         
-        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Cancel, handler: { (action) in
-            WsAPI.shared.ignoreInvitation(senderPlayerId)
-        }))
+        
         
         if let presentedVC = navigationController?.presentedViewController
         {
@@ -150,8 +155,16 @@ class MenuViewController: UIViewController
     {
         let recipientPlayerId = notification.object as! String
         
+        guard let idx = Room.main.freePlayers.indexOf({ (player) in
+            return player.id == recipientPlayerId
+        }) else {
+            return
+        }
+        
+        let recipientPlayer = Room.main.freePlayers[idx]
+        
         let alert = UIAlertController(title: "Yamb",
-                                      message: lstr("Invitation ignored"),
+                                      message: String(format: lstr("Invitation ignored"), recipientPlayer.alias!),
                                       preferredStyle: .Alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
