@@ -32,9 +32,6 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
-        nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
-        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
-        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
     }
     
     override func viewDidLoad() {
@@ -51,6 +48,11 @@ class MenuViewController: UIViewController
         // authenticate player, but dont present auth controller yet
         GameKitHelper.shared.authenticateLocalPlayer()
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         updateOnlinePlayersCount()
     }
     
@@ -61,9 +63,10 @@ class MenuViewController: UIViewController
             {
                 let json = JSON(data: data!)
                 let ct = json["room_main_ct"].intValue
+                let ctFree = json["room_main_free_ct"].intValue
                 dispatch_async(dispatch_get_main_queue(), {
                     self.onlinePlayersLbl.hidden = (ct == 0)
-                    self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
+                    self.onlinePlayersLbl.text = String(format: "%@%d/%d", lstr("Online players: "), ctFree, ct)
                     self.minRequiredVersion = json["min_required_version"].intValue
                 })
                 
@@ -79,125 +82,8 @@ class MenuViewController: UIViewController
         }
     }
     
-    func matchInvitationArrived(notification: NSNotification)
-    {
-        let senderPlayerId = notification.object as! String
-        var matchInfo: MatchInfo?
-        for mInfo in Room.main.matchesInfo
-        {
-            if mInfo.players.first?.id == senderPlayerId
-            {
-                matchInfo = mInfo
-                break
-            }
-        }
-        
-        guard matchInfo != nil,
-            let senderPlayer = matchInfo!.players.first else {
-            return
-        }
-        
-        
-        var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
-        
-        var shouldSaveSP = false
-        if Match.shared.matchType == MatchType.SinglePlayer
-        {
-            let spMatch = Match.shared
-            if let player = spMatch.players.first
-            {
-                if player.state != .Start && player.state != .EndGame
-                {
-                    shouldSaveSP = true
-                    message += lstr("SP progress will be saved")
-                }
-            }
-        }
-        
-        let alert = UIAlertController(title: "Yamb",
-                                      message: message,
-                                      preferredStyle: .Alert)
-        
-        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Default, handler: { (action) in
-            WsAPI.shared.ignoreInvitation(senderPlayerId)
-        }))
-        
-        alert.addAction(UIAlertAction(title: lstr("Accept"), style: .Default, handler: { (action) in
-            print("prihat igre...")
-            dispatch_async(dispatch_get_main_queue(), {
-                if self.navigationController?.presentedViewController != nil
-                {
-                    if shouldSaveSP
-                    {
-                        GameFileManager.saveMatch(Match.shared)
-                    }
-                    
-                    self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
-                }
-                self.navigationController?.popToRootViewControllerAnimated(false)
-                WsAPI.shared.joinToMatch(matchInfo!.id)
-            })
-        }))
-        
-        
-        
-        if let presentedVC = navigationController?.presentedViewController
-        {
-            presentedVC.presentViewController(alert, animated: true, completion: nil)
-        }
-        else
-        {
-            navigationController?.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
     
-    func matchInvitationIgnored(notification: NSNotification)
-    {
-        let recipientPlayerId = notification.object as! String
-        
-        guard let idx = Room.main.freePlayers.indexOf({ (player) in
-            return player.id == recipientPlayerId
-        }) else {
-            return
-        }
-        
-        let recipientPlayer = Room.main.freePlayers[idx]
-        
-        let alert = UIAlertController(title: "Yamb",
-                                      message: String(format: lstr("Invitation ignored"), recipientPlayer.alias!),
-                                      preferredStyle: .Alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        
-        if let presentedVC = navigationController?.presentedViewController
-        {
-            presentedVC.presentViewController(alert, animated: true, completion: nil)
-        }
-        else
-        {
-            navigationController?.presentViewController(alert, animated: true, completion: nil)
-        }
-        
-    }
     
-    func joinedMatch(notification: NSNotification)
-    {
-        let matchId = notification.object as! UInt
-        if let idx = Room.main.matchesInfo.indexOf ({ (m) -> Bool in
-            return m.id == matchId
-        }) {
-            let matchInfo = Room.main.matchesInfo[idx]
-            let firstPlayer = matchInfo.players.first!
-            let lastPlayer = matchInfo.players.last!
-            Match.shared.start(.OnlineMultiplayer,
-                               diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
-                               playersDesc: [
-                                (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
-                               matchId: matchId)
-            navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
-        }
-    }
     
     @IBAction func singlePlayer(sender: AnyObject)
     {
@@ -296,7 +182,7 @@ class MenuViewController: UIViewController
     {
         let ct = Room.main.freePlayers.count
         self.onlinePlayersLbl.hidden = (ct == 0)
-        self.onlinePlayersLbl.text = lstr("Online players: ") + String(ct)
+        self.onlinePlayersLbl.text = lstr("Free players") + ": " + String(ct)
     }
     
 }

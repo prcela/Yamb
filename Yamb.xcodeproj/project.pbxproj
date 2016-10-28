@@ -133,6 +133,7 @@
 		97C4EFA21D6DBBDC00A1E7CD /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA11D6DBBDC00A1E7CD /* menu.png */; };
 		97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EFA51D6DC2A100A1E7CD /* Constants.swift */; };
 		97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA71D6DC55D00A1E7CD /* coin.png */; };
+		97EC2F2D1DC375270077B9A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC2F2C1DC375270077B9A5 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -268,6 +269,7 @@
 		97C4EFA11D6DBBDC00A1E7CD /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = Yamb/Resources/menu.png; sourceTree = "<group>"; };
 		97C4EFA51D6DC2A100A1E7CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		97C4EFA71D6DC55D00A1E7CD /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Yamb/Resources/coin.png; sourceTree = "<group>"; };
+		97EC2F2C1DC375270077B9A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		97F16EC61D89F54900B8FB79 /* Yamb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Yamb.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -295,6 +297,7 @@
 		972498201D74EE9000CDC6B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				97EC2F2C1DC375270077B9A5 /* MainViewController.swift */,
 				977D98081CAF2D6800AD9EF8 /* MenuViewController.swift */,
 				977D980A1CAF30E300AD9EF8 /* PrepareSPViewController.swift */,
 				974951C71D964D01002BEEFB /* PrepareMPViewController.swift */,
@@ -765,6 +768,7 @@
 				972B1BC71D83DECC00010F5F /* SwiftyJSON.swift in Sources */,
 				9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */,
 				972B1BCB1D84276B00010F5F /* WsAPI.swift in Sources */,
+				97EC2F2D1DC375270077B9A5 /* MainViewController.swift in Sources */,
 				97C4EF621D69D2A000A1E7CD /* Skin.swift in Sources */,
 				97C4EF601D699D7B00A1E7CD /* UIImageExt.swift in Sources */,
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,

@@ -84,7 +84,7 @@ class PrepareSPViewController: UIViewController {
             Match.shared = match
             GameFileManager.deleteGame("singlePlayer")
         }
-        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
     
     @IBAction func changeDiceMaterial(sender: AnyObject)
@@ -97,7 +97,7 @@ class PrepareSPViewController: UIViewController {
     @IBAction func playNewGame(sender: AnyObject)
     {
         Match.shared.start(.SinglePlayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,diceMats[diceMatSelected])])
-        navigationController!.performSegueWithIdentifier("playIdentifier", sender: nil)
+        MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
         
     }
 
