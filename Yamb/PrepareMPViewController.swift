@@ -35,7 +35,7 @@ class PrepareMPViewController: UIViewController {
         nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
         
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
         bet = min(bet, available)
     }
     
@@ -65,7 +65,7 @@ class PrepareMPViewController: UIViewController {
     
     func updateBetBtn()
     {
-        betBtn.setTitle(String(format: "%@ 💵 \(bet) ", lstr("Bet")), forState: .Normal)
+        betBtn.setTitle(String(format: "%@ 💎 \(bet) ", lstr("Bet")), forState: .Normal)
     }
     
     func updateDiceBtn()
@@ -170,7 +170,7 @@ class PrepareMPViewController: UIViewController {
     
     @IBAction func changeBet(sender: AnyObject)
     {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
         bet = min(bet+5, available)
         updateBetBtn()
     }
@@ -179,7 +179,7 @@ class PrepareMPViewController: UIViewController {
         updateBetBtn()
     }
     @IBAction func increaseBet(sender: AnyObject) {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
         bet = min(bet+5, available)
         updateBetBtn()
     }

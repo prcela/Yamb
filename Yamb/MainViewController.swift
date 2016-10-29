@@ -44,9 +44,9 @@ class MainViewController: UIViewController
     {
         let defaults = NSUserDefaults.standardUserDefaults()
         let name = defaults.stringForKey(Prefs.playerAlias)!
-        let coins = defaults.integerForKey(Prefs.playerCoins)
+        let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
         
-        nameDescLbl.text = "\(name)  💵 \(coins)"
+        nameDescLbl.text = "\(name)  💎 \(diamonds)"
     }
 
     func joinedMatch(notification: NSNotification)
@@ -67,11 +67,11 @@ class MainViewController: UIViewController
             
             // decrease coins for bet
             let defaults = NSUserDefaults.standardUserDefaults()
-            var coins = defaults.integerForKey(Prefs.playerCoins)
-            coins = max(0, coins - matchInfo.bet)
-            defaults.setInteger(coins, forKey: Prefs.playerCoins)
+            var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+            diamonds = max(0, diamonds - matchInfo.bet)
+            defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
             
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerCoinsChanged, object: coins)
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
             updatePlayerInfo()
             
             performSegueWithIdentifier("playIdentifier", sender: nil)
