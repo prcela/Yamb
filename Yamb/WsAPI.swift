@@ -260,7 +260,7 @@ extension WsAPI: WebSocketDelegate
                 guard let player = Match.shared.player(playerId) else {return}
                 player.diceHeld = Set(holdDice)
                 
-            case .End:
+            case .NextPlayer:
                 Match.shared.nextPlayer()
                 
             case .SetValueAtTablePos:
@@ -286,6 +286,9 @@ extension WsAPI: WebSocketDelegate
                 }
             case .NewGame:
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentNewGame, object: matchId)
+                
+            case .End:
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchEnded, object: matchId)
             }
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             

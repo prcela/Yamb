@@ -11,5 +11,7 @@
 "Confirm input" = "Confirm input of %@ to N column";
 "Update message" = "For online playing it is needed to update application to the latest version";
 "Invitation message" = "%@ invited you to play in game with %d dice.";
+"Bet is n" = "Bet is %d 💎";
 "SP progress will be saved" = "You will be able to continue and finish this game later.";
 "Invitation ignored" = "%@ ignores your invitation.";
+"You win n diamonds" = "You win %d 💎";

@@ -170,17 +170,18 @@ class PrepareMPViewController: UIViewController {
     
     @IBAction func changeBet(sender: AnyObject)
     {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
-        bet = min(bet+5, available)
-        updateBetBtn()
+        increaseBet(sender)
     }
+    
     @IBAction func decreaseBet(sender: AnyObject) {
-        bet = max(bet-5, 0)
+        bet = max(5, bet-5)
         updateBetBtn()
     }
+    
     @IBAction func increaseBet(sender: AnyObject) {
         let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
-        bet = min(bet+5, available)
+        bet += 5
+        bet = min(bet, available)
         updateBetBtn()
     }
 }

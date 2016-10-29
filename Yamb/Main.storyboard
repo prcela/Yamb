@@ -193,7 +193,7 @@
                             <constraint firstItem="Qnf-Cy-dxw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="UJT-KE-UKT"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="aOl-ju-7hr"/>
                             <constraint firstItem="vXB-fm-W7b" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="e1l-9M-sHL"/>
-                            <constraint firstItem="Rwa-2u-xU7" firstAttribute="top" secondItem="RIc-E4-osf" secondAttribute="bottom" constant="54" id="h2b-xQ-JFb"/>
+                            <constraint firstItem="Rwa-2u-xU7" firstAttribute="top" secondItem="RIc-E4-osf" secondAttribute="bottom" constant="37" id="h2b-xQ-JFb"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="top" secondItem="Rwa-2u-xU7" secondAttribute="bottom" constant="37" id="liq-9m-Ufq"/>
                             <constraint firstItem="RIc-E4-osf" firstAttribute="top" secondItem="84V-Oz-I6T" secondAttribute="bottom" constant="34" id="nfT-J9-tVa"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="top" secondItem="MeS-bc-DLr" secondAttribute="bottom" constant="37" id="p51-df-9U4"/>
@@ -581,7 +581,7 @@
                             <constraint firstItem="22F-RO-a5m" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="6Z0-XD-0LL"/>
                             <constraint firstItem="Kfm-ro-o05" firstAttribute="centerY" secondItem="TOF-5X-9Tf" secondAttribute="centerY" id="74b-UB-YfW"/>
                             <constraint firstItem="7KQ-52-yzw" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="7R7-TT-meb"/>
-                            <constraint firstItem="7KQ-52-yzw" firstAttribute="top" secondItem="ktU-sc-ZFO" secondAttribute="bottom" constant="37" id="Aiq-e6-QhL"/>
+                            <constraint firstItem="7KQ-52-yzw" firstAttribute="top" secondItem="ktU-sc-ZFO" secondAttribute="bottom" constant="30" id="Aiq-e6-QhL"/>
                             <constraint firstItem="TOF-5X-9Tf" firstAttribute="top" secondItem="22F-RO-a5m" secondAttribute="bottom" constant="30" id="C77-lI-daX"/>
                             <constraint firstItem="TOF-5X-9Tf" firstAttribute="centerX" secondItem="e0f-nQ-YzL" secondAttribute="centerX" id="JqC-6u-xKA"/>
                             <constraint firstItem="aYn-NR-3fQ" firstAttribute="top" secondItem="PED-rx-ILD" secondAttribute="bottom" constant="8" id="ObN-n8-Mra"/>

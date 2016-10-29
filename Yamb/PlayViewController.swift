@@ -224,6 +224,13 @@ class PlayViewController: UIViewController {
         }
         WsAPI.shared.leaveMatch(matchId)
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        diamonds += 2*Match.shared.bet
+        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+        
         alertOnOpponentLeave()
     }
     
@@ -239,7 +246,7 @@ class PlayViewController: UIViewController {
                 let desc = match.players.map({ (player) -> (id: String?, alias: String?, diceMat: DiceMaterial) in
                     return (id: player.id, alias: player.alias, diceMat: player.diceMaterial)
                 })
-                Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc)
+                Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc, bet: match.bet)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .Destructive, handler: { (action) in
                 WsAPI.shared.leaveMatch(matchId)
@@ -271,10 +278,16 @@ class PlayViewController: UIViewController {
     
     func alertOnOpponentLeave()
     {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Opponent has leave the match"), preferredStyle: .Alert)
+        let match = Match.shared
+        var message = lstr("Opponent has leave the match.")
+        if match.bet > 0
+        {
+            message += String(format: lstr("You win n diamonds"), match.bet*2)
+        }
+        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
             let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
-            let match = Match.shared
+            
             if let idx = match.players.indexOf({ (player) -> Bool in
                 return player.id == playerId
             }) where match.players.count == 2 {
@@ -299,6 +312,7 @@ class PlayViewController: UIViewController {
         {
             let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+                
                 WsAPI.shared.leaveMatch(Match.shared.id)
                 self.dismiss()
             }))
@@ -344,7 +358,10 @@ class PlayViewController: UIViewController {
         if playLbl.text == lstr("New game")
         {
             let players = Match.shared.players
-            Match.shared.start(Match.shared.matchType, diceNum: Match.shared.diceNum, playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}))
+            Match.shared.start(Match.shared.matchType,
+                               diceNum: Match.shared.diceNum,
+                               playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}),
+                               bet: Match.shared.bet)
             
             if Match.shared.matchType == .OnlineMultiplayer
             {

@@ -96,9 +96,8 @@ class PrepareSPViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        Match.shared.start(.SinglePlayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,diceMats[diceMatSelected])])
+        Match.shared.start(.SinglePlayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,diceMats[diceMatSelected])], bet: 0)
         MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
-        
     }
 
     @IBAction func back(sender: AnyObject) {

@@ -10,6 +10,9 @@
 
 // Main
 "Connecting..." = "Spajanje...";
+"Match over" = "Kraj meča";
+"Drawn" = "Neriješeno";
+"You lose" = "Izgubili ste";
 
 // Menu
 "Single player" = "Jedan igrač";
@@ -19,6 +22,7 @@
 "Tell friends" = "Reci prijateljima";
 "Online players: " = "Online igrači: ";
 "Invitation message" = "%@ te je pozvao/la da igraš sa %d kockica.";
+"Bet is n" = "Ulog je %d 💎";
 "SP progress will be saved" = "Možete kasnije nastaviti i dovršiti ovu igru.";
 "Invitation ignored" = "%@ je zanemario/la vaš poziv u igru.";
 
@@ -58,5 +62,6 @@
 "Leave match" = "Napusti igru";
 "Continue alone" = "Nastavi sam";
 "Continue match" = "Nastavi igru";
-"Opponent has leave the match" = "Protivnik je napustio igru.";
+"Opponent has leave the match." = "Protivnik je napustio igru.";
+"You win n diamonds" = "Osvojili ste %d 💎";
 "Connection problems. Waiting for " = "Problemi sa vezom. Čeka se igrač ";

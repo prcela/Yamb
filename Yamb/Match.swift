@@ -43,6 +43,7 @@ class Match: NSObject, NSCoding
     var players = [Player]()
     var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
+    var bet = 5
     
     var ctColumns = 6
     
@@ -50,10 +51,11 @@ class Match: NSObject, NSCoding
         super.init()
     }
     
-    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0)
+    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0, bet: Int)
     {
         self.matchType = matchType
         self.diceNum = diceNum
+        self.bet = bet
         id = matchId
         players.removeAll()
         for (id,alias,diceMat) in playersDesc
@@ -63,7 +65,7 @@ class Match: NSObject, NSCoding
             player.alias = alias
             player.diceMaterial = diceMat
             players.append(player)
-//            player.table.fakeFill()
+            player.table.fakeFill()
             player.printStatus()
         }
         indexOfPlayerOnTurn = 0
@@ -81,7 +83,7 @@ class Match: NSObject, NSCoding
         if matchType == .OnlineMultiplayer && isLocalPlayerTurn()
         {
             let params = JSON([:])
-            WsAPI.shared.turn(.End, matchId: id, params: params)
+            WsAPI.shared.turn(.NextPlayer, matchId: id, params: params)
         }
         
         players[indexOfPlayerOnTurn].next()

@@ -14,6 +14,7 @@ enum Turn: Int
     case HoldDice
     case SetValueAtTablePos
     case InputPos
-    case End
+    case NextPlayer
     case NewGame
+    case End
 }

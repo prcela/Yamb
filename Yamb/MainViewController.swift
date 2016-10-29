@@ -23,8 +23,10 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
+        nc.addObserver(self, selector: #selector(matchEnded(_:)), name: NotificationName.matchEnded, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
         
         MainViewController.shared = self
 
@@ -63,7 +65,8 @@ class MainViewController: UIViewController
                                playersDesc: [
                                 (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
                                 (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
-                               matchId: matchId)
+                               matchId: matchId,
+                               bet: matchInfo.bet)
             
             // decrease coins for bet
             let defaults = NSUserDefaults.standardUserDefaults()
@@ -98,6 +101,11 @@ class MainViewController: UIViewController
         
         
         var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
+        
+        if let bet = matchInfo?.bet where bet > 0
+        {
+            message += String(format: lstr("Bet is n"), bet)
+        }
         
         var shouldSaveSP = false
         if Match.shared.matchType == MatchType.SinglePlayer
@@ -142,7 +150,10 @@ class MainViewController: UIViewController
         
         if let presentedVC = presentedViewController
         {
-            presentedVC.presentViewController(alert, animated: true, completion: nil)
+            if !(presentedVC is UIAlertController)
+            {
+                presentedVC.presentViewController(alert, animated: true, completion: nil)
+            }
         }
         else
         {
@@ -177,6 +188,79 @@ class MainViewController: UIViewController
             presentViewController(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    func matchEnded(notification: NSNotification)
+    {
+        guard (notification.object as? UInt) == Match.shared.id  else {
+            return
+        }
+        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)
+        let playerIdx = Match.shared.players.indexOf { (p) -> Bool in
+            return p.id == playerId
+        }
+        let player = Match.shared.players[playerIdx!]
+        guard let score = player.table.totalScore() else {return}
+        
+        enum Result {
+            case Winner
+            case Loser
+            case Drawn
+        }
+        
+        var result:Result = .Winner
+        for p in Match.shared.players
+        {
+            if p.id != playerId
+            {
+                if let pScore = p.table.totalScore()
+                {
+                    if pScore > score
+                    {
+                        result = .Loser
+                    }
+                    else if pScore == score
+                    {
+                        result = .Drawn
+                    }
+                }
+            }
+        }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        
+        var message: String
+        switch result {
+            
+        case .Winner:
+            message = String(format: lstr("You win n diamonds"), Match.shared.bet*2)
+            diamonds += Match.shared.bet*2
+            
+        case .Drawn:
+            message = lstr("Drawn")
+            diamonds += Match.shared.bet
+            
+        case .Loser:
+            message = lstr("You lose")
+        }
+        
+        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
+        
+        let alert = UIAlertController(title: lstr("Match over"),
+                                      message: message,
+                                      preferredStyle: .Alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        
+        if let presentedVC = presentedViewController
+        {
+            presentedVC.presentViewController(alert, animated: true, completion: nil)
+        }
+        else
+        {
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func onWsDidConnect()

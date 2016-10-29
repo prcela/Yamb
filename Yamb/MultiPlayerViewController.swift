@@ -44,7 +44,7 @@ class MultiPlayerViewController: UIViewController
     
     @IBAction func localMatch(sender: AnyObject)
     {
-        Match.shared.start(.LocalMultiplayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,DiceMaterial.Blue),(nil,nil,DiceMaterial.Red)])
+        Match.shared.start(.LocalMultiplayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,DiceMaterial.Blue),(nil,nil,DiceMaterial.Red)], bet: 0)
         MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
         

@@ -408,6 +408,13 @@ class Player: NSObject, NSCoding
         state = .EndGame
         print("kraj")
         
+        // if this is the last player in online match
+        if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
+        {
+            WsAPI.shared.turn(.End, matchId: Match.shared.id, params: JSON([:]))
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchEnded, object: Match.shared.id)
+        }
+        
         // score submit
         if GameKitHelper.shared.authenticated
         {
