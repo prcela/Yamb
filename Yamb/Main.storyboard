@@ -24,16 +24,29 @@
                                     <segue destination="rff-MO-f1j" kind="embed" id="6UM-FE-OOc"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-mO-a6X">
+                                <color key="backgroundColor" white="0.0" alpha="0.8422144396551724" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="4Mj-F3-CrS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="giY-8q-Z8u" firstAttribute="top" secondItem="EtK-mO-a6X" secondAttribute="bottom" id="Sf8-gt-g9u"/>
+                            <constraint firstItem="EtK-mO-a6X" firstAttribute="leading" secondItem="sJH-Ca-aG0" secondAttribute="leading" id="WV2-Fc-L0R"/>
                             <constraint firstItem="giY-8q-Z8u" firstAttribute="top" secondItem="915-G1-YEn" secondAttribute="bottom" id="jby-QD-qi6"/>
                             <constraint firstItem="915-G1-YEn" firstAttribute="top" secondItem="zFv-1d-KVR" secondAttribute="bottom" id="pck-dN-VYc"/>
                             <constraint firstItem="915-G1-YEn" firstAttribute="leading" secondItem="sJH-Ca-aG0" secondAttribute="leading" id="wJb-H1-CTa"/>
                             <constraint firstAttribute="trailing" secondItem="915-G1-YEn" secondAttribute="trailing" id="wiD-I5-IcN"/>
+                            <constraint firstAttribute="trailing" secondItem="EtK-mO-a6X" secondAttribute="trailing" id="zvG-Yn-hSa"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectingLbl" destination="EtK-mO-a6X" id="3uL-Gx-J4h"/>
                         <segue destination="PEx-0D-RyI" kind="presentation" identifier="playIdentifier" id="HPt-Y7-3UD"/>
                     </connections>
                 </viewController>
@@ -155,7 +168,7 @@
                             <constraint firstItem="RIc-E4-osf" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="3mg-MX-hH3"/>
                             <constraint firstItem="MeS-bc-DLr" firstAttribute="top" secondItem="vXB-fm-W7b" secondAttribute="bottom" constant="37" id="GQr-1H-xvQ"/>
                             <constraint firstItem="vXB-fm-W7b" firstAttribute="top" secondItem="nSW-yA-QpT" secondAttribute="bottom" constant="8" id="QJY-NL-QTg"/>
-                            <constraint firstItem="KbM-dB-RNU" firstAttribute="top" secondItem="Qnf-Cy-dxw" secondAttribute="bottom" constant="10" id="Qya-cm-8bz"/>
+                            <constraint firstItem="KbM-dB-RNU" firstAttribute="top" secondItem="Qnf-Cy-dxw" secondAttribute="bottom" constant="17" id="Qya-cm-8bz"/>
                             <constraint firstItem="zZ1-9K-eRw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="QzW-3q-ORa"/>
                             <constraint firstItem="Qnf-Cy-dxw" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="UJT-KE-UKT"/>
                             <constraint firstItem="nSW-yA-QpT" firstAttribute="centerX" secondItem="eiy-P7-BHG" secondAttribute="centerX" id="aOl-ju-7hr"/>

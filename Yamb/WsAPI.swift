@@ -134,6 +134,7 @@ extension WsAPI: WebSocketDelegate
 {
     func websocketDidConnect(socket: WebSocket) {
         print("didConnect to \(socket.currentURL)")
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsDidConnect, object: nil)
         retryCount = 0
         joinToRoom()
         sendUnsentMessages()
@@ -145,6 +146,7 @@ extension WsAPI: WebSocketDelegate
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         print("websocketDidDisconnect")
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsDidDisconnect, object: nil)
         
         dispatchToMainQueue(delay: min(Double(retryCount), 5)) {
             print("retry connect")

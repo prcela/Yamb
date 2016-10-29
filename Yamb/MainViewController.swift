@@ -12,6 +12,8 @@ class MainViewController: UIViewController
 {
     static var shared: MainViewController?
     
+    @IBOutlet weak var connectingLbl: UILabel?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -20,14 +22,19 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         
         MainViewController.shared = self
+
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        connectingLbl?.hidden = true
+        connectingLbl?.text = lstr("Connecting...")
     }
 
     func joinedMatch(notification: NSNotification)
@@ -149,6 +156,16 @@ class MainViewController: UIViewController
             presentViewController(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    func onWsDidConnect()
+    {
+        connectingLbl?.hidden = true
+    }
+    
+    func onWsDidDisconnect()
+    {
+        connectingLbl?.hidden = false
     }
 
 }

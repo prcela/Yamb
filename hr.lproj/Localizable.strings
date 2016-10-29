@@ -8,6 +8,9 @@
 
 "lang" = "hr";
 
+// Main
+"Connecting..." = "Spajanje...";
+
 // Menu
 "Single player" = "Jedan igrač";
 "Multiplayer" = "Više igrača";
