@@ -24,4 +24,5 @@ struct NotificationName
     static let matchInvitationIgnored = "Notification.matchInvitationIgnored"
     static let wsDidConnect = "Notification.wsDidConnect"
     static let wsDidDisconnect = "Notification.DidDisconnect"
+    static let playerCoinsChanged = "Notification.playerCoinsChanged" 
 }

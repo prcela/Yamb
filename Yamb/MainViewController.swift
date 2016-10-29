@@ -13,6 +13,7 @@ class MainViewController: UIViewController
     static var shared: MainViewController?
     
     @IBOutlet weak var connectingLbl: UILabel?
+    @IBOutlet weak var nameDescLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,6 +36,17 @@ class MainViewController: UIViewController
         // Do any additional setup after loading the view.
         connectingLbl?.hidden = true
         connectingLbl?.text = lstr("Connecting...")
+        
+        updatePlayerInfo()
+    }
+    
+    func updatePlayerInfo()
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let name = defaults.stringForKey(Prefs.playerAlias)!
+        let coins = defaults.integerForKey(Prefs.playerCoins)
+        
+        nameDescLbl.text = "\(name)  💵 \(coins)"
     }
 
     func joinedMatch(notification: NSNotification)
@@ -52,6 +64,15 @@ class MainViewController: UIViewController
                                 (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
                                 (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
                                matchId: matchId)
+            
+            // decrease coins for bet
+            let defaults = NSUserDefaults.standardUserDefaults()
+            var coins = defaults.integerForKey(Prefs.playerCoins)
+            coins = max(0, coins - matchInfo.bet)
+            defaults.setInteger(coins, forKey: Prefs.playerCoins)
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerCoinsChanged, object: coins)
+            updatePlayerInfo()
             
             performSegueWithIdentifier("playIdentifier", sender: nil)
         }

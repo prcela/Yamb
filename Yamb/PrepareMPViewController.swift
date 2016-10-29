@@ -12,6 +12,9 @@ class PrepareMPViewController: UIViewController {
 
     @IBOutlet weak var bacBtn: UIButton!
     @IBOutlet weak var dice56Btn: UIButton!
+    @IBOutlet weak var betBtn: UIButton!
+    @IBOutlet weak var decreaseBetBtn: UIButton!
+    @IBOutlet weak var increaseBetBtn: UIButton!
     @IBOutlet weak var diceTexBtnFirst: UIButton!
     @IBOutlet weak var diceTexBtnSecond: UIButton!
     @IBOutlet weak var createMatchBtn: UIButton!
@@ -22,6 +25,7 @@ class PrepareMPViewController: UIViewController {
     var diceNum: DiceNum = .Six
     var selectedDiceMats = [2,3]
     var playersIgnoredInvitation = [String]()
+    var bet = 5
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -30,6 +34,9 @@ class PrepareMPViewController: UIViewController {
         
         nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
+        
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        bet = min(bet, available)
     }
     
     override func viewDidLoad() {
@@ -51,8 +58,14 @@ class PrepareMPViewController: UIViewController {
             btn.clipsToBounds = true
         }
         
+        updateBetBtn()
         updateDiceBtn()
         updateFreePlayers()
+    }
+    
+    func updateBetBtn()
+    {
+        betBtn.setTitle(String(format: "%@ 💵 \(bet) ", lstr("Bet")), forState: .Normal)
     }
     
     func updateDiceBtn()
@@ -146,10 +159,29 @@ class PrepareMPViewController: UIViewController {
         waitingLbl.hidden = false
         activityIndicator.startAnimating()
         tableView?.hidden = false
+        betBtn.enabled = false
+        decreaseBetBtn.enabled = false
+        increaseBetBtn.enabled = false
         
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]
-        }))
+        }), bet: bet)
+    }
+    
+    @IBAction func changeBet(sender: AnyObject)
+    {
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        bet = min(bet+5, available)
+        updateBetBtn()
+    }
+    @IBAction func decreaseBet(sender: AnyObject) {
+        bet = max(bet-5, 0)
+        updateBetBtn()
+    }
+    @IBAction func increaseBet(sender: AnyObject) {
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerCoins)
+        bet = min(bet+5, available)
+        updateBetBtn()
     }
 }
 

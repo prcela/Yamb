@@ -18,7 +18,9 @@ class MatchInfo
 {
     var id:UInt = 0
     var state:MatchState = .WaitingForPlayers
+    var bet:Int = 0
     var players = [Player]()
     var diceNum: Int = 6
     var diceMaterials = ["a","b"]
+    
 }

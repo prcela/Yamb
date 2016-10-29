@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipHome
 
 class WsAPI
 {
@@ -50,9 +50,12 @@ class WsAPI
         send(.RoomInfo)
     }
     
-    func createMatch(diceNum: DiceNum, diceMaterials: [DiceMaterial])
+    func createMatch(diceNum: DiceNum, diceMaterials: [DiceMaterial], bet: Int)
     {
-        let json = JSON(["dice_num":diceNum.rawValue, "dice_materials": diceMaterials.map({ (dm) -> String in
+        let json = JSON([
+            "dice_num":diceNum.rawValue,
+            "bet":bet,
+            "dice_materials": diceMaterials.map({ (dm) -> String in
             return dm.rawValue
         })])
         send(.CreateMatch, json: json)
@@ -195,6 +198,7 @@ extension WsAPI: WebSocketDelegate
             {
                 let matchInfo = MatchInfo()
                 matchInfo.id = m["id"].uIntValue
+                matchInfo.bet = m["bet"].int ?? 0
                 matchInfo.state = MatchState(rawValue: m["state"].stringValue)!
                 
                 let players = m["players"].arrayValue
