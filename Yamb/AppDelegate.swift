@@ -110,6 +110,12 @@ extension AppDelegate: ChartboostDelegate
     
     func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
         print("did complete rewarded video with reward \(reward)")
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        diamonds += Int(reward)
+        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
     }
     
     func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {

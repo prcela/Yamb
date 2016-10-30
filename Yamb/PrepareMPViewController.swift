@@ -120,6 +120,24 @@ class PrepareMPViewController: UIViewController {
         tableView?.reloadData()
     }
     
+    func createMatch()
+    {
+        createMatchBtn.hidden = true
+        dice56Btn.enabled = false
+        diceTexBtnFirst.enabled = false
+        diceTexBtnSecond.enabled = false
+        waitingLbl.hidden = false
+        activityIndicator.startAnimating()
+        tableView?.hidden = false
+        betBtn.enabled = false
+        decreaseBetBtn.enabled = false
+        increaseBetBtn.enabled = false
+        
+        WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
+            return diceMats[idx]
+        }), bet: bet)
+    }
+    
     
     @IBAction func back(sender: AnyObject)
     {
@@ -152,20 +170,15 @@ class PrepareMPViewController: UIViewController {
     
     @IBAction func createMatch(sender: UIButton)
     {
-        sender.hidden = true
-        dice56Btn.enabled = false
-        diceTexBtnFirst.enabled = false
-        diceTexBtnSecond.enabled = false
-        waitingLbl.hidden = false
-        activityIndicator.startAnimating()
-        tableView?.hidden = false
-        betBtn.enabled = false
-        decreaseBetBtn.enabled = false
-        increaseBetBtn.enabled = false
-        
-        WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
-            return diceMats[idx]
-        }), bet: bet)
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+        if available >= bet
+        {
+            createMatch()
+        }
+        else
+        {
+            Chartboost.showRewardedVideo(CBLocationMainMenu)
+        }
     }
     
     @IBAction func changeBet(sender: AnyObject)
@@ -179,9 +192,7 @@ class PrepareMPViewController: UIViewController {
     }
     
     @IBAction func increaseBet(sender: AnyObject) {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
         bet += 5
-        bet = min(bet, available)
         updateBetBtn()
     }
 }
