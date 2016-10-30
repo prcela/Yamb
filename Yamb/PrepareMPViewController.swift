@@ -37,6 +37,7 @@ class PrepareMPViewController: UIViewController {
         
         let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
         bet = min(bet, available)
+        bet = max(5, bet)
     }
     
     override func viewDidLoad() {
@@ -138,6 +139,18 @@ class PrepareMPViewController: UIViewController {
         }), bet: bet)
     }
     
+    func suggestRewardVideo()
+    {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                Chartboost.showRewardedVideo(CBLocationMainMenu)
+            })
+        }))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     
     @IBAction func back(sender: AnyObject)
     {
@@ -177,7 +190,7 @@ class PrepareMPViewController: UIViewController {
         }
         else
         {
-            Chartboost.showRewardedVideo(CBLocationMainMenu)
+            suggestRewardVideo()
         }
     }
     
@@ -192,8 +205,16 @@ class PrepareMPViewController: UIViewController {
     }
     
     @IBAction func increaseBet(sender: AnyObject) {
-        bet += 5
-        updateBetBtn()
+        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+        if bet + 5 <= available
+        {
+            bet += 5
+            updateBetBtn()
+        }
+        else
+        {
+            suggestRewardVideo()
+        }
     }
 }
 
