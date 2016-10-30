@@ -54,6 +54,7 @@ class Player: NSObject, NSCoding
 {
     var id: String?
     var alias: String?
+    var avgScore6: Float = 0
     var connected = false
     var diceMaterial = DiceMaterial.White
     var table = Table()
@@ -408,6 +409,8 @@ class Player: NSObject, NSCoding
         state = .EndGame
         print("kraj")
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
         // if this is the last player in online match
         if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
         {
@@ -415,8 +418,8 @@ class Player: NSObject, NSCoding
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchEnded, object: Match.shared.id)
         }
         
-        // score submit
-        if GameKitHelper.shared.authenticated
+        // score submit for local player only
+        if GameKitHelper.shared.authenticated && id == defaults.stringForKey(Prefs.playerId)
         {
             let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
             
@@ -430,10 +433,30 @@ class Player: NSObject, NSCoding
                         print("score reported")
                     }
                 }
+                
+                if Match.shared.diceNum == .Six
+                {
+                    let n = defaults.integerForKey(Prefs.ctFinishedMatches6Dice)
+                    let avgScore = defaults.floatForKey(Prefs.avgScore6Dice)
+                    
+                    if n == 0
+                    {
+                        let newAvgScore = Float(totalScore)
+                        defaults.setInteger(1, forKey: Prefs.ctFinishedMatches6Dice)
+                        defaults.setFloat(newAvgScore, forKey: Prefs.avgScore6Dice)
+                    }
+                    else
+                    {
+                        let newAvgScore = (avgScore+(Float(totalScore)/Float(n))) * Float(n)/(Float(n)+1)
+                        defaults.setInteger(n+1, forKey: Prefs.ctFinishedMatches6Dice)
+                        defaults.setFloat(newAvgScore, forKey: Prefs.avgScore6Dice)
+                    }
+                    
+                }
             }
         }
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: Prefs.finishedOnce)
+        defaults.setBool(true, forKey: Prefs.finishedOnce)
         
         FIRAnalytics.logEventWithName("game_end", parameters: nil)
     }

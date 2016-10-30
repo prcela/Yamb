@@ -243,8 +243,8 @@ class PlayViewController: UIViewController {
         {
             let alert = UIAlertController(title: "Yamb", message: lstr("Opponent invites you to reply the game"), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Accept", style: .Default, handler: { (action) in
-                let desc = match.players.map({ (player) -> (id: String?, alias: String?, diceMat: DiceMaterial) in
-                    return (id: player.id, alias: player.alias, diceMat: player.diceMaterial)
+                let desc = match.players.map({ (player) -> (id: String?, alias: String?, avgScore6:Float, diceMat: DiceMaterial) in
+                    return (id: player.id, alias: player.alias, avgScore6: player.avgScore6, diceMat: player.diceMaterial)
                 })
                 Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc, bet: match.bet)
             }))
@@ -360,7 +360,7 @@ class PlayViewController: UIViewController {
             let players = Match.shared.players
             Match.shared.start(Match.shared.matchType,
                                diceNum: Match.shared.diceNum,
-                               playersDesc: players.map({($0.id,$0.alias,$0.diceMaterial)}),
+                               playersDesc: players.map({($0.id,$0.alias,$0.avgScore6,$0.diceMaterial)}),
                                bet: Match.shared.bet)
             
             if Match.shared.matchType == .OnlineMultiplayer

@@ -51,18 +51,19 @@ class Match: NSObject, NSCoding
         super.init()
     }
     
-    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?,alias: String?, diceMat: DiceMaterial)], matchId: UInt = 0, bet: Int)
+    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?, alias: String?, avgScore6: Float, diceMat: DiceMaterial)], matchId: UInt = 0, bet: Int)
     {
         self.matchType = matchType
         self.diceNum = diceNum
         self.bet = bet
         id = matchId
         players.removeAll()
-        for (id,alias,diceMat) in playersDesc
+        for (id,alias,avgScore6,diceMat) in playersDesc
         {
             let player = Player()
             player.id = id
             player.alias = alias
+            player.avgScore6 = avgScore6
             player.diceMaterial = diceMat
             players.append(player)
             player.table.fakeFill()

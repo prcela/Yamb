@@ -47,8 +47,11 @@ class MainViewController: UIViewController
         let defaults = NSUserDefaults.standardUserDefaults()
         let name = defaults.stringForKey(Prefs.playerAlias)!
         let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
         
-        nameDescLbl.text = "\(name)  💎 \(diamonds)"
+        let stars = stars6(avgScore6)
+        
+        nameDescLbl.text = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1f", stars)
     }
 
     func joinedMatch(notification: NSNotification)
@@ -63,8 +66,8 @@ class MainViewController: UIViewController
             Match.shared.start(.OnlineMultiplayer,
                                diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
                                playersDesc: [
-                                (firstPlayer.id,firstPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                (lastPlayer.id,lastPlayer.alias,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                                (firstPlayer.id,firstPlayer.alias,firstPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
+                                (lastPlayer.id,lastPlayer.alias,lastPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
                                matchId: matchId,
                                bet: matchInfo.bet)
             
