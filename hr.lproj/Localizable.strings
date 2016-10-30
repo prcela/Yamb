@@ -65,6 +65,8 @@
 "Leave match" = "Napusti igru";
 "Continue alone" = "Nastavi sam";
 "Continue match" = "Nastavi igru";
-"Opponent has leave the match." = "Protivnik je napustio igru.";
+"Opponent has left the match." = "Protivnik je napustio igru.";
 "You win n diamonds" = "Osvojili ste %d 💎";
 "Connection problems. Waiting for " = "Problemi sa vezom. Čeka se igrač ";
+"dice" = "kockica";
+"Extra reward" = "Želite li pogledati promotivni video za dodatnih 5 💎 ?";

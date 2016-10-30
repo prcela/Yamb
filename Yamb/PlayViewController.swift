@@ -279,7 +279,7 @@ class PlayViewController: UIViewController {
     func alertOnOpponentLeave()
     {
         let match = Match.shared
-        var message = lstr("Opponent has leave the match.")
+        var message = lstr("Opponent has left the match.")
         if match.bet > 0
         {
             message += String(format: lstr("You win n diamonds"), match.bet*2)

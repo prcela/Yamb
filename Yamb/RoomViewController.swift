@@ -127,10 +127,7 @@ extension RoomViewController: UITableViewDataSource
             let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
             let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
             let match = waitingMatches[indexPath.row]
-            cell.diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
-            cell.diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-            cell.titleLbl?.text = "\(match.diceNum) \(match.players.first!.alias!)"
-            cell.accessoryType = .DisclosureIndicator
+            cell.updateWithWaitingMatch(match)
             return cell
         }
         else if indexPath.section == 2
@@ -147,11 +144,7 @@ extension RoomViewController: UITableViewDataSource
             let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
             let playingMatches = Room.main.matchesInfo(.Playing)
             let match = playingMatches[indexPath.row]
-            let firstPlayer = match.players.first!
-            let lastPlayer = match.players.last!
-            cell.diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
-            cell.diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-            cell.titleLbl?.text = firstPlayer.alias! + " - " + lastPlayer.alias!
+            cell.updateWithPlayingMatch(match)
             return cell
         }
         
@@ -177,5 +170,13 @@ extension RoomViewController: UITableViewDelegate
             let match = filteredMatches[indexPath.row]
             WsAPI.shared.joinToMatch(match.id)
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if [1,3].contains(indexPath.section)
+        {
+            return 70
+        }
+        return tableView.rowHeight
     }
 }

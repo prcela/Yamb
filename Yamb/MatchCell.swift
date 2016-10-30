@@ -13,7 +13,8 @@ class MatchCell: UITableViewCell {
     @IBOutlet weak var diceIconFirst: UIImageView!
     @IBOutlet weak var diceIconSecond: UIImageView!
     
-    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var titleLbl1: UILabel?
+    @IBOutlet weak var titleLbl2: UILabel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +27,26 @@ class MatchCell: UITableViewCell {
             icon.layer.borderWidth = 0.5
             icon.clipsToBounds = true
         }
+    }
+    
+    func updateWithWaitingMatch(match: MatchInfo)
+    {
+        diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
+        diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
+        titleLbl1?.text = match.players.first!.alias!
+        titleLbl2?.text = "\(match.bet) 💎   \(match.diceNum) 🎲"
+        accessoryType = .DisclosureIndicator
+    }
+    
+    func updateWithPlayingMatch(match: MatchInfo)
+    {
+        let firstPlayer = match.players.first!
+        let lastPlayer = match.players.last!
+        diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
+        diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
+        titleLbl1?.text = firstPlayer.alias!
+        titleLbl2?.text = lastPlayer.alias!
+        accessoryType = .None
     }
 
 }

@@ -235,7 +235,10 @@ class MainViewController: UIViewController
             
         case .Winner:
             message = String(format: lstr("You win n diamonds"), Match.shared.bet*2)
+            message += "\n\n"
+            message += lstr("Extra reward")
             diamonds += Match.shared.bet*2
+            
             
         case .Drawn:
             message = lstr("Drawn")
@@ -251,7 +254,17 @@ class MainViewController: UIViewController
                                       message: message,
                                       preferredStyle: .Alert)
         
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        if result == .Winner
+        {
+            alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
+                Chartboost.showRewardedVideo(CBLocationGameOver)
+            }))
+        }
+        else
+        {
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        }
         
         if let presentedVC = presentedViewController
         {
