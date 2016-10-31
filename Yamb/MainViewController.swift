@@ -109,6 +109,7 @@ class MainViewController: UIViewController
         
         if let bet = matchInfo?.bet where bet > 0
         {
+            message += "\n"
             message += String(format: lstr("Bet is n"), bet)
         }
         

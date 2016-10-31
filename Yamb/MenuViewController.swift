@@ -66,7 +66,7 @@ class MenuViewController: UIViewController
                 let ctFree = json["room_main_free_ct"].intValue
                 dispatch_async(dispatch_get_main_queue(), {
                     self.onlinePlayersLbl.hidden = (ct == 0)
-                    self.onlinePlayersLbl.text = String(format: "%@%d/%d", lstr("Online players: "), ctFree, ct)
+                    self.onlinePlayersLbl.text = String(format: "%@: %d / %@: %d",  lstr("Free"), ctFree, lstr("Online"), ct)
                     self.minRequiredVersion = json["min_required_version"].intValue
                 })
                 

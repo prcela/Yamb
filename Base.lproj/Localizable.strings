@@ -17,3 +17,4 @@
 "You win n diamonds" = "You win %d 💎";
 "Not enough diamonds, look reward" = "You dont have enough diamonds.\n\nShow video to earn 5 💎 ?";
 "Extra reward" = "Do you want to look the promo video for extra 5 💎 ?";
+"PlayerX has not enough" = "%@ has not enough diamonds for this match. Decrease the bet or invite other player.";

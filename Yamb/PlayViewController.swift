@@ -282,6 +282,7 @@ class PlayViewController: UIViewController {
         var message = lstr("Opponent has left the match.")
         if match.bet > 0
         {
+            message += "\n"
             message += String(format: lstr("You win n diamonds"), match.bet*2)
         }
         let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)

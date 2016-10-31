@@ -20,7 +20,8 @@
 "Leaderboard" = "Najbolji rezultati";
 "Rules" = "Pravila";
 "Tell friends" = "Reci prijateljima";
-"Online players: " = "Online igrači: ";
+"Online" = "Online";
+"Free" = "Slobodni";
 "Invitation message" = "%@ te je pozvao/la da igraš sa %d kockica.";
 "Bet is n" = "Ulog je %d 💎";
 "SP progress will be saved" = "Možete kasnije nastaviti i dovršiti ovu igru.";
@@ -39,6 +40,7 @@
 "Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
 "Or invite someone" = "Ili pozovi nekoga";
 "Not enough diamonds, look reward" = "Nemate dovoljno dijamanata.\n\nPogledaj video za 5 💎 ?";
+"PlayerX has not enough" = "%@ nema dovoljno dijamanata za igru. Smanjite ulog ili pozovite drugog igrača u igru.";
 
 // Update
 "Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";

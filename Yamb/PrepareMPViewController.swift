@@ -220,10 +220,23 @@ class PrepareMPViewController: UIViewController {
 
 extension PrepareMPViewController: UITableViewDelegate
 {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let player = players()[indexPath.row]
-        WsAPI.shared.invitePlayer(player)
+        if player.diamonds >= bet
+        {
+            WsAPI.shared.invitePlayer(player)
+        }
+        else
+        {
+            let message = String(format: lstr("PlayerX has not enough"), player.alias!)
+            let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
+        
+        
     }
 }
 
