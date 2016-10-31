@@ -1,16 +1,26 @@
 
-html, body{
-text-align:left;
-font-family:Athiti, sans-serif;
-font-size:100%;
-color:black;
+/* athiti-200 - latin-ext */
+@font-face {
+    font-family: 'Athiti';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Athiti ExtraLight'), local('Athiti-ExtraLight'),
+    url('fonts/athiti-v1-latin-ext-200.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('fonts/athiti-v1-latin-ext-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-p{
-font-family:Athiti, sans-serif;
-color:black;
-font-size:100%;
-background-color:inherit;
+html, body {
+    font-family: 'Athiti', sans-serif;
+    text-align:left;
+    font-size:100%;
+    color:black;
+}
+
+p {
+    font-family: 'Athiti', sans-serif;
+    color:black;
+    font-size:100%;
+    background-color:inherit;
 }
 
 
