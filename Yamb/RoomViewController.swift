@@ -136,7 +136,8 @@ extension RoomViewController: UITableViewDataSource
             let player = Room.main.freePlayers.filter({ (player) -> Bool in
                 return player.id != playerId
             })[indexPath.row]
-            cell.textLabel?.text = player.alias
+            cell.textLabel?.text = String(format: "%.1g ⭐️ \(player.alias!)", stars6(player.avgScore6))
+            cell.accessoryType = .None
             return cell
         }
         else
@@ -168,7 +169,22 @@ extension RoomViewController: UITableViewDelegate
                 return match.state == .WaitingForPlayers
             })
             let match = filteredMatches[indexPath.row]
-            WsAPI.shared.joinToMatch(match.id)
+            let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+            if available >= match.bet
+            {
+                WsAPI.shared.joinToMatch(match.id)
+            }
+            else
+            {
+                let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        Chartboost.showRewardedVideo(CBLocationLevelStart)
+                    })
+                }))
+                presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
     

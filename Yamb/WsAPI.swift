@@ -42,7 +42,8 @@ class WsAPI
         let playerId = defaults.stringForKey(Prefs.playerId)!
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)!
         let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
-        let json = JSON(["id":playerId,"alias":playerAlias,"avg_score_6":avgScore6])
+        let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        let json = JSON(["id":playerId,"alias":playerAlias,"avg_score_6":avgScore6,"diamonds":diamonds])
         send(.Join, json:json)
     }
     
@@ -191,6 +192,7 @@ extension WsAPI: WebSocketDelegate
                 player.id = p["id"].stringValue
                 player.alias = p["alias"].stringValue
                 player.avgScore6 = p["avg_score_6"].floatValue
+                player.diamonds = p["diamonds"].intValue
                 player.connected = p["connected"].boolValue
                 Room.main.freePlayers.append(player)
             }
@@ -210,6 +212,7 @@ extension WsAPI: WebSocketDelegate
                     player.id = p["id"].stringValue
                     player.alias = p["alias"].stringValue
                     player.avgScore6 = p["avg_score_6"].floatValue
+                    player.diamonds = p["diamonds"].intValue
                     matchInfo.players.append(player)
                 }
                 matchInfo.diceNum = m["dice_num"].intValue

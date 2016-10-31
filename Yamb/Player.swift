@@ -55,6 +55,7 @@ class Player: NSObject, NSCoding
     var id: String?
     var alias: String?
     var avgScore6: Float = 0
+    var diamonds: Int = 0
     var connected = false
     var diceMaterial = DiceMaterial.White
     var table = Table()

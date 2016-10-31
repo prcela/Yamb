@@ -51,7 +51,7 @@ class MainViewController: UIViewController
         
         let stars = stars6(avgScore6)
         
-        nameDescLbl.text = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1f", stars)
+        nameDescLbl.text = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1g", stars)
     }
 
     func joinedMatch(notification: NSNotification)
