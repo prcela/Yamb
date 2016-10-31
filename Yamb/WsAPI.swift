@@ -103,6 +103,16 @@ class WsAPI
         send(.IgnoreInvitation, json: json)
     }
     
+    func updatePlayer()
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let alias = defaults.stringForKey(Prefs.playerAlias)!
+        let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
+        let json = JSON(["alias":alias, "diamonds":diamonds, "avg_score_6":avgScore6])
+        send(.UpdatePlayer, json: json)
+    }
+    
     private func send(action: MessageFunc, json: JSON? = nil)
     {
         var json = json ?? JSON([:])

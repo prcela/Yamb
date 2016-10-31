@@ -51,7 +51,7 @@ class Match: NSObject, NSCoding
         super.init()
     }
     
-    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?, alias: String?, avgScore6: Float, diceMat: DiceMaterial)], matchId: UInt = 0, bet: Int)
+    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?, alias: String?, avgScore6: Float, diceMat: DiceMaterial)], matchId: UInt, bet: Int)
     {
         self.matchType = matchType
         self.diceNum = diceNum

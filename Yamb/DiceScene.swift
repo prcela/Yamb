@@ -173,8 +173,10 @@ class DiceScene: SCNScene
             let duration: NSTimeInterval = 0.5 + 0.5*Double(max(rounds[0],rounds[1],rounds[2]))/Double(ctMaxRounds)
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: duration)
             action.timingMode = .EaseOut
-            let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)!
-            node.runAction(action)
+            if let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            {
+                node.runAction(action)
+            }
         }
         
         let ctRoll = Match.shared.diceNum.rawValue-player.diceHeld.count
