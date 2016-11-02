@@ -41,7 +41,7 @@ class WsAPI
         let defaults = NSUserDefaults.standardUserDefaults()
         let playerId = defaults.stringForKey(Prefs.playerId)!
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)!
-        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
+        let avgScore6 = StatHelper.avgScore(.Six)
         let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
         let json = JSON(["id":playerId,"alias":playerAlias,"avg_score_6":avgScore6,"diamonds":diamonds])
         send(.Join, json:json)
@@ -108,7 +108,7 @@ class WsAPI
         let defaults = NSUserDefaults.standardUserDefaults()
         let alias = defaults.stringForKey(Prefs.playerAlias)!
         let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
-        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
+        let avgScore6 = StatHelper.avgScore(.Six)
         let json = JSON(["alias":alias, "diamonds":diamonds, "avg_score_6":avgScore6])
         send(.UpdatePlayer, json: json)
     }

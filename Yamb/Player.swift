@@ -444,26 +444,6 @@ class Player: NSObject, NSCoding
                         print("score reported")
                     }
                 }
-                
-                if Match.shared.diceNum == .Six
-                {
-                    let n = defaults.integerForKey(Prefs.ctFinishedMatches6Dice)
-                    let avgScore = defaults.floatForKey(Prefs.avgScore6Dice)
-                    
-                    if n == 0
-                    {
-                        let newAvgScore = Float(totalScore)
-                        defaults.setInteger(1, forKey: Prefs.ctFinishedMatches6Dice)
-                        defaults.setFloat(newAvgScore, forKey: Prefs.avgScore6Dice)
-                    }
-                    else
-                    {
-                        let newAvgScore = (avgScore+(Float(totalScore)/Float(n))) * Float(n)/(Float(n)+1)
-                        defaults.setInteger(n+1, forKey: Prefs.ctFinishedMatches6Dice)
-                        defaults.setFloat(newAvgScore, forKey: Prefs.avgScore6Dice)
-                    }
-                    
-                }
             }
         }
         

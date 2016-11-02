@@ -38,6 +38,25 @@ class StatHelper: NSObject, NSCoding
         NSKeyedArchiver.archiveRootObject(shared, toFile: filePath())
     }
     
+    class func avgScore(diceNum: DiceNum) -> Float
+    {
+        var sum:Float = 0
+        var ct = 0
+        for item in shared.items
+        {
+            if item.diceNum == diceNum
+            {
+                ct += 1
+                sum += Float(item.score)
+            }
+        }
+        if ct > 0
+        {
+            return sum/Float(ct)
+        }
+        return 0
+    }
+    
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)
     {

@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Prefs.finishedOnce: false,
             Prefs.lastPlayedGameType: LeaderboardId.dice6,
             Prefs.playerDiamonds: 100,
-            Prefs.ctFinishedMatches6Dice: 0,
-            Prefs.avgScore6Dice: 0
+            Prefs.ctFinishedMatches6Dice: 0
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()

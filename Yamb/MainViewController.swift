@@ -47,7 +47,7 @@ class MainViewController: UIViewController
         let defaults = NSUserDefaults.standardUserDefaults()
         let name = defaults.stringForKey(Prefs.playerAlias)!
         let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
-        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
+        let avgScore6 = StatHelper.avgScore(.Six)
         
         let stars = stars6(avgScore6)
         

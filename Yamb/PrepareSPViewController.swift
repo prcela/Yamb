@@ -99,7 +99,7 @@ class PrepareSPViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         let playerId = defaults.stringForKey(Prefs.playerId)
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)
-        let avgScore6 = defaults.floatForKey(Prefs.avgScore6Dice)
+        let avgScore6 = StatHelper.avgScore(.Six)
         Match.shared.start(.SinglePlayer, diceNum: Match.shared.diceNum, playersDesc: [(playerId,playerAlias,avgScore6,diceMats[diceMatSelected])], matchId: 0, bet: 0)
         MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
