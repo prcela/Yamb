@@ -46,8 +46,8 @@ class MainViewController: UIViewController
     {
         let defaults = NSUserDefaults.standardUserDefaults()
         let name = defaults.stringForKey(Prefs.playerAlias)!
-        let diamonds = defaults.integerForKey(Prefs.playerDiamonds)
-        let avgScore6 = StatHelper.avgScore(.Six)
+        let diamonds = PlayerStat.shared.diamonds
+        let avgScore6 = PlayerStat.avgScore(.Six)
         
         let stars = stars6(avgScore6)
         
@@ -74,12 +74,11 @@ class MainViewController: UIViewController
                                bet: matchInfo.bet)
             
             // decrease coins for bet
-            let defaults = NSUserDefaults.standardUserDefaults()
-            var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
-            diamonds = max(0, diamonds - matchInfo.bet)
-            defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
             
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+            var diamonds = PlayerStat.shared.diamonds
+            diamonds = max(0, diamonds - matchInfo.bet)
+            PlayerStat.shared.diamonds = diamonds
+            
             updatePlayerInfo()
             
             performSegueWithIdentifier("playIdentifier", sender: nil)
@@ -227,8 +226,7 @@ class MainViewController: UIViewController
             }
         }
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        var diamonds = PlayerStat.shared.diamonds
         
         var message: String
         switch result {
@@ -248,9 +246,9 @@ class MainViewController: UIViewController
             message = lstr("You lose")
         }
         
-        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
+        PlayerStat.shared.diamonds = diamonds
         
-        StatHelper.shared.items.append(StatItem(
+        PlayerStat.shared.items.append(StatItem(
             matchType: Match.shared.matchType,
             diceNum: Match.shared.diceNum,
             score: score,

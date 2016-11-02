@@ -224,12 +224,9 @@ class PlayViewController: UIViewController {
         }
         WsAPI.shared.leaveMatch(matchId)
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        var diamonds = PlayerStat.shared.diamonds
         diamonds += 2*Match.shared.bet
-        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+        PlayerStat.shared.diamonds = diamonds
         
         alertOnOpponentLeave()
     }

@@ -420,7 +420,7 @@ class Player: NSObject, NSCoding
         }
         else if Match.shared.matchType == .SinglePlayer
         {
-            StatHelper.shared.items.append(StatItem(
+            PlayerStat.shared.items.append(StatItem(
                 matchType: .SinglePlayer,
                 diceNum: Match.shared.diceNum,
                 score: table.totalScore() ?? 0,

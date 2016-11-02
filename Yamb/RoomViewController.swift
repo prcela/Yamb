@@ -169,7 +169,7 @@ extension RoomViewController: UITableViewDelegate
                 return match.state == .WaitingForPlayers
             })
             let match = filteredMatches[indexPath.row]
-            let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+            let available = PlayerStat.shared.diamonds
             if available >= match.bet
             {
                 WsAPI.shared.joinToMatch(match.id)

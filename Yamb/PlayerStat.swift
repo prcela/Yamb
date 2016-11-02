@@ -8,11 +8,16 @@
 
 import Foundation
 
-class StatHelper: NSObject, NSCoding
+class PlayerStat: NSObject, NSCoding
 {
-    static var shared = StatHelper()
+    static var shared = PlayerStat()
     
     var items = [StatItem]()
+    var diamonds = 100 {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+        }
+    }
     
     override init() {
         super.init()
@@ -21,7 +26,7 @@ class StatHelper: NSObject, NSCoding
     private class func filePath() -> String
     {
         let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: [.UserDomainMask]).first!
-        let filePath = docURL.URLByAppendingPathComponent("Stat")!.path!
+        let filePath = docURL.URLByAppendingPathComponent("PlayerStat")!.path!
         return filePath
     }
     
@@ -29,7 +34,7 @@ class StatHelper: NSObject, NSCoding
     {
         if NSFileManager.defaultManager().fileExistsAtPath(filePath())
         {
-            shared = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath()) as! StatHelper
+            shared = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath()) as! PlayerStat
         }
     }
     
@@ -60,6 +65,7 @@ class StatHelper: NSObject, NSCoding
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)
     {
+        aCoder.encodeInteger(diamonds, forKey: "diamonds")
         aCoder.encodeObject(items, forKey: "items")
     }
     

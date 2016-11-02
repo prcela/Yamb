@@ -35,7 +35,7 @@ class PrepareMPViewController: UIViewController {
         nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
         
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+        let available = PlayerStat.shared.diamonds
         bet = min(bet, available)
         bet = max(5, bet)
     }
@@ -183,7 +183,7 @@ class PrepareMPViewController: UIViewController {
     
     @IBAction func createMatch(sender: UIButton)
     {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+        let available = PlayerStat.shared.diamonds
         if available >= bet
         {
             createMatch()
@@ -205,7 +205,7 @@ class PrepareMPViewController: UIViewController {
     }
     
     @IBAction func increaseBet(sender: AnyObject) {
-        let available = NSUserDefaults.standardUserDefaults().integerForKey(Prefs.playerDiamonds)
+        let available = PlayerStat.shared.diamonds
         if bet + 5 <= available
         {
             bet += 5

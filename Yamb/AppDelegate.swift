@@ -25,9 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let prefs: [String:AnyObject] = [
             Prefs.firstRun: true,
             Prefs.finishedOnce: false,
-            Prefs.lastPlayedGameType: LeaderboardId.dice6,
-            Prefs.playerDiamonds: 100,
-            Prefs.ctFinishedMatches6Dice: 0
+            Prefs.lastPlayedGameType: LeaderboardId.dice6
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -73,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        StatHelper.loadStat()
+        PlayerStat.loadStat()
         
         print(NSBundle.mainBundle().bundleIdentifier!)
         return true
@@ -99,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        StatHelper.saveStat()
+        PlayerStat.saveStat()
     }
 
 
@@ -115,11 +113,9 @@ extension AppDelegate: ChartboostDelegate
     func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
         print("did complete rewarded video with reward \(reward)")
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        var diamonds = defaults.integerForKey(Prefs.playerDiamonds)
+        var diamonds = PlayerStat.shared.diamonds
         diamonds += Int(reward)
-        defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+        PlayerStat.shared.diamonds = diamonds
     }
     
     func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {

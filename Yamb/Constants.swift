@@ -14,9 +14,7 @@ struct Prefs
     static let finishedOnce = "PrefFinishedOnce"
     static let playerId = "PrefPlayerId"
     static let playerAlias = "PrefPlayerAlias"
-    static let playerDiamonds = "PrefPlayerDiamonds"
     static let lastPlayedGameType = "PrefLastPlayedGameType"
-    static let ctFinishedMatches6Dice = "PrefCtFinishedMatches6Dice"
 }
 
 struct LeaderboardId
