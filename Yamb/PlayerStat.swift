@@ -71,6 +71,7 @@ class PlayerStat: NSObject, NSCoding
     
     required init?(coder aDecoder: NSCoder)
     {
+        diamonds = aDecoder.decodeIntegerForKey("diamonds")
         items = aDecoder.decodeObjectForKey("items") as! [StatItem]
         super.init()
     }
