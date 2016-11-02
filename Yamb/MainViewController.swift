@@ -13,7 +13,7 @@ class MainViewController: UIViewController
     static var shared: MainViewController?
     
     @IBOutlet weak var connectingLbl: UILabel?
-    @IBOutlet weak var nameDescLbl: UILabel!
+    @IBOutlet weak var playerBtn: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,8 +50,9 @@ class MainViewController: UIViewController
         let avgScore6 = PlayerStat.avgScore(.Six)
         
         let stars = stars6(avgScore6)
+        let playerTitle = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1g", stars)
+        playerBtn.setTitle(playerTitle, forState: .Normal)
         
-        nameDescLbl.text = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1g", stars)
         
         WsAPI.shared.updatePlayer()
     }
@@ -281,7 +282,7 @@ class MainViewController: UIViewController
             presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
+        
     func onWsDidConnect()
     {
         connectingLbl?.hidden = true
