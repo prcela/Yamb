@@ -23,7 +23,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
-        nc.addObserver(self, selector: #selector(matchEnded(_:)), name: NotificationName.matchEnded, object: nil)
+        nc.addObserver(self, selector: #selector(mpMatchEnded(_:)), name: NotificationName.multiplayerMatchEnded, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
@@ -196,7 +196,7 @@ class MainViewController: UIViewController
         
     }
     
-    func matchEnded(notification: NSNotification)
+    func mpMatchEnded(notification: NSNotification)
     {
         guard (notification.object as? UInt) == Match.shared.id  else {
             return
@@ -207,12 +207,6 @@ class MainViewController: UIViewController
         }
         let player = Match.shared.players[playerIdx!]
         guard let score = player.table.totalScore() else {return}
-        
-        enum Result {
-            case Winner
-            case Loser
-            case Drawn
-        }
         
         var result:Result = .Winner
         for p in Match.shared.players
@@ -255,6 +249,14 @@ class MainViewController: UIViewController
         }
         
         defaults.setInteger(diamonds, forKey: Prefs.playerDiamonds)
+        
+        StatHelper.shared.items.append(StatItem(
+            matchType: Match.shared.matchType,
+            diceNum: Match.shared.diceNum,
+            score: score,
+            result: result,
+            bet: Match.shared.bet,
+            timestamp: NSDate()))
         
         let alert = UIAlertController(title: lstr("Match over"),
                                       message: message,

@@ -416,7 +416,17 @@ class Player: NSObject, NSCoding
         if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
         {
             WsAPI.shared.turn(.End, matchId: Match.shared.id, params: JSON([:]))
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchEnded, object: Match.shared.id)
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.multiplayerMatchEnded, object: Match.shared.id)
+        }
+        else if Match.shared.matchType == .SinglePlayer
+        {
+            StatHelper.shared.items.append(StatItem(
+                matchType: .SinglePlayer,
+                diceNum: Match.shared.diceNum,
+                score: table.totalScore() ?? 0,
+                result: .Drawn,
+                bet: 0,
+                timestamp: NSDate()))
         }
         
         // score submit for local player only

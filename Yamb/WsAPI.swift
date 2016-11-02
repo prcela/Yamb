@@ -304,7 +304,7 @@ extension WsAPI: WebSocketDelegate
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentNewGame, object: matchId)
                 
             case .End:
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchEnded, object: matchId)
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.multiplayerMatchEnded, object: matchId)
             }
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             
