@@ -447,8 +447,6 @@ class Player: NSObject, NSCoding
             }
         }
         
-        defaults.setBool(true, forKey: Prefs.finishedOnce)
-        
         FIRAnalytics.logEventWithName("game_end", parameters: nil)
     }
     

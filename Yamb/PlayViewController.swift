@@ -61,7 +61,7 @@ class PlayViewController: UIViewController {
         DiceScene.shared.recreateMaterials()
         
         let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
-        let finishedOnce = NSUserDefaults.standardUserDefaults().boolForKey(Prefs.finishedOnce)
+        let finishedOnce = !PlayerStat.shared.items.isEmpty
         print("allow_chartboost: \(chartboostAllowed)")
         
         if chartboostAllowed && finishedOnce
