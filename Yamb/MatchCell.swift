@@ -34,7 +34,8 @@ class MatchCell: UITableViewCell {
         let player = match.players.first!
         diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-        titleLbl1?.text = String(format: "%.1g ⭐️ \(player.alias!)", stars6(player.avgScore6))
+        let stars = stars6(player.avgScore6)
+        titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars))!, player.alias!)
         titleLbl2?.text = "\(match.bet) 💎   \(match.diceNum) 🎲"
         accessoryType = .DisclosureIndicator
     }
@@ -45,8 +46,8 @@ class MatchCell: UITableViewCell {
         let lastPlayer = match.players.last!
         diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-        titleLbl1?.text = String(format: "%.1g ⭐️ \(firstPlayer.alias!)", stars6(firstPlayer.avgScore6))
-        titleLbl2?.text = String(format: "%.1g ⭐️ \(lastPlayer.alias!)", stars6(lastPlayer.avgScore6))
+        titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(firstPlayer.avgScore6)))!, firstPlayer.alias!)
+        titleLbl2?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(lastPlayer.avgScore6)))!, lastPlayer.alias!)
         accessoryType = .None
     }
 

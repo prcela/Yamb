@@ -70,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        starsFormatter.decimalSeparator = "."
+        starsFormatter.maximumFractionDigits = 1
+        starsFormatter.minimumFractionDigits = 0
+        
         PlayerStat.loadStat()
         
         print(NSBundle.mainBundle().bundleIdentifier!)

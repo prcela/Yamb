@@ -264,7 +264,7 @@ extension PrepareMPViewController: UITableViewDataSource
     {
         let player = players()[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! FreePlayerCell
-        cell.nameLbl.text = String(format: "%.1g ⭐️ %d 💎 \(player.alias!)", stars6(player.avgScore6), player.diamonds)
+        cell.nameLbl.text = String(format: "%@ ⭐️ %d 💎 %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!, player.diamonds, player.alias!)
         return cell
     }
     

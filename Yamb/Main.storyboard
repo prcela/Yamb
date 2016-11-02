@@ -659,10 +659,19 @@
                                     <segment title="Achievements"/>
                                 </segments>
                             </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cup-K9-3Eg">
+                                <connections>
+                                    <segue destination="RhC-td-JT8" kind="embed" id="wnr-gf-7C3"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.1608116610738255" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="cup-K9-3Eg" secondAttribute="trailing" id="1gV-gD-690"/>
+                            <constraint firstItem="cup-K9-3Eg" firstAttribute="top" secondItem="HCD-Co-XM8" secondAttribute="bottom" constant="8" id="BeL-ff-N8q"/>
                             <constraint firstItem="1o7-rc-937" firstAttribute="top" secondItem="Q8l-Z2-4GH" secondAttribute="bottom" id="MWs-EA-SrY"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="cup-K9-3Eg" secondAttribute="leading" id="Mo4-T2-j8A"/>
+                            <constraint firstItem="rgK-wk-95U" firstAttribute="top" secondItem="cup-K9-3Eg" secondAttribute="bottom" constant="80" id="ZIe-rr-CSB"/>
                             <constraint firstItem="HCD-Co-XM8" firstAttribute="top" secondItem="1o7-rc-937" secondAttribute="bottom" constant="8" id="ZNq-ID-pxh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HCD-Co-XM8" secondAttribute="trailing" id="flI-HS-vCz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1o7-rc-937" secondAttribute="trailing" id="yuE-Rk-UmF"/>
@@ -1029,6 +1038,20 @@ bacanje</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LR3-mH-ZOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2718" y="-379"/>
+        </scene>
+        <!--Player Container-->
+        <scene sceneID="atE-Fm-xaS">
+            <objects>
+                <viewController id="RhC-td-JT8" customClass="PlayerContainer" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JyQ-uO-9tO">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="493"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IDR-ci-wJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="874" y="1874"/>
         </scene>
     </scenes>
     <resources>

@@ -50,7 +50,7 @@ class MainViewController: UIViewController
         let avgScore6 = PlayerStat.avgScore(.Six)
         
         let stars = stars6(avgScore6)
-        let playerTitle = String(format: "\(name)  💎 \(diamonds)  ⭐️ %.1g", stars)
+        let playerTitle = String(format: "%@  💎 \(diamonds)  ⭐️ %@", name, starsFormatter.stringFromNumber(NSNumber(float: stars))!)
         playerBtn.setTitle(playerTitle, forState: .Normal)
         
         

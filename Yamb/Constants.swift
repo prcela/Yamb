@@ -28,3 +28,5 @@ func stars6(avgScore:Float) -> Float
 {
     return max(0, 10 * (avgScore-avgScoreMin6)/(avgScoreMax6-avgScoreMin6))
 }
+
+let starsFormatter = NSNumberFormatter()
