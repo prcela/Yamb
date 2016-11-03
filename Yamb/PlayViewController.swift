@@ -33,6 +33,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
         nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
         nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
+        nc.addObserver(self, selector: #selector(appWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
 
     }
     
@@ -90,6 +91,15 @@ class PlayViewController: UIViewController {
     override func viewDidLayoutSubviews()
     {
         gameTableView?.updateFrames()
+    }
+    
+    func appWillResignActive()
+    {
+        if #available(iOS 9.0, *) {
+            sceneView?.audioEngine
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func onGameStateChanged(notification: NSNotification)
