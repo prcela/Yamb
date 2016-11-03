@@ -16,6 +16,10 @@ class MatchCell: UITableViewCell {
     @IBOutlet weak var titleLbl1: UILabel?
     @IBOutlet weak var titleLbl2: UILabel?
     
+    @IBOutlet weak var infoLbl1: UILabel?
+    @IBOutlet weak var infoLbl2: UILabel?
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,7 +40,9 @@ class MatchCell: UITableViewCell {
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
         let stars = stars6(player.avgScore6)
         titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars))!, player.alias!)
-        titleLbl2?.text = "\(match.bet) 💎   \(match.diceNum) 🎲"
+        titleLbl2?.text = "?"
+        infoLbl1?.text = "\(match.diceNum) 🎲"
+        infoLbl2?.text = "\(match.bet) 💎"
         accessoryType = .DisclosureIndicator
     }
     
@@ -48,6 +54,8 @@ class MatchCell: UITableViewCell {
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
         titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(firstPlayer.avgScore6)))!, firstPlayer.alias!)
         titleLbl2?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(lastPlayer.avgScore6)))!, lastPlayer.alias!)
+        infoLbl1?.text = "\(match.diceNum) 🎲"
+        infoLbl2?.text = "\(match.bet) 💎"
         accessoryType = .None
     }
 
