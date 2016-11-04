@@ -16,6 +16,8 @@
 		9705CDF11DCA386F004109BC /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9705CDEF1DCA386F004109BC /* up@2x.png */; };
 		9705CDF31DCA3A99004109BC /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705CDF21DCA3A99004109BC /* ContainerViewController.swift */; };
 		9705CDF51DCA3C26004109BC /* PlayerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705CDF41DCA3C26004109BC /* PlayerContainer.swift */; };
+		9705CE0E1DCBC3B8004109BC /* StatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705CE0D1DCBC3B8004109BC /* StatTableViewController.swift */; };
+		9705CE101DCC74F9004109BC /* StatsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705CE0F1DCC74F9004109BC /* StatsTableView.swift */; };
 		9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724980E1D72B84800CDC6B7 /* RulesViewController.swift */; };
 		972498131D72C81B00CDC6B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 972498151D72C81B00CDC6B7 /* Localizable.strings */; };
 		9724981B1D730F7C00CDC6B7 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9724981A1D730F7C00CDC6B7 /* play.png */; };
@@ -156,6 +158,8 @@
 		9705CDEF1DCA386F004109BC /* up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "up@2x.png"; path = "Yamb/Resources/up@2x.png"; sourceTree = "<group>"; };
 		9705CDF21DCA3A99004109BC /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		9705CDF41DCA3C26004109BC /* PlayerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerContainer.swift; sourceTree = "<group>"; };
+		9705CE0D1DCBC3B8004109BC /* StatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatTableViewController.swift; sourceTree = "<group>"; };
+		9705CE0F1DCC74F9004109BC /* StatsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTableView.swift; sourceTree = "<group>"; };
 		9724980E1D72B84800CDC6B7 /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		972498161D72C85500CDC6B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		972498191D72C9B500CDC6B7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				9705CDE61DCA232A004109BC /* PlayerViewController.swift */,
 				9705CDF21DCA3A99004109BC /* ContainerViewController.swift */,
 				9705CDF41DCA3C26004109BC /* PlayerContainer.swift */,
+				9705CE0D1DCBC3B8004109BC /* StatTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				97C4EF571D67C8EE00A1E7CD /* GameTableView.swift */,
 				974951CE1D96A942002BEEFB /* MatchCell.swift */,
 				97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */,
+				9705CE0F1DCC74F9004109BC /* StatsTableView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -785,6 +791,7 @@
 				9705CDE11DC9E6B5004109BC /* StatItem.swift in Sources */,
 				972B1BC91D83DFD700010F5F /* MessageFunc.swift in Sources */,
 				97C060051D757A7C00A680C1 /* Player.swift in Sources */,
+				9705CE101DCC74F9004109BC /* StatsTableView.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareSPViewController.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
@@ -805,6 +812,7 @@
 				97A6E01F1D7068E7000ED49D /* Table.swift in Sources */,
 				9705CDE31DC9E761004109BC /* Result.swift in Sources */,
 				977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */,
+				9705CE0E1DCBC3B8004109BC /* StatTableViewController.swift in Sources */,
 				9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */,
 				974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */,
 				9705CDF51DCA3C26004109BC /* PlayerContainer.swift in Sources */,

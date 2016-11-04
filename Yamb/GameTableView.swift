@@ -8,11 +8,19 @@
 
 import UIKit
 
-let ctRows = 16
-let valueRows:[TableRow] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+private let ctRows = 16
+private let valueRows:[TableRow] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
 
 class GameTableView: UIView
 {
+    private func calculateCellSize() -> CGSize
+    {
+        let ctColumns = Match.shared.ctColumns
+        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(CGRectGetHeight(frame)/16-0.5)
+        return CGSize(width: colWidth, height: rowHeight)
+    }
+    
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
@@ -21,14 +29,13 @@ class GameTableView: UIView
         
         // Drawing code
         
-        let ctColumns = Match.shared.ctColumns
-        let colWidth = round(CGRectGetWidth(rect)/CGFloat(ctColumns)-0.5)
-        let rowHeight = round(CGRectGetHeight(rect)/16-0.5)
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
+        let cellSize = calculateCellSize()
+        let ctColumns = Match.shared.ctColumns
         
         // width and height aligned to pixel
-        let width = colWidth*CGFloat(ctColumns)
-        let height = rowHeight*CGFloat(ctRows)
+        let width = cellSize.width*CGFloat(ctColumns)
+        let height = cellSize.height*CGFloat(ctRows)
         
         // stroke lines
         CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
@@ -45,7 +52,7 @@ class GameTableView: UIView
         
         for colIdx in 1..<ctColumns
         {
-            let x = CGFloat(colIdx)*colWidth
+            let x = CGFloat(colIdx)*cellSize.width
             CGContextBeginPath(ctx)
             CGContextMoveToPoint(ctx, x, 0)
             CGContextAddLineToPoint(ctx, x, height)
@@ -55,7 +62,7 @@ class GameTableView: UIView
         let fullLines = [1,7,8,10,11,15]
         for rowIdx in 1..<16
         {
-            let y = CGFloat(rowIdx)*rowHeight
+            let y = CGFloat(rowIdx)*cellSize.height
             CGContextBeginPath(ctx)
             CGContextMoveToPoint(ctx, 0, y)
             if fullLines.contains(rowIdx)
@@ -64,7 +71,7 @@ class GameTableView: UIView
             }
             else
             {
-                CGContextAddLineToPoint(ctx, width-colWidth, y)
+                CGContextAddLineToPoint(ctx, width-cellSize.width, y)
             }
             CGContextStrokePath(ctx)
         }
@@ -76,12 +83,12 @@ class GameTableView: UIView
             CGContextSetStrokeColorWithColor(ctx, skin.strokeColor.CGColor)
             
             CGContextBeginPath(ctx)
-            let x = CGFloat(pos.colIdx)*colWidth
-            let y = CGFloat(pos.rowIdx)*rowHeight
+            let x = CGFloat(pos.colIdx)*cellSize.width
+            let y = CGFloat(pos.rowIdx)*cellSize.height
             CGContextMoveToPoint(ctx, x, y)
-            CGContextAddLineToPoint(ctx, x+colWidth, y)
-            CGContextAddLineToPoint(ctx, x+colWidth, y+rowHeight)
-            CGContextAddLineToPoint(ctx, x, y+rowHeight)
+            CGContextAddLineToPoint(ctx, x+cellSize.width, y)
+            CGContextAddLineToPoint(ctx, x+cellSize.width, y+cellSize.height)
+            CGContextAddLineToPoint(ctx, x, y+cellSize.height)
             CGContextClosePath(ctx)
             CGContextStrokePath(ctx)
         }
@@ -91,9 +98,7 @@ class GameTableView: UIView
     func updateFrames()
     {
         let ctColumns = Match.shared.ctColumns
-        
-        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
-        let rowHeight = round(CGRectGetHeight(frame)/CGFloat(ctRows)-0.5)
+        let cellSize = calculateCellSize()
         
         for rowIdx in 0..<ctRows
         {
@@ -101,7 +106,7 @@ class GameTableView: UIView
             {
                 if let subview = viewWithTag(rowIdx*ctColumns + colIdx) where subview !== self
                 {
-                    subview.frame = CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight)
+                    subview.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
                 }
             }
         }
@@ -110,12 +115,11 @@ class GameTableView: UIView
     override func awakeFromNib()
     {
         let ctColumns = Match.shared.ctColumns
-        let colWidth = round(CGRectGetWidth(self.frame)/CGFloat(ctColumns)-0.5)
-        let rowHeight = round(CGRectGetHeight(self.frame)/16-0.5)
+        let cellSize = calculateCellSize()
         
         func createLabelAt(rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
-            let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight))
+            let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height))
             lbl.backgroundColor = Skin.blue.labelBackColor
             lbl.text = text
             lbl.textColor = UIColor.whiteColor()
@@ -132,7 +136,7 @@ class GameTableView: UIView
         func createBtnAt(rowIdx: Int, colIdx: Int, text: String?) -> UIButton
         {
             let btn = UIButton(type: .Custom)
-            btn.frame = CGRect(x: CGFloat(colIdx)*colWidth, y: CGFloat(rowIdx)*rowHeight, width: colWidth, height: rowHeight)
+            btn.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
             
             btn.setTitle(text, forState: .Normal)
             btn.setTitleColor(Skin.blue.tintColor, forState: .Normal)

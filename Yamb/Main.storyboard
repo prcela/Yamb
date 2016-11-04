@@ -676,7 +676,7 @@
                                     <action selector="close:" destination="LWO-It-ykB" eventType="touchUpInside" id="al6-xD-VxO"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HCD-Co-XM8">
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HCD-Co-XM8">
                                 <segments>
                                     <segment title="Statistics"/>
                                     <segment title="Timeline"/>
@@ -706,7 +706,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNc-St-s06" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="874.39999999999998" y="1129.385307346327"/>
+            <point key="canvasLocation" x="659" y="1260"/>
         </scene>
         <!--Rules View Controller-->
         <scene sceneID="ru8-Ym-QDJ">
@@ -989,7 +989,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="1132"/>
+            <point key="canvasLocation" x="113" y="1260"/>
         </scene>
         <!--PrepareSP View Controller-->
         <scene sceneID="7zg-Qj-HUu">
@@ -1080,7 +1080,39 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IDR-ci-wJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="874" y="1874"/>
+            <point key="canvasLocation" x="659" y="2013"/>
+        </scene>
+        <!--Stat Table View Controller-->
+        <scene sceneID="vd8-th-4UX">
+            <objects>
+                <viewController storyboardIdentifier="StatTableViewController" id="3NJ-ER-YgC" customClass="StatTableViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1gB-0f-tOT"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYi-Gx-WGe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xRC-Qf-U7U">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Cm-yy-6ta" customClass="StatsTableView" customModule="Yamb" customModuleProvider="target">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="6Cm-yy-6ta" secondAttribute="bottom" id="SXL-4x-iwg"/>
+                            <constraint firstItem="6Cm-yy-6ta" firstAttribute="top" secondItem="xRC-Qf-U7U" secondAttribute="topMargin" id="hMN-fi-p23"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Cm-yy-6ta" secondAttribute="trailing" id="oIE-YL-5Dz"/>
+                            <constraint firstItem="6Cm-yy-6ta" firstAttribute="leading" secondItem="xRC-Qf-U7U" secondAttribute="leadingMargin" id="zfB-r9-2Ys"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="statsTableView" destination="6Cm-yy-6ta" id="bFT-gr-b39"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MPT-L7-Cvy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="340" y="2668"/>
         </scene>
     </scenes>
     <resources>

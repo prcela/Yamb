@@ -1,0 +1,207 @@
+//
+//  StatsTableView.swift
+//  Yamb
+//
+//  Created by Kresimir Prcela on 04/11/16.
+//  Copyright © 2016 100kas. All rights reserved.
+//
+
+import UIKit
+
+private let ctColumns = 5
+private let ctRows = 8
+
+class StatsTableView: UIView
+{
+    var playerStat: PlayerStat?
+
+    private func calculateCellSize() -> CGSize {
+        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(min(400,CGRectGetHeight(frame))/CGFloat(ctRows)-0.5)
+        return CGSize(width: colWidth, height: rowHeight)
+    }
+    
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func drawRect(rect: CGRect) {
+        // Drawing code
+        
+        guard let ctx = UIGraphicsGetCurrentContext() else {return}
+        
+        let cellSize = calculateCellSize()
+        
+        CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
+        
+        let connectedLines = [
+            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 0,colIdx: 5),TablePos(rowIdx:8, colIdx:5),TablePos(rowIdx:8,colIdx: 0),TablePos(rowIdx: 1,colIdx: 0)],
+            [TablePos(rowIdx: 1,colIdx: 0),TablePos(rowIdx: 1,colIdx: 5)],
+            [TablePos(rowIdx: 2,colIdx: 0),TablePos(rowIdx: 2,colIdx: 5)],
+            [TablePos(rowIdx: 3,colIdx: 0),TablePos(rowIdx: 3,colIdx: 5)],
+            [TablePos(rowIdx: 4,colIdx: 0),TablePos(rowIdx: 4,colIdx: 5)],
+            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 8,colIdx: 2)],
+            [TablePos(rowIdx: 0,colIdx: 3),TablePos(rowIdx: 8,colIdx: 3)],
+            [TablePos(rowIdx: 0,colIdx: 4),TablePos(rowIdx: 8,colIdx: 4)],
+            [TablePos(rowIdx: 6,colIdx: 0),TablePos(rowIdx: 6,colIdx: 5)],
+            [TablePos(rowIdx: 5,colIdx: 1),TablePos(rowIdx: 5,colIdx: 5)],
+            [TablePos(rowIdx: 7,colIdx: 1),TablePos(rowIdx: 7,colIdx: 5)],
+            [TablePos(rowIdx: 4,colIdx: 1),TablePos(rowIdx: 8,colIdx: 1)]
+            ]
+        
+        for lines in connectedLines
+        {
+            for (idx,p) in lines.enumerate()
+            {
+                let x = CGFloat(p.colIdx)*cellSize.width
+                let y = CGFloat(p.rowIdx)*cellSize.height
+                
+                if idx == 0
+                {
+                    CGContextBeginPath(ctx)
+                    CGContextMoveToPoint(ctx, x, y)
+                }
+                else
+                {
+                    CGContextAddLineToPoint(ctx, x, y)
+                }
+            }
+            
+            CGContextStrokePath(ctx)
+        }
+    }
+    
+    override func awakeFromNib() {
+        let cellSize = calculateCellSize()
+        
+        func createLabelAt(rowIdx: Int, colIdx: Int, text: String?, cells: Int = 1) -> UILabel
+        {
+            let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width*CGFloat(cells), height: cellSize.height))
+            lbl.backgroundColor = UIColor.clearColor()
+            lbl.text = text
+            lbl.textColor = UIColor.whiteColor()
+            lbl.textAlignment = .Center
+            lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 12 : 15, weight: UIFontWeightThin)
+            lbl.adjustsFontSizeToFitWidth = true
+            lbl.minimumScaleFactor = 0.5
+            lbl.numberOfLines = 0
+            lbl.tag = tag(rowIdx, colIdx)
+            
+            addSubview(lbl)
+            return lbl
+        }
+        
+        createLabelAt(0, colIdx: 2, text: lstr("Single player"))
+        createLabelAt(0, colIdx: 3, text: lstr("Multiplayer"))
+        createLabelAt(0, colIdx: 4, text: lstr("💎"))
+        createLabelAt(4, colIdx: 1, text: lstr("Best score"))
+        createLabelAt(5, colIdx: 1, text: lstr("Average score"))
+        createLabelAt(6, colIdx: 1, text: lstr("Best score"))
+        createLabelAt(7, colIdx: 1, text: lstr("Average score"))
+        createLabelAt(1, colIdx: 0, text: lstr("Total played"), cells: 2)
+        createLabelAt(2, colIdx: 0, text: lstr("Wins"), cells: 2)
+        createLabelAt(3, colIdx: 0, text: lstr("Loses"), cells: 2)
+        createLabelAt(4, colIdx: 0, text: "5")
+        createLabelAt(5, colIdx: 0, text: "🎲")
+        createLabelAt(6, colIdx: 0, text: "6")
+        createLabelAt(7, colIdx: 0, text: "🎲")
+        
+        for colIdx in 2...4
+        {
+            for rowIdx in 1...7
+            {
+                createLabelAt(rowIdx, colIdx: colIdx, text: "-")
+            }
+        }
+        
+        
+        
+    }
+    
+    func updateFrames()
+    {
+        let cellSize = calculateCellSize()
+        
+        for rowIdx in 0..<ctRows
+        {
+            for colIdx in 0..<ctColumns
+            {
+                if let subview = viewWithTag(rowIdx*ctColumns + colIdx) where subview !== self
+                {
+                    var cells = 1
+                    if colIdx == 0 && rowIdx <= 3
+                    {
+                        cells = 2
+                    }
+                    subview.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width*CGFloat(cells), height: cellSize.height)
+                }
+            }
+        }
+    }
+    
+    func tag(rowIdx: Int, _ colIdx: Int) -> Int
+    {
+        return rowIdx*ctColumns + colIdx
+    }
+    
+    func refreshStat()
+    {
+        let spLbl = viewWithTag(1*ctColumns + 2) as! UILabel
+        let mpLbl = viewWithTag(1*ctColumns + 3) as! UILabel
+        let winSpLbl = viewWithTag(2*ctColumns + 2) as! UILabel
+        let winMpLbl = viewWithTag(2*ctColumns + 3) as! UILabel
+        let loseSpLbl = viewWithTag(3*ctColumns + 2) as! UILabel
+        let loseMpLbl = viewWithTag(3*ctColumns + 3) as! UILabel
+        let totalDLbl = viewWithTag(1*ctColumns + 4) as! UILabel
+        let winDLbl = viewWithTag(2*ctColumns + 4) as! UILabel
+        let loseDLbl = viewWithTag(3*ctColumns + 4) as! UILabel
+        
+        if let stat = playerStat
+        {
+            var playedSP = 0
+            var playedMP = 0
+            var winSP = 0, loseSP = 0
+            var winMP = 0, loseMP = 0
+            var winD = 0, loseD = 0
+            for item in stat.items
+            {
+                if item.matchType == .SinglePlayer
+                {
+                    playedSP += 1
+                    if item.result == .Winner
+                    {
+                        winSP += 1
+                    }
+                    else if item.result == .Loser
+                    {
+                        loseSP += 1
+                    }
+                }
+                else
+                {
+                    playedMP += 1
+                    if item.result == .Winner
+                    {
+                        winMP += 1
+                        winD += item.bet
+                    }
+                    else if item.result == .Loser
+                    {
+                        loseMP += 1
+                        loseD += item.bet
+                    }
+                    
+                }
+            }
+            
+            spLbl.text = String(playedSP)
+            mpLbl.text = String(playedMP)
+            winSpLbl.text = String(winSP)
+            winMpLbl.text = String(winMP)
+            loseSpLbl.text = String(loseSP)
+            loseMpLbl.text = String(loseMP)
+            winDLbl.text = String(winD)
+            loseDLbl.text = String(loseD)
+            totalDLbl.text = String(winD-loseD)
+        }
+    }
+
+}

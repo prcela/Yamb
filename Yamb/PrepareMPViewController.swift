@@ -246,7 +246,7 @@ extension PrepareMPViewController: UITableViewDataSource
     {
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         let players = Room.main.freePlayers.filter({ (player) -> Bool in
-            return player.id != playerId && !playersIgnoredInvitation.contains(player.id!)
+            return player.id != playerId && player.connected && !playersIgnoredInvitation.contains(player.id!)
         })
         return players
     }

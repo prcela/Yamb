@@ -17,12 +17,12 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var gameTableView: GameTableView?
     @IBOutlet weak var sceneView: SCNView?
-    @IBOutlet private weak var rollBtn: UIButton!
-    @IBOutlet weak var sumLbl: UILabel!
-    @IBOutlet weak var sum1Lbl: UILabel!
-    @IBOutlet weak var nameLbl: UILabel!
-    @IBOutlet weak var playLbl: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet private weak var rollBtn: UIButton?
+    @IBOutlet weak var sumLbl: UILabel?
+    @IBOutlet weak var sum1Lbl: UILabel?
+    @IBOutlet weak var nameLbl: UILabel?
+    @IBOutlet weak var playLbl: UILabel?
+    @IBOutlet weak var progressView: UIProgressView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,19 +44,19 @@ class PlayViewController: UIViewController {
         // Do any additional setup after loading the view.
         sceneView?.scene = DiceScene.shared
         
-        sumLbl.text = nil
-        sumLbl.layer.borderWidth = 1
-        sumLbl.layer.borderColor = UIColor.lightGrayColor().CGColor
-        sumLbl.backgroundColor = Skin.blue.labelBackColor
+        sumLbl?.text = nil
+        sumLbl?.layer.borderWidth = 1
+        sumLbl?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sumLbl?.backgroundColor = Skin.blue.labelBackColor
         
-        sum1Lbl.text = nil
-        sum1Lbl.layer.borderWidth = 1
-        sum1Lbl.layer.borderColor = UIColor.lightGrayColor().CGColor
-        sum1Lbl.backgroundColor = Skin.red.labelBackColor
+        sum1Lbl?.text = nil
+        sum1Lbl?.layer.borderWidth = 1
+        sum1Lbl?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sum1Lbl?.backgroundColor = Skin.red.labelBackColor
         
-        rollBtn.layer.borderWidth = 1
-        rollBtn.layer.borderColor = UIColor.lightGrayColor().CGColor
-        rollBtn.layer.cornerRadius = 5
+        rollBtn?.layer.borderWidth = 1
+        rollBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        rollBtn?.layer.cornerRadius = 5
         
         refresh()
         DiceScene.shared.recreateMaterials()
@@ -111,8 +111,8 @@ class PlayViewController: UIViewController {
     {
         gameTableView?.updateValuesAndStates()
         gameTableView?.setNeedsDisplay()
-        sumLbl.hidden = false
-        sum1Lbl.hidden = Match.shared.players.count == 1
+        sumLbl?.hidden = false
+        sum1Lbl?.hidden = Match.shared.players.count == 1
         
         let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
@@ -121,8 +121,8 @@ class PlayViewController: UIViewController {
         
         let isWaitingForTurn = (Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn())
         
-        rollBtn.hidden = isWaitingForTurn
-        playLbl.hidden = isWaitingForTurn
+        rollBtn?.hidden = isWaitingForTurn
+        playLbl?.hidden = isWaitingForTurn
         
         let inputPos = player.inputPos
         
@@ -142,50 +142,50 @@ class PlayViewController: UIViewController {
         switch player.state {
         
         case .Start:
-            playLbl.text = lstr("1. roll")
+            playLbl?.text = lstr("1. roll")
         
         case .After1:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                playLbl.text = lstr("2. roll")
+                playLbl?.text = lstr("2. roll")
             }
             else
             {
-                playLbl.text = endOfTurnText()
+                playLbl?.text = endOfTurnText()
             }
         
         case .After2:
             if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
             {
-                playLbl.text = lstr("3. roll")
+                playLbl?.text = lstr("3. roll")
             }
             else
             {
-                playLbl.text = endOfTurnText()
+                playLbl?.text = endOfTurnText()
             }
         case .After3, .AfterN3:
-            playLbl.text = endOfTurnText()
+            playLbl?.text = endOfTurnText()
             
         case .AfterN2:
-            playLbl.text = lstr("3. roll")
+            playLbl?.text = lstr("3. roll")
             
         case .WaitTurn:
-            playLbl.text = lstr("1. roll")
+            playLbl?.text = lstr("1. roll")
             
         case .EndGame:
             if Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn == 0
             {
-                playLbl.text = lstr("Next player")
+                playLbl?.text = lstr("Next player")
             }
             else
             {
-                playLbl.text = lstr("New game")
+                playLbl?.text = lstr("New game")
             }
         }
         
-        rollBtn.enabled = Match.shared.isRollEnabled()
-        nameLbl.text = player.alias
-        nameLbl.textColor = skin.strokeColor
+        rollBtn?.enabled = Match.shared.isRollEnabled()
+        nameLbl?.text = player.alias
+        nameLbl?.textColor = skin.strokeColor
         
         let sumLbls = [sumLbl,sum1Lbl]
         
@@ -196,11 +196,11 @@ class PlayViewController: UIViewController {
                 let player = Match.shared.players[idx]
                 if let score = player.table.totalScore()
                 {
-                    lbl.text = String(score)
+                    lbl?.text = String(score)
                 }
                 else
                 {
-                    lbl.text = nil
+                    lbl?.text = nil
                 }
             }
         }
@@ -363,7 +363,7 @@ class PlayViewController: UIViewController {
             return
         }
         
-        if playLbl.text == lstr("New game")
+        if playLbl!.text == lstr("New game")
         {
             let players = Match.shared.players
             Match.shared.start(Match.shared.matchType,
@@ -377,7 +377,7 @@ class PlayViewController: UIViewController {
                 WsAPI.shared.turn(.NewGame, matchId: Match.shared.id, params: JSON([:]))
             }
         }
-        else if playLbl.text == lstr("Next player")
+        else if playLbl!.text == lstr("Next player")
         {
             Match.shared.nextPlayer()
         }

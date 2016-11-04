@@ -14,6 +14,11 @@ class PlayerContainer: ContainerViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let statTableViewController = storyboard!.instantiateViewControllerWithIdentifier("StatTableViewController")
+        items = [
+            ContainerItem(vc:statTableViewController, name: "Stat")
+        ]
+        selectByIndex(0)
     }
 
     override func didReceiveMemoryWarning() {

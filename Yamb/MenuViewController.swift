@@ -31,7 +31,7 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
-        nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
+//        nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
     }
     
     override func viewDidLoad() {
@@ -180,9 +180,12 @@ class MenuViewController: UIViewController
     
     func onRoomInfo()
     {
-        let ct = Room.main.freePlayers.count
-        self.onlinePlayersLbl.hidden = (ct == 0)
-        self.onlinePlayersLbl.text = lstr("Free players") + ": " + String(ct)
+        let ctFree = Room.main.freePlayers.count
+        self.onlinePlayersLbl.hidden = (ctFree == 0)
+        let ct = Room.main.matchesInfo.reduce(0) { (sum, matchInfo) -> Int in
+            return sum + matchInfo.players.count
+        }
+        self.onlinePlayersLbl.text = String(format: "%@: %d / %@: %d",  lstr("Free"), ctFree, lstr("Online"), ct+ctFree)
     }
     
 }
