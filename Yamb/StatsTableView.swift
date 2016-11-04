@@ -153,6 +153,16 @@ class StatsTableView: UIView
         let totalDLbl = viewWithTag(1*ctColumns + 4) as! UILabel
         let winDLbl = viewWithTag(2*ctColumns + 4) as! UILabel
         let loseDLbl = viewWithTag(3*ctColumns + 4) as! UILabel
+        let best5spLbl = viewWithTag(4*ctColumns + 2) as! UILabel
+        let best6spLbl = viewWithTag(6*ctColumns + 2) as! UILabel
+        let avg5spLbl = viewWithTag(5*ctColumns + 2) as! UILabel
+        let avg6spLbl = viewWithTag(7*ctColumns + 2) as! UILabel
+        let best5mpLbl = viewWithTag(4*ctColumns + 3) as! UILabel
+        let best6mpLbl = viewWithTag(6*ctColumns + 3) as! UILabel
+        let avg5mpLbl = viewWithTag(5*ctColumns + 3) as! UILabel
+        let avg6mpLbl = viewWithTag(7*ctColumns + 3) as! UILabel
+        let best5dLbl = viewWithTag(4*ctColumns + 4) as! UILabel
+        let best6dLbl = viewWithTag(6*ctColumns + 4) as! UILabel
         
         if let stat = playerStat
         {
@@ -161,6 +171,11 @@ class StatsTableView: UIView
             var winSP = 0, loseSP = 0
             var winMP = 0, loseMP = 0
             var winD = 0, loseD = 0
+            var best5sp:UInt = 0, best5mp:UInt = 0, best6sp:UInt = 0, best6mp:UInt = 0
+            var sum5sp:UInt = 0, sum6sp:UInt = 0, sum5mp:UInt = 0, sum6mp:UInt = 0
+            var ct5sp:UInt = 0, ct6sp:UInt = 0, ct5mp:UInt = 0, ct6mp:UInt = 0
+            var best5d = 0, best6d = 0
+            
             for item in stat.items
             {
                 if item.matchType == .SinglePlayer
@@ -174,6 +189,20 @@ class StatsTableView: UIView
                     {
                         loseSP += 1
                     }
+                
+                    if item.diceNum == .Five
+                    {
+                        best5sp = max(best5sp, item.score)
+                        sum5sp += item.score
+                        ct5sp += 1
+                    }
+                    else
+                    {
+                        best6sp = max(best6mp, item.score)
+                        sum6sp += item.score
+                        ct6sp += 1
+                    }
+                    
                 }
                 else
                 {
@@ -189,7 +218,33 @@ class StatsTableView: UIView
                         loseD += item.bet
                     }
                     
+                    if item.diceNum == .Five
+                    {
+                        best5mp = max(best5mp, item.score)
+                        sum5mp += item.score
+                        ct5mp += 1
+                    }
+                    else
+                    {
+                        best6mp = max(best6mp, item.score)
+                        sum6mp += item.score
+                        ct6mp += 1
+                    }
+                    
+                    if item.result == .Winner
+                    {
+                        if item.diceNum == .Five
+                        {
+                            best5d = max(best5d, item.bet)
+                        }
+                        else
+                        {
+                            best6d = max(best6d, item.bet)
+                        }
+                    }
                 }
+                
+                
             }
             
             spLbl.text = String(playedSP)
@@ -201,6 +256,16 @@ class StatsTableView: UIView
             winDLbl.text = String(winD)
             loseDLbl.text = String(loseD)
             totalDLbl.text = String(winD-loseD)
+            best5spLbl.text = String(best5sp)
+            best6spLbl.text = String(best6sp)
+            avg5spLbl.text = ct5sp != 0 ? String(sum5sp/ct5sp) : "-"
+            avg6spLbl.text = ct6sp != 0 ? String(sum6sp/ct6sp) : "-"
+            best5mpLbl.text = String(best5mp)
+            best6mpLbl.text = String(best6mp)
+            avg5mpLbl.text = ct5mp != 0 ? String(sum5mp/ct5mp) : "-"
+            avg6mpLbl.text = ct6mp != 0 ? String(sum6mp/ct6mp) : "-"
+            best5dLbl.text = String(best5d)
+            best6dLbl.text = String(best6d)
         }
     }
 

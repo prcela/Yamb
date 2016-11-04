@@ -180,7 +180,9 @@ class MenuViewController: UIViewController
     
     func onRoomInfo()
     {
-        let ctFree = Room.main.freePlayers.count
+        let ctFree = Room.main.freePlayers.filter({ (p) -> Bool in
+            return p.connected
+        }).count
         self.onlinePlayersLbl.hidden = (ctFree == 0)
         let ct = Room.main.matchesInfo.reduce(0) { (sum, matchInfo) -> Int in
             return sum + matchInfo.players.count
