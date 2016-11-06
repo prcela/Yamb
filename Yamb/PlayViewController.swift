@@ -23,6 +23,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var nameLbl: UILabel?
     @IBOutlet weak var playLbl: UILabel?
     @IBOutlet weak var progressView: UIProgressView?
+    @IBOutlet weak var connectingLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,6 +34,8 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
         nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
         nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
 
     }
     
@@ -59,6 +62,9 @@ class PlayViewController: UIViewController {
         
         refresh()
         DiceScene.shared.recreateMaterials()
+        
+        connectingLbl?.hidden = true
+        connectingLbl?.text = lstr("Connecting...")
         
         let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
         let finishedOnce = !PlayerStat.shared.items.isEmpty
@@ -393,6 +399,19 @@ class PlayViewController: UIViewController {
             return
         }
         Match.shared.onDieTouched(UInt(sender.tag))
+    }
+    
+    func onWsDidConnect()
+    {
+        connectingLbl?.hidden = true
+    }
+    
+    func onWsDidDisconnect()
+    {
+        if Match.shared.matchType == .OnlineMultiplayer
+        {
+            connectingLbl?.hidden = false
+        }
     }
 }
 
