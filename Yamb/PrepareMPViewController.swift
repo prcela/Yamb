@@ -97,6 +97,7 @@ class PrepareMPViewController: UIViewController {
         
         let btns = [diceTexBtnFirst,diceTexBtnSecond]
         
+        let diceMats = allDiceMaterials()
         for (idx,matIdx) in selectedDiceMats.enumerate()
         {
             let current = diceMats[matIdx]
@@ -134,6 +135,7 @@ class PrepareMPViewController: UIViewController {
         decreaseBetBtn.enabled = false
         increaseBetBtn.enabled = false
         
+        let diceMats = allDiceMaterials()
         WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
             return diceMats[idx]
         }), bet: bet)
@@ -169,6 +171,7 @@ class PrepareMPViewController: UIViewController {
     }
     
     @IBAction func changeFirstDiceMaterial(sender: AnyObject) {
+        let diceMats = allDiceMaterials()
         selectedDiceMats[0] = (selectedDiceMats[0]+1)%diceMats.count
         let diceMat = diceMats[selectedDiceMats[0]]
         diceTexBtnFirst.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
@@ -176,6 +179,7 @@ class PrepareMPViewController: UIViewController {
     
     @IBAction func changeSecondDiceMAterial(sender: AnyObject)
     {
+        let diceMats = allDiceMaterials()
         selectedDiceMats[1] = (selectedDiceMats[1]+1)%diceMats.count
         let diceMat = diceMats[selectedDiceMats[1]]
         diceTexBtnSecond.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)

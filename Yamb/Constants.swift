@@ -22,6 +22,12 @@ struct LeaderboardId
     static let dice6 = "6dice.najava"
 }
 
+func allDiceMaterials() -> [DiceMaterial]
+{
+    return [.White, .Black, .Blue, .Rose, .Red, .Yellow]
+}
+
+
 let avgScoreMax6: Float = 1400
 let avgScoreMin6: Float = 700
 func stars6(avgScore:Float) -> Float

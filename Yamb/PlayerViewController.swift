@@ -13,7 +13,8 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var playerNameLbl: UILabel!
     @IBOutlet weak var favDiceLbl: UILabel!
-    @IBOutlet weak var diceIcon: UIImageView!
+    @IBOutlet weak var favDiceBtn: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -27,9 +28,12 @@ class PlayerViewController: UIViewController {
         playerNameLbl.text = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
         
         favDiceLbl.text = lstr("Favorite dice")
-        diceIcon.layer.borderWidth = 1
-        diceIcon.layer.cornerRadius = 5
-        diceIcon.clipsToBounds = true
+        favDiceBtn.layer.borderWidth = 1
+        favDiceBtn.layer.cornerRadius = 5
+        favDiceBtn.layer.borderColor = UIColor.darkGrayColor().CGColor
+        favDiceBtn.clipsToBounds = true
+        
+        favDiceBtn.setImage(UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)"), forState: .Normal)
         
     }
 
@@ -48,6 +52,16 @@ class PlayerViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func toggleFavDice(sender: AnyObject)
+    {
+        let diceMats = allDiceMaterials()
+        if let idx = diceMats.indexOf(PlayerStat.shared.favDiceMat)
+        {
+            PlayerStat.shared.favDiceMat = diceMats[(idx+1)%diceMats.count]
+            favDiceBtn.setImage(UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)"), forState: .Normal)
+        }
+    }
 
     @IBAction func close(sender: AnyObject)
     {

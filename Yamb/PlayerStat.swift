@@ -11,7 +11,8 @@ import Foundation
 class PlayerStat: NSObject, NSCoding
 {
     static var shared = PlayerStat()
-    
+
+    var favDiceMat:DiceMaterial = .White
     var items = [StatItem]()
     var diamonds = 100 {
         didSet {
@@ -68,12 +69,17 @@ class PlayerStat: NSObject, NSCoding
     {
         aCoder.encodeInteger(diamonds, forKey: "diamonds")
         aCoder.encodeObject(items, forKey: "items")
+        aCoder.encodeObject(favDiceMat.rawValue, forKey: "favDiceMat")
     }
     
     required init?(coder aDecoder: NSCoder)
     {
         diamonds = aDecoder.decodeIntegerForKey("diamonds")
         items = aDecoder.decodeObjectForKey("items") as! [StatItem]
+        if aDecoder.containsValueForKey("favDiceMat")
+        {
+            favDiceMat = DiceMaterial(rawValue: aDecoder.decodeObjectForKey("favDiceMat") as! String)!
+        }
         super.init()
     }
 
