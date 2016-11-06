@@ -172,7 +172,7 @@ extension RoomViewController: UITableViewDelegate
             let available = PlayerStat.shared.diamonds
             if available >= match.bet
             {
-                WsAPI.shared.joinToMatch(match.id)
+                WsAPI.shared.joinToMatch(match.id, ownDiceMat: PlayerStat.shared.favDiceMat)
             }
             else
             {

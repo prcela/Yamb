@@ -148,7 +148,7 @@ class MainViewController: UIViewController
                     self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
                 }
                 self.navigationController?.popToRootViewControllerAnimated(false)
-                WsAPI.shared.joinToMatch(matchInfo!.id)
+                WsAPI.shared.joinToMatch(matchInfo!.id, ownDiceMat: PlayerStat.shared.favDiceMat)
             })
         }))
         

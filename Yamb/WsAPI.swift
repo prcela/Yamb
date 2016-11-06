@@ -9,10 +9,10 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.10:8080"
+private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipHome
 
 class WsAPI
 {
@@ -63,9 +63,9 @@ class WsAPI
         send(.CreateMatch, json: json)
     }
     
-    func joinToMatch(matchId: UInt)
+    func joinToMatch(matchId: UInt, ownDiceMat: DiceMaterial)
     {
-        let json = JSON(["match_id":matchId])
+        let json = JSON(["match_id":matchId, "dice_mat":ownDiceMat.rawValue])
         send(.JoinMatch, json: json)
     }
     
