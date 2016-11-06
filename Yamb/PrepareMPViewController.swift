@@ -15,15 +15,12 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var betBtn: UIButton!
     @IBOutlet weak var decreaseBetBtn: UIButton!
     @IBOutlet weak var increaseBetBtn: UIButton!
-    @IBOutlet weak var diceTexBtnFirst: UIButton!
-    @IBOutlet weak var diceTexBtnSecond: UIButton!
     @IBOutlet weak var createMatchBtn: UIButton!
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView?
     
     var diceNum: DiceNum = .Six
-    var selectedDiceMats = [2,3]
     var playersIgnoredInvitation = [String]()
     var bet = 5
     
@@ -50,14 +47,6 @@ class PrepareMPViewController: UIViewController {
         waitingLbl.text = lstr("Waiting for opponent player...")
         
         tableView?.hidden = true
-        
-        for btn in [diceTexBtnFirst,diceTexBtnSecond]
-        {
-            btn.layer.cornerRadius = 5
-            btn.layer.borderColor = UIColor.lightGrayColor().CGColor
-            btn.layer.borderWidth = 1
-            btn.clipsToBounds = true
-        }
         
         updateBetBtn()
         updateDiceBtn()
@@ -95,14 +84,6 @@ class PrepareMPViewController: UIViewController {
         
         dice56Btn.setAttributedTitle(attrStringDisabled, forState: .Disabled)
         
-        let btns = [diceTexBtnFirst,diceTexBtnSecond]
-        
-        let diceMats = allDiceMaterials()
-        for (idx,matIdx) in selectedDiceMats.enumerate()
-        {
-            let current = diceMats[matIdx]
-            btns[idx].setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
-        }
     }
     
     func someoneDisconnected()
@@ -126,8 +107,6 @@ class PrepareMPViewController: UIViewController {
     {
         createMatchBtn.hidden = true
         dice56Btn.enabled = false
-        diceTexBtnFirst.enabled = false
-        diceTexBtnSecond.enabled = false
         waitingLbl.hidden = false
         activityIndicator.startAnimating()
         tableView?.hidden = false
@@ -135,10 +114,8 @@ class PrepareMPViewController: UIViewController {
         decreaseBetBtn.enabled = false
         increaseBetBtn.enabled = false
         
-        let diceMats = allDiceMaterials()
-        WsAPI.shared.createMatch(diceNum, diceMaterials: selectedDiceMats.map({ (idx) -> DiceMaterial in
-            return diceMats[idx]
-        }), bet: bet)
+        let favDiceMat = PlayerStat.shared.favDiceMat
+        WsAPI.shared.createMatch(diceNum, diceMaterials: [favDiceMat, .White], bet: bet)
     }
     
     func suggestRewardVideo()
@@ -168,21 +145,6 @@ class PrepareMPViewController: UIViewController {
     @IBAction func toggleDiceCount(sender: UIButton) {
         diceNum = diceNum == .Five ? .Six : .Five
         updateDiceBtn()
-    }
-    
-    @IBAction func changeFirstDiceMaterial(sender: AnyObject) {
-        let diceMats = allDiceMaterials()
-        selectedDiceMats[0] = (selectedDiceMats[0]+1)%diceMats.count
-        let diceMat = diceMats[selectedDiceMats[0]]
-        diceTexBtnFirst.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
-    }
-    
-    @IBAction func changeSecondDiceMAterial(sender: AnyObject)
-    {
-        let diceMats = allDiceMaterials()
-        selectedDiceMats[1] = (selectedDiceMats[1]+1)%diceMats.count
-        let diceMat = diceMats[selectedDiceMats[1]]
-        diceTexBtnSecond.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
     }
     
     @IBAction func createMatch(sender: UIButton)
