@@ -34,9 +34,9 @@ class PrepareSPViewController: UIViewController {
         diceTextureBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
         diceTextureBtn?.layer.borderWidth = 1
         diceTextureBtn?.clipsToBounds = true
+        
+        diceMatSelected = allDiceMaterials().indexOf(PlayerStat.shared.favDiceMat)!
         updateDiceBtn()
-        
-        
         
         Chartboost.cacheInterstitial(CBLocationLevelStart)
     }
