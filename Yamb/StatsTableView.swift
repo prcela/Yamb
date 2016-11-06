@@ -9,7 +9,7 @@
 import UIKit
 
 private let ctColumns = 5
-private let ctRows = 8
+private let ctRows = 9
 
 class StatsTableView: UIView
 {
@@ -33,18 +33,19 @@ class StatsTableView: UIView
         CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
         
         let connectedLines = [
-            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 0,colIdx: 5),TablePos(rowIdx:8, colIdx:5),TablePos(rowIdx:8,colIdx: 0),TablePos(rowIdx: 1,colIdx: 0)],
+            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 0,colIdx: 5),TablePos(rowIdx:9, colIdx:5),TablePos(rowIdx:9,colIdx: 0),TablePos(rowIdx: 1,colIdx: 0)],
             [TablePos(rowIdx: 1,colIdx: 0),TablePos(rowIdx: 1,colIdx: 5)],
             [TablePos(rowIdx: 2,colIdx: 0),TablePos(rowIdx: 2,colIdx: 5)],
             [TablePos(rowIdx: 3,colIdx: 0),TablePos(rowIdx: 3,colIdx: 5)],
             [TablePos(rowIdx: 4,colIdx: 0),TablePos(rowIdx: 4,colIdx: 5)],
-            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 8,colIdx: 2)],
+            [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 9,colIdx: 2)],
             [TablePos(rowIdx: 0,colIdx: 3),TablePos(rowIdx: 8,colIdx: 3)],
             [TablePos(rowIdx: 0,colIdx: 4),TablePos(rowIdx: 8,colIdx: 4)],
             [TablePos(rowIdx: 6,colIdx: 0),TablePos(rowIdx: 6,colIdx: 5)],
             [TablePos(rowIdx: 5,colIdx: 1),TablePos(rowIdx: 5,colIdx: 5)],
             [TablePos(rowIdx: 7,colIdx: 1),TablePos(rowIdx: 7,colIdx: 5)],
-            [TablePos(rowIdx: 4,colIdx: 1),TablePos(rowIdx: 8,colIdx: 1)]
+            [TablePos(rowIdx: 4,colIdx: 1),TablePos(rowIdx: 9,colIdx: 1)],
+            [TablePos(rowIdx: 8,colIdx: 0),TablePos(rowIdx: 8,colIdx: 5)]
             ]
         
         for lines in connectedLines
@@ -103,6 +104,9 @@ class StatsTableView: UIView
         createLabelAt(5, colIdx: 0, text: "🎲")
         createLabelAt(6, colIdx: 0, text: "6")
         createLabelAt(7, colIdx: 0, text: "🎲")
+        createLabelAt(8, colIdx: 0, text: "⭐️")
+        createLabelAt(8, colIdx: 1, text: "-")
+        createLabelAt(8, colIdx: 2, text: lstr("Stars desc"), cells: 3)
         
         for colIdx in 2...4
         {
@@ -130,6 +134,10 @@ class StatsTableView: UIView
                     if colIdx == 0 && rowIdx <= 3
                     {
                         cells = 2
+                    }
+                    else if colIdx == 2 && rowIdx == 8
+                    {
+                        cells = 3
                     }
                     subview.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width*CGFloat(cells), height: cellSize.height)
                 }
@@ -163,6 +171,7 @@ class StatsTableView: UIView
         let avg6mpLbl = viewWithTag(7*ctColumns + 3) as! UILabel
         let best5dLbl = viewWithTag(4*ctColumns + 4) as! UILabel
         let best6dLbl = viewWithTag(6*ctColumns + 4) as! UILabel
+        let starsLbl = viewWithTag(8*ctColumns + 1) as! UILabel
         
         if let stat = playerStat
         {
@@ -198,7 +207,7 @@ class StatsTableView: UIView
                     }
                     else
                     {
-                        best6sp = max(best6mp, item.score)
+                        best6sp = max(best6sp, item.score)
                         sum6sp += item.score
                         ct6sp += 1
                     }
@@ -266,6 +275,7 @@ class StatsTableView: UIView
             avg6mpLbl.text = ct6mp != 0 ? String(sum6mp/ct6mp) : "-"
             best5dLbl.text = String(best5d)
             best6dLbl.text = String(best6d)
+            starsLbl.text = starsFormatter.stringFromNumber(NSNumber(float: stars6(PlayerStat.avgScore(.Six))))
         }
     }
 

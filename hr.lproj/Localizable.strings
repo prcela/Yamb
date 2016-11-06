@@ -48,6 +48,8 @@
 "Loses" = "Porazi";
 "Best score" = "Najbolji rezultat";
 "Average score" = "Prosječan rezultat";
+"Stars desc" = "Zvjezdice su izračunate iz prosječnog rezultata";
+"Favorite dice" = "Omiljene kockice";
 
 // Update
 "Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";

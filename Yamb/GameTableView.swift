@@ -81,6 +81,7 @@ class GameTableView: UIView
         if let pos = player.inputPos
         {
             CGContextSetStrokeColorWithColor(ctx, skin.strokeColor.CGColor)
+            CGContextSetLineWidth(ctx, 1.25)
             
             CGContextBeginPath(ctx)
             let x = CGFloat(pos.colIdx)*cellSize.width
@@ -91,6 +92,7 @@ class GameTableView: UIView
             CGContextAddLineToPoint(ctx, x, y+cellSize.height)
             CGContextClosePath(ctx)
             CGContextStrokePath(ctx)
+            CGContextSetLineWidth(ctx, 1)
         }
         
     }

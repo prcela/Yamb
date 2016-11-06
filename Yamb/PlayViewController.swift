@@ -184,7 +184,15 @@ class PlayViewController: UIViewController {
         }
         
         rollBtn?.enabled = Match.shared.isRollEnabled()
-        nameLbl?.text = player.alias
+        if let alias = player.alias
+        {
+            let starsFormatted = starsFormatter.stringFromNumber(NSNumber(float:stars6(player.avgScore6)))!
+            nameLbl?.text = String(format: "%@ ⭐️ %@", starsFormatted, alias)
+        }
+        else
+        {
+            nameLbl?.text = nil
+        }
         nameLbl?.textColor = skin.strokeColor
         
         let sumLbls = [sumLbl,sum1Lbl]

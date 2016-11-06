@@ -10,10 +10,27 @@ import UIKit
 
 class PlayerViewController: UIViewController {
 
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var playerNameLbl: UILabel!
+    @IBOutlet weak var favDiceLbl: UILabel!
+    @IBOutlet weak var diceIcon: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        editBtn.layer.borderWidth = 1
+        editBtn.layer.cornerRadius = 5
+        editBtn.layer.borderColor = UIColor.lightTextColor().CGColor
+        
+        playerNameLbl.text = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
+        
+        favDiceLbl.text = lstr("Favorite dice")
+        diceIcon.layer.borderWidth = 1
+        diceIcon.layer.cornerRadius = 5
+        diceIcon.clipsToBounds = true
+        
     }
 
     override func didReceiveMemoryWarning() {
