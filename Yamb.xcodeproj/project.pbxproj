@@ -519,9 +519,9 @@
 		97F16EC81D8A7A8B00B8FB79 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				972B1BCA1D84276B00010F5F /* WsAPI.swift */,
 				97C4EF9D1D6C6BAA00A1E7CD /* GameKitHelper.swift */,
 				974712E11D778CA500BB2AA9 /* GameFileManager.swift */,
-				972B1BCA1D84276B00010F5F /* WsAPI.swift */,
 				977A1CA41D9BD84700FEA48D /* ServerAPI.swift */,
 				9705CDE41DC9E8BB004109BC /* PlayerStat.swift */,
 			);
