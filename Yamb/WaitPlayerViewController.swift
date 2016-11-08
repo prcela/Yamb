@@ -57,17 +57,23 @@ class WaitPlayerViewController: UIViewController {
     
     func onRoomInfo()
     {
+        if let player = Room.main.player(waitPlayer.id!)
+        {
+            if player.connected
+            {
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        else
+        {
+            // nema igrača, isto kao i timeout
+            timer?.invalidate()
+            timer = nil
+            dismissViewControllerAnimated(true, completion: timout)
+        }
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

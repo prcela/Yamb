@@ -41,8 +41,8 @@ class PlayerStat: NSObject, NSCoding
     
     class func saveStat()
     {
-        print("Saving stat")
         NSKeyedArchiver.archiveRootObject(shared, toFile: filePath())
+        print("Saved stat")
     }
     
     class func avgScore(diceNum: DiceNum) -> Float

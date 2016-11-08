@@ -26,6 +26,7 @@ class PlayerViewController: UIViewController {
         editBtn.layer.borderColor = UIColor.lightTextColor().CGColor
         
         playerNameLbl.text = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
+        editBtn.setTitle(lstr("Edit"), forState: .Normal)
         
         favDiceLbl.text = lstr("Favorite dice")
         favDiceBtn.layer.borderWidth = 1
@@ -66,5 +67,25 @@ class PlayerViewController: UIViewController {
     @IBAction func close(sender: AnyObject)
     {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func editName(sender: AnyObject)
+    {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            let alias = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
+            textField.text = alias
+            textField.placeholder = lstr("Name")
+        }
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+            if let newAlias = alert.textFields?.first?.text
+            {
+                NSUserDefaults.standardUserDefaults().setObject(newAlias, forKey: Prefs.playerAlias)
+                self.playerNameLbl.text = newAlias
+                WsAPI.shared.updatePlayer()
+            }
+        }))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
