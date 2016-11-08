@@ -11,7 +11,7 @@ import Foundation
 class Room
 {
     static let main = Room()
-    var freePlayers = [Player]()
+    var players = [Player]()
     var matchesInfo = [MatchInfo]()
     
     func matchInfo(id: UInt) -> MatchInfo?
@@ -36,9 +36,32 @@ class Room
     func matchesInfo(playerId: String) -> [MatchInfo]
     {
         return matchesInfo.filter({ (match) -> Bool in
-            return match.players.contains({ (player) -> Bool in
-                return player.id == playerId
-            })
+            return match.playerIds.contains(playerId)
         })
+    }
+    
+    func player(id: String) -> Player?
+    {
+        if let idx = players.indexOf ({ (p) -> Bool in
+            return p.id == id
+        }) {
+            return players[idx]
+        }
+        return nil
+    }
+    
+    func freePlayers() -> [Player]
+    {
+        var free = [Player]()
+        for player in players
+        {
+            if matchesInfo.indexOf({ (m) -> Bool in
+                return m.playerIds.contains(player.id!)
+            }) == nil
+            {
+                free.append(player)
+            }
+        }
+        return free
     }
 }

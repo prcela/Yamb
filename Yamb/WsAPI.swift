@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipHome
+let ipCurrent = ipWork
 
 class WsAPI
 {
@@ -192,11 +192,11 @@ extension WsAPI: WebSocketDelegate
         
         case .RoomInfo:
             
-            Room.main.freePlayers.removeAll()
+            Room.main.players.removeAll()
             Room.main.matchesInfo.removeAll()
             
-            let freePlayers = json["free_players"].arrayValue
-            for p in freePlayers
+            let players = json["players"].arrayValue
+            for p in players
             {
                 let player = Player()
                 player.id = p["id"].stringValue
@@ -204,7 +204,7 @@ extension WsAPI: WebSocketDelegate
                 player.avgScore6 = p["avg_score_6"].floatValue
                 player.diamonds = p["diamonds"].intValue
                 player.connected = p["connected"].boolValue
-                Room.main.freePlayers.append(player)
+                Room.main.players.append(player)
             }
             
             let matches = json["matches"].arrayValue
@@ -214,17 +214,7 @@ extension WsAPI: WebSocketDelegate
                 matchInfo.id = m["id"].uIntValue
                 matchInfo.bet = m["bet"].int ?? 0
                 matchInfo.state = MatchState(rawValue: m["state"].stringValue)!
-                
-                let players = m["players"].arrayValue
-                for p in players
-                {
-                    let player = Player()
-                    player.id = p["id"].stringValue
-                    player.alias = p["alias"].stringValue
-                    player.avgScore6 = p["avg_score_6"].floatValue
-                    player.diamonds = p["diamonds"].intValue
-                    matchInfo.players.append(player)
-                }
+                matchInfo.playerIds = m["players"].arrayObject as! [String]
                 matchInfo.diceNum = m["dice_num"].intValue
                 matchInfo.diceMaterials = m["dice_materials"].arrayObject as! [String]
                 Room.main.matchesInfo.append(matchInfo)

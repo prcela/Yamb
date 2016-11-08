@@ -19,3 +19,4 @@
 "Extra reward" = "Do you want to look the promo video for extra 5 💎 ?";
 "PlayerX has not enough" = "%@ has not enough diamonds for this match. Decrease the bet or invite other player.";
 "Stars desc" = "Stars are calculated from average score";
+"Waiting for player" = "Problems in communication with player %@. Waiting few seconds...";

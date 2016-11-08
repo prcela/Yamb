@@ -20,8 +20,8 @@ class MenuViewController: UIViewController
     @IBOutlet weak var tellFriendsBtn: UIButton!
     
     var waitForLocalPlayerAuth = false
-    var currentVersionMP = 3
-    var minRequiredVersion = 3
+    var currentVersionMP = 4
+    var minRequiredVersion = 4
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -63,10 +63,9 @@ class MenuViewController: UIViewController
             {
                 let json = JSON(data: data!)
                 let ct = json["room_main_ct"].intValue
-                let ctFree = json["room_main_free_ct"].intValue
                 dispatch_async(dispatch_get_main_queue(), {
                     self.onlinePlayersLbl.hidden = (ct == 0)
-                    self.onlinePlayersLbl.text = String(format: "%@: %d / %@: %d",  lstr("Free"), ctFree, lstr("Online"), ct)
+                    self.onlinePlayersLbl.text = String(format: "%@: %d", lstr("Online"), ct)
                     self.minRequiredVersion = json["min_required_version"].intValue
                 })
                 
@@ -180,14 +179,11 @@ class MenuViewController: UIViewController
     
     func onRoomInfo()
     {
-        let ctFree = Room.main.freePlayers.filter({ (p) -> Bool in
+        let ctConnected = Room.main.players.filter({ (p) -> Bool in
             return p.connected
         }).count
-        self.onlinePlayersLbl.hidden = (ctFree == 0)
-        let ct = Room.main.matchesInfo.reduce(0) { (sum, matchInfo) -> Int in
-            return sum + matchInfo.players.count
-        }
-        self.onlinePlayersLbl.text = String(format: "%@: %d / %@: %d",  lstr("Free"), ctFree, lstr("Online"), ct+ctFree)
+        self.onlinePlayersLbl.hidden = (ctConnected == 0)
+        self.onlinePlayersLbl.text = String(format: "%@: %d", lstr("Online"), ctConnected)
     }
     
 }

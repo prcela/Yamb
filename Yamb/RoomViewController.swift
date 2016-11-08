@@ -78,7 +78,7 @@ extension RoomViewController: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
-        let isFreePlayer = Room.main.freePlayers.contains({ (player) -> Bool in
+        let isFreePlayer = Room.main.freePlayers().contains({ (player) -> Bool in
             return player.id == playerId
         })
         
@@ -98,7 +98,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else if section == 2
         {
-            let players = Room.main.freePlayers.filter({ (player) -> Bool in
+            let players = Room.main.freePlayers().filter({ (player) -> Bool in
                 return player.id != playerId && player.connected
             })
             return players.count
@@ -133,7 +133,7 @@ extension RoomViewController: UITableViewDataSource
         else if indexPath.section == 2
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
-            let player = Room.main.freePlayers.filter({ (player) -> Bool in
+            let player = Room.main.freePlayers().filter({ (player) -> Bool in
                 return player.id != playerId && player.connected
             })[indexPath.row]
             cell.textLabel?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!, player.alias!)

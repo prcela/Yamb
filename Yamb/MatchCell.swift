@@ -35,11 +35,16 @@ class MatchCell: UITableViewCell {
     
     func updateWithWaitingMatch(match: MatchInfo)
     {
-        let player = match.players.first!
+        let playerId = match.playerIds.first!
+        if let player = Room.main.player(playerId)
+        {
+            let stars = stars6(player.avgScore6)
+            titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars))!, player.alias!)
+        }
+        
         diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-        let stars = stars6(player.avgScore6)
-        titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars))!, player.alias!)
+        
         titleLbl2?.text = "?"
         infoLbl1?.text = "\(match.diceNum) 🎲"
         infoLbl2?.text = "\(match.bet) 💎"
@@ -48,12 +53,19 @@ class MatchCell: UITableViewCell {
     
     func updateWithPlayingMatch(match: MatchInfo)
     {
-        let firstPlayer = match.players.first!
-        let lastPlayer = match.players.last!
+        let firstPlayerId = match.playerIds.first!
+        let lastPlayerId = match.playerIds.last!
+        
+        if let firstPlayer = Room.main.player(firstPlayerId) {
+            titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(firstPlayer.avgScore6)))!, firstPlayer.alias!)
+        }
+        if let lastPlayer = Room.main.player(lastPlayerId) {
+            titleLbl2?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(lastPlayer.avgScore6)))!, lastPlayer.alias!)
+        }
+        
         diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
         diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
-        titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(firstPlayer.avgScore6)))!, firstPlayer.alias!)
-        titleLbl2?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(lastPlayer.avgScore6)))!, lastPlayer.alias!)
+        
         infoLbl1?.text = "\(match.diceNum) 🎲"
         infoLbl2?.text = "\(match.bet) 💎"
         accessoryType = .None

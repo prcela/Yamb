@@ -64,25 +64,29 @@ class MainViewController: UIViewController
             return m.id == matchId
         }) {
             let matchInfo = Room.main.matchesInfo[idx]
-            let firstPlayer = matchInfo.players.first!
-            let lastPlayer = matchInfo.players.last!
-            Match.shared.start(.OnlineMultiplayer,
-                               diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
-                               playersDesc: [
-                                (firstPlayer.id,firstPlayer.alias,firstPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                (lastPlayer.id,lastPlayer.alias,lastPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
-                               matchId: matchId,
-                               bet: matchInfo.bet)
+            let firstPlayerId = matchInfo.playerIds.first!
+            let lastPlayerId = matchInfo.playerIds.last!
+            if let firstPlayer = Room.main.player(firstPlayerId),
+                let lastPlayer = Room.main.player(lastPlayerId)
+            {
+                Match.shared.start(.OnlineMultiplayer,
+                                   diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
+                                   playersDesc: [
+                                    (firstPlayerId,firstPlayer.alias,firstPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
+                                    (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                                   matchId: matchId,
+                                   bet: matchInfo.bet)
             
-            // decrease coins for bet
+                // decrease coins for bet
             
-            var diamonds = PlayerStat.shared.diamonds
-            diamonds = max(0, diamonds - matchInfo.bet)
-            PlayerStat.shared.diamonds = diamonds
+                var diamonds = PlayerStat.shared.diamonds
+                diamonds = max(0, diamonds - matchInfo.bet)
+                PlayerStat.shared.diamonds = diamonds
             
-            updatePlayerInfo()
+                updatePlayerInfo()
             
-            performSegueWithIdentifier("playIdentifier", sender: nil)
+                performSegueWithIdentifier("playIdentifier", sender: nil)
+            }
         }
     }
     
@@ -92,7 +96,7 @@ class MainViewController: UIViewController
         var matchInfo: MatchInfo?
         for mInfo in Room.main.matchesInfo
         {
-            if mInfo.players.first?.id == senderPlayerId
+            if mInfo.playerIds.first == senderPlayerId
             {
                 matchInfo = mInfo
                 break
@@ -100,7 +104,7 @@ class MainViewController: UIViewController
         }
         
         guard matchInfo != nil,
-            let senderPlayer = matchInfo!.players.first else {
+            let senderPlayer = Room.main.player(senderPlayerId) else {
                 return
         }
         
@@ -171,13 +175,7 @@ class MainViewController: UIViewController
     {
         let recipientPlayerId = notification.object as! String
         
-        guard let idx = Room.main.freePlayers.indexOf({ (player) in
-            return player.id == recipientPlayerId
-        }) else {
-            return
-        }
-        
-        let recipientPlayer = Room.main.freePlayers[idx]
+        guard let recipientPlayer = Room.main.player(recipientPlayerId) else {return}
         
         let alert = UIAlertController(title: "Yamb",
                                       message: String(format: lstr("Invitation ignored"), recipientPlayer.alias!),

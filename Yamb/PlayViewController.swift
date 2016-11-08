@@ -254,7 +254,8 @@ class PlayViewController: UIViewController {
         {
             let alert = UIAlertController(title: "Yamb", message: lstr("Opponent invites you to reply the game"), preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Accept", style: .Default, handler: { (action) in
-                let desc = match.players.map({ (player) -> (id: String?, alias: String?, avgScore6:Float, diceMat: DiceMaterial) in
+                let desc = match.playerIds.map({ (playerId) -> (id: String?, alias: String?, avgScore6:Float, diceMat: DiceMaterial) in
+                    let player = Room.main.player(playerId)!
                     return (id: player.id, alias: player.alias, avgScore6: player.avgScore6, diceMat: player.diceMaterial)
                 })
                 Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc, matchId: matchId, bet: match.bet)
@@ -277,15 +278,29 @@ class PlayViewController: UIViewController {
         if let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
             return player.id == id
         }) {
-            WsAPI.shared.leaveMatch(Match.shared.id)
+            // wait player for few seconds
             let player = Match.shared.players[playerIdx]
             if player.id != localPlayerId
             {
-                print("Oponnent disconnected")
-                alertOnOpponentLeave()
+                performSegueWithIdentifier("waitPlayer", sender: player)
             }
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "waitPlayer"
+        {
+            let waitPlayerVC = segue.destinationViewController as! WaitPlayerViewController
+            waitPlayerVC.waitPlayer = sender as! Player
+            
+            waitPlayerVC.timout = {[weak self] in
+                WsAPI.shared.leaveMatch(Match.shared.id)
+                self?.alertOnOpponentLeave()
+            }
+        }
+    }
+    
     
     func alertOnOpponentLeave()
     {

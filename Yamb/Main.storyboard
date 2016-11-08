@@ -1054,8 +1054,8 @@ bacanje</string>
                                 <exclude reference="wDX-vM-t4x"/>
                                 <exclude reference="8Fl-zn-r5b"/>
                                 <exclude reference="EAg-cA-CKP"/>
-                                <exclude reference="8da-td-atd"/>
                                 <exclude reference="4Kr-nT-ta3"/>
+                                <exclude reference="8da-td-atd"/>
                                 <exclude reference="9ak-eA-Zje"/>
                                 <exclude reference="yeJ-fv-Grm"/>
                                 <exclude reference="Edz-dU-LAI"/>
@@ -1075,6 +1075,7 @@ bacanje</string>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
                         <outlet property="sum1Lbl" destination="oLa-On-pUH" id="JrU-pN-N0K"/>
                         <outlet property="sumLbl" destination="dLn-kT-Moy" id="rbE-De-lmY"/>
+                        <segue destination="uAM-4S-tr8" kind="presentation" identifier="waitPlayer" animates="NO" modalPresentationStyle="overCurrentContext" id="wf1-rU-wbg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1157,6 +1158,70 @@ bacanje</string>
             </objects>
             <point key="canvasLocation" x="2718" y="-379"/>
         </scene>
+        <!--Wait Player View Controller-->
+        <scene sceneID="wpO-in-ezY">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="uAM-4S-tr8" customClass="WaitPlayerViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0gl-MY-nIQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Ws-aO-aHv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qyf-Jf-4dP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PtJ-be-zUB">
+                                <rect key="frame" x="47" y="138" width="280" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player lost connection... bla bla waiting for..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1z-aG-4um">
+                                        <rect key="frame" x="18" y="18" width="244" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="68" id="5qx-KO-7Tt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="topMargin" secondItem="w1z-aG-4um" secondAttribute="top" constant="-10" id="GgX-DW-43A"/>
+                                    <constraint firstAttribute="height" constant="150" id="X68-AG-wBZ"/>
+                                    <constraint firstAttribute="width" constant="280" id="apN-g8-bTE"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="w1z-aG-4um" secondAttribute="trailing" constant="10" id="cU5-Iz-voV"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="w1z-aG-4um" secondAttribute="leading" constant="-10" id="q0y-VT-1pX"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdP-h3-BXB">
+                                <rect key="frame" x="166" y="244" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="r7p-yN-eIg"/>
+                                    <constraint firstAttribute="width" constant="42" id="xL4-q6-drU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.49590517241379323" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PtJ-be-zUB" firstAttribute="centerY" secondItem="Qyf-Jf-4dP" secondAttribute="centerY" constant="-120.5" id="rWe-eh-B4b"/>
+                            <constraint firstItem="PtJ-be-zUB" firstAttribute="centerX" secondItem="Qyf-Jf-4dP" secondAttribute="centerX" id="s9w-tx-dWo"/>
+                            <constraint firstItem="ZdP-h3-BXB" firstAttribute="top" secondItem="w1z-aG-4um" secondAttribute="bottom" constant="20" id="w3G-2c-Ted"/>
+                            <constraint firstItem="ZdP-h3-BXB" firstAttribute="centerX" secondItem="PtJ-be-zUB" secondAttribute="centerX" id="yAS-nG-6np"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="100" height="100"/>
+                    <connections>
+                        <outlet property="counterLbl" destination="ZdP-h3-BXB" id="7Ey-Kq-WRV"/>
+                        <outlet property="holderView" destination="PtJ-be-zUB" id="2pg-nO-Uas"/>
+                        <outlet property="messageLbl" destination="w1z-aG-4um" id="BH0-8P-x6B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PiQ-14-4aA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="112.8" y="2026.2368815592206"/>
+        </scene>
         <!--Player Container-->
         <scene sceneID="atE-Fm-xaS">
             <objects>
@@ -1173,7 +1238,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IDR-ci-wJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="659" y="2013"/>
+            <point key="canvasLocation" x="777" y="1949"/>
         </scene>
         <!--Stat Table View Controller-->
         <scene sceneID="vd8-th-4UX">
@@ -1206,7 +1271,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MPT-L7-Cvy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="340" y="2668"/>
+            <point key="canvasLocation" x="1441" y="2027"/>
         </scene>
     </scenes>
     <resources>
