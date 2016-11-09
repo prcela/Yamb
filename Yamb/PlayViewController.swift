@@ -299,6 +299,12 @@ class PlayViewController: UIViewController {
                 self?.alertOnOpponentLeave()
             }
         }
+        else if segue.identifier == "invitation"
+        {
+            let invitationVC = segue.destinationViewController as! InvitationViewController
+            invitationVC.senderPlayer = sender as? Player
+        }
+
     }
     
     
@@ -428,5 +434,6 @@ class PlayViewController: UIViewController {
             connectingLbl?.hidden = false
         }
     }
+    
 }
 

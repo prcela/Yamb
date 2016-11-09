@@ -109,66 +109,24 @@ class MainViewController: UIViewController
                 return
         }
         
-        
-        var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
-        
-        if let bet = matchInfo?.bet where bet > 0
-        {
-            message += "\n"
-            message += String(format: lstr("Bet is n"), bet)
-        }
-        
-        var shouldSaveSP = false
-        if Match.shared.matchType == MatchType.SinglePlayer
-        {
-            let spMatch = Match.shared
-            if let player = spMatch.players.first
-            {
-                if player.state != .Start && player.state != .EndGame
-                {
-                    shouldSaveSP = true
-                    message += lstr("SP progress will be saved")
-                }
-            }
-        }
-        
-        let alert = UIAlertController(title: "Yamb",
-                                      message: message,
-                                      preferredStyle: .Alert)
-        
-        alert.addAction(UIAlertAction(title: lstr("Ignore"), style: .Default, handler: { (action) in
-            WsAPI.shared.ignoreInvitation(senderPlayerId)
-        }))
-        
-        alert.addAction(UIAlertAction(title: lstr("Accept"), style: .Default, handler: { (action) in
-            print("prihat igre...")
-            dispatch_async(dispatch_get_main_queue(), {
-                if self.presentedViewController != nil
-                {
-                    if shouldSaveSP
-                    {
-                        GameFileManager.saveMatch(Match.shared)
-                    }
-                    
-                    self.dismissViewControllerAnimated(false, completion: nil)
-                }
-                self.navigationController?.popToRootViewControllerAnimated(false)
-                WsAPI.shared.joinToMatch(matchInfo!.id, ownDiceMat: PlayerStat.shared.favDiceMat)
-            })
-        }))
-        
-        
-        
         if let presentedVC = presentedViewController
         {
             if !(presentedVC is UIAlertController)
             {
-                presentedVC.presentViewController(alert, animated: true, completion: nil)
+                presentedVC.performSegueWithIdentifier("invitation", sender: senderPlayer)
             }
         }
         else
         {
-            presentViewController(alert, animated: true, completion: nil)
+            performSegueWithIdentifier("invitation", sender: senderPlayer)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "invitation"
+        {
+            let invitationVC = segue.destinationViewController as! InvitationViewController
+            invitationVC.senderPlayer = sender as? Player
         }
     }
     

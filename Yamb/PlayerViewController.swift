@@ -89,4 +89,12 @@ class PlayerViewController: UIViewController {
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "invitation"
+        {
+            let invitationVC = segue.destinationViewController as! InvitationViewController
+            invitationVC.senderPlayer = sender as? Player
+        }
+    }
 }
