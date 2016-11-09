@@ -36,14 +36,6 @@ class GameKitHelper: NSObject
                 self.authenticated = localPlayer.authenticated
                 self.authController = nil
                 
-                if self.authenticated
-                {
-                    if let alias = localPlayer.alias
-                    {
-                        NSUserDefaults.standardUserDefaults().setObject(alias, forKey: Prefs.playerAlias)
-                    }
-                }
-                
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)
                 FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")
             }

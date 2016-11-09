@@ -82,6 +82,7 @@ class PlayerViewController: UIViewController {
             if let newAlias = alert.textFields?.first?.text
             {
                 NSUserDefaults.standardUserDefaults().setObject(newAlias, forKey: Prefs.playerAlias)
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerAliasChanged, object: nil)
                 self.playerNameLbl.text = newAlias
                 WsAPI.shared.updatePlayer()
             }

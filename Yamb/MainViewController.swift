@@ -27,6 +27,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerAliasChanged, object: nil)
         
         MainViewController.shared = self
 
@@ -142,14 +143,14 @@ class MainViewController: UIViewController
         alert.addAction(UIAlertAction(title: lstr("Accept"), style: .Default, handler: { (action) in
             print("prihat igre...")
             dispatch_async(dispatch_get_main_queue(), {
-                if self.navigationController?.presentedViewController != nil
+                if self.presentedViewController != nil
                 {
                     if shouldSaveSP
                     {
                         GameFileManager.saveMatch(Match.shared)
                     }
                     
-                    self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
+                    self.dismissViewControllerAnimated(false, completion: nil)
                 }
                 self.navigationController?.popToRootViewControllerAnimated(false)
                 WsAPI.shared.joinToMatch(matchInfo!.id, ownDiceMat: PlayerStat.shared.favDiceMat)

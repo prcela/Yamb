@@ -25,6 +25,7 @@ struct NotificationName
     static let wsDidConnect = "Notification.wsDidConnect"
     static let wsDidDisconnect = "Notification.DidDisconnect"
     static let playerDiamondsChanged = "Notification.playerDiamondsChanged"
+    static let playerAliasChanged = "Notification.playerAliasChanged"
     static let multiplayerMatchEnded = "Notification.multiplayerMatchEnded"
     static let containerItemSelected = "Notification.containerItemSelected"
 }
