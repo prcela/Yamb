@@ -28,4 +28,5 @@ struct NotificationName
     static let playerAliasChanged = "Notification.playerAliasChanged"
     static let multiplayerMatchEnded = "Notification.multiplayerMatchEnded"
     static let containerItemSelected = "Notification.containerItemSelected"
+    static let localPlayerOnTurnInMultiplayer = "Notification.localPlayerOnTurnInMultiplayer"
 }

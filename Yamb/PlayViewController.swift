@@ -22,7 +22,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var sum1Lbl: UILabel?
     @IBOutlet weak var nameLbl: UILabel?
     @IBOutlet weak var playLbl: UILabel?
-    @IBOutlet weak var progressView: UIProgressView?
+    @IBOutlet weak var progressView: ProgressView?
     @IBOutlet weak var connectingLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +36,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
+        nc.addObserver(self, selector: #selector(localPlayerOnTurnInMultiplayer(_:)), name: NotificationName.localPlayerOnTurnInMultiplayer, object: nil)
 
     }
     
@@ -119,6 +120,7 @@ class PlayViewController: UIViewController {
         
         rollBtn?.hidden = isWaitingForTurn
         playLbl?.hidden = isWaitingForTurn
+        progressView?.hidden = isWaitingForTurn || Match.shared.matchType != .OnlineMultiplayer
         
         let inputPos = player.inputPos
         
@@ -432,6 +434,23 @@ class PlayViewController: UIViewController {
         if Match.shared.matchType == .OnlineMultiplayer
         {
             connectingLbl?.hidden = false
+        }
+    }
+    
+    func localPlayerOnTurnInMultiplayer(notification: NSNotification)
+    {
+        progressView?.removeAnimation()
+        progressView?.animateShape(Match.shared.turnDuration)
+        let turnId = notification.object as! Int
+        print(NSDate())
+        
+        dispatchToMainQueue(delay: Match.shared.turnDuration) {
+            print(NSDate())
+            // if still on turn
+            if turnId == Match.shared.turnId
+            {
+                print("uhvaćen na kraju")
+            }
         }
     }
     

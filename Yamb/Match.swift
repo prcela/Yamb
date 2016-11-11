@@ -44,6 +44,8 @@ class Match: NSObject, NSCoding
     var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
     var bet = 5
+    var turnDuration: NSTimeInterval = 20
+    var turnId = 0
     
     var ctColumns = 6
     
@@ -92,6 +94,13 @@ class Match: NSObject, NSCoding
         players[indexOfPlayerOnTurn].onTurn()
         DiceScene.shared.recreateMaterials()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        
+        if matchType == .OnlineMultiplayer && isLocalPlayerTurn()
+        {
+            // start the expiration timer
+            turnId += 1
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.localPlayerOnTurnInMultiplayer, object: turnId)
+        }
     }
     
     func player(id: String) -> Player?

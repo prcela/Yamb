@@ -354,7 +354,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AMM-SO-qQp" id="czI-Ri-fCS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1b.png" translatesAutoresizingMaskIntoConstraints="NO" id="frD-9z-8Ud">
@@ -562,7 +562,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Rj-Bi-zEU" id="Q8u-q0-PNC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2db-KG-p3i">
@@ -846,21 +846,29 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FQ-rd-I0W">
-                                        <rect key="frame" x="70" y="112" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FQ-rd-I0W">
+                                        <rect key="frame" x="30" y="112" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="e7b-lV-TCT"/>
+                                            <constraint firstAttribute="width" constant="100" id="xkg-E0-K0g"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Ignore">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="ignore:" destination="0Th-De-0IM" eventType="touchUpInside" id="gsF-zB-SUr"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUf-Z2-ekQ">
-                                        <rect key="frame" x="182" y="112" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUf-Z2-ekQ">
+                                        <rect key="frame" x="150" y="112" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="2k2-fD-b7d"/>
+                                            <constraint firstAttribute="width" constant="100" id="3yr-fG-mDW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Accept">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="accept:" destination="0Th-De-0IM" eventType="touchUpInside" id="19c-eQ-kHf"/>
@@ -871,9 +879,13 @@
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="sVU-xv-HMg" secondAttribute="trailing" constant="10" id="3Tw-Yd-pDr"/>
                                     <constraint firstAttribute="width" constant="280" id="JUa-NJ-hhq"/>
+                                    <constraint firstItem="0FQ-rd-I0W" firstAttribute="centerX" secondItem="SOa-dI-fTl" secondAttribute="centerX" constant="-60" id="NPI-oN-men"/>
+                                    <constraint firstItem="vUf-Z2-ekQ" firstAttribute="centerX" secondItem="SOa-dI-fTl" secondAttribute="centerX" constant="60" id="UAr-F1-ih6"/>
                                     <constraint firstAttribute="height" constant="150" id="VI6-Lh-tiG"/>
+                                    <constraint firstAttribute="bottom" secondItem="vUf-Z2-ekQ" secondAttribute="bottom" constant="8" id="awt-Kd-XzB"/>
                                     <constraint firstAttribute="leadingMargin" secondItem="sVU-xv-HMg" secondAttribute="leading" constant="-10" id="c8t-gh-ujm"/>
                                     <constraint firstAttribute="topMargin" secondItem="sVU-xv-HMg" secondAttribute="top" constant="-10" id="lH8-gU-MKW"/>
+                                    <constraint firstAttribute="bottom" secondItem="0FQ-rd-I0W" secondAttribute="bottom" constant="8" id="p3Y-Cc-6sP"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1056,11 +1068,13 @@ bacanje</string>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="b8H-VI-HrA">
-                                <rect key="frame" x="16" y="547" width="190" height="2"/>
-                                <color key="progressTintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="trackTintColor" red="0.74117647060000003" green="0.76862745099999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </progressView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-kB-rJY" customClass="ProgressView" customModule="Yamb" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="665" width="375" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="gMg-RF-kpf"/>
+                                </constraints>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rsf-PA-Vt8">
                                 <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.84221443969999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1080,6 +1094,7 @@ bacanje</string>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" id="3ce-Vg-gD9"/>
                             <constraint firstItem="1Dr-il-Q5L" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="-50" id="3qe-ps-ESU"/>
                             <constraint firstItem="BYH-H4-IEJ" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="top" id="4Kr-nT-ta3"/>
+                            <constraint firstAttribute="trailing" secondItem="C2h-kB-rJY" secondAttribute="trailing" id="4cW-Ib-boV"/>
                             <constraint firstItem="Rsf-PA-Vt8" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" id="7ms-4e-err"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="yEi-FD-lpu" secondAttribute="bottom" constant="-2" id="8Fl-zn-r5b"/>
                             <constraint firstItem="8KR-KZ-IJX" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="-40" id="8da-td-atd"/>
@@ -1089,7 +1104,6 @@ bacanje</string>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="28" id="BxJ-dU-SZH"/>
                             <constraint firstAttribute="trailing" secondItem="36W-Ca-VAm" secondAttribute="trailing" constant="100" id="EAg-cA-CKP"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="8KR-KZ-IJX" secondAttribute="bottom" constant="30" id="Edz-dU-LAI"/>
-                            <constraint firstItem="b8H-VI-HrA" firstAttribute="top" secondItem="oLa-On-pUH" secondAttribute="bottom" id="Jnw-bz-jiv"/>
                             <constraint firstItem="cCI-gJ-kED" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="25" id="Kf9-tg-pn1"/>
                             <constraint firstItem="xDD-Ze-2Kl" firstAttribute="centerY" secondItem="dOz-Xm-yYs" secondAttribute="centerY" constant="-20" id="Nbn-Bo-bm0"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="50" id="O1k-qA-SzM"/>
@@ -1104,10 +1118,10 @@ bacanje</string>
                             <constraint firstItem="jV0-pk-WlY" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" constant="50" id="YWf-XS-Y23"/>
                             <constraint firstItem="zYO-5M-WIC" firstAttribute="centerX" secondItem="36W-Ca-VAm" secondAttribute="centerX" id="Z7q-Ob-5bU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dLn-kT-Moy" secondAttribute="trailing" id="ZNs-wl-j4w"/>
-                            <constraint firstItem="oLa-On-pUH" firstAttribute="leading" secondItem="b8H-VI-HrA" secondAttribute="trailing" constant="5" id="Za2-N8-geI"/>
                             <constraint firstAttribute="leadingMargin" secondItem="BYH-H4-IEJ" secondAttribute="leading" id="ado-oa-dh2"/>
                             <constraint firstItem="yEi-FD-lpu" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" id="b0v-iw-O0S"/>
                             <constraint firstItem="oLa-On-pUH" firstAttribute="leading" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="5" id="cm4-Bu-e5L"/>
+                            <constraint firstItem="C2h-kB-rJY" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" id="cuC-pK-Lht"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Ir-AP-vC0" secondAttribute="trailing" id="dKo-4M-KID"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="Rsf-PA-Vt8" secondAttribute="bottom" id="dTo-cF-u9g"/>
                             <constraint firstAttribute="trailing" secondItem="Rsf-PA-Vt8" secondAttribute="trailing" id="dW8-tZ-bIA"/>
@@ -1115,6 +1129,7 @@ bacanje</string>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="Vz9-WK-T5k" secondAttribute="bottom" constant="30" id="etN-Vn-lw4"/>
                             <constraint firstItem="yEi-FD-lpu" firstAttribute="top" secondItem="2Ir-AP-vC0" secondAttribute="bottom" constant="1" id="gDZ-Rw-Azf"/>
                             <constraint firstItem="36W-Ca-VAm" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="60" id="lh7-ZW-1Pg"/>
+                            <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="C2h-kB-rJY" secondAttribute="bottom" id="owG-c9-Vz5"/>
                             <constraint firstItem="yEi-FD-lpu" firstAttribute="leading" secondItem="Yx1-eP-SMB" secondAttribute="leading" constant="20" id="peP-qw-bMF"/>
                             <constraint firstAttribute="trailing" secondItem="yEi-FD-lpu" secondAttribute="trailing" constant="88" id="wDX-vM-t4x"/>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="36W-Ca-VAm" secondAttribute="bottom" id="wJ1-mb-gP7"/>
@@ -1122,7 +1137,6 @@ bacanje</string>
                             <constraint firstItem="zn7-RQ-onT" firstAttribute="top" secondItem="cCI-gJ-kED" secondAttribute="bottom" constant="30" id="yCH-uS-Ujk"/>
                             <constraint firstItem="Vz9-WK-T5k" firstAttribute="centerX" secondItem="Yx1-eP-SMB" secondAttribute="centerX" constant="40" id="yeJ-fv-Grm"/>
                             <constraint firstItem="8KR-KZ-IJX" firstAttribute="centerY" secondItem="36W-Ca-VAm" secondAttribute="centerY" constant="25" id="z4K-nb-5RS"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="b8H-VI-HrA" secondAttribute="leading" id="zCd-Fl-1cr"/>
                             <constraint firstItem="xDD-Ze-2Kl" firstAttribute="centerX" secondItem="dOz-Xm-yYs" secondAttribute="centerX" id="zrm-Mi-YbM"/>
                         </constraints>
                         <variation key="default">
@@ -1147,7 +1161,7 @@ bacanje</string>
                         <outlet property="gameTableView" destination="2Ir-AP-vC0" id="FQr-ns-Vg1"/>
                         <outlet property="nameLbl" destination="yEi-FD-lpu" id="iHc-zt-Xho"/>
                         <outlet property="playLbl" destination="xDD-Ze-2Kl" id="yr8-Hv-VPA"/>
-                        <outlet property="progressView" destination="b8H-VI-HrA" id="7xD-bS-KgV"/>
+                        <outlet property="progressView" destination="C2h-kB-rJY" id="fGw-Pb-s1d"/>
                         <outlet property="rollBtn" destination="dOz-Xm-yYs" id="Ap6-h2-hh4"/>
                         <outlet property="sceneView" destination="36W-Ca-VAm" id="Ocs-Cj-RDM"/>
                         <outlet property="sum1Lbl" destination="oLa-On-pUH" id="JrU-pN-N0K"/>
@@ -1362,7 +1376,7 @@ bacanje</string>
         <image name="up.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vUo-Z8-HnJ"/>
+        <segue reference="5Ho-fZ-vNS"/>
         <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
