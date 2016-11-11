@@ -386,7 +386,12 @@ class Table: NSObject, NSCoding
             {
                 if values[col.rawValue][row.rawValue] == nil
                 {
-                    let newValue:UInt = 0
+                    // worse value
+                    var newValue:UInt = 0
+                    if row == .Min
+                    {
+                        newValue = 30
+                    }
                     values[col.rawValue][row.rawValue] = newValue
                     
                     if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()

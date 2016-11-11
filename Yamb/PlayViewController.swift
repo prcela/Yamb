@@ -456,40 +456,38 @@ class PlayViewController: UIViewController {
         
         guard Match.shared.isLocalPlayerTurn() else {return}
         
-        dispatchToMainQueue(delay: Match.shared.turnDuration) {
+        dispatchToMainQueue(delay: Match.shared.turnDuration) {[weak self] in
             print(NSDate())
             // if still on turn
-            if turnId == Match.shared.turnId
+            guard Match.shared.matchType == .OnlineMultiplayer && turnId == Match.shared.turnId else {return}
+            
+            print("uhvaćen na kraju")
+            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+            guard let player = Match.shared.player(playerId) where player.state != .EndGame else {return}
+            
+            if player.inputPos == nil
             {
-                print("uhvaćen na kraju")
-                let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
-                if let player = Match.shared.player(playerId) where player.state != .EndGame
+                player.forceAnyTurn()
+            }
+            if player.shouldEnd()
+            {
+                player.end()
+                
+                if Match.shared.indexOfPlayerOnTurn == 0
                 {
-                    if player.inputPos == nil
-                    {
-                        player.forceAnyTurn()
-                    }
-                    if player.shouldEnd()
-                    {
-                        player.end()
-                        
-                        if Match.shared.indexOfPlayerOnTurn == 0
-                        {
-                            Match.shared.nextPlayer()
-                        }
-                        else
-                        {
-                            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
-                        }
-                    }
-                    else
-                    {
-                        Match.shared.nextPlayer()
-                    }
+                    Match.shared.nextPlayer()
                 }
+                else
+                {
+                    self?.refresh()
+                }
+            }
+            else
+            {
+                Match.shared.nextPlayer()
             }
         }
     }
-    
+
 }
 
