@@ -378,4 +378,28 @@ class Table: NSObject, NSCoding
         return sum
     }
     
+    func fillAnyEmptyPos() -> Bool
+    {
+        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        {
+            for col:TableCol in [.Down,.Up,.UpDown,.N]
+            {
+                if values[col.rawValue][row.rawValue] == nil
+                {
+                    let newValue:UInt = 0
+                    values[col.rawValue][row.rawValue] = newValue
+                    
+                    if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
+                    {
+                        var params = JSON(["posColIdx":col.rawValue, "posRowIdx":row.rawValue])
+                        params["value"].uInt = newValue
+                        WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
+                    }
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
 }

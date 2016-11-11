@@ -111,7 +111,7 @@ class MainViewController: UIViewController
         
         if let presentedVC = presentedViewController
         {
-            if !(presentedVC is UIAlertController)
+            if presentedVC is PlayerViewController || presentedVC is PlayViewController
             {
                 presentedVC.performSegueWithIdentifier("invitation", sender: senderPlayer)
             }

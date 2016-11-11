@@ -44,7 +44,7 @@ class Match: NSObject, NSCoding
     var indexOfPlayerOnTurn: Int = 0
     var diceNum = DiceNum.Six
     var bet = 5
-    var turnDuration: NSTimeInterval = 20
+    var turnDuration: NSTimeInterval = 60
     var turnId = 0
     
     var ctColumns = 6
@@ -68,7 +68,7 @@ class Match: NSObject, NSCoding
             player.avgScore6 = avgScore6
             player.diceMaterial = diceMat
             players.append(player)
-//            player.table.fakeFill()
+            player.table.fakeFill()
             player.printStatus()
         }
         indexOfPlayerOnTurn = 0
@@ -95,11 +95,11 @@ class Match: NSObject, NSCoding
         DiceScene.shared.recreateMaterials()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         
-        if matchType == .OnlineMultiplayer && isLocalPlayerTurn()
+        if matchType == .OnlineMultiplayer
         {
             // start the expiration timer
             turnId += 1
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.localPlayerOnTurnInMultiplayer, object: turnId)
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onPlayerTurnInMultiplayer, object: turnId)
         }
     }
     

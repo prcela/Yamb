@@ -365,6 +365,11 @@ class Player: NSObject, NSCoding
         printStatus()
     }
     
+    func forceAnyTurn() -> Bool
+    {
+        return table.fillAnyEmptyPos()
+    }
+    
     func shouldEnd() -> Bool
     {
         if !table.areFulfilled([.Down, .Up, .UpDown, .N])
@@ -390,7 +395,7 @@ class Player: NSObject, NSCoding
         }
         
         
-        return false
+        return inputPos == nil
     }
     
     func confirmInputPos()

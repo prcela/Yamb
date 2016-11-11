@@ -36,7 +36,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
-        nc.addObserver(self, selector: #selector(localPlayerOnTurnInMultiplayer(_:)), name: NotificationName.localPlayerOnTurnInMultiplayer, object: nil)
+        nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
 
     }
     
@@ -114,13 +114,14 @@ class PlayViewController: UIViewController {
         let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
+        progressView?.animShapeLayer.strokeColor = skin.strokeColor.CGColor
         
         
         let isWaitingForTurn = (Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn())
         
         rollBtn?.hidden = isWaitingForTurn
         playLbl?.hidden = isWaitingForTurn
-        progressView?.hidden = isWaitingForTurn || Match.shared.matchType != .OnlineMultiplayer
+        progressView?.hidden = Match.shared.matchType != .OnlineMultiplayer
         
         let inputPos = player.inputPos
         
@@ -240,10 +241,6 @@ class PlayViewController: UIViewController {
         }
         WsAPI.shared.leaveMatch(matchId)
         
-        var diamonds = PlayerStat.shared.diamonds
-        diamonds += 2*Match.shared.bet
-        PlayerStat.shared.diamonds = diamonds
-        
         alertOnOpponentLeave()
     }
     
@@ -314,11 +311,24 @@ class PlayViewController: UIViewController {
     {
         let match = Match.shared
         var message = lstr("Opponent has left the match.")
-        if match.bet > 0
-        {
-            message += "\n"
-            message += String(format: lstr("You win n diamonds"), match.bet*2)
+        
+        let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
+            return player.state == .Start
         }
+        
+        if !matchJustStarted
+        {
+            var diamonds = PlayerStat.shared.diamonds
+            diamonds += 2*Match.shared.bet
+            PlayerStat.shared.diamonds = diamonds
+            
+            if match.bet > 0
+            {
+                message += "\n"
+                message += String(format: lstr("You win n diamonds"), match.bet*2)
+            }
+        }
+        
         let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
             let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
@@ -437,12 +447,14 @@ class PlayViewController: UIViewController {
         }
     }
     
-    func localPlayerOnTurnInMultiplayer(notification: NSNotification)
+    func onPlayerTurnInMultiplayer(notification: NSNotification)
     {
         progressView?.removeAnimation()
         progressView?.animateShape(Match.shared.turnDuration)
         let turnId = notification.object as! Int
         print(NSDate())
+        
+        guard Match.shared.isLocalPlayerTurn() else {return}
         
         dispatchToMainQueue(delay: Match.shared.turnDuration) {
             print(NSDate())
@@ -450,6 +462,31 @@ class PlayViewController: UIViewController {
             if turnId == Match.shared.turnId
             {
                 print("uhvaćen na kraju")
+                let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+                if let player = Match.shared.player(playerId) where player.state != .EndGame
+                {
+                    if player.inputPos == nil
+                    {
+                        player.forceAnyTurn()
+                    }
+                    if player.shouldEnd()
+                    {
+                        player.end()
+                        
+                        if Match.shared.indexOfPlayerOnTurn == 0
+                        {
+                            Match.shared.nextPlayer()
+                        }
+                        else
+                        {
+                            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+                        }
+                    }
+                    else
+                    {
+                        Match.shared.nextPlayer()
+                    }
+                }
             }
         }
     }

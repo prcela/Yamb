@@ -46,7 +46,7 @@ class InvitationViewController: UIViewController {
         
         if let bet = matchInfo?.bet where bet > 0
         {
-            message += "\n"
+            message += "\n\n"
             message += String(format: lstr("Bet is n"), bet)
         }
         
@@ -58,6 +58,7 @@ class InvitationViewController: UIViewController {
                 if player.state != .Start && player.state != .EndGame
                 {
                     shouldSaveSP = true
+                    message += "\n\n"
                     message += lstr("SP progress will be saved")
                 }
             }
