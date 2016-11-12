@@ -372,6 +372,12 @@ class Player: NSObject, NSCoding
     
     func shouldEnd() -> Bool
     {
+        if state == .EndGame
+        {
+            // already finished
+            return false
+        }
+        
         if !table.areFulfilled([.Down, .Up, .UpDown, .N])
         {
             return false

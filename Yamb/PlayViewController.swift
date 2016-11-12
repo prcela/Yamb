@@ -463,7 +463,7 @@ class PlayViewController: UIViewController {
             
             print("uhvaćen na kraju")
             let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
-            guard let player = Match.shared.player(playerId) where player.state != .EndGame else {return}
+            guard let player = Match.shared.player(playerId) else {return}
             
             if player.inputPos == nil
             {

@@ -242,8 +242,10 @@ class DiceScene: SCNScene
                 rndX = -CGFloat(M_PI_2)
             }
             let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 0)
-            let node = rootNode.childNodeWithName(String(idx), recursively: false)!
-            node.runAction(action)
+            if let node = rootNode.childNodeWithName(String(idx), recursively: false)
+            {
+                node.runAction(action)
+            }
         }
     }
 

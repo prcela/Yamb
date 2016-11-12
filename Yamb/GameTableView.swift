@@ -106,9 +106,12 @@ class GameTableView: UIView
         {
             for colIdx in 0..<ctColumns
             {
-                if let subview = viewWithTag(rowIdx*ctColumns + colIdx) where subview !== self
+                for subview in subviews
                 {
-                    subview.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
+                    if subview.tag == (rowIdx*ctColumns + colIdx)
+                    {
+                        subview.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
+                    }
                 }
             }
         }
@@ -150,6 +153,15 @@ class GameTableView: UIView
             btn.setBackgroundImage(UIImage.fromColor(UIColor.whiteColor().colorWithAlphaComponent(0)), forState: .Disabled)
             addSubview(btn)
             return btn
+        }
+        
+        // bet
+        if Match.shared.matchType == .OnlineMultiplayer && Match.shared.bet > 0
+        {
+            let betLbl = createLabelAt(0, colIdx: 0, text: "\(Match.shared.bet) 💎")
+            betLbl.font = UIFont.systemFontOfSize(10)
+            betLbl.backgroundColor = UIColor.clearColor()
+            betLbl.textColor = UIColor.darkTextColor()
         }
         
         // header

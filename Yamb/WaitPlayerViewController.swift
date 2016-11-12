@@ -10,9 +10,9 @@ import UIKit
 
 class WaitPlayerViewController: UIViewController {
 
-    @IBOutlet weak var holderView: UIView!
-    @IBOutlet weak var messageLbl: UILabel!
-    @IBOutlet weak var counterLbl: UILabel!
+    @IBOutlet weak var holderView: UIView?
+    @IBOutlet weak var messageLbl: UILabel?
+    @IBOutlet weak var counterLbl: UILabel?
     
     var waitPlayer: Player!
     var ctSecs = 10
@@ -35,17 +35,17 @@ class WaitPlayerViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        holderView.layer.cornerRadius = 10
-        holderView.clipsToBounds = true
+        holderView!.layer.cornerRadius = 10
+        holderView!.clipsToBounds = true
         
-        messageLbl.text = String(format:  lstr("Waiting for player"), waitPlayer.alias!)
-        counterLbl.text = "\(ctSecs)s"
+        messageLbl!.text = String(format:  lstr("Waiting for player"), waitPlayer.alias!)
+        counterLbl!.text = "\(ctSecs)s"
     }
 
     func onTimer()
     {
         ctSecs -= 1
-        counterLbl.text = "\(ctSecs)s"
+        counterLbl?.text = "\(ctSecs)s"
         
         if ctSecs == 0
         {
