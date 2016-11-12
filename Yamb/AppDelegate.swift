@@ -84,6 +84,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if completedTransaction.transactionState == .Purchased || completedTransaction.transactionState == .Restored {
                     
                     print("purchased: \(completedTransaction.productId)")
+                    
+                    if completedTransaction.productId == "yamb.PurchaseName"
+                    {
+                        dispatch_async(dispatch_get_main_queue(), { 
+                            PlayerStat.shared.purchasedName = true
+                            PlayerStat.saveStat()
+                        })
+                    }
                 }
             }
         }
