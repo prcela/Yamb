@@ -71,6 +71,19 @@ class PlayerViewController: UIViewController {
     
     @IBAction func editName(sender: AnyObject)
     {
+        if PlayerStat.shared.purchasedName
+        {
+            editNameInPopup()
+        }
+        else
+        {
+            performSegueWithIdentifier("purchase", sender: nil)
+        }
+        
+    }
+    
+    func editNameInPopup()
+    {
         let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .Alert)
         alert.addTextFieldWithConfigurationHandler { (textField) in
             let alias = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)

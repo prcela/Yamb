@@ -14,6 +14,7 @@ class PlayerStat: NSObject, NSCoding
 
     var favDiceMat:DiceMaterial = .White
     var items = [StatItem]()
+    var purchasedName = false
     var diamonds = 100 {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
@@ -70,6 +71,7 @@ class PlayerStat: NSObject, NSCoding
         aCoder.encodeInteger(diamonds, forKey: "diamonds")
         aCoder.encodeObject(items, forKey: "items")
         aCoder.encodeObject(favDiceMat.rawValue, forKey: "favDiceMat")
+        aCoder.encodeBool(purchasedName, forKey: "purchasedName")
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -79,6 +81,10 @@ class PlayerStat: NSObject, NSCoding
         if aDecoder.containsValueForKey("favDiceMat")
         {
             favDiceMat = DiceMaterial(rawValue: aDecoder.decodeObjectForKey("favDiceMat") as! String)!
+        }
+        if aDecoder.containsValueForKey("purchasedName")
+        {
+            purchasedName = aDecoder.decodeBoolForKey("purchasedName")
         }
         super.init()
     }

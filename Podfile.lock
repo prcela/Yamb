@@ -44,6 +44,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
+  - SwiftyStoreKit (0.4.0)
 
 DEPENDENCIES:
   - ChartboostSDK
@@ -53,6 +54,17 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - Firebase/RemoteConfig
+  - SwiftyStoreKit (from `https://github.com/bizz84/SwiftyStoreKit.git`, branch `swift-2.3`)
+
+EXTERNAL SOURCES:
+  SwiftyStoreKit:
+    :branch: swift-2.3
+    :git: https://github.com/bizz84/SwiftyStoreKit.git
+
+CHECKOUT OPTIONS:
+  SwiftyStoreKit:
+    :commit: ed0fc30cc349bf160c8e6ed83c0bd482a161cc22
+    :git: https://github.com/bizz84/SwiftyStoreKit.git
 
 SPEC CHECKSUMS:
   ChartboostSDK: a0b3b393cac97cd6dd75841bf5d78b46794c77ce
@@ -67,7 +79,8 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  SwiftyStoreKit: 2e081b797f75ff14adae6c799473a7124f9ac539
 
-PODFILE CHECKSUM: f4cbc159891d5258b4123f9bee490c89d07eab54
+PODFILE CHECKSUM: c39aa13e98763085c184222f32263cfdbdc9560e
 
 COCOAPODS: 1.0.1

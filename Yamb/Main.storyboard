@@ -337,11 +337,11 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8FG-ed-UyZ" id="aFm-90-pYv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ihB-dA-Jpu">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -766,6 +766,7 @@
                         <outlet property="favDiceLbl" destination="EZX-Gw-P29" id="jvS-ve-rYk"/>
                         <outlet property="playerNameLbl" destination="Z4K-ze-NLB" id="PM3-Nj-wZu"/>
                         <segue destination="0Th-De-0IM" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="DGY-ax-U16"/>
+                        <segue destination="Rbu-IC-aGS" kind="presentation" identifier="purchase" modalPresentationStyle="overCurrentContext" id="xJK-lk-SZw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNc-St-s06" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -904,7 +905,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJO-M8-W6m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-713" y="2026"/>
+            <point key="canvasLocation" x="-682" y="2026"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="T7e-KP-2ka">
@@ -1172,7 +1173,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="1260"/>
+            <point key="canvasLocation" x="-894" y="1111"/>
         </scene>
         <!--PrepareSP View Controller-->
         <scene sceneID="7zg-Qj-HUu">
@@ -1312,7 +1313,7 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PiQ-14-4aA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="112.8" y="2026.2368815592206"/>
+            <point key="canvasLocation" x="-1444" y="2027"/>
         </scene>
         <!--Player Container-->
         <scene sceneID="atE-Fm-xaS">
@@ -1330,7 +1331,103 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IDR-ci-wJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="777" y="1949"/>
+            <point key="canvasLocation" x="802" y="1948"/>
+        </scene>
+        <!--Purchase View Controller-->
+        <scene sceneID="wWU-qB-o2E">
+            <objects>
+                <viewController id="Rbu-IC-aGS" customClass="PurchaseViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Wy-lw-pwo"/>
+                        <viewControllerLayoutGuide type="bottom" id="4VD-TS-6Ry"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="scI-x1-4u9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pua-OW-o1a">
+                                <rect key="frame" x="47" y="133" width="280" height="400"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ot9-9B-gtL">
+                                        <rect key="frame" x="18" y="18" width="244" height="260"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="260" id="fnf-tQ-fN5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8z5-ok-71l">
+                                        <rect key="frame" x="30" y="362" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="TWo-2E-Qkx"/>
+                                            <constraint firstAttribute="height" constant="30" id="ghe-wG-1Kk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="Rbu-IC-aGS" eventType="touchUpInside" id="JE1-KW-yoQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bk-8y-oRz">
+                                        <rect key="frame" x="150" y="362" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="KoC-RS-0lj"/>
+                                            <constraint firstAttribute="width" constant="100" id="fK7-II-PnZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Continue">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="continuePurchase:" destination="Rbu-IC-aGS" eventType="touchUpInside" id="ZJX-cL-Zal"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="6Qp-Wa-Aap"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Ot9-9B-gtL" secondAttribute="trailing" constant="10" id="Azq-8J-Xgl"/>
+                                    <constraint firstItem="8z5-ok-71l" firstAttribute="centerX" secondItem="Pua-OW-o1a" secondAttribute="centerX" constant="-60" id="DSE-WB-FeW"/>
+                                    <constraint firstAttribute="height" constant="400" id="MdQ-c7-Pbm"/>
+                                    <constraint firstAttribute="bottom" secondItem="8z5-ok-71l" secondAttribute="bottom" constant="8" id="N6T-94-Gdh"/>
+                                    <constraint firstAttribute="topMargin" secondItem="Ot9-9B-gtL" secondAttribute="top" constant="-10" id="Qk3-8f-2dK"/>
+                                    <constraint firstAttribute="bottom" secondItem="4bk-8y-oRz" secondAttribute="bottom" constant="8" id="Swt-wd-7WE"/>
+                                    <constraint firstItem="4bk-8y-oRz" firstAttribute="centerX" secondItem="Pua-OW-o1a" secondAttribute="centerX" constant="60" id="W3n-qI-05W"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="Ot9-9B-gtL" secondAttribute="leading" constant="-10" id="rdj-NY-dey"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvd-uT-yWL">
+                                <rect key="frame" x="87" y="457" width="200" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="79V-q0-LE6"/>
+                                    <constraint firstAttribute="width" constant="200" id="qvL-0n-IyD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dvd-uT-yWL" firstAttribute="top" secondItem="Ot9-9B-gtL" secondAttribute="bottom" constant="46" id="Yrm-bK-pxL"/>
+                            <constraint firstItem="Pua-OW-o1a" firstAttribute="centerY" secondItem="scI-x1-4u9" secondAttribute="centerY" id="dHe-4F-5bx"/>
+                            <constraint firstItem="Pua-OW-o1a" firstAttribute="centerX" secondItem="scI-x1-4u9" secondAttribute="centerX" id="iWx-KS-elc"/>
+                            <constraint firstItem="dvd-uT-yWL" firstAttribute="centerX" secondItem="scI-x1-4u9" secondAttribute="centerX" id="mOx-2Z-Urf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelBtn" destination="8z5-ok-71l" id="IgI-hT-6r6"/>
+                        <outlet property="continueBtn" destination="4bk-8y-oRz" id="fYe-qH-6lG"/>
+                        <outlet property="descriptionLbl" destination="Ot9-9B-gtL" id="ssf-bJ-S9B"/>
+                        <outlet property="priceLbl" destination="dvd-uT-yWL" id="dwH-g2-qBA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kMW-dO-m9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2172" y="2025.3373313343329"/>
         </scene>
         <!--Stat Table View Controller-->
         <scene sceneID="vd8-th-4UX">
@@ -1376,7 +1473,7 @@ bacanje</string>
         <image name="up.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vUo-Z8-HnJ"/>
+        <segue reference="DGY-ax-U16"/>
         <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

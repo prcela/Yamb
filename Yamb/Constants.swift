@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 struct Prefs
 {
@@ -47,3 +48,5 @@ func helloSwift()
         print("Hello, Swift 2.1!")
     #endif
 }
+
+var retrievedProducts: Set<SKProduct>?

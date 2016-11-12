@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Fabric
 import Crashlytics
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -76,6 +77,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PlayerStat.loadStat()
         
+        SwiftyStoreKit.completeTransactions() { completedTransactions in
+            
+            for completedTransaction in completedTransactions {
+                
+                if completedTransaction.transactionState == .Purchased || completedTransaction.transactionState == .Restored {
+                    
+                    print("purchased: \(completedTransaction.productId)")
+                }
+            }
+        }
+        
         print(NSBundle.mainBundle().bundleIdentifier!)
         return true
     }
@@ -97,6 +109,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        SwiftyStoreKit.retrieveProductsInfo(["yamb.PurchaseName"]) { result in
+            retrievedProducts = result.retrievedProducts
+            
+            if let product = result.retrievedProducts.first {
+                let numberFormatter = NSNumberFormatter()
+                numberFormatter.locale = product.priceLocale
+                numberFormatter.numberStyle = .CurrencyStyle
+                let priceString = numberFormatter.stringFromNumber(product.price ?? 0) ?? ""
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Could not retrieve product info, Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+            }
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

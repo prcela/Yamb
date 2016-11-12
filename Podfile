@@ -14,5 +14,5 @@ pod 'Firebase/Messaging'
 pod 'ChartboostSDK'
 pod 'Fabric'
 pod 'Crashlytics'
-
+pod 'SwiftyStoreKit', :git => 'https://github.com/bizz84/SwiftyStoreKit.git', :branch => 'swift-2.3'
 end

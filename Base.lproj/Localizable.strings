@@ -20,3 +20,4 @@
 "PlayerX has not enough" = "%@ has not enough diamonds for this match. Decrease the bet or invite other player.";
 "Stars desc" = "Stars are calculated from average score";
 "Waiting for player" = "Problems in communication with player %@. Waiting few seconds...";
+"Purchase description" = "Dear %@,\n\nediting Your name is only allowed in full version of Yamb. \n\nIf you want to change Your nickname and see it in multiplayer games and all leaderboards please continue with in app purchase process.";
