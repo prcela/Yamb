@@ -1410,7 +1410,7 @@ bacanje</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dvd-uT-yWL" firstAttribute="top" secondItem="Ot9-9B-gtL" secondAttribute="bottom" constant="46" id="Yrm-bK-pxL"/>
                             <constraint firstItem="Pua-OW-o1a" firstAttribute="centerY" secondItem="scI-x1-4u9" secondAttribute="centerY" id="dHe-4F-5bx"/>
@@ -1422,6 +1422,7 @@ bacanje</string>
                         <outlet property="cancelBtn" destination="8z5-ok-71l" id="IgI-hT-6r6"/>
                         <outlet property="continueBtn" destination="4bk-8y-oRz" id="fYe-qH-6lG"/>
                         <outlet property="descriptionLbl" destination="Ot9-9B-gtL" id="ssf-bJ-S9B"/>
+                        <outlet property="holderView" destination="Pua-OW-o1a" id="4QN-8T-z36"/>
                         <outlet property="priceLbl" destination="dvd-uT-yWL" id="dwH-g2-qBA"/>
                     </connections>
                 </viewController>

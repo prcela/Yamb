@@ -50,3 +50,5 @@ func helloSwift()
 }
 
 var retrievedProducts: Set<SKProduct>?
+
+let purchaseNameId = "yamb.PurchaseName"

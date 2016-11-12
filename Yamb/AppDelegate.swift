@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     print("purchased: \(completedTransaction.productId)")
                     
-                    if completedTransaction.productId == "yamb.PurchaseName"
+                    if completedTransaction.productId == purchaseNameId
                     {
                         dispatch_async(dispatch_get_main_queue(), { 
                             PlayerStat.shared.purchasedName = true
@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        SwiftyStoreKit.retrieveProductsInfo(["yamb.PurchaseName"]) { result in
+        SwiftyStoreKit.retrieveProductsInfo([purchaseNameId]) { result in
             retrievedProducts = result.retrievedProducts
             
             if let product = result.retrievedProducts.first {

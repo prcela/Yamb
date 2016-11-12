@@ -11,6 +11,7 @@ import SwiftyStoreKit
 
 class PurchaseViewController: UIViewController {
 
+    @IBOutlet weak var holderView: UIView?
     @IBOutlet weak var descriptionLbl: UILabel?
     @IBOutlet weak var cancelBtn: UIButton?
     @IBOutlet weak var continueBtn: UIButton?
@@ -26,6 +27,9 @@ class PurchaseViewController: UIViewController {
         cancelBtn?.setTitle(lstr("Cancel"), forState: .Normal)
         continueBtn?.setTitle(lstr("Continue"), forState: .Normal)
         
+        holderView?.layer.cornerRadius = 10
+        holderView?.clipsToBounds = true
+        
         updatePrice()
         
     }
@@ -33,7 +37,7 @@ class PurchaseViewController: UIViewController {
     func updatePrice()
     {
         if let idx = retrievedProducts?.indexOf({product in
-            return product.productIdentifier == "yamb.PurchaseName"
+            return product.productIdentifier == purchaseNameId
         }) {
             let product = retrievedProducts![idx]
             let numberFormatter = NSNumberFormatter()
@@ -56,7 +60,7 @@ class PurchaseViewController: UIViewController {
     @IBAction func continuePurchase(sender: AnyObject)
     {
         dismissViewControllerAnimated(true) {
-            SwiftyStoreKit.purchaseProduct("yamb.PurchaseName") { result in
+            SwiftyStoreKit.purchaseProduct(purchaseNameId) { result in
                 switch result {
                 case .Success(let productId):
                     print("Purchase Success: \(productId)")
