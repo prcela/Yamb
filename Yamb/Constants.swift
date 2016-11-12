@@ -36,3 +36,14 @@ func stars6(avgScore:Float) -> Float
 }
 
 let starsFormatter = NSNumberFormatter()
+
+func helloSwift()
+{
+    #if swift(>=3.0)
+        print("Hello, Swift 3!")
+    #elseif swift(>=2.3)
+        print("Hello, Swift 2.3!")
+    #elseif swift(>=2.1)
+        print("Hello, Swift 2.1!")
+    #endif
+}
