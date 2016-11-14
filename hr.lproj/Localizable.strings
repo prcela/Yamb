@@ -86,4 +86,8 @@
 "dice" = "kockica";
 "Extra reward" = "Želite li pogledati promotivni video za dodatnih 5 💎 ?";
 "Waiting for player" = "Problemi u komunikaciji sa igračem %@. Pričekajte par sekundi...";
-"Purchase description" = "Dragi %@,\n\npromjena Vašeg nadimka je dozvoljena samo u kompletnoj verziji Yamba.\n\nAko želite promijeniti Vaš nadimak i vidjeti ga u igrama sa više igrača potrebno je nastaviti kupovinu.";
+"Purchase description" = "Promjena nadimka je dozvoljena samo u kompletnoj verziji Yamba.\n\nAko želite promijeniti Vaš nadimak i vidjeti ga u igrama sa više igrača potrebno je nastaviti kupovinu.";
+"Restore previous purchases" = "Obnovi prethodne kupovine";
+"Purchases are successfully restored." = "Prethodne kupnje su uspješno obnovljene";
+"Your purchase could not be restored." = "Vaša prethodna kupnja nije uspješno obnovljena";
+"You did not purshase anything before." = "Niste ništa kupovali prije.";

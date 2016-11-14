@@ -16,16 +16,16 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var cancelBtn: UIButton?
     @IBOutlet weak var continueBtn: UIButton?
     @IBOutlet weak var priceLbl: UILabel?
+    @IBOutlet weak var restoreBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let name = defaults.stringForKey(Prefs.playerAlias)!
-        descriptionLbl?.text = String(format: lstr("Purchase description"), name)
+        descriptionLbl?.text = lstr("Purchase description")
         cancelBtn?.setTitle(lstr("Cancel"), forState: .Normal)
         continueBtn?.setTitle(lstr("Continue"), forState: .Normal)
+        restoreBtn.setTitle(lstr("Restore previous purchases"), forState: .Normal)
         
         holderView?.layer.cornerRadius = 10
         holderView?.clipsToBounds = true
@@ -77,6 +77,42 @@ class PurchaseViewController: UIViewController {
         }
     }
     
+    @IBAction func restore(sender: AnyObject)
+    {
+        dismissViewControllerAnimated(true) {
+            SwiftyStoreKit.restorePurchases() { results in
+                if results.restoreFailedProducts.count > 0 {
+                    print("Restore Failed: \(results.restoreFailedProducts)")
+                    
+                    dispatchToMainQueue(delay: 1) {
+                        let alertInfo = UIAlertController(title: "Yamb", message: lstr("Your purchase could not be restored."), preferredStyle: .Alert)
+                        alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                    }
+                }
+                else if results.restoredProductIds.count > 0 {
+                    print("Restore Success: \(results.restoredProductIds)")
+                    dispatchToMainQueue(delay: 1) {
+                        PlayerStat.shared.purchasedName = true
+                        PlayerStat.saveStat()
+                        
+                        let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchases are successfully restored."), preferredStyle: .Alert)
+                        alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    print("Nothing to Restore")
+                    
+                    dispatchToMainQueue(delay: 1) {
+                        let alertInfo = UIAlertController(title: "Yamb", message: lstr("You did not purshase anything before."), preferredStyle: .Alert)
+                        alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
     
 
 }
