@@ -147,6 +147,7 @@
 		97C4EFA61D6DC2A100A1E7CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EFA51D6DC2A100A1E7CD /* Constants.swift */; };
 		97C4EFA81D6DC55D00A1E7CD /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4EFA71D6DC55D00A1E7CD /* coin.png */; };
 		97E7F0B81DD72239003D72F0 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7F0B71DD72239003D72F0 /* PurchaseViewController.swift */; };
+		97E7F2941DD89D7E003D72F0 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7F2931DD89D7E003D72F0 /* ScoresViewController.swift */; };
 		97EC2F2D1DC375270077B9A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC2F2C1DC375270077B9A5 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -297,6 +298,7 @@
 		97C4EFA51D6DC2A100A1E7CD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		97C4EFA71D6DC55D00A1E7CD /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Yamb/Resources/coin.png; sourceTree = "<group>"; };
 		97E7F0B71DD72239003D72F0 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
+		97E7F2931DD89D7E003D72F0 /* ScoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
 		97EC2F2C1DC375270077B9A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		97F16EC61D89F54900B8FB79 /* Yamb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Yamb.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,6 +342,7 @@
 				97827CCF1DD1BC1400ECD7A6 /* WaitPlayerViewController.swift */,
 				97827D211DD3415500ECD7A6 /* InvitationViewController.swift */,
 				97E7F0B71DD72239003D72F0 /* PurchaseViewController.swift */,
+				97E7F2931DD89D7E003D72F0 /* ScoresViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -803,6 +806,7 @@
 				9705CDE11DC9E6B5004109BC /* StatItem.swift in Sources */,
 				972B1BC91D83DFD700010F5F /* MessageFunc.swift in Sources */,
 				97C060051D757A7C00A680C1 /* Player.swift in Sources */,
+				97E7F2941DD89D7E003D72F0 /* ScoresViewController.swift in Sources */,
 				9705CE101DCC74F9004109BC /* StatsTableView.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareSPViewController.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,

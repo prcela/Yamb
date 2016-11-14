@@ -422,6 +422,7 @@ class Player: NSObject, NSCoding
         print("kraj")
         
         let defaults = NSUserDefaults.standardUserDefaults()
+        let totalScore = table.totalScore()
         
         // if this is the last player in online match
         if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
@@ -434,28 +435,55 @@ class Player: NSObject, NSCoding
             PlayerStat.shared.items.append(StatItem(
                 matchType: .SinglePlayer,
                 diceNum: Match.shared.diceNum,
-                score: table.totalScore() ?? 0,
+                score: totalScore ?? 0,
                 result: .Drawn,
                 bet: 0,
                 timestamp: NSDate()))
         }
         
         // score submit for local player only
-        if GameKitHelper.shared.authenticated && id == defaults.stringForKey(Prefs.playerId)
+        if id == defaults.stringForKey(Prefs.playerId)
         {
-            let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
-            
-            if let totalScore = table.totalScore()
+            if GameKitHelper.shared.authenticated
             {
-                score.value = Int64(totalScore)
+                let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
                 
-                GKScore.reportScores([score]) { (error) in
-                    if error == nil
-                    {
-                        print("score reported")
+                if totalScore != nil
+                {
+                    score.value = Int64(totalScore!)
+                    
+                    GKScore.reportScores([score]) { (error) in
+                        if error == nil
+                        {
+                            print("score reported")
+                        }
                     }
                 }
             }
+            
+            var jsonScore = JSON([
+                "player_id": id!,
+                "alias": alias!,
+                "diamonds": PlayerStat.shared.diamonds])
+            
+            if Match.shared.diceNum == .Five
+            {
+                let avgScore = PlayerStat.avgScore(.Five)
+                jsonScore["score_5"].uInt = totalScore!
+                jsonScore["avg_score_5"].float = avgScore
+                jsonScore["stars_5"].float = stars5(avgScore)
+            }
+            else
+            {
+                let avgScore = PlayerStat.avgScore(.Six)
+                jsonScore["score_6"].uInt = totalScore!
+                jsonScore["avg_score_6"].float = avgScore
+                jsonScore["stars_6"].float = stars6(avgScore)
+            }
+            
+            ServerAPI.score(jsonScore, completionHandler: { (data, response, error) in
+                print(response)
+            })
         }
         
         FIRAnalytics.logEventWithName("game_end", parameters: nil)
