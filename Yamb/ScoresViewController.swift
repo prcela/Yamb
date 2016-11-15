@@ -8,9 +8,14 @@
 
 import UIKit
 
-class ScoresViewController: UIViewController {
+class ScoresViewController: UIViewController
+{
+    
+    private var allScores: [PlayerScore]?
 
     @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var selectBtn: UIButton!
+    @IBOutlet weak var pickerContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,32 +24,44 @@ class ScoresViewController: UIViewController {
         
         backBtn.setTitle(lstr("Back"), forState: .Normal)
         
+        selectBtn.layer.borderWidth = 1
+        selectBtn.layer.borderColor = UIColor(netHex: 0xaaaaaaaa).CGColor
+        
         // proba ....
         ServerAPI.scores { (data, response, error) in
-            let json = JSON(data: data!)
-            print(json)
+            let jsonAllScores = JSON(data: data!)
+            guard !jsonAllScores.isEmpty else {return}
+            self.allScores = [PlayerScore]()
+            for json in jsonAllScores.array!
+            {
+                self.allScores?.append(PlayerScore(json: json))
+            }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func back(sender: AnyObject)
     {
         navigationController?.popViewControllerAnimated(true)
     }
+    
+    @IBAction func showPicker(sender: AnyObject)
+    {
+        pickerContainerView.hidden = false
+    }
+    
 
+}
+
+extension ScoresViewController: UITableViewDataSource
+{
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allScores?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath)
+        return cell
+    }
 }

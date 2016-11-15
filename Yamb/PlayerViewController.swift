@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PlayerViewController: UIViewController {
 
@@ -71,7 +72,9 @@ class PlayerViewController: UIViewController {
     
     @IBAction func editName(sender: AnyObject)
     {
-        if PlayerStat.shared.purchasedName
+        let purchaseNameRequired = FIRRemoteConfig.remoteConfig()["purchase_name"].boolValue
+        
+        if PlayerStat.shared.purchasedName || !purchaseNameRequired
         {
             editNameInPopup()
         }

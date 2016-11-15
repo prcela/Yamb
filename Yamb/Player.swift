@@ -469,16 +469,18 @@ class Player: NSObject, NSCoding
             if Match.shared.diceNum == .Five
             {
                 let avgScore = PlayerStat.avgScore(.Five)
-                jsonScore["score_5"].uInt = totalScore!
-                jsonScore["avg_score_5"].float = avgScore
-                jsonScore["stars_5"].float = stars5(avgScore)
+                jsonScore["5"] = [
+                    "score": totalScore!,
+                    "avg_score": avgScore,
+                    "stars": stars5(avgScore)]
             }
             else
             {
                 let avgScore = PlayerStat.avgScore(.Six)
-                jsonScore["score_6"].uInt = totalScore!
-                jsonScore["avg_score_6"].float = avgScore
-                jsonScore["stars_6"].float = stars6(avgScore)
+                jsonScore["6"] = [
+                    "score": totalScore!,
+                    "avg_score": avgScore,
+                    "stars": stars6(avgScore)]
             }
             
             ServerAPI.score(jsonScore, completionHandler: { (data, response, error) in
