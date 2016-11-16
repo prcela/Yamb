@@ -10,16 +10,19 @@ import UIKit
 
 enum ScoreType: Int
 {
-    case Default=0
+    case FiveDice=0
+    case SixDice
+    case Gc
     case Stars
     case Diamonds
-    case Gc
     
     func title() -> String
     {
         switch self {
-        case .Default:
-            return lstr("Score")
+        case .FiveDice:
+            return "5 🎲"
+        case .SixDice:
+            return "6 🎲"
         case .Stars:
             return "⭐️"
         case .Diamonds:
@@ -32,15 +35,15 @@ enum ScoreType: Int
 
 enum ScoreTimeRange: Int
 {
-    case Ever=0
+    case Now = -1
+    case Ever = 0
     case Week
     case Today
 }
 
 struct ScorePickerSelekcija
 {
-    var diceNum: DiceNum = .Six
-    var scoreType: ScoreType = .Default
+    var scoreType: ScoreType = .SixDice
     var timeRange: ScoreTimeRange = .Ever
 }
 
@@ -69,25 +72,24 @@ class ScorePickerViewController: UIViewController
 extension ScorePickerViewController: UIPickerViewDataSource
 {
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 3
+        return 2
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0
         {
-            return 2
-        }
-        else if component == 1
-        {
-            return 4
-        }
-        else if selekcija.scoreType == .Gc
-        {
-            return 3
+            return 5
         }
         else
         {
-            return 1
+            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            {
+                return 1
+            }
+            else
+            {
+                return 3
+            }
         }
     }
 }
@@ -97,15 +99,18 @@ extension ScorePickerViewController: UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0
         {
-            return row == 0 ? "5 🎲" : "6 🎲"
-        }
-        else if component == 1
-        {
             return ScoreType(rawValue: row)!.title()
         }
         else
         {
-            return "\(ScoreTimeRange(rawValue: row)!)"
+            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            {
+                return lstr("Now")
+            }
+            else
+            {
+                return "\(ScoreTimeRange(rawValue: row)!)"
+            }
         }
     }
     
@@ -113,16 +118,20 @@ extension ScorePickerViewController: UIPickerViewDelegate
         print("\(row) \(component)")
         if component == 0
         {
-            selekcija.diceNum = [.Five,.Six][row]
-        }
-        else if component == 1
-        {
             selekcija.scoreType = ScoreType(rawValue: row)!
-            pickerView.reloadComponent(2)
+            pickerView.reloadComponent(1)
         }
         else
         {
-            selekcija.timeRange = ScoreTimeRange(rawValue: row)!
+            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            {
+                selekcija.timeRange = .Now
+            }
+            else
+            {
+                selekcija.timeRange = ScoreTimeRange(rawValue: row)!
+            }
+            
         }
     }
 }
