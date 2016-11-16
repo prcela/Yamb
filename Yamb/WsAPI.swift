@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.12:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipHome
+let ipCurrent = ipWork
 
 class WsAPI
 {
@@ -103,15 +103,6 @@ class WsAPI
         send(.IgnoreInvitation, json: json)
     }
     
-    func updatePlayer()
-    {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let alias = defaults.stringForKey(Prefs.playerAlias)!
-        let diamonds = PlayerStat.shared.diamonds
-        let avgScore6 = PlayerStat.avgScore(.Six)
-        let json = JSON(["alias":alias, "diamonds":diamonds, "avg_score_6":avgScore6])
-        send(.UpdatePlayer, json: json)
-    }
     
     private func send(action: MessageFunc, json: JSON? = nil)
     {

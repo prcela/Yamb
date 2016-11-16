@@ -1573,12 +1573,20 @@ Ako želite promijeniti Vaš nadimak i vidjeti ga u igrama sa više igrača potr
         <scene sceneID="s8H-Vx-6Su">
             <objects>
                 <viewController id="o3z-lr-iwv" customClass="ScorePickerViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7LZ-nl-oSG"/>
+                        <viewControllerLayoutGuide type="bottom" id="HAU-JM-6eF"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Rrx-6q-w5v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWb-Ts-wm1">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="428"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="o3z-lr-iwv" id="WY1-Bx-T4Z"/>
+                                    <outlet property="delegate" destination="o3z-lr-iwv" id="x2P-e3-Lc6"/>
+                                </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOA-75-5Rs">
                                 <rect key="frame" x="251" y="438" width="108" height="30"/>
@@ -1586,10 +1594,13 @@ Ako želite promijeniti Vaš nadimak i vidjeti ga u igrama sa više igrača potr
                                     <constraint firstAttribute="height" constant="30" id="Mh3-ar-oLC"/>
                                     <constraint firstAttribute="width" constant="108" id="Mvb-ct-da7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="done:" destination="o3z-lr-iwv" eventType="touchUpInside" id="ZkR-d4-iuE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

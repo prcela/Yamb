@@ -38,6 +38,14 @@ class ScoresViewController: UIViewController
             }
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "embedPicker"
+        {
+            let scorePickerVC = segue.destinationViewController as! ScorePickerViewController
+            scorePickerVC.scorePickerDelegate = self
+        }
+    }
 
     
     @IBAction func back(sender: AnyObject)
@@ -63,5 +71,12 @@ extension ScoresViewController: UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath)
         return cell
+    }
+}
+
+extension ScoresViewController: ScorePickerDelegate
+{
+    func doneWithSelekcija(selekcija: ScorePickerSelekcija) {
+        pickerContainerView.hidden = true
     }
 }

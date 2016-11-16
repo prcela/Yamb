@@ -100,7 +100,8 @@ class PlayerViewController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setObject(newAlias, forKey: Prefs.playerAlias)
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerAliasChanged, object: nil)
                 self.playerNameLbl.text = newAlias
-                WsAPI.shared.updatePlayer()
+                ServerAPI.updatePlayer({ (_, _, _) in
+                })
             }
         }))
         presentViewController(alert, animated: true, completion: nil)

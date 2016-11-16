@@ -432,13 +432,19 @@ class Player: NSObject, NSCoding
         }
         else if Match.shared.matchType == .SinglePlayer
         {
-            PlayerStat.shared.items.append(StatItem(
+            let statItem = StatItem(
+                playerId: id!,
                 matchType: .SinglePlayer,
                 diceNum: Match.shared.diceNum,
                 score: totalScore ?? 0,
                 result: .Drawn,
                 bet: 0,
-                timestamp: NSDate()))
+                timestamp: NSDate())
+            
+            PlayerStat.shared.items.append(statItem)
+            ServerAPI.statItem(statItem.json(), completionHandler: { (data, response, error) in
+                print(response)
+            })
         }
         
         // score submit for local player only
@@ -459,33 +465,7 @@ class Player: NSObject, NSCoding
                         }
                     }
                 }
-            }
-            
-            var jsonScore = JSON([
-                "player_id": id!,
-                "alias": alias!,
-                "diamonds": PlayerStat.shared.diamonds])
-            
-            if Match.shared.diceNum == .Five
-            {
-                let avgScore = PlayerStat.avgScore(.Five)
-                jsonScore["5"] = [
-                    "score": totalScore!,
-                    "avg_score": avgScore,
-                    "stars": stars5(avgScore)]
-            }
-            else
-            {
-                let avgScore = PlayerStat.avgScore(.Six)
-                jsonScore["6"] = [
-                    "score": totalScore!,
-                    "avg_score": avgScore,
-                    "stars": stars6(avgScore)]
-            }
-            
-            ServerAPI.score(jsonScore, completionHandler: { (data, response, error) in
-                print(response)
-            })
+            }            
         }
         
         FIRAnalytics.logEventWithName("game_end", parameters: nil)

@@ -8,7 +8,51 @@
 
 import UIKit
 
-class ScorePickerViewController: UIViewController {
+enum ScoreType: Int
+{
+    case Default=0
+    case Stars
+    case Diamonds
+    case Gc
+    
+    func title() -> String
+    {
+        switch self {
+        case .Default:
+            return lstr("Score")
+        case .Stars:
+            return "⭐️"
+        case .Diamonds:
+            return "💎"
+        default:
+            return "GC"
+        }
+    }
+}
+
+enum ScoreTimeRange: Int
+{
+    case Ever=0
+    case Week
+    case Today
+}
+
+struct ScorePickerSelekcija
+{
+    var diceNum: DiceNum = .Six
+    var scoreType: ScoreType = .Default
+    var timeRange: ScoreTimeRange = .Ever
+}
+
+protocol ScorePickerDelegate: class
+{
+    func doneWithSelekcija(selekcija: ScorePickerSelekcija)
+}
+
+class ScorePickerViewController: UIViewController
+{
+    var selekcija = ScorePickerSelekcija()
+    weak var scorePickerDelegate:ScorePickerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,20 +60,69 @@ class ScorePickerViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func done(sender: AnyObject)
+    {
+        scorePickerDelegate?.doneWithSelekcija(selekcija)
+    }
+}
+
+extension ScorePickerViewController: UIPickerViewDataSource
+{
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 3
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0
+        {
+            return 2
+        }
+        else if component == 1
+        {
+            return 4
+        }
+        else if selekcija.scoreType == .Gc
+        {
+            return 3
+        }
+        else
+        {
+            return 1
+        }
     }
-    */
+}
 
+extension ScorePickerViewController: UIPickerViewDelegate
+{
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0
+        {
+            return row == 0 ? "5 🎲" : "6 🎲"
+        }
+        else if component == 1
+        {
+            return ScoreType(rawValue: row)!.title()
+        }
+        else
+        {
+            return "\(ScoreTimeRange(rawValue: row)!)"
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("\(row) \(component)")
+        if component == 0
+        {
+            selekcija.diceNum = [.Five,.Six][row]
+        }
+        else if component == 1
+        {
+            selekcija.scoreType = ScoreType(rawValue: row)!
+            pickerView.reloadComponent(2)
+        }
+        else
+        {
+            selekcija.timeRange = ScoreTimeRange(rawValue: row)!
+        }
+    }
 }

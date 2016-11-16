@@ -54,8 +54,7 @@ class MainViewController: UIViewController
         let playerTitle = String(format: "%@  💎 \(diamonds)  ⭐️ %@", name, starsFormatter.stringFromNumber(NSNumber(float: stars))!)
         playerBtn.setTitle(playerTitle, forState: .Normal)
         
-        
-        WsAPI.shared.updatePlayer()
+        ServerAPI.updatePlayer {_,_,_ in }
     }
 
     func joinedMatch(notification: NSNotification)
@@ -207,6 +206,7 @@ class MainViewController: UIViewController
         PlayerStat.shared.diamonds = diamonds
         
         PlayerStat.shared.items.append(StatItem(
+            playerId: playerId!,
             matchType: Match.shared.matchType,
             diceNum: Match.shared.diceNum,
             score: score,

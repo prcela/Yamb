@@ -10,6 +10,7 @@ import Foundation
 
 class StatItem: NSObject,NSCoding
 {
+    let playerId: String
     let matchType: MatchType
     let diceNum: DiceNum
     let score: UInt
@@ -17,8 +18,9 @@ class StatItem: NSObject,NSCoding
     let bet: Int
     let timestamp: NSDate
     
-    init(matchType: MatchType, diceNum: DiceNum, score: UInt, result: Result, bet: Int, timestamp: NSDate)
+    init(playerId: String, matchType: MatchType, diceNum: DiceNum, score: UInt, result: Result, bet: Int, timestamp: NSDate)
     {
+        self.playerId = playerId
         self.matchType = matchType
         self.diceNum = diceNum
         self.score = score
@@ -27,9 +29,23 @@ class StatItem: NSObject,NSCoding
         self.timestamp = timestamp
     }
     
+    func json() -> JSON
+    {
+        return JSON([
+            "player_id": playerId,
+            "match_type": matchType.rawValue,
+            "dice_num": diceNum.rawValue,
+            "score": score,
+            "result": result.rawValue,
+            "bet": bet,
+            "timestamp": timestamp.timeIntervalSince1970
+            ])
+    }
+    
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)
     {
+        aCoder.encodeObject(playerId, forKey: "playerId")
         aCoder.encodeObject(matchType.rawValue, forKey: "matchType")
         aCoder.encodeInteger(diceNum.rawValue, forKey: "diceNum")
         aCoder.encodeInteger(Int(score), forKey: "score")
@@ -40,6 +56,7 @@ class StatItem: NSObject,NSCoding
     
     required init?(coder aDecoder: NSCoder)
     {
+        playerId = aDecoder.containsValueForKey("playerId") ? aDecoder.decodeObjectForKey("playerId") as! String : ""
         matchType = MatchType(rawValue: aDecoder.decodeObjectForKey("matchType") as! String)!
         diceNum = DiceNum(rawValue: aDecoder.decodeIntegerForKey("diceNum"))!
         score = UInt(aDecoder.decodeIntegerForKey("score"))
