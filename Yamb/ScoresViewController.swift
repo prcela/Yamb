@@ -27,7 +27,9 @@ class ScoresViewController: UIViewController
         selectBtn.layer.borderWidth = 1
         selectBtn.layer.borderColor = UIColor(netHex: 0xaaaaaaaa).CGColor
         
-        // proba ....
+        // proba .... get all players
+        
+        
         ServerAPI.scores { (data, response, error) in
             let jsonAllScores = JSON(data: data!)
             guard !jsonAllScores.isEmpty else {return}

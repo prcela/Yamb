@@ -75,7 +75,7 @@ class Player: NSObject, NSCoding
             }
         }
     }
-    var activeRotationRounds = Array<Array<Int>>(count: 6, repeatedValue: [0,0,0])
+    var activeRotationRounds = [[Int]](count: 6, repeatedValue: [0,0,0])
     
     var inputPos: TablePos? {
         didSet {

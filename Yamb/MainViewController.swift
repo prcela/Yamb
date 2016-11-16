@@ -167,6 +167,7 @@ class MainViewController: UIViewController
         var result:Result = .Winner
         for p in Match.shared.players
         {
+            p.state = .EndGame
             if p.id != playerId
             {
                 if let pScore = p.table.totalScore()
@@ -205,14 +206,19 @@ class MainViewController: UIViewController
         
         PlayerStat.shared.diamonds = diamonds
         
-        PlayerStat.shared.items.append(StatItem(
+        let statItem = StatItem(
             playerId: playerId!,
             matchType: Match.shared.matchType,
             diceNum: Match.shared.diceNum,
             score: score,
             result: result,
             bet: Match.shared.bet,
-            timestamp: NSDate()))
+            timestamp: NSDate())
+        
+        PlayerStat.shared.items.append(statItem)
+        ServerAPI.statItem(statItem.json()) { (data, response, error) in
+            print(response)
+        }
         
         let alert = UIAlertController(title: lstr("Match over"),
                                       message: message,
@@ -238,6 +244,7 @@ class MainViewController: UIViewController
         {
             presentViewController(alert, animated: true, completion: nil)
         }
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
     }
         
     func onWsDidConnect()

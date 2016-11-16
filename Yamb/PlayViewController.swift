@@ -312,11 +312,11 @@ class PlayViewController: UIViewController {
         let match = Match.shared
         var message = lstr("Opponent has left the match.")
         
-        let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
-            return player.state == .Start
+        let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
+            return player.state == .Start || player.state == .EndGame
         }
         
-        if !matchJustStarted
+        if !matchJustStartedOrEnded
         {
             var diamonds = PlayerStat.shared.diamonds
             diamonds += 2*Match.shared.bet
@@ -355,14 +355,27 @@ class PlayViewController: UIViewController {
     {
         if Match.shared.matchType == .OnlineMultiplayer
         {
-            let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
-                
+            let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
+                return player.state == .Start || player.state == .EndGame
+            }
+            
+            if matchJustStartedOrEnded
+            {
+                // leave without alert
                 WsAPI.shared.leaveMatch(Match.shared.id)
-                self.dismiss()
-            }))
-            alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .Default, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
+                dismiss()
+            }
+            else
+            {
+                let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+                    
+                    WsAPI.shared.leaveMatch(Match.shared.id)
+                    self.dismiss()
+                }))
+                alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .Default, handler: nil))
+                presentViewController(alert, animated: true, completion: nil)
+            }
         }
         else
         {
