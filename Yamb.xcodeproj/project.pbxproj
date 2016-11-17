@@ -119,6 +119,9 @@
 		97A6E0281D71FB5F000ED49D /* 4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97A6E0231D71F7E2000ED49D /* 4.m4a */; };
 		97A6E0291D71FB61000ED49D /* 5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 97A6E0241D71F7E2000ED49D /* 5.m4a */; };
 		97AA7DB61DDD1AD700B6AC55 /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AA7DB51DDD1AD700B6AC55 /* PlayerInfo.swift */; };
+		97AA7DB81DDDD6D600B6AC55 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AA7DB71DDDD6D600B6AC55 /* ScoreCell.swift */; };
+		97AA7DBA1DDDE65400B6AC55 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97AA7DB91DDDE65400B6AC55 /* down@2x.png */; };
+		97AA7DBC1DDDED3400B6AC55 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AA7DBB1DDDED3400B6AC55 /* LineView.swift */; };
 		97B0D5781DBA3EDE004DC903 /* FreePlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */; };
 		97C060051D757A7C00A680C1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C060041D757A7C00A680C1 /* Player.swift */; };
 		97C4EF561D67A36C00A1E7CD /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4EF551D67A36C00A1E7CD /* TableRow.swift */; };
@@ -273,6 +276,9 @@
 		97A6E0231D71F7E2000ED49D /* 4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 4.m4a; path = Yamb/Resources/4.m4a; sourceTree = "<group>"; };
 		97A6E0241D71F7E2000ED49D /* 5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = 5.m4a; path = Yamb/Resources/5.m4a; sourceTree = "<group>"; };
 		97AA7DB51DDD1AD700B6AC55 /* PlayerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
+		97AA7DB71DDDD6D600B6AC55 /* ScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
+		97AA7DB91DDDE65400B6AC55 /* down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "down@2x.png"; path = "Yamb/Resources/down@2x.png"; sourceTree = "<group>"; };
+		97AA7DBB1DDDED3400B6AC55 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlayerCell.swift; sourceTree = "<group>"; };
 		97C060041D757A7C00A680C1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		97C4EF551D67A36C00A1E7CD /* TableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
@@ -417,6 +423,7 @@
 				974712E51D78495F00BB2AA9 /* rules */,
 				9724981A1D730F7C00CDC6B7 /* play.png */,
 				9705CDEF1DCA386F004109BC /* up@2x.png */,
+				97AA7DB91DDDE65400B6AC55 /* down@2x.png */,
 				9705CDEC1DCA3753004109BC /* up.png */,
 				974713591D7A408400BB2AA9 /* 1f_sel.png */,
 				9747135A1D7A408400BB2AA9 /* 2f_sel.png */,
@@ -511,6 +518,8 @@
 				97B0D5771DBA3EDE004DC903 /* FreePlayerCell.swift */,
 				9705CE0F1DCC74F9004109BC /* StatsTableView.swift */,
 				9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */,
+				97AA7DB71DDDD6D600B6AC55 /* ScoreCell.swift */,
+				97AA7DBB1DDDED3400B6AC55 /* LineView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -717,6 +726,7 @@
 				97A6E0291D71FB61000ED49D /* 5.m4a in Resources */,
 				977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */,
 				9747135F1D7A408400BB2AA9 /* 1f_sel.png in Resources */,
+				97AA7DBA1DDDE65400B6AC55 /* down@2x.png in Resources */,
 				9747133A1D79832300BB2AA9 /* 2e.png in Resources */,
 				974713151D793F7200BB2AA9 /* 5c_sel.png in Resources */,
 				974713061D793CE500BB2AA9 /* 2c.png in Resources */,
@@ -838,9 +848,11 @@
 				977D98091CAF2D6800AD9EF8 /* MenuViewController.swift in Sources */,
 				9736EB6F1DD5AE5D005AE703 /* ProgressView.swift in Sources */,
 				97A6E01F1D7068E7000ED49D /* Table.swift in Sources */,
+				97AA7DB81DDDD6D600B6AC55 /* ScoreCell.swift in Sources */,
 				9705CDE31DC9E761004109BC /* Result.swift in Sources */,
 				977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */,
 				9705CE0E1DCBC3B8004109BC /* StatTableViewController.swift in Sources */,
+				97AA7DBC1DDDED3400B6AC55 /* LineView.swift in Sources */,
 				9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */,
 				974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */,
 				9705CDF51DCA3C26004109BC /* PlayerContainer.swift in Sources */,

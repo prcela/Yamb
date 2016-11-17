@@ -59,6 +59,15 @@ struct ScorePickerSelekcija
     var scoreType: ScoreType = .SixDice
     var scoreValue: ScoreValue = .Score
     var timeRange: ScoreTimeRange = .Ever
+    
+    func title() -> String
+    {
+        if scoreType == .Diamonds
+        {
+            return "\(scoreType.title()) now"
+        }
+        return "\(scoreType.title()) \(scoreValue.title())"
+    }
 }
 
 protocol ScorePickerDelegate: class
@@ -136,6 +145,7 @@ extension ScorePickerViewController: UIPickerViewDelegate
         }
         else
         {
+            scoreSelekcija.scoreValue = ScoreValue(rawValue: row)!
             if scoreSelekcija.scoreType == .Diamonds
             {
                 scoreSelekcija.timeRange = .Now

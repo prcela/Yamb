@@ -17,6 +17,10 @@ class PlayerInfo
     var avgScore6: Float?
     var connected: Bool
     
+    // evaluated after
+    var maxScore5: UInt = 0
+    var maxScore6: UInt = 0
+    
     
     init(json: JSON)
     {
