@@ -29,6 +29,17 @@ class StatItem: NSObject,NSCoding
         self.timestamp = timestamp
     }
     
+    init(json: JSON)
+    {
+        playerId = json["player_id"].stringValue
+        matchType = MatchType(rawValue: json["match_type"].stringValue)!
+        diceNum = DiceNum(rawValue: json["dice_num"].intValue)!
+        score = json["score"].uIntValue
+        result = Result(rawValue: json["result"].intValue)!
+        bet = json["bet"].intValue
+        timestamp = NSDate(timeIntervalSince1970: json["timestamp"].doubleValue)
+    }
+    
     func json() -> JSON
     {
         return JSON([

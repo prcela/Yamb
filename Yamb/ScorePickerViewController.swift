@@ -10,10 +10,8 @@ import UIKit
 
 enum ScoreType: Int
 {
-    case FiveDice=0
+    case FiveDice = 0
     case SixDice
-    case Gc
-    case Stars
     case Diamonds
     
     func title() -> String
@@ -23,12 +21,27 @@ enum ScoreType: Int
             return "5 🎲"
         case .SixDice:
             return "6 🎲"
-        case .Stars:
-            return "⭐️"
         case .Diamonds:
             return "💎"
-        default:
-            return "GC"
+        }
+    }
+}
+
+enum ScoreValue: Int
+{
+    case Score = 0
+    case Stars
+    case Gc
+    
+    func title() -> String
+    {
+        switch self {
+        case .Score:
+            return lstr("Score")
+        case .Stars:
+            return "⭐️"
+        case .Gc:
+            return "Game center"
         }
     }
 }
@@ -44,17 +57,17 @@ enum ScoreTimeRange: Int
 struct ScorePickerSelekcija
 {
     var scoreType: ScoreType = .SixDice
+    var scoreValue: ScoreValue = .Score
     var timeRange: ScoreTimeRange = .Ever
 }
 
 protocol ScorePickerDelegate: class
 {
-    func doneWithSelekcija(selekcija: ScorePickerSelekcija)
+    func doneWithSelekcija()
 }
 
 class ScorePickerViewController: UIViewController
 {
-    var selekcija = ScorePickerSelekcija()
     weak var scorePickerDelegate:ScorePickerDelegate?
 
     override func viewDidLoad() {
@@ -65,7 +78,7 @@ class ScorePickerViewController: UIViewController
 
     @IBAction func done(sender: AnyObject)
     {
-        scorePickerDelegate?.doneWithSelekcija(selekcija)
+        scorePickerDelegate?.doneWithSelekcija()
     }
 }
 
@@ -78,11 +91,11 @@ extension ScorePickerViewController: UIPickerViewDataSource
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0
         {
-            return 5
+            return 3
         }
         else
         {
-            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            if scoreSelekcija.scoreType == .Diamonds
             {
                 return 1
             }
@@ -103,13 +116,13 @@ extension ScorePickerViewController: UIPickerViewDelegate
         }
         else
         {
-            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            if scoreSelekcija.scoreType == .Diamonds
             {
                 return lstr("Now")
             }
             else
             {
-                return "\(ScoreTimeRange(rawValue: row)!)"
+                return ScoreValue(rawValue: row)!.title()
             }
         }
     }
@@ -118,18 +131,18 @@ extension ScorePickerViewController: UIPickerViewDelegate
         print("\(row) \(component)")
         if component == 0
         {
-            selekcija.scoreType = ScoreType(rawValue: row)!
+            scoreSelekcija.scoreType = ScoreType(rawValue: row)!
             pickerView.reloadComponent(1)
         }
         else
         {
-            if selekcija.scoreType == .Diamonds || selekcija.scoreType == .Stars
+            if scoreSelekcija.scoreType == .Diamonds
             {
-                selekcija.timeRange = .Now
+                scoreSelekcija.timeRange = .Now
             }
             else
             {
-                selekcija.timeRange = ScoreTimeRange(rawValue: row)!
+                scoreSelekcija.timeRange = ScoreTimeRange(rawValue: row)!
             }
             
         }

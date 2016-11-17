@@ -75,4 +75,20 @@ class ServerAPI
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
         task.resume()
     }
+    
+    class func players(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    {
+        let url = NSURL(string: "http://\(ipCurrent)/players")
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        task.resume()
+    }
+    
+    class func statItems(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    {
+        let url = NSURL(string: "http://\(ipCurrent)/statItems")
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        task.resume()
+    }
+    
+    
 }

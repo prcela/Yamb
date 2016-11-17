@@ -8,10 +8,13 @@
 
 import UIKit
 
+var scoreSelekcija = ScorePickerSelekcija()
+
 class ScoresViewController: UIViewController
 {
     
-    private var allScores: [PlayerScore]?
+    private var allPlayers: [PlayerInfo]?
+    private var allStatItems: [StatItem]?
 
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var selectBtn: UIButton!
@@ -28,15 +31,30 @@ class ScoresViewController: UIViewController
         selectBtn.layer.borderColor = UIColor(netHex: 0xaaaaaaaa).CGColor
         
         // proba .... get all players
-        
-        
-        ServerAPI.scores { (data, response, error) in
-            let jsonAllScores = JSON(data: data!)
-            guard !jsonAllScores.isEmpty else {return}
-            self.allScores = [PlayerScore]()
-            for json in jsonAllScores.array!
+        ServerAPI.players { [weak self] (data, response, error) in
+            self?.allPlayers = [PlayerInfo]()
+            guard data != nil && error == nil
+                else {return}
+            
+            let jsonPlayers = JSON(data: data!)
+            guard !jsonPlayers.isEmpty else {return}
+            for json in jsonPlayers.array!
             {
-                self.allScores?.append(PlayerScore(json: json))
+                self?.allPlayers?.append(PlayerInfo(json: json))
+            }
+        }
+        
+        ServerAPI.statItems { [weak self] (data, response, error) in
+            self?.allStatItems = [StatItem]()
+            
+            guard data != nil && error == nil
+                else {return}
+            
+            let jsonItems = JSON(data: data!)
+            guard !jsonItems.isEmpty else {return}
+            for json in jsonItems.array!
+            {
+                self?.allStatItems?.append(StatItem(json: json))
             }
         }
     }
@@ -46,6 +64,7 @@ class ScoresViewController: UIViewController
         {
             let scorePickerVC = segue.destinationViewController as! ScorePickerViewController
             scorePickerVC.scorePickerDelegate = self
+            
         }
     }
 
@@ -66,7 +85,7 @@ class ScoresViewController: UIViewController
 extension ScoresViewController: UITableViewDataSource
 {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allScores?.count ?? 0
+        return allPlayers?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -78,7 +97,7 @@ extension ScoresViewController: UITableViewDataSource
 
 extension ScoresViewController: ScorePickerDelegate
 {
-    func doneWithSelekcija(selekcija: ScorePickerSelekcija) {
+    func doneWithSelekcija() {
         pickerContainerView.hidden = true
     }
 }
