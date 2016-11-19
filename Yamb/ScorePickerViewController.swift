@@ -147,7 +147,22 @@ extension ScorePickerViewController: UIPickerViewDelegate
         print("\(row) \(component)")
         if component == 0
         {
+            // resetiraj ostale komponente
+            let scoreTypeBefore = scoreSelekcija.scoreType
             scoreSelekcija.scoreType = ScoreType(rawValue: row)!
+            if scoreSelekcija.scoreType == .Diamonds
+            {
+                scoreSelekcija.timeRange = .Now
+            }
+            else if scoreSelekcija.timeRange == .Now
+            {
+                scoreSelekcija.timeRange = .Ever //
+            }
+            
+            if scoreTypeBefore == .Diamonds
+            {
+                scoreSelekcija.scoreValue = .Score
+            }
             pickerView.reloadComponent(1)
         }
         else
@@ -159,9 +174,11 @@ extension ScorePickerViewController: UIPickerViewDelegate
             }
             else
             {
-                scoreSelekcija.timeRange = ScoreTimeRange(rawValue: row)!
+                scoreSelekcija.scoreValue = ScoreValue(rawValue: row)!
+                scoreSelekcija.timeRange = .Ever
             }
             
         }
+        print("\(scoreSelekcija.scoreType) \(scoreSelekcija.scoreValue) \(scoreSelekcija.timeRange)")
     }
 }
