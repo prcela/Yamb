@@ -1675,6 +1675,9 @@ Ako želite promijeniti Vaš nadimak i vidjeti ga u igrama sa više igrača potr
                             <constraint firstItem="ZOA-75-5Rs" firstAttribute="top" secondItem="GWb-Ts-wm1" secondAttribute="bottom" constant="10" id="zmm-1X-6PT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pickerView" destination="GWb-Ts-wm1" id="W9l-DT-rWz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eMi-0T-HHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

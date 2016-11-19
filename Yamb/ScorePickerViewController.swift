@@ -78,11 +78,18 @@ protocol ScorePickerDelegate: class
 class ScorePickerViewController: UIViewController
 {
     weak var scorePickerDelegate:ScorePickerDelegate?
+    @IBOutlet weak var pickerView: UIPickerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // select current
+        pickerView.selectRow(scoreSelekcija.scoreType.rawValue, inComponent: 0, animated: false)
+        if scoreSelekcija.scoreType != .Diamonds
+        {
+            pickerView.selectRow(scoreSelekcija.scoreValue.rawValue, inComponent: 1, animated: false)
+        }
     }
 
     @IBAction func done(sender: AnyObject)

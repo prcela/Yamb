@@ -8,6 +8,7 @@
 
 "lang" = "en";
 "New game" = "New game";
+"Leaderboard" = "Leaderboard 🆕";
 "Confirm input" = "Confirm input of %@ to N column";
 "Update message" = "For online playing it is needed to update application to the latest version";
 "Invitation message" = "%@ invited you to play in game with %d dice.";

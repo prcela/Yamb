@@ -16,6 +16,7 @@ class ScoresViewController: UIViewController
     private var allPlayers: [String:PlayerInfo]?
     private var allStatItems: [StatItem]?
     private var sortedPlayers = [PlayerInfo]()
+    private var filteredItems = [StatItem]()
 
     @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var selectBtn: UIButton?
@@ -82,8 +83,36 @@ class ScoresViewController: UIViewController
         guard allPlayers != nil && allStatItems != nil else {
             return
         }
+        
+        // reset max scores
+        for (_,p) in allPlayers!
+        {
+            p.maxScore5 = 0
+            p.maxScore6 = 0
+        }
+        
+        let day: NSTimeInterval = 24*60*60
         for statItem in allStatItems!
         {
+            let timeInterval = NSDate().timeIntervalSinceDate(statItem.timestamp)
+            
+            switch scoreSelekcija.timeRange
+            {
+            case .Week:
+                if timeInterval > 7*day
+                {
+                    continue
+                }
+            
+            case .Today:
+                if timeInterval > day
+                {
+                    continue
+                }
+            default:
+                break
+            }
+            
             if let playerInfo = allPlayers![statItem.playerId]
             {
                 if statItem.diceNum == .Five
@@ -138,6 +167,7 @@ class ScoresViewController: UIViewController
             }
         })
         tableView?.reloadData()
+        tableView?.setContentOffset(CGPointZero, animated:false)
     }
 
     
@@ -195,7 +225,7 @@ extension ScoresViewController: UITableViewDataSource
         case .Diamonds:
             score = UInt(playerInfo.diamonds)
         }
-        cell.update(indexPath.row+1, score: score, stars: stars, name: playerInfo.alias)
+        cell.update(indexPath.row+1, score: score, stars: stars, name: playerInfo.alias, id: playerInfo.id)
         return cell
     }
 }
@@ -206,6 +236,7 @@ extension ScoresViewController: ScorePickerDelegate
         pickerContainerView?.hidden = true
         selectBtn?.hidden = false
         selectBtn?.setTitle(scoreSelekcija.title(), forState: .Normal)
+        evaluateBestScores()
         reload()
     }
 }
