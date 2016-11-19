@@ -111,7 +111,7 @@ class PlayViewController: UIViewController {
         sumLbl?.hidden = false
         sum1Lbl?.hidden = Match.shared.players.count == 1
         
-        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
+        let playerOnTurn = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         progressView?.animShapeLayer.strokeColor = skin.strokeColor.CGColor
@@ -123,7 +123,7 @@ class PlayViewController: UIViewController {
         playLbl?.hidden = isWaitingForTurn
         progressView?.hidden = Match.shared.matchType != .OnlineMultiplayer
         
-        let inputPos = player.inputPos
+        let inputPos = playerOnTurn.inputPos
         
         func endOfTurnText() -> String
         {
@@ -138,7 +138,9 @@ class PlayViewController: UIViewController {
             }
         }
         
-        switch player.state {
+        var endOfTurn = false
+        
+        switch playerOnTurn.state {
         
         case .Start:
             playLbl?.text = lstr("1. roll")
@@ -150,6 +152,7 @@ class PlayViewController: UIViewController {
             }
             else
             {
+                endOfTurn = true
                 playLbl?.text = endOfTurnText()
             }
         
@@ -160,6 +163,7 @@ class PlayViewController: UIViewController {
             }
             else
             {
+                endOfTurn = true
                 playLbl?.text = endOfTurnText()
             }
         case .After3, .AfterN3:
@@ -180,12 +184,14 @@ class PlayViewController: UIViewController {
             {
                 playLbl?.text = lstr("New game")
             }
+            endOfTurn = true
         }
         
-        rollBtn?.enabled = Match.shared.isRollEnabled()
-        if let alias = player.alias
+        // ako su sve kockice odabrane nije dozvoljen roll ali je dozvoljen "next player"
+        rollBtn?.enabled = Match.shared.isRollEnabled() || endOfTurn
+        if let alias = playerOnTurn.alias
         {
-            let starsFormatted = starsFormatter.stringFromNumber(NSNumber(float:stars6(player.avgScore6)))!
+            let starsFormatted = starsFormatter.stringFromNumber(NSNumber(float:stars6(playerOnTurn.avgScore6)))!
             nameLbl?.text = String(format: "%@ ⭐️ %@", starsFormatted, alias)
         }
         else

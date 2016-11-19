@@ -27,7 +27,7 @@ class ProgressView: UIView
         animShapeLayer.path = path
         animShapeLayer.strokeColor = UIColor.redColor().CGColor
         animShapeLayer.fillColor = UIColor.clearColor().CGColor
-        animShapeLayer.lineWidth = 2
+        animShapeLayer.lineWidth = 3
         
         layer.addSublayer(animShapeLayer)
         
