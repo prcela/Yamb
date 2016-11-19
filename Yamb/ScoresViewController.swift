@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 var scoreSelekcija = ScorePickerSelekcija()
 
@@ -17,6 +18,8 @@ class ScoresViewController: UIViewController
     private var allStatItems: [StatItem]?
     private var sortedPlayers = [PlayerInfo]()
     private var filteredItems = [StatItem]()
+    private var gcLeaderboard6 = GKLeaderboard()
+    private var gcLeaderboard5 = GKLeaderboard()
 
     @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var selectBtn: UIButton?
@@ -31,7 +34,7 @@ class ScoresViewController: UIViewController
         backBtn?.setTitle(lstr("Back"), forState: .Normal)
         selectBtn?.setTitle(scoreSelekcija.title(), forState: .Normal)
         
-        // proba .... get all players
+        // get all players
         ServerAPI.players { [weak self] (data, response, error) in
             self?.allPlayers = [String:PlayerInfo]()
             guard data != nil && error == nil
@@ -50,6 +53,7 @@ class ScoresViewController: UIViewController
             })
         }
         
+        // get all stats
         ServerAPI.statItems { [weak self] (data, response, error) in
             self?.allStatItems = [StatItem]()
             
@@ -66,6 +70,40 @@ class ScoresViewController: UIViewController
                 self?.evaluateBestScores()
                 self?.reload()
             })
+        }
+        
+        // get leaderboard 6 from GC
+        gcLeaderboard6.timeScope = GKLeaderboardTimeScope.AllTime
+        gcLeaderboard6.identifier = LeaderboardId.dice6
+        gcLeaderboard6.range = NSMakeRange(1, 100)
+        gcLeaderboard6.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+            if error != nil
+            {
+                print(error)
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.reload()
+                })
+            }
+        }
+        
+        // get leaderboard 5 from GC
+        gcLeaderboard5.timeScope = GKLeaderboardTimeScope.AllTime
+        gcLeaderboard5.identifier = LeaderboardId.dice5
+        gcLeaderboard5.range = NSMakeRange(1, 100)
+        gcLeaderboard5.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+            if error != nil
+            {
+                print(error)
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.reload()
+                })
+            }
         }
     }
     
@@ -149,7 +187,7 @@ class ScoresViewController: UIViewController
                 case .Stars:
                     return p0.avgScore5 > p1.avgScore5
                 default:
-                    return false // TODO
+                    return false
                 }
                 
             case .SixDice:
@@ -160,7 +198,7 @@ class ScoresViewController: UIViewController
                 case .Stars:
                     return p0.avgScore6 > p1.avgScore6
                 default:
-                    return false // TODO
+                    return false
                 }
             default:
                 return p0.diamonds > p1.diamonds
@@ -189,43 +227,46 @@ class ScoresViewController: UIViewController
 extension ScoresViewController: UITableViewDataSource
 {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedPlayers.count
+        if scoreSelekcija.scoreValue == .Gc
+        {
+            if scoreSelekcija.scoreType == .SixDice
+            {
+                return gcLeaderboard6.scores?.count ?? 0
+            }
+            else if scoreSelekcija.scoreType == .FiveDice
+            {
+                return gcLeaderboard5.scores?.count ?? 0
+            }
+        }
+        else
+        {
+            return sortedPlayers.count
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! ScoreCell
-        let playerInfo = sortedPlayers[indexPath.row]
-        var score: UInt = 0
-        var stars: Float = 0
-        switch scoreSelekcija.scoreType
+        if scoreSelekcija.scoreValue == .Gc
         {
-        case .SixDice:
-            switch scoreSelekcija.scoreValue
+            var gkScore: GKScore
+            if scoreSelekcija.scoreType == .SixDice
             {
-            case .Score:
-                score = playerInfo.maxScore6
-            case .Stars:
-                stars = (playerInfo.avgScore6 != nil) ? stars6(playerInfo.avgScore6!) : 0
-            default:
-                break
+                gkScore = gcLeaderboard6.scores![indexPath.row]
             }
-            
-        case .FiveDice:
-            switch scoreSelekcija.scoreValue
+            else
             {
-            case .Score:
-                score = playerInfo.maxScore5
-            case .Stars:
-                stars = (playerInfo.avgScore5 != nil) ? stars5(playerInfo.avgScore5!) : 0
-            default:
-                break
+                gkScore = gcLeaderboard5.scores![indexPath.row]
             }
-            
-        case .Diamonds:
-            score = UInt(playerInfo.diamonds)
+            cell.updateWithGkScore(gkScore, order: indexPath.row+1)
         }
-        cell.update(indexPath.row+1, score: score, stars: stars, name: playerInfo.alias, id: playerInfo.id)
+        else
+        {
+            let playerInfo = sortedPlayers[indexPath.row]
+            cell.updateWithPlayerInfo(playerInfo, order: indexPath.row+1)
+        }
+        
         return cell
     }
 }

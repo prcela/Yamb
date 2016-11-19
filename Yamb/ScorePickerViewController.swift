@@ -64,7 +64,7 @@ struct ScorePickerSelekcija
     {
         if scoreType == .Diamonds
         {
-            return "\(scoreType.title()) now"
+            return "\(scoreType.title()) \(lstr("Now"))"
         }
         return "\(scoreType.title()) \(scoreValue.title())"
     }
@@ -79,11 +79,13 @@ class ScorePickerViewController: UIViewController
 {
     weak var scorePickerDelegate:ScorePickerDelegate?
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var doneBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        doneBtn.setTitle(lstr("Done"), forState: .Normal)
         // select current
         pickerView.selectRow(scoreSelekcija.scoreType.rawValue, inComponent: 0, animated: false)
         if scoreSelekcija.scoreType != .Diamonds
@@ -152,11 +154,12 @@ extension ScorePickerViewController: UIPickerViewDelegate
             scoreSelekcija.scoreType = ScoreType(rawValue: row)!
             if scoreSelekcija.scoreType == .Diamonds
             {
+                scoreSelekcija.scoreValue = .Score
                 scoreSelekcija.timeRange = .Now
             }
             else if scoreSelekcija.timeRange == .Now
             {
-                scoreSelekcija.timeRange = .Ever //
+                scoreSelekcija.timeRange = .Ever
             }
             
             if scoreTypeBefore == .Diamonds
