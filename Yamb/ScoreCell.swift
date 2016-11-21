@@ -53,7 +53,8 @@ class ScoreCell: UITableViewCell {
     
     func updateWithGkScore(gkScore: GKScore, order: Int)
     {
-        update(order, score: UInt(gkScore.value), stars: 0, name: gkScore.player!.alias!, selected: false)
+        let selected = gkScore.player?.playerID == GameKitHelper.shared.localPlayerId
+        update(order, score: UInt(gkScore.value), stars: 0, name: gkScore.player!.alias!, selected: selected)
     }
     
     

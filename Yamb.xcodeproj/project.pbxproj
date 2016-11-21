@@ -108,6 +108,7 @@
 		97827CD01DD1BC1400ECD7A6 /* WaitPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97827CCF1DD1BC1400ECD7A6 /* WaitPlayerViewController.swift */; };
 		97827D221DD3415500ECD7A6 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97827D211DD3415500ECD7A6 /* InvitationViewController.swift */; };
 		978397DC1D816538000C1183 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978397DB1D816538000C1183 /* RoomViewController.swift */; };
+		9786876E1DE30E5000B26232 /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9786876D1DE30E5000B26232 /* BorderedView.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AECF1D6330E3001640F7 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Match.swift */; };
 		978FCFA61DAA6B53000CAF8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978FCFA51DAA6B53000CAF8A /* Main.storyboard */; };
@@ -264,6 +265,7 @@
 		97827CCF1DD1BC1400ECD7A6 /* WaitPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitPlayerViewController.swift; sourceTree = "<group>"; };
 		97827D211DD3415500ECD7A6 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		978397DB1D816538000C1183 /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
+		9786876D1DE30E5000B26232 /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		978FCFA51DAA6B53000CAF8A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 				9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */,
 				97AA7DB71DDDD6D600B6AC55 /* ScoreCell.swift */,
 				97AA7DBB1DDDED3400B6AC55 /* LineView.swift */,
+				9786876D1DE30E5000B26232 /* BorderedView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				9705CE101DCC74F9004109BC /* StatsTableView.swift in Sources */,
 				977D980B1CAF30E300AD9EF8 /* PrepareSPViewController.swift in Sources */,
 				97AA7DB61DDD1AD700B6AC55 /* PlayerInfo.swift in Sources */,
+				9786876E1DE30E5000B26232 /* BorderedView.swift in Sources */,
 				9787AEC01D632491001640F7 /* DiceScene.swift in Sources */,
 				977D980D1CAF330E00AD9EF8 /* PlayViewController.swift in Sources */,
 				9705CDE71DCA232A004109BC /* PlayerViewController.swift in Sources */,

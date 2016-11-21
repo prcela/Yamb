@@ -16,6 +16,8 @@ class GameKitHelper: NSObject
     static var shared = GameKitHelper()
     
     var authenticated = false
+    var localPlayerId: String?
+    
     var lastError: NSError?
     var authController: UIViewController?
     
@@ -34,6 +36,7 @@ class GameKitHelper: NSObject
             {
                 let localPlayer = GKLocalPlayer.localPlayer()
                 self.authenticated = localPlayer.authenticated
+                self.localPlayerId = localPlayer.playerID
                 self.authController = nil
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)

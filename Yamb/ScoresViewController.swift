@@ -20,6 +20,8 @@ class ScoresViewController: UIViewController
     private var filteredItems = [StatItem]()
     private var gcLeaderboard6 = GKLeaderboard()
     private var gcLeaderboard5 = GKLeaderboard()
+    private var gcScores5 = [GKScore]()
+    private var gcScores6 = [GKScore]()
 
     @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var selectBtn: UIButton?
@@ -49,7 +51,7 @@ class ScoresViewController: UIViewController
             }
             dispatch_async(dispatch_get_main_queue(), {
                 self?.evaluateBestScores()
-                self?.reload()
+                self?.reload(true)
             })
         }
         
@@ -68,7 +70,7 @@ class ScoresViewController: UIViewController
             }
             dispatch_async(dispatch_get_main_queue(), {
                 self?.evaluateBestScores()
-                self?.reload()
+                self?.reload(true)
             })
         }
         
@@ -84,7 +86,8 @@ class ScoresViewController: UIViewController
             else
             {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self?.reload()
+                    self?.gcScores6.appendContentsOf(scores!)
+                    self?.reload(true)
                 })
             }
         }
@@ -101,7 +104,8 @@ class ScoresViewController: UIViewController
             else
             {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self?.reload()
+                    self?.gcScores5.appendContentsOf(scores!)
+                    self?.reload(true)
                 })
             }
         }
@@ -174,7 +178,7 @@ class ScoresViewController: UIViewController
         })
     }
     
-    func reload()
+    func reload(scrollToTop: Bool)
     {
         sortedPlayers.sortInPlace({ (p0, p1) -> Bool in
             switch scoreSelekcija.scoreType
@@ -205,7 +209,10 @@ class ScoresViewController: UIViewController
             }
         })
         tableView?.reloadData()
-        tableView?.setContentOffset(CGPointZero, animated:false)
+        if scrollToTop
+        {
+            tableView?.setContentOffset(CGPointZero, animated:false)
+        }
     }
 
     
@@ -231,11 +238,11 @@ extension ScoresViewController: UITableViewDataSource
         {
             if scoreSelekcija.scoreType == .SixDice
             {
-                return gcLeaderboard6.scores?.count ?? 0
+                return gcScores6.count
             }
             else if scoreSelekcija.scoreType == .FiveDice
             {
-                return gcLeaderboard5.scores?.count ?? 0
+                return gcScores5.count
             }
         }
         else
@@ -253,11 +260,11 @@ extension ScoresViewController: UITableViewDataSource
             var gkScore: GKScore
             if scoreSelekcija.scoreType == .SixDice
             {
-                gkScore = gcLeaderboard6.scores![indexPath.row]
+                gkScore = gcScores6[indexPath.row]
             }
             else
             {
-                gkScore = gcLeaderboard5.scores![indexPath.row]
+                gkScore = gcScores5[indexPath.row]
             }
             cell.updateWithGkScore(gkScore, order: indexPath.row+1)
         }
@@ -271,6 +278,58 @@ extension ScoresViewController: UITableViewDataSource
     }
 }
 
+extension ScoresViewController: UITableViewDelegate
+{
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if scoreSelekcija.scoreValue == .Gc
+        {
+            if scoreSelekcija.scoreType == .SixDice
+            {
+                let count = gcScores6.count
+                if count == indexPath.row+1 && count < gcLeaderboard6.maxRange
+                {
+                    gcLeaderboard6.range = NSMakeRange(count+1,100)
+                    gcLeaderboard6.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+                        if error != nil
+                        {
+                            print(error)
+                        }
+                        else
+                        {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self?.gcScores6.appendContentsOf(scores!)
+                                self?.reload(false)
+                            })
+                        }
+                    }
+                }
+            }
+            else if scoreSelekcija.scoreType == .FiveDice
+            {
+                let count = gcScores5.count
+                if count == indexPath.row+1 && count < gcLeaderboard5.maxRange
+                {
+                    gcLeaderboard5.range = NSMakeRange(count+1,100)
+                    gcLeaderboard5.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+                        if error != nil
+                        {
+                            print(error)
+                        }
+                        else
+                        {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self?.gcScores5.appendContentsOf(scores!)
+                                self?.reload(false)
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 extension ScoresViewController: ScorePickerDelegate
 {
     func doneWithSelekcija() {
@@ -278,6 +337,6 @@ extension ScoresViewController: ScorePickerDelegate
         selectBtn?.hidden = false
         selectBtn?.setTitle(scoreSelekcija.title(), forState: .Normal)
         evaluateBestScores()
-        reload()
+        reload(true)
     }
 }

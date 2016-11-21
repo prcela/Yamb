@@ -343,28 +343,38 @@
                                     <action selector="back:" destination="3ow-Mv-95l" eventType="touchUpInside" id="iRw-0d-NA7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sn0-D8-2bZ">
-                                <rect key="frame" x="0.0" y="71" width="230" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yp0-n3-0Se" customClass="BorderedView" customModule="Yamb" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="71" width="375" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sn0-D8-2bZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="230" id="ZCv-SA-ZFk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="6 🎲 Score Today" image="down.png">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showPicker:" destination="3ow-Mv-95l" eventType="touchUpInside" id="d67-Fw-z7M"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="3ht-Xx-pqW"/>
-                                    <constraint firstAttribute="width" constant="230" id="ZCv-SA-ZFk"/>
+                                    <constraint firstItem="Sn0-D8-2bZ" firstAttribute="top" secondItem="yp0-n3-0Se" secondAttribute="top" id="RSE-BU-xWb"/>
+                                    <constraint firstAttribute="height" constant="44" id="kIG-sx-YA6"/>
+                                    <constraint firstAttribute="bottom" secondItem="Sn0-D8-2bZ" secondAttribute="bottom" id="zFy-SE-UQJ"/>
+                                    <constraint firstItem="Sn0-D8-2bZ" firstAttribute="leading" secondItem="yp0-n3-0Se" secondAttribute="leading" id="zKk-6u-Srj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="6 🎲 Score Today" image="down.png">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="showPicker:" destination="3ow-Mv-95l" eventType="touchUpInside" id="d67-Fw-z7M"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNx-w3-yhX" customClass="LineView" customModule="Yamb" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="115" width="375" height="1"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="AVk-HP-aFy"/>
-                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="top" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUP-uS-RVE">
                                 <rect key="frame" x="0.0" y="116" width="375" height="487"/>
@@ -432,24 +442,23 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="3ow-Mv-95l" id="Jve-CS-SXf"/>
+                                    <outlet property="delegate" destination="3ow-Mv-95l" id="3Gx-ds-5pe"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Sn0-D8-2bZ" firstAttribute="top" secondItem="bdd-YV-3Sh" secondAttribute="bottom" constant="11" id="0rg-o7-u3F"/>
-                            <constraint firstItem="KgD-F2-p4u" firstAttribute="top" secondItem="Sn0-D8-2bZ" secondAttribute="bottom" constant="1" id="31j-Pt-Qxc"/>
-                            <constraint firstItem="OUP-uS-RVE" firstAttribute="top" secondItem="Sn0-D8-2bZ" secondAttribute="bottom" constant="1" id="4aq-NE-RgL"/>
+                            <constraint firstItem="KgD-F2-p4u" firstAttribute="top" secondItem="yp0-n3-0Se" secondAttribute="bottom" constant="1" id="6UH-3n-20P"/>
                             <constraint firstItem="KgD-F2-p4u" firstAttribute="leading" secondItem="JgZ-8c-3W1" secondAttribute="leading" id="L5U-Hv-zuS"/>
-                            <constraint firstItem="FNx-w3-yhX" firstAttribute="top" secondItem="Sn0-D8-2bZ" secondAttribute="bottom" id="N2z-P6-8F8"/>
-                            <constraint firstItem="FNx-w3-yhX" firstAttribute="leading" secondItem="JgZ-8c-3W1" secondAttribute="leading" id="OPC-ul-oJk"/>
-                            <constraint firstItem="Sn0-D8-2bZ" firstAttribute="leading" secondItem="JgZ-8c-3W1" secondAttribute="leading" id="RBO-jA-OC2"/>
+                            <constraint firstItem="yp0-n3-0Se" firstAttribute="leading" secondItem="JgZ-8c-3W1" secondAttribute="leading" id="RhL-WY-hTA"/>
                             <constraint firstItem="bdd-YV-3Sh" firstAttribute="centerX" secondItem="JgZ-8c-3W1" secondAttribute="centerX" id="TUv-Jk-MRh"/>
                             <constraint firstItem="5YN-ic-YPF" firstAttribute="top" secondItem="KgD-F2-p4u" secondAttribute="bottom" id="V4m-AI-Rjg"/>
-                            <constraint firstAttribute="trailing" secondItem="FNx-w3-yhX" secondAttribute="trailing" id="fA7-F1-JPQ"/>
+                            <constraint firstItem="yp0-n3-0Se" firstAttribute="top" secondItem="bdd-YV-3Sh" secondAttribute="bottom" constant="11" id="emh-fx-yB0"/>
+                            <constraint firstItem="OUP-uS-RVE" firstAttribute="top" secondItem="yp0-n3-0Se" secondAttribute="bottom" constant="1" id="jWq-yY-PR9"/>
                             <constraint firstItem="bdd-YV-3Sh" firstAttribute="top" secondItem="QHQ-3r-klq" secondAttribute="bottom" constant="30" id="kxa-x8-mmX"/>
                             <constraint firstAttribute="trailing" secondItem="KgD-F2-p4u" secondAttribute="trailing" id="neA-4r-TEE"/>
                             <constraint firstAttribute="trailing" secondItem="OUP-uS-RVE" secondAttribute="trailing" id="o6V-OH-pyw"/>
+                            <constraint firstAttribute="trailing" secondItem="yp0-n3-0Se" secondAttribute="trailing" id="uZn-av-ZTR"/>
                             <constraint firstItem="OUP-uS-RVE" firstAttribute="leading" secondItem="JgZ-8c-3W1" secondAttribute="leading" id="yaC-g2-r2m"/>
                             <constraint firstItem="5YN-ic-YPF" firstAttribute="top" secondItem="OUP-uS-RVE" secondAttribute="bottom" id="zyR-42-pA8"/>
                         </constraints>
