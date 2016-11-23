@@ -1529,35 +1529,35 @@ bacanje</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HTf-ph-VRs">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="60" height="60"/>
                             <size key="headerReferenceSize" width="50" height="30"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiceCell" id="qOX-Lq-BCt" customClass="DiceCell" customModule="Yamb" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBi-VK-Wi5">
-                                            <rect key="frame" x="5" y="5" width="40" height="40"/>
+                                            <rect key="frame" x="5" y="5" width="50" height="50"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1c.png" translatesAutoresizingMaskIntoConstraints="NO" id="MLw-ER-s3q">
-                                                    <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                    <rect key="frame" x="5" y="5" width="40" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="QPH-qs-MHr"/>
-                                                        <constraint firstAttribute="width" constant="30" id="Srt-3T-2vl"/>
+                                                        <constraint firstAttribute="height" constant="40" id="QPH-qs-MHr"/>
+                                                        <constraint firstAttribute="width" constant="40" id="Srt-3T-2vl"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="MLw-ER-s3q" firstAttribute="centerY" secondItem="IBi-VK-Wi5" secondAttribute="centerY" id="6De-vs-YKd"/>
-                                                <constraint firstAttribute="width" constant="40" id="Bol-sj-OKo"/>
-                                                <constraint firstAttribute="height" constant="40" id="Rjw-l5-kq0"/>
+                                                <constraint firstAttribute="width" constant="50" id="Bol-sj-OKo"/>
+                                                <constraint firstAttribute="height" constant="50" id="Rjw-l5-kq0"/>
                                                 <constraint firstItem="MLw-ER-s3q" firstAttribute="centerX" secondItem="IBi-VK-Wi5" secondAttribute="centerX" id="yJe-05-Azd"/>
                                             </constraints>
                                         </view>
