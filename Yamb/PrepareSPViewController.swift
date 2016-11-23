@@ -35,7 +35,7 @@ class PrepareSPViewController: UIViewController {
         diceTextureBtn?.layer.borderWidth = 1
         diceTextureBtn?.clipsToBounds = true
         
-        diceMatSelected = allDiceMaterials().indexOf(PlayerStat.shared.favDiceMat)!
+        diceMatSelected = DiceMaterial.all().indexOf(PlayerStat.shared.favDiceMat)!
         updateDiceBtn()
         
         Chartboost.cacheInterstitial(CBLocationLevelStart)
@@ -58,7 +58,7 @@ class PrepareSPViewController: UIViewController {
         
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
         
-        let current = allDiceMaterials()[diceMatSelected]
+        let current = DiceMaterial.all()[diceMatSelected]
         diceTextureBtn?.setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
         
     }
@@ -87,7 +87,7 @@ class PrepareSPViewController: UIViewController {
     
     @IBAction func changeDiceMaterial(sender: AnyObject)
     {
-        let diceMats = allDiceMaterials()
+        let diceMats = DiceMaterial.all()
         diceMatSelected = (diceMatSelected+1)%diceMats.count
         let diceMat = diceMats[diceMatSelected]
         diceTextureBtn?.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
@@ -99,7 +99,11 @@ class PrepareSPViewController: UIViewController {
         let playerId = defaults.stringForKey(Prefs.playerId)
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)
         let avgScore6 = PlayerStat.avgScore(.Six)
-        Match.shared.start(.SinglePlayer, diceNum: Match.shared.diceNum, playersDesc: [(playerId,playerAlias,avgScore6,allDiceMaterials()[diceMatSelected])], matchId: 0, bet: 0)
+        Match.shared.start(.SinglePlayer,
+                           diceNum: Match.shared.diceNum,
+                           playersDesc: [(playerId,playerAlias,avgScore6,DiceMaterial.all()[diceMatSelected])],
+                           matchId: 0,
+                           bet: 0)
         MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
     }
 
