@@ -8,8 +8,9 @@
 
 import UIKit
 
-class DiceCollectionViewController: UICollectionViewController {
-
+class DiceCollectionViewController: UICollectionViewController
+{
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,4 +48,14 @@ class DiceCollectionViewController: UICollectionViewController {
         return cell
     }
 
+    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        let diceMat = DiceMaterial.all()[indexPath.row]
+        PlayerStat.shared.favDiceMat = diceMat
+    }
 }

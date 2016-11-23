@@ -19,6 +19,12 @@ class PlayerViewController: UIViewController {
 
     weak var playerContainer: PlayerContainer?
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onFavDieSet), name: NotificationName.playerFavDiceChanged, object: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +44,17 @@ class PlayerViewController: UIViewController {
         
         dieIcon.image = UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)")
         
+        showStats(statsBtn)
+        
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func onFavDieSet()
+    {
+        dieIcon.image = UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)")
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         if segue.identifier == "embed"
         {
             playerContainer = segue.destinationViewController as? PlayerContainer

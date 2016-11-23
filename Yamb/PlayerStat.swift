@@ -12,7 +12,11 @@ class PlayerStat: NSObject, NSCoding
 {
     static var shared = PlayerStat()
 
-    var favDiceMat:DiceMaterial = .White
+    var favDiceMat:DiceMaterial = .White {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerFavDiceChanged, object: diamonds)
+        }
+    }
     var items = [StatItem]()
     var purchasedName = false
     var diamonds = 100 {

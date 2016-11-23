@@ -1542,20 +1542,33 @@ bacanje</string>
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1c.png" translatesAutoresizingMaskIntoConstraints="NO" id="MLw-ER-s3q">
-                                            <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBi-VK-Wi5">
+                                            <rect key="frame" x="5" y="5" width="40" height="40"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1c.png" translatesAutoresizingMaskIntoConstraints="NO" id="MLw-ER-s3q">
+                                                    <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="QPH-qs-MHr"/>
+                                                        <constraint firstAttribute="width" constant="30" id="Srt-3T-2vl"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="QPH-qs-MHr"/>
-                                                <constraint firstAttribute="width" constant="30" id="Srt-3T-2vl"/>
+                                                <constraint firstItem="MLw-ER-s3q" firstAttribute="centerY" secondItem="IBi-VK-Wi5" secondAttribute="centerY" id="6De-vs-YKd"/>
+                                                <constraint firstAttribute="width" constant="40" id="Bol-sj-OKo"/>
+                                                <constraint firstAttribute="height" constant="40" id="Rjw-l5-kq0"/>
+                                                <constraint firstItem="MLw-ER-s3q" firstAttribute="centerX" secondItem="IBi-VK-Wi5" secondAttribute="centerX" id="yJe-05-Azd"/>
                                             </constraints>
-                                        </imageView>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="MLw-ER-s3q" firstAttribute="centerX" secondItem="qOX-Lq-BCt" secondAttribute="centerX" id="JhB-KT-WxP"/>
-                                    <constraint firstItem="MLw-ER-s3q" firstAttribute="centerY" secondItem="qOX-Lq-BCt" secondAttribute="centerY" id="a9C-DH-8cj"/>
+                                    <constraint firstItem="IBi-VK-Wi5" firstAttribute="centerX" secondItem="qOX-Lq-BCt" secondAttribute="centerX" id="4ZA-8Y-JUw"/>
+                                    <constraint firstItem="IBi-VK-Wi5" firstAttribute="centerY" secondItem="qOX-Lq-BCt" secondAttribute="centerY" id="RRt-Ib-SoZ"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="holderView" destination="IBi-VK-Wi5" id="q0l-HA-yYe"/>
                                     <outlet property="icon" destination="MLw-ER-s3q" id="a4w-A2-W2t"/>
                                 </connections>
                             </collectionViewCell>
