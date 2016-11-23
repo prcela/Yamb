@@ -16,10 +16,12 @@ enum DiceMaterial: String
     case Blue = "d"
     case Red = "e"
     case Yellow = "f"
+    case BlueGlass = "g"
+    case Test = "h"
     
     static func all() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Test]
     }
 
 }
