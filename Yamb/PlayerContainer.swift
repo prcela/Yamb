@@ -15,8 +15,10 @@ class PlayerContainer: ContainerViewController {
 
         // Do any additional setup after loading the view.
         let statTableViewController = storyboard!.instantiateViewControllerWithIdentifier("StatTableViewController")
+        let diceContainer = storyboard!.instantiateViewControllerWithIdentifier("DiceCollectionViewController")
         items = [
-            ContainerItem(vc:statTableViewController, name: "Stat")
+            ContainerItem(vc:statTableViewController, name: "Stat"),
+            ContainerItem(vc:diceContainer, name: "Dice")
         ]
         selectByIndex(0)
     }
