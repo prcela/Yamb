@@ -139,14 +139,11 @@ class MenuViewController: UIViewController
     
     @IBAction func tellFriends(sender: AnyObject)
     {
-        guard MFMessageComposeViewController.canSendText() else {return}
+        let string: String = lstr("Check out this dice game for iPhone")
+        let URL: NSURL = NSURL(string: "http://apple.co/2byvskU")!
         
-        let messageVC = MFMessageComposeViewController()
-        messageVC.messageComposeDelegate = self
-        messageVC.subject = "Yamb"
-        messageVC.body = "Check out this dice game for iPhone \nhttp://apple.co/2byvskU"
-        
-        presentViewController(messageVC, animated: true, completion: nil)
+        let activityViewController = UIActivityViewController(activityItems: [string, URL], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     @objc
@@ -195,9 +192,5 @@ extension MenuViewController: GKGameCenterControllerDelegate
     }
 }
 
-extension MenuViewController: MFMessageComposeViewControllerDelegate
-{
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-}
+
+
