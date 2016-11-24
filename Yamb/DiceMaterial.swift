@@ -24,6 +24,7 @@ enum DiceMaterial: String
     case Apple = "l"
     case Moon = "m"
     case Flower = "n"
+    case Bombs = "o"
     
 //    static func all() -> [DiceMaterial]
 //    {
@@ -34,7 +35,7 @@ enum DiceMaterial: String
     
     static func forFree() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Moon]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Moon, .Bombs]
     }
     
     static func forDiamonds() -> [DiceMaterial]
