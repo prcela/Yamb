@@ -179,6 +179,7 @@
 		978687F91DE6F52900B26232 /* 5k_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 978687F41DE6F52800B26232 /* 5k_sel.png */; };
 		978687FA1DE6F52900B26232 /* 6k_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 978687F51DE6F52900B26232 /* 6k_sel.png */; };
 		978687FC1DE73C2B00B26232 /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978687FB1DE73C2B00B26232 /* Invitation.storyboard */; };
+		978687FE1DE73E5B00B26232 /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978687FD1DE73E5B00B26232 /* Player.storyboard */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AECF1D6330E3001640F7 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Match.swift */; };
 		978FCFA61DAA6B53000CAF8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978FCFA51DAA6B53000CAF8A /* Main.storyboard */; };
@@ -406,6 +407,7 @@
 		978687F41DE6F52800B26232 /* 5k_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5k_sel.png; path = Yamb/Resources/5k_sel.png; sourceTree = "<group>"; };
 		978687F51DE6F52900B26232 /* 6k_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6k_sel.png; path = Yamb/Resources/6k_sel.png; sourceTree = "<group>"; };
 		978687FB1DE73C2B00B26232 /* Invitation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
+		978687FD1DE73E5B00B26232 /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		978FCFA51DAA6B53000CAF8A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
+				978687FD1DE73E5B00B26232 /* Player.storyboard */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
@@ -988,6 +991,7 @@
 				977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */,
 				978687FC1DE73C2B00B26232 /* Invitation.storyboard in Resources */,
 				978687E01DE6D44000B26232 /* 6j_sel.png in Resources */,
+				978687FE1DE73E5B00B26232 /* Player.storyboard in Resources */,
 				9786877D1DE5DF5B00B26232 /* 1g.png in Resources */,
 				9747135F1D7A408400BB2AA9 /* 1f_sel.png in Resources */,
 				978687F91DE6F52900B26232 /* 5k_sel.png in Resources */,
