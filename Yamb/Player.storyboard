@@ -198,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtd-k1-Qpr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="802" y="1948"/>
+            <point key="canvasLocation" x="738" y="1996"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="AdW-Ni-elS">
@@ -471,8 +471,96 @@
             </objects>
             <point key="canvasLocation" x="2905" y="2026"/>
         </scene>
+        <!--Dice Collection View Controller-->
+        <scene sceneID="g5x-fa-mHB">
+            <objects>
+                <collectionViewController storyboardIdentifier="DiceCollectionViewController" id="M98-ch-guQ" customClass="DiceCollectionViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="KSb-07-yaD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Dyx-ux-2Ua">
+                            <size key="itemSize" width="60" height="60"/>
+                            <size key="headerReferenceSize" width="50" height="30"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="20"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiceCell" id="M3Q-8e-Zwo" customClass="DiceCell" customModule="Yamb" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="30" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjt-2J-BRw">
+                                            <rect key="frame" x="5" y="5" width="50" height="50"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1c.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kn0-jg-XWS">
+                                                    <rect key="frame" x="5" y="5" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="DxV-vz-SkJ"/>
+                                                        <constraint firstAttribute="height" constant="40" id="bet-7A-jUl"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="2mb-PQ-ByK"/>
+                                                <constraint firstItem="Kn0-jg-XWS" firstAttribute="centerY" secondItem="fjt-2J-BRw" secondAttribute="centerY" id="S1r-ma-3po"/>
+                                                <constraint firstAttribute="height" constant="50" id="Vep-7q-scd"/>
+                                                <constraint firstItem="Kn0-jg-XWS" firstAttribute="centerX" secondItem="fjt-2J-BRw" secondAttribute="centerX" id="f67-qG-us3"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="fjt-2J-BRw" firstAttribute="centerY" secondItem="M3Q-8e-Zwo" secondAttribute="centerY" id="Fcr-yX-t53"/>
+                                    <constraint firstItem="fjt-2J-BRw" firstAttribute="centerX" secondItem="M3Q-8e-Zwo" secondAttribute="centerX" id="sQP-ms-faL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="holderView" destination="fjt-2J-BRw" id="KlK-cK-Fjr"/>
+                                    <outlet property="icon" destination="Kn0-jg-XWS" id="4hW-Mn-djb"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiceHeader" id="8eh-nt-1Ss" customClass="DiceHeader" customModule="Yamb" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free dice" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZm-6w-EEu">
+                                    <rect key="frame" x="8" y="5" width="359" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="chd-GR-IvF"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="xZm-6w-EEu" firstAttribute="centerY" secondItem="8eh-nt-1Ss" secondAttribute="centerY" id="Wut-BQ-mBa"/>
+                                <constraint firstItem="xZm-6w-EEu" firstAttribute="leading" secondItem="8eh-nt-1Ss" secondAttribute="leadingMargin" id="rB4-L7-gjJ"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="xZm-6w-EEu" secondAttribute="trailing" id="sH1-JF-57Z"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="lbl" destination="xZm-6w-EEu" id="uLm-0c-jsb"/>
+                            </connections>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="M98-ch-guQ" id="Psb-1I-PWb"/>
+                            <outlet property="delegate" destination="M98-ch-guQ" id="BSW-ch-1ye"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iql-ct-doG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1441" y="2664"/>
+        </scene>
     </scenes>
     <resources>
         <image name="1a.png" width="171" height="171"/>
+        <image name="1c.png" width="171" height="171"/>
     </resources>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

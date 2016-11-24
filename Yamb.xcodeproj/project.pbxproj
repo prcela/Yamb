@@ -546,6 +546,7 @@
 				978FCFA51DAA6B53000CAF8A /* Main.storyboard */,
 				977D97FF1CAEA35700AD9EF8 /* LaunchScreen.storyboard */,
 				978687FB1DE73C2B00B26232 /* Invitation.storyboard */,
+				978687FD1DE73E5B00B26232 /* Player.storyboard */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
 				972498201D74EE9000CDC6B7 /* ViewControllers */,
 				97F16EC71D8A7A5700B8FB79 /* Model */,
@@ -559,7 +560,6 @@
 				97C4EF611D69D2A000A1E7CD /* Skin.swift */,
 				97C4EFA51D6DC2A100A1E7CD /* Constants.swift */,
 				97A6E0191D6DC7C0000ED49D /* Yamb-Bridging-Header.h */,
-				978687FD1DE73E5B00B26232 /* Player.storyboard */,
 			);
 			path = Yamb;
 			sourceTree = "<group>";
