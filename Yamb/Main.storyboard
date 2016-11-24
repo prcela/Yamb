@@ -71,12 +71,20 @@
                         <outlet property="connectingLbl" destination="EtK-mO-a6X" id="3uL-Gx-J4h"/>
                         <outlet property="playerBtn" destination="oIY-EY-Mie" id="Yhl-AJ-ZRv"/>
                         <segue destination="PEx-0D-RyI" kind="presentation" identifier="playIdentifier" id="HPt-Y7-3UD"/>
-                        <segue destination="0Th-De-0IM" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="5Ho-fZ-vNS"/>
+                        <segue destination="rrV-A0-nRc" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="kKt-x9-PvE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WsI-gZ-Ya3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="356.67166416791605"/>
+        </scene>
+        <!--Invitation-->
+        <scene sceneID="088-yE-suC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Invitation" id="rrV-A0-nRc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4D0-wF-tn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="76" y="838"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BQ8-0w-7Tm">
@@ -977,9 +985,9 @@
                         <outlet property="editBtn" destination="oqU-7n-7lf" id="gEV-Ys-yLH"/>
                         <outlet property="playerNameLbl" destination="Z4K-ze-NLB" id="PM3-Nj-wZu"/>
                         <outlet property="statsBtn" destination="HnO-dG-5Sh" id="ukh-Bo-uiO"/>
-                        <segue destination="0Th-De-0IM" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="DGY-ax-U16"/>
                         <segue destination="Rbu-IC-aGS" kind="presentation" identifier="purchaseName" modalPresentationStyle="overCurrentContext" id="xJK-lk-SZw"/>
                         <segue destination="a9l-de-dXi" kind="presentation" identifier="purchaseDice" modalPresentationStyle="overCurrentContext" id="LDj-au-oSI"/>
+                        <segue destination="d9y-bO-bVT" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="KdD-RK-iT2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNc-St-s06" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1036,89 +1044,13 @@
             </objects>
             <point key="canvasLocation" x="1751" y="1175"/>
         </scene>
-        <!--Invitation View Controller-->
-        <scene sceneID="7pH-T4-UmG">
+        <!--Invitation-->
+        <scene sceneID="hYw-Sj-S8A">
             <objects>
-                <viewController id="0Th-De-0IM" customClass="InvitationViewController" customModule="Yamb" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cmd-Y1-IS8"/>
-                        <viewControllerLayoutGuide type="bottom" id="NRS-Zi-Pdb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bgx-mL-QI0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOa-dI-fTl">
-                                <rect key="frame" x="47.5" y="183.5" width="280" height="300"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player invitation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVU-xv-HMg">
-                                        <rect key="frame" x="18" y="18" width="244" height="220"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="220" id="icG-vR-5Yt"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FQ-rd-I0W">
-                                        <rect key="frame" x="30" y="262" width="100" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="e7b-lV-TCT"/>
-                                            <constraint firstAttribute="width" constant="100" id="xkg-E0-K0g"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Ignore">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ignore:" destination="0Th-De-0IM" eventType="touchUpInside" id="gsF-zB-SUr"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUf-Z2-ekQ">
-                                        <rect key="frame" x="150" y="262" width="100" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="2k2-fD-b7d"/>
-                                            <constraint firstAttribute="width" constant="100" id="3yr-fG-mDW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Accept">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="accept:" destination="0Th-De-0IM" eventType="touchUpInside" id="19c-eQ-kHf"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="sVU-xv-HMg" secondAttribute="trailing" constant="10" id="3Tw-Yd-pDr"/>
-                                    <constraint firstAttribute="width" constant="280" id="JUa-NJ-hhq"/>
-                                    <constraint firstItem="0FQ-rd-I0W" firstAttribute="centerX" secondItem="SOa-dI-fTl" secondAttribute="centerX" constant="-60" id="NPI-oN-men"/>
-                                    <constraint firstItem="vUf-Z2-ekQ" firstAttribute="centerX" secondItem="SOa-dI-fTl" secondAttribute="centerX" constant="60" id="UAr-F1-ih6"/>
-                                    <constraint firstAttribute="height" constant="300" id="VI6-Lh-tiG"/>
-                                    <constraint firstAttribute="bottom" secondItem="vUf-Z2-ekQ" secondAttribute="bottom" constant="8" id="awt-Kd-XzB"/>
-                                    <constraint firstAttribute="leadingMargin" secondItem="sVU-xv-HMg" secondAttribute="leading" constant="-10" id="c8t-gh-ujm"/>
-                                    <constraint firstAttribute="topMargin" secondItem="sVU-xv-HMg" secondAttribute="top" constant="-10" id="lH8-gU-MKW"/>
-                                    <constraint firstAttribute="bottom" secondItem="0FQ-rd-I0W" secondAttribute="bottom" constant="8" id="p3Y-Cc-6sP"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="SOa-dI-fTl" firstAttribute="centerX" secondItem="Bgx-mL-QI0" secondAttribute="centerX" id="HFf-uE-TFx"/>
-                            <constraint firstItem="SOa-dI-fTl" firstAttribute="centerY" secondItem="Bgx-mL-QI0" secondAttribute="centerY" id="NJd-TI-d0t"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="acceptBtn" destination="vUf-Z2-ekQ" id="hcp-yc-sij"/>
-                        <outlet property="holderView" destination="SOa-dI-fTl" id="ROY-qz-UT2"/>
-                        <outlet property="ignoreBtn" destination="0FQ-rd-I0W" id="ZyH-gB-Zzf"/>
-                        <outlet property="messageLbl" destination="sVU-xv-HMg" id="PvH-d3-s7S"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yJO-M8-W6m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Invitation" id="a7h-lf-DZD" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nry-Is-SW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-682" y="2026"/>
+            <point key="canvasLocation" x="-628" y="1599"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="T7e-KP-2ka">
@@ -1381,7 +1313,7 @@ bacanje</string>
                         <outlet property="sum1Lbl" destination="oLa-On-pUH" id="JrU-pN-N0K"/>
                         <outlet property="sumLbl" destination="dLn-kT-Moy" id="rbE-De-lmY"/>
                         <segue destination="uAM-4S-tr8" kind="presentation" identifier="waitPlayer" animates="NO" modalPresentationStyle="overCurrentContext" id="wf1-rU-wbg"/>
-                        <segue destination="0Th-De-0IM" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="vUo-Z8-HnJ"/>
+                        <segue destination="a7h-lf-DZD" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="8RK-y8-khp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci9-JG-P7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1526,7 +1458,15 @@ bacanje</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PiQ-14-4aA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1444" y="2027"/>
+            <point key="canvasLocation" x="-1110" y="1948"/>
+        </scene>
+        <!--Invitation-->
+        <scene sceneID="yNP-Cg-zRO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Invitation" id="d9y-bO-bVT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cfz-Ff-Nfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="366" y="1704"/>
         </scene>
         <!--Player Container-->
         <scene sceneID="atE-Fm-xaS">
@@ -1968,7 +1908,6 @@ bacanje</string>
         <image name="up.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DGY-ax-U16"/>
         <segue reference="qNf-kJ-iJq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
