@@ -345,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7db-HP-ssl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="2027"/>
+            <point key="canvasLocation" x="300" y="2596"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="7ch-jE-Vid">
@@ -555,7 +555,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iql-ct-doG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="2664"/>
+            <point key="canvasLocation" x="980" y="2596"/>
         </scene>
     </scenes>
     <resources>

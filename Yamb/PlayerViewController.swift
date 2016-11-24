@@ -62,6 +62,20 @@ class PlayerViewController: UIViewController {
         {
             performSegueWithIdentifier("purchaseDice", sender: notification.object)
         }
+        else if DiceMaterial.forDiamonds().contains(diceMat)
+        {
+            if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice
+            {
+                let alert = UIAlertController(title: "Yamb", message: String(format: lstr("Buy dice for 💎" ), DiceMaterial.diamondsPrice), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                    PlayerStat.shared.diamonds -= DiceMaterial.diamondsPrice
+                    PlayerStat.shared.boughtDiceMaterials.append(diceMat)
+                    PlayerStat.saveStat()
+                }))
+                presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
