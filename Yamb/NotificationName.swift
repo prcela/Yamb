@@ -30,4 +30,5 @@ struct NotificationName
     static let multiplayerMatchEnded = "Notification.multiplayerMatchEnded"
     static let containerItemSelected = "Notification.containerItemSelected"
     static let onPlayerTurnInMultiplayer = "Notification.onPlayerTurnInMultiplayer"
+    static let wantsUnownedDiceMaterial = "Notification.wantsUnownedDiceMaterial"
 }

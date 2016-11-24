@@ -35,10 +35,9 @@ class PrepareSPViewController: UIViewController {
         diceTextureBtn?.layer.borderWidth = 1
         diceTextureBtn?.clipsToBounds = true
         
-        diceMatSelected = DiceMaterial.all().indexOf(PlayerStat.shared.favDiceMat)!
+        diceMatSelected = PlayerStat.shared.ownedDiceMaterials().indexOf(PlayerStat.shared.favDiceMat)!
         updateDiceBtn()
         
-        Chartboost.cacheInterstitial(CBLocationLevelStart)
     }
 
     func updateDiceBtn()
@@ -58,7 +57,7 @@ class PrepareSPViewController: UIViewController {
         
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
         
-        let current = DiceMaterial.all()[diceMatSelected]
+        let current = PlayerStat.shared.ownedDiceMaterials()[diceMatSelected]
         diceTextureBtn?.setImage(current.iconForValue(1), forState: .Normal)
         
     }
@@ -87,7 +86,7 @@ class PrepareSPViewController: UIViewController {
     
     @IBAction func changeDiceMaterial(sender: AnyObject)
     {
-        let diceMats = DiceMaterial.all()
+        let diceMats = PlayerStat.shared.ownedDiceMaterials()
         diceMatSelected = (diceMatSelected+1)%diceMats.count
         let diceMat = diceMats[diceMatSelected]
         diceTextureBtn?.setImage(diceMat.iconForValue(1), forState: .Normal)
@@ -99,9 +98,10 @@ class PrepareSPViewController: UIViewController {
         let playerId = defaults.stringForKey(Prefs.playerId)
         let playerAlias = defaults.stringForKey(Prefs.playerAlias)
         let avgScore6 = PlayerStat.avgScore(.Six)
+        let diceMat = PlayerStat.shared.ownedDiceMaterials()[diceMatSelected]
         Match.shared.start(.SinglePlayer,
                            diceNum: Match.shared.diceNum,
-                           playersDesc: [(playerId,playerAlias,avgScore6,DiceMaterial.all()[diceMatSelected])],
+                           playersDesc: [(playerId,playerAlias,avgScore6,diceMat)],
                            matchId: 0,
                            bet: 0)
         MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)

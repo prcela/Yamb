@@ -22,10 +22,10 @@ enum DiceMaterial: String
     case Heart = "j"
     case Dark = "k"
     
-    static func all() -> [DiceMaterial]
-    {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart, .Dark]
-    }
+//    static func all() -> [DiceMaterial]
+//    {
+//        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart, .Dark]
+//    }
     
     static func forFree() -> [DiceMaterial]
     {

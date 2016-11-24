@@ -16,19 +16,32 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var cancelBtn: UIButton?
     @IBOutlet weak var continueBtn: UIButton?
     @IBOutlet weak var priceLbl: UILabel?
-    @IBOutlet weak var restoreBtn: UIButton!
+    @IBOutlet weak var restoreBtn: UIButton?
+    @IBOutlet weak var icon: UIImageView?
+    
+    var descriptionText: String?
+    var productId: String!
+    var onPurchaseSuccess: (() -> Void)!
+    var iconName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        descriptionLbl?.text = lstr("Purchase description")
+        descriptionLbl?.text = descriptionText
         cancelBtn?.setTitle(lstr("Cancel"), forState: .Normal)
         continueBtn?.setTitle(lstr("Continue"), forState: .Normal)
-        restoreBtn.setTitle(lstr("Restore previous purchases"), forState: .Normal)
+        restoreBtn?.setTitle(lstr("Restore previous purchases"), forState: .Normal)
         
         holderView?.layer.cornerRadius = 10
         holderView?.clipsToBounds = true
+        
+        if iconName != nil
+        {
+            icon?.image = UIImage(named: iconName!)
+            icon?.layer.cornerRadius = 10
+            icon?.clipsToBounds = true
+        }
         
         updatePrice()
         
@@ -37,7 +50,7 @@ class PurchaseViewController: UIViewController {
     func updatePrice()
     {
         if let idx = retrievedProducts?.indexOf({product in
-            return product.productIdentifier == purchaseNameId
+            return product.productIdentifier == productId
         }) {
             let product = retrievedProducts![idx]
             let numberFormatter = NSNumberFormatter()
@@ -60,18 +73,22 @@ class PurchaseViewController: UIViewController {
     @IBAction func continuePurchase(sender: AnyObject)
     {
         dismissViewControllerAnimated(true) {
-            SwiftyStoreKit.purchaseProduct(purchaseNameId) { result in
+            SwiftyStoreKit.purchaseProduct(self.productId) { result in
                 switch result {
                 case .Success(let productId):
                     print("Purchase Success: \(productId)")
                     dispatch_async(dispatch_get_main_queue(), {
-                        print("Stat saved")
-                        PlayerStat.shared.purchasedName = true
-                        PlayerStat.saveStat()
+                        self.onPurchaseSuccess()
                     })
                     
                 case .Error(let error):
                     print("Purchase Failed: \(error)")
+                    
+                    dispatchToMainQueue(delay: 1) {
+                        let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchase failed"), preferredStyle: .Alert)
+                        alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -93,8 +110,7 @@ class PurchaseViewController: UIViewController {
                 else if results.restoredProductIds.count > 0 {
                     print("Restore Success: \(results.restoredProductIds)")
                     dispatchToMainQueue(delay: 1) {
-                        PlayerStat.shared.purchasedName = true
-                        PlayerStat.saveStat()
+                        self.onPurchaseSuccess()
                         
                         let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchases are successfully restored."), preferredStyle: .Alert)
                         alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))

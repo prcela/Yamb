@@ -17,6 +17,8 @@ class PlayerStat: NSObject, NSCoding
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerFavDiceChanged, object: diamonds)
         }
     }
+    var boughtDiceMaterials = [DiceMaterial]()
+    
     var items = [StatItem]()
     var purchasedName = false
     var diamonds = 100 {
@@ -27,6 +29,21 @@ class PlayerStat: NSObject, NSCoding
     
     override init() {
         super.init()
+    }
+    
+    func ownsDiceMat(diceMat: DiceMaterial) -> Bool
+    {
+        if DiceMaterial.forFree().contains(diceMat)
+        {
+            return true
+        }
+        return boughtDiceMaterials.contains(diceMat)
+    }
+    
+    func ownedDiceMaterials() -> [DiceMaterial]
+    {
+        let owned = DiceMaterial.forFree() + boughtDiceMaterials
+        return owned
     }
     
     private class func filePath() -> String
@@ -76,6 +93,10 @@ class PlayerStat: NSObject, NSCoding
         aCoder.encodeObject(items, forKey: "items")
         aCoder.encodeObject(favDiceMat.rawValue, forKey: "favDiceMat")
         aCoder.encodeBool(purchasedName, forKey: "purchasedName")
+        
+        aCoder.encodeObject(boughtDiceMaterials.map({ (diceMat) -> String in
+            return diceMat.rawValue
+        }), forKey: "boughtDiceMaterials")
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -89,6 +110,12 @@ class PlayerStat: NSObject, NSCoding
         if aDecoder.containsValueForKey("purchasedName")
         {
             purchasedName = aDecoder.decodeBoolForKey("purchasedName")
+        }
+        if aDecoder.containsValueForKey("boughtDiceMaterials")
+        {
+            boughtDiceMaterials = (aDecoder.decodeObjectForKey("boughtDiceMaterials") as! [String]).map({ (rawName) -> DiceMaterial in
+                return DiceMaterial(rawValue: rawName)!
+            })
         }
         super.init()
     }

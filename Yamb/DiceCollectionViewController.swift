@@ -16,6 +16,24 @@ class DiceCollectionViewController: UICollectionViewController
 
         // Do any additional setup after loading the view.
     }
+    
+    func diceMaterial(indexPath: NSIndexPath) -> DiceMaterial
+    {
+        var diceMat = DiceMaterial.White
+        if indexPath.section == 0
+        {
+            diceMat = DiceMaterial.forFree()[indexPath.row]
+        }
+        else if indexPath.section == 1
+        {
+            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
+        }
+        else if indexPath.section == 2
+        {
+            diceMat = DiceMaterial.forBuy()[indexPath.row]
+        }
+        return diceMat
+    }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 3
@@ -58,26 +76,25 @@ class DiceCollectionViewController: UICollectionViewController
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DiceCell", forIndexPath: indexPath) as! DiceCell
-        var diceMat = DiceMaterial.White
-        if indexPath.section == 0
-        {
-            diceMat = DiceMaterial.forFree()[indexPath.row]
-        }
-        else if indexPath.section == 1
-        {
-            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
-        }
-        else if indexPath.section == 2
-        {
-            diceMat = DiceMaterial.forBuy()[indexPath.row]
-        }
+        
+        let diceMat = diceMaterial(indexPath)
         cell.update(diceMat)
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool
     {
-        return true
+        let diceMat = diceMaterial(indexPath)
+        if PlayerStat.shared.ownsDiceMat(diceMat)
+        {
+            return true
+        }
+        else
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wantsUnownedDiceMaterial, object: diceMat.rawValue)
+            return false
+        }
+        
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)

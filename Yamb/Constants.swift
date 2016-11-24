@@ -56,3 +56,4 @@ func helloSwift()
 var retrievedProducts: Set<SKProduct>?
 
 let purchaseNameId = "yamb.PurchaseName"
+let purchaseDiceGId = "yamb.PurchaseDice.g"

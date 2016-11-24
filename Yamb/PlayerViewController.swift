@@ -21,8 +21,10 @@ class PlayerViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onFavDieSet), name: NotificationName.playerFavDiceChanged, object: nil)
+     
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(onFavDieSet), name: NotificationName.playerFavDiceChanged, object: nil)
+        nc.addObserver(self, selector: #selector(onWantsNewDiceMat(_:)), name: NotificationName.wantsUnownedDiceMaterial, object: nil)
     }
     
     
@@ -53,6 +55,15 @@ class PlayerViewController: UIViewController {
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
     }
     
+    func onWantsNewDiceMat(notification: NSNotification)
+    {
+        let diceMat = DiceMaterial(rawValue: notification.object as! String)!
+        if DiceMaterial.forBuy().contains(diceMat)
+        {
+            performSegueWithIdentifier("purchaseDice", sender: notification.object)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if segue.identifier == "embed"
@@ -63,6 +74,31 @@ class PlayerViewController: UIViewController {
         {
             let invitationVC = segue.destinationViewController as! InvitationViewController
             invitationVC.senderPlayer = sender as? Player
+        }
+        else if segue.identifier == "purchaseName"
+        {
+            let purchaseVC = segue.destinationViewController as! PurchaseViewController
+            purchaseVC.descriptionText = lstr("Purchase description")
+            purchaseVC.productId = purchaseNameId
+            purchaseVC.onPurchaseSuccess = {
+                PlayerStat.shared.purchasedName = true
+                PlayerStat.saveStat()
+            }
+        }
+        else if segue.identifier == "purchaseDice"
+        {
+            let diceMat = DiceMaterial(rawValue: sender as! String)!
+            let purchaseVC = segue.destinationViewController as! PurchaseViewController
+            purchaseVC.descriptionText = lstr("Purchase dice description")
+            purchaseVC.productId = purchaseDiceGId
+            purchaseVC.iconName = "1\(diceMat.rawValue)"
+            purchaseVC.onPurchaseSuccess = {
+                if !PlayerStat.shared.boughtDiceMaterials.contains(diceMat)
+                {
+                    PlayerStat.shared.boughtDiceMaterials.append(diceMat)
+                }
+                PlayerStat.saveStat()
+            }
         }
     }
 
@@ -97,7 +133,7 @@ class PlayerViewController: UIViewController {
         }
         else
         {
-            performSegueWithIdentifier("purchase", sender: nil)
+            performSegueWithIdentifier("purchaseName", sender: nil)
         }
         
     }
