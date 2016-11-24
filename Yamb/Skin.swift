@@ -18,5 +18,5 @@ struct Skin
     var strokeColor = UIColor.blueColor()
     var labelBackColor = UIColor(netHex:0xaaa6b5FF)
     var tintColor = UIColor.blueColor()
-    let defaultLightColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+    let defaultLightColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
 }

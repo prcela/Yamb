@@ -59,7 +59,7 @@ class PrepareSPViewController: UIViewController {
         dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
         
         let current = DiceMaterial.all()[diceMatSelected]
-        diceTextureBtn?.setImage(UIImage(named: "1\(current.rawValue)"), forState: .Normal)
+        diceTextureBtn?.setImage(current.iconForValue(1), forState: .Normal)
         
     }
     
@@ -90,7 +90,7 @@ class PrepareSPViewController: UIViewController {
         let diceMats = DiceMaterial.all()
         diceMatSelected = (diceMatSelected+1)%diceMats.count
         let diceMat = diceMats[diceMatSelected]
-        diceTextureBtn?.setImage(UIImage(named: "1\(diceMat.rawValue)"), forState: .Normal)
+        diceTextureBtn?.setImage(diceMat.iconForValue(1), forState: .Normal)
     }
     
     @IBAction func playNewGame(sender: AnyObject)

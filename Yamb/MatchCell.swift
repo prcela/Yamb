@@ -42,8 +42,8 @@ class MatchCell: UITableViewCell {
             titleLbl1?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars))!, player.alias!)
         }
         
-        diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
-        diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
+        diceIconFirst.image =  diceIcon(match.diceMaterials.first!, value: 1)
+        diceIconSecond.image = diceIcon(match.diceMaterials.last!, value: 2)
         
         titleLbl2?.text = "?"
         infoLbl1?.text = "\(match.diceNum) 🎲"
@@ -63,8 +63,8 @@ class MatchCell: UITableViewCell {
             titleLbl2?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(lastPlayer.avgScore6)))!, lastPlayer.alias!)
         }
         
-        diceIconFirst.image = UIImage(named: "1\(match.diceMaterials.first!)")
-        diceIconSecond.image = UIImage(named: "2\(match.diceMaterials.last!)")
+        diceIconFirst.image = diceIcon(match.diceMaterials.first!, value: 1)
+        diceIconSecond.image = diceIcon(match.diceMaterials.last!, value: 2)
         
         infoLbl1?.text = "\(match.diceNum) 🎲"
         infoLbl2?.text = "\(match.bet) 💎"

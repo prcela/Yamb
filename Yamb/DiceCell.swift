@@ -35,6 +35,6 @@ class DiceCell: UICollectionViewCell {
     
     func update(diceMat: DiceMaterial)
     {
-        icon.image = UIImage(named: "1\(diceMat.rawValue)")
+        icon.image = diceIcon(diceMat.rawValue, value: 1)
     }
 }

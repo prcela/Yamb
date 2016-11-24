@@ -80,21 +80,19 @@ class DiceScene: SCNScene
     func recreateMaterials()
     {
         let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
-        let dieMat = player.diceMaterial.rawValue
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
         
         for sideIdx in 1...6
         {
             let defaultMaterial = SCNMaterial()
-            let name = "\(sideIdx)\(dieMat)"
-            defaultMaterial.diffuse.contents = UIImage(named: name)
+            defaultMaterial.diffuse.contents = player.diceMaterial.iconForValue(sideIdx)
             defaultMaterial.locksAmbientWithDiffuse = true
             dieMaterialsDefault.append(defaultMaterial)
             
             let selectedMaterial = SCNMaterial()
-            let selName = "\(name)_sel"
-            selectedMaterial.diffuse.contents = UIImage(named: selName)
+            
+            selectedMaterial.diffuse.contents = player.diceMaterial.iconForValue(sideIdx, selected: true)
             selectedMaterial.locksAmbientWithDiffuse = true
             dieMaterialsSelected.append(selectedMaterial)
         }

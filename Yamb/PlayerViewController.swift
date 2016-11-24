@@ -42,7 +42,7 @@ class PlayerViewController: UIViewController {
         dieIcon.layer.borderColor = UIColor.darkGrayColor().CGColor
         dieIcon.clipsToBounds = true
         
-        dieIcon.image = UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)")
+        dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
         
         showStats(statsBtn)
         
@@ -50,7 +50,7 @@ class PlayerViewController: UIViewController {
     
     func onFavDieSet()
     {
-        dieIcon.image = UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)")
+        dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -82,16 +82,6 @@ class PlayerViewController: UIViewController {
         playerContainer?.selectByName("Dice", completion: nil)
     }
     
-//    @IBAction func toggleFavDice(sender: AnyObject)
-//    {
-//        let diceMats = allDiceMaterials()
-//        if let idx = diceMats.indexOf(PlayerStat.shared.favDiceMat)
-//        {
-//            PlayerStat.shared.favDiceMat = diceMats[(idx+1)%diceMats.count]
-//            favDiceBtn.setImage(UIImage(named: "1\(PlayerStat.shared.favDiceMat.rawValue)"), forState: .Normal)
-//        }
-//    }
-
     @IBAction func close(sender: AnyObject)
     {
         dismissViewControllerAnimated(true, completion: nil)
