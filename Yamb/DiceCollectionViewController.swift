@@ -18,7 +18,7 @@ class DiceCollectionViewController: UICollectionViewController
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return 3
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
@@ -29,8 +29,10 @@ class DiceCollectionViewController: UICollectionViewController
         case UICollectionElementKindSectionHeader:
             //3
             let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                                                                                   withReuseIdentifier: "FreeDice",
-                                                                                   forIndexPath: indexPath)
+                                                                                   withReuseIdentifier: "DiceHeader",
+                                                                                   forIndexPath: indexPath) as! DiceHeader
+            let titles = ["Free","Get for 💎","Extra"]
+            headerView.lbl.text = titles[indexPath.section]
             return headerView
         default:
             //4
@@ -39,12 +41,37 @@ class DiceCollectionViewController: UICollectionViewController
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DiceMaterial.all().count
+        if section == 0
+        {
+            return DiceMaterial.forFree().count
+        }
+        else if section == 1
+        {
+            return DiceMaterial.forDiamonds().count
+        }
+        else if section == 2
+        {
+            return DiceMaterial.forBuy().count
+        }
+        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DiceCell", forIndexPath: indexPath) as! DiceCell
-        cell.update(DiceMaterial.all()[indexPath.row])
+        var diceMat = DiceMaterial.White
+        if indexPath.section == 0
+        {
+            diceMat = DiceMaterial.forFree()[indexPath.row]
+        }
+        else if indexPath.section == 1
+        {
+            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
+        }
+        else if indexPath.section == 2
+        {
+            diceMat = DiceMaterial.forBuy()[indexPath.row]
+        }
+        cell.update(diceMat)
         return cell
     }
 
@@ -55,7 +82,23 @@ class DiceCollectionViewController: UICollectionViewController
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let diceMat = DiceMaterial.all()[indexPath.row]
-        PlayerStat.shared.favDiceMat = diceMat
+        var diceMat: DiceMaterial?
+        if indexPath.section == 0
+        {
+            diceMat = DiceMaterial.forFree()[indexPath.row]
+        }
+        else if indexPath.section == 1
+        {
+            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
+        }
+        else if indexPath.section == 2
+        {
+            diceMat = DiceMaterial.forBuy()[indexPath.row]
+        }
+        
+        if diceMat != nil
+        {
+            PlayerStat.shared.favDiceMat = diceMat!
+        }
     }
 }

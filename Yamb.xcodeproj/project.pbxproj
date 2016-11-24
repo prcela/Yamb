@@ -165,6 +165,7 @@
 		978687DE1DE6D44000B26232 /* 4j_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 978687D81DE6D44000B26232 /* 4j_sel.png */; };
 		978687DF1DE6D44000B26232 /* 5j_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 978687D91DE6D44000B26232 /* 5j_sel.png */; };
 		978687E01DE6D44000B26232 /* 6j_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 978687DA1DE6D44000B26232 /* 6j_sel.png */; };
+		978687E21DE6D6E700B26232 /* DiceHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978687E11DE6D6E700B26232 /* DiceHeader.swift */; };
 		9787AEC01D632491001640F7 /* DiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AEBF1D632491001640F7 /* DiceScene.swift */; };
 		9787AECF1D6330E3001640F7 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9787AECE1D6330E3001640F7 /* Match.swift */; };
 		978FCFA61DAA6B53000CAF8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978FCFA51DAA6B53000CAF8A /* Main.storyboard */; };
@@ -378,6 +379,7 @@
 		978687D81DE6D44000B26232 /* 4j_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4j_sel.png; path = Yamb/Resources/4j_sel.png; sourceTree = "<group>"; };
 		978687D91DE6D44000B26232 /* 5j_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5j_sel.png; path = Yamb/Resources/5j_sel.png; sourceTree = "<group>"; };
 		978687DA1DE6D44000B26232 /* 6j_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6j_sel.png; path = Yamb/Resources/6j_sel.png; sourceTree = "<group>"; };
+		978687E11DE6D6E700B26232 /* DiceHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceHeader.swift; sourceTree = "<group>"; };
 		9787AEBF1D632491001640F7 /* DiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScene.swift; sourceTree = "<group>"; };
 		9787AECE1D6330E3001640F7 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		978FCFA51DAA6B53000CAF8A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 				9786876D1DE30E5000B26232 /* BorderedView.swift */,
 				978687711DE5A81D00B26232 /* UnderlineButton.swift */,
 				978687751DE5CACD00B26232 /* DiceCell.swift */,
+				978687E11DE6D6E700B26232 /* DiceHeader.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 				97C4EF5A1D67DD0A00A1E7CD /* UIColorExt.swift in Sources */,
 				9787AECF1D6330E3001640F7 /* Match.swift in Sources */,
 				97130EAB1DDAFDC7009C1CA0 /* ScorePickerViewController.swift in Sources */,
+				978687E21DE6D6E700B26232 /* DiceHeader.swift in Sources */,
 				974951CA1D969B77002BEEFB /* DiceMaterial.swift in Sources */,
 				972B1BC71D83DECC00010F5F /* SwiftyJSON.swift in Sources */,
 				9724981F1D74EE7A00CDC6B7 /* MultiPlayerViewController.swift in Sources */,

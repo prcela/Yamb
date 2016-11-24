@@ -26,6 +26,21 @@ enum DiceMaterial: String
         return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart]
     }
     
+    static func forFree() -> [DiceMaterial]
+    {
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow]
+    }
+    
+    static func forDiamonds() -> [DiceMaterial]
+    {
+        return [.Roman, .RedGlass, .Heart]
+    }
+    
+    static func forBuy() -> [DiceMaterial]
+    {
+        return [.BlueGlass]
+    }
+    
     func iconForValue(value: Int, selected: Bool = false) -> UIImage?
     {
         var name = "\(value)\(rawValue)"
