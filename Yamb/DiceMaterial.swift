@@ -20,10 +20,11 @@ enum DiceMaterial: String
     case Roman = "h"
     case RedGlass = "i"
     case Heart = "j"
+    case Dark = "k"
     
     static func all() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart, .Dark]
     }
     
     static func forFree() -> [DiceMaterial]
@@ -33,7 +34,7 @@ enum DiceMaterial: String
     
     static func forDiamonds() -> [DiceMaterial]
     {
-        return [.Roman, .RedGlass, .Heart]
+        return [.Roman, .RedGlass, .Heart, .Dark]
     }
     
     static func forBuy() -> [DiceMaterial]
