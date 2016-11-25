@@ -176,14 +176,7 @@ extension RoomViewController: UITableViewDelegate
             }
             else
             {
-                let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
-                    dispatch_async(dispatch_get_main_queue(), { 
-                        Chartboost.showRewardedVideo(CBLocationLevelStart)
-                    })
-                }))
-                presentViewController(alert, animated: true, completion: nil)
+                suggestRewardVideo()
             }
         }
     }
@@ -194,5 +187,21 @@ extension RoomViewController: UITableViewDelegate
             return 70
         }
         return tableView.rowHeight
+    }
+}
+
+/// Allow this to be called from any controller
+extension UIViewController
+{
+    func suggestRewardVideo()
+    {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                Chartboost.showRewardedVideo(CBLocationMainMenu)
+            })
+        }))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }

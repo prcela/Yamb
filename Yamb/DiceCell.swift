@@ -27,7 +27,7 @@ class DiceCell: UICollectionViewCell {
         holderView.layer.borderColor = UIColor.whiteColor().CGColor
         holderView.clipsToBounds = true
         
-        icon.layer.borderWidth = 1
+        icon.layer.borderWidth = 0.5
         icon.layer.cornerRadius = 5
         icon.layer.borderColor = UIColor.darkGrayColor().CGColor
         icon.clipsToBounds = true

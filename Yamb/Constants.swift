@@ -57,3 +57,7 @@ var retrievedProducts: Set<SKProduct>?
 
 let purchaseNameId = "yamb.PurchaseName"
 let purchaseDiceGId = "yamb.PurchaseDice.g"
+let purchaseDicePId = "yamb.PurchaseDice.p"
+let purchaseDiceLId = "yamb.PurchaseDice.l"
+
+let allPurchaseIds: Set<String> = [purchaseNameId, purchaseDiceGId, purchaseDiceLId, purchaseDicePId]

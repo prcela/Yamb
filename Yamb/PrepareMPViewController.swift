@@ -118,18 +118,6 @@ class PrepareMPViewController: UIViewController {
         WsAPI.shared.createMatch(diceNum, diceMaterials: [favDiceMat, .White], bet: bet)
     }
     
-    func suggestRewardVideo()
-    {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
-            dispatch_async(dispatch_get_main_queue(), {
-                Chartboost.showRewardedVideo(CBLocationMainMenu)
-            })
-        }))
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
     
     @IBAction func back(sender: AnyObject)
     {

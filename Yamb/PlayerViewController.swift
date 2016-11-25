@@ -75,6 +75,10 @@ class PlayerViewController: UIViewController {
                 }))
                 presentViewController(alert, animated: true, completion: nil)
             }
+            else
+            {
+                suggestRewardVideo()
+            }
         }
     }
     
@@ -104,7 +108,7 @@ class PlayerViewController: UIViewController {
             let diceMat = DiceMaterial(rawValue: sender as! String)!
             let purchaseVC = segue.destinationViewController as! PurchaseViewController
             purchaseVC.descriptionText = lstr("Purchase dice description")
-            purchaseVC.productId = purchaseDiceGId
+            purchaseVC.productId = "yamb.PurchaseDice." + diceMat.rawValue
             purchaseVC.iconName = "1\(diceMat.rawValue)"
             purchaseVC.onPurchaseSuccess = {
                 if !PlayerStat.shared.boughtDiceMaterials.contains(diceMat)

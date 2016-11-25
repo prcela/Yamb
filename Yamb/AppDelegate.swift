@@ -92,6 +92,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             PlayerStat.saveStat()
                         })
                     }
+                    else if completedTransaction.productId.hasPrefix("yamb.PurchaseDice.")
+                    {
+                        let components = completedTransaction.productId.componentsSeparatedByString(".")
+                        dispatch_async(dispatch_get_main_queue(), {
+                            let diceMat = DiceMaterial(rawValue: components.last!)!
+                            if !PlayerStat.shared.boughtDiceMaterials.contains(diceMat)
+                            {
+                                PlayerStat.shared.boughtDiceMaterials.append(diceMat)
+                                PlayerStat.saveStat()
+                            }
+                        })
+                    }
                 }
             }
         }
@@ -117,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        SwiftyStoreKit.retrieveProductsInfo([purchaseNameId]) { result in
+        SwiftyStoreKit.retrieveProductsInfo(allPurchaseIds) { result in
             retrievedProducts = result.retrievedProducts
             
             if let product = result.retrievedProducts.first {

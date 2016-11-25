@@ -41,6 +41,8 @@ class PurchaseViewController: UIViewController {
             icon?.image = UIImage(named: iconName!)
             icon?.layer.cornerRadius = 10
             icon?.clipsToBounds = true
+            icon?.layer.borderWidth = 0.5
+            icon?.layer.borderColor = UIColor(netHex: 0x11111111).CGColor
         }
         
         updatePrice()
