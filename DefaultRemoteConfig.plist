@@ -8,5 +8,7 @@
 	<integer>60</integer>
 	<key>purchase_name</key>
 	<true/>
+	<key>dice_price_diamonds</key>
+	<integer>70</integer>
 </dict>
 </plist>

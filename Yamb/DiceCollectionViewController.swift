@@ -49,7 +49,10 @@ class DiceCollectionViewController: UICollectionViewController
             let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                                                                                    withReuseIdentifier: "DiceHeader",
                                                                                    forIndexPath: indexPath) as! DiceHeader
-            let titles = ["Free","Get for 💎","Extra"]
+            let titles = ["Free",
+                          String(format: "Get for %d 💎", DiceMaterial.diamondsPrice()),
+                          "Extra"]
+            
             headerView.lbl.text = titles[indexPath.section]
             return headerView
         default:

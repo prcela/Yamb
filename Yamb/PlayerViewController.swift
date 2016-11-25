@@ -64,12 +64,12 @@ class PlayerViewController: UIViewController {
         }
         else if DiceMaterial.forDiamonds().contains(diceMat)
         {
-            if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice
+            if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice()
             {
-                let alert = UIAlertController(title: "Yamb", message: String(format: lstr("Buy dice for 💎" ), DiceMaterial.diamondsPrice), preferredStyle: .Alert)
+                let alert = UIAlertController(title: "Yamb", message: String(format: lstr("Buy dice for 💎" ), DiceMaterial.diamondsPrice()), preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
-                    PlayerStat.shared.diamonds -= DiceMaterial.diamondsPrice
+                    PlayerStat.shared.diamonds -= DiceMaterial.diamondsPrice()
                     PlayerStat.shared.boughtDiceMaterials.append(diceMat)
                     PlayerStat.saveStat()
                 }))

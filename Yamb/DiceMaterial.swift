@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum DiceMaterial: String
 {
@@ -25,27 +26,27 @@ enum DiceMaterial: String
     case Moon = "m"
     case Flower = "n"
     case Bombs = "o"
+    case Numbers = "p"
+    case Animal = "r"
     
-//    static func all() -> [DiceMaterial]
-//    {
-//        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .BlueGlass, .Roman, .RedGlass, .Heart, .Dark]
-//    }
-    
-    static let diamondsPrice = 70
+    static func diamondsPrice() -> Int
+    {
+        return FIRRemoteConfig.remoteConfig()["dice_price_diamonds"].numberValue!.integerValue
+    }
     
     static func forFree() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Moon, .Bombs]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow]
     }
     
     static func forDiamonds() -> [DiceMaterial]
     {
-        return [.Roman, .RedGlass, .Heart, .Dark, .Apple, .Flower]
+        return [.Roman, .RedGlass, .Heart, .Dark, .Flower, .Moon, .Bombs, .Animal]
     }
     
     static func forBuy() -> [DiceMaterial]
     {
-        return [.BlueGlass]
+        return [.BlueGlass, .Numbers, .Apple]
     }
     
     func iconForValue(value: Int, selected: Bool = false) -> UIImage?
