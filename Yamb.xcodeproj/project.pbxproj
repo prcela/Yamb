@@ -32,6 +32,8 @@
 		972B1BCB1D84276B00010F5F /* WsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1BCA1D84276B00010F5F /* WsAPI.swift */; };
 		972B1BCD1D842FB900010F5F /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1BCC1D842FB900010F5F /* Room.swift */; };
 		9736EB6F1DD5AE5D005AE703 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */; };
+		9742B11F1DE8786A005D049E /* Play.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9742B11E1DE8786A005D049E /* Play.storyboard */; };
+		9742B1211DE8813D005D049E /* Room.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1201DE8813D005D049E /* Room.storyboard */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
 		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
 		974712E61D78495F00BB2AA9 /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 974712E51D78495F00BB2AA9 /* rules */; };
@@ -330,6 +332,8 @@
 		972B1BCA1D84276B00010F5F /* WsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WsAPI.swift; sourceTree = "<group>"; };
 		972B1BCC1D842FB900010F5F /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		9742B11E1DE8786A005D049E /* Play.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Play.storyboard; sourceTree = "<group>"; };
+		9742B1201DE8813D005D049E /* Room.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Room.storyboard; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
 		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		974712E51D78495F00BB2AA9 /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Yamb/Resources/rules; sourceTree = "<group>"; };
@@ -690,7 +694,9 @@
 				978FCFA51DAA6B53000CAF8A /* Main.storyboard */,
 				977D97FF1CAEA35700AD9EF8 /* LaunchScreen.storyboard */,
 				978687FB1DE73C2B00B26232 /* Invitation.storyboard */,
+				9742B11E1DE8786A005D049E /* Play.storyboard */,
 				978687FD1DE73E5B00B26232 /* Player.storyboard */,
+				9742B1201DE8813D005D049E /* Room.storyboard */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
 				972498201D74EE9000CDC6B7 /* ViewControllers */,
 				97F16EC71D8A7A5700B8FB79 /* Model */,
@@ -1215,6 +1221,7 @@
 				978FCFA61DAA6B53000CAF8A /* Main.storyboard in Resources */,
 				9786882E1DE7658800B26232 /* 4m_sel.png in Resources */,
 				974713141D793F7200BB2AA9 /* 4c_sel.png in Resources */,
+				9742B1211DE8813D005D049E /* Room.storyboard in Resources */,
 				978688511DE7725700B26232 /* 3o.png in Resources */,
 				9724981B1D730F7C00CDC6B7 /* play.png in Resources */,
 				974713631D7A408400BB2AA9 /* 5f_sel.png in Resources */,
@@ -1229,6 +1236,7 @@
 				978688371DE7691F00B26232 /* 1n.png in Resources */,
 				97C4EF921D6B38B900A1E7CD /* 4a_sel.png in Resources */,
 				9747133D1D79832300BB2AA9 /* 5e.png in Resources */,
+				9742B11F1DE8786A005D049E /* Play.storyboard in Resources */,
 				97C4EF8B1D6B38B900A1E7CD /* 1a.png in Resources */,
 				974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */,
 				978688781DE7826A00B26232 /* 2r_sel.png in Resources */,

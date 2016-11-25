@@ -136,7 +136,8 @@ extension RoomViewController: UITableViewDataSource
             let player = Room.main.freePlayers().filter({ (player) -> Bool in
                 return player.id != playerId && player.connected
             })[indexPath.row]
-            cell.textLabel?.text = String(format: "%@ ⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!, player.alias!)
+            let stars = starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!
+            cell.textLabel?.text = String(format: "%@ ⭐️  %@", stars, player.alias!)
             cell.accessoryType = .None
             return cell
         }
