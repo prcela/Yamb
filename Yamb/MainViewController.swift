@@ -13,7 +13,8 @@ class MainViewController: UIViewController
     static var shared: MainViewController?
     
     @IBOutlet weak var connectingLbl: UILabel?
-    @IBOutlet weak var playerBtn: UIButton!
+    @IBOutlet weak var playerBtn: UIButton?
+    @IBOutlet weak var diceIcon: UIImageView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,6 +29,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerAliasChanged, object: nil)
+        nc.addObserver(self, selector: #selector(onFavDiceChanged), name: NotificationName.playerFavDiceChanged, object: nil)
         
         MainViewController.shared = self
 
@@ -39,6 +41,9 @@ class MainViewController: UIViewController
         // Do any additional setup after loading the view.
         connectingLbl?.hidden = true
         connectingLbl?.text = lstr("Connecting...")
+        
+        diceIcon?.layer.cornerRadius = 3
+        diceIcon?.clipsToBounds = true
         
         updatePlayerInfo()
     }
@@ -52,9 +57,15 @@ class MainViewController: UIViewController
         
         let stars = stars6(avgScore6)
         let playerTitle = String(format: "%@  💎 \(diamonds)  ⭐️ %@", name, starsFormatter.stringFromNumber(NSNumber(float: stars))!)
-        playerBtn.setTitle(playerTitle, forState: .Normal)
+        playerBtn?.setTitle(playerTitle, forState: .Normal)
+        diceIcon?.image = PlayerStat.shared.favDiceMat.iconForValue(1)
         
         ServerAPI.updatePlayer {_,_,_ in }
+    }
+    
+    func onFavDiceChanged()
+    {
+        diceIcon?.image = PlayerStat.shared.favDiceMat.iconForValue(1)
     }
 
     func joinedMatch(notification: NSNotification)

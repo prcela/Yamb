@@ -28,12 +28,15 @@
                                     <segue destination="rff-MO-f1j" kind="embed" id="6UM-FE-OOc"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIY-EY-Mie">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIY-EY-Mie">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.84102909482758625" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FwQ-ep-O1e"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="44" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
                                 <state key="normal" title="Button" image="up.png">
                                     <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -42,6 +45,13 @@
                                     <segue destination="4Yx-KF-LyO" kind="presentation" id="gla-Pe-jf3"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1a.png" translatesAutoresizingMaskIntoConstraints="NO" id="iD6-hy-P5R">
+                                <rect key="frame" x="345" y="635" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Rna-EX-DId"/>
+                                    <constraint firstAttribute="width" constant="20" id="yhK-FH-U5J"/>
+                                </constraints>
+                            </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-mO-a6X">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.8422144396551724" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -56,9 +66,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="giY-8q-Z8u" firstAttribute="top" secondItem="oIY-EY-Mie" secondAttribute="bottom" id="8bl-81-xdJ"/>
+                            <constraint firstAttribute="trailing" secondItem="iD6-hy-P5R" secondAttribute="trailing" constant="10" id="PN7-w3-TqU"/>
                             <constraint firstItem="giY-8q-Z8u" firstAttribute="top" secondItem="EtK-mO-a6X" secondAttribute="bottom" id="Sf8-gt-g9u"/>
                             <constraint firstItem="EtK-mO-a6X" firstAttribute="leading" secondItem="sJH-Ca-aG0" secondAttribute="leading" id="WV2-Fc-L0R"/>
                             <constraint firstAttribute="trailing" secondItem="oIY-EY-Mie" secondAttribute="trailing" id="YCq-TG-OfL"/>
+                            <constraint firstItem="iD6-hy-P5R" firstAttribute="centerY" secondItem="oIY-EY-Mie" secondAttribute="centerY" id="cyB-Qs-xp0"/>
                             <constraint firstItem="oIY-EY-Mie" firstAttribute="leading" secondItem="sJH-Ca-aG0" secondAttribute="leading" id="fXz-iQ-hf4"/>
                             <constraint firstItem="915-G1-YEn" firstAttribute="top" secondItem="zFv-1d-KVR" secondAttribute="bottom" id="pck-dN-VYc"/>
                             <constraint firstItem="oIY-EY-Mie" firstAttribute="top" secondItem="915-G1-YEn" secondAttribute="bottom" id="pjZ-sx-DLH"/>
@@ -69,6 +81,7 @@
                     </view>
                     <connections>
                         <outlet property="connectingLbl" destination="EtK-mO-a6X" id="3uL-Gx-J4h"/>
+                        <outlet property="diceIcon" destination="iD6-hy-P5R" id="E1o-G8-UpZ"/>
                         <outlet property="playerBtn" destination="oIY-EY-Mie" id="Yhl-AJ-ZRv"/>
                         <segue destination="rrV-A0-nRc" kind="presentation" identifier="invitation" modalPresentationStyle="overCurrentContext" id="kKt-x9-PvE"/>
                         <segue destination="KYB-a7-PtN" kind="presentation" identifier="playIdentifier" id="BZR-cO-SsZ"/>
@@ -485,6 +498,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1a.png" width="171" height="171"/>
         <image name="1c.png" width="171" height="171"/>
         <image name="up.png" width="16" height="16"/>
     </resources>
