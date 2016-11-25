@@ -34,6 +34,7 @@
 		9736EB6F1DD5AE5D005AE703 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */; };
 		9742B11F1DE8786A005D049E /* Play.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9742B11E1DE8786A005D049E /* Play.storyboard */; };
 		9742B1211DE8813D005D049E /* Room.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1201DE8813D005D049E /* Room.storyboard */; };
+		9742B1231DE88376005D049E /* Scores.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1221DE88376005D049E /* Scores.storyboard */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
 		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
 		974712E61D78495F00BB2AA9 /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 974712E51D78495F00BB2AA9 /* rules */; };
@@ -334,6 +335,7 @@
 		9736EB6E1DD5AE5D005AE703 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		9742B11E1DE8786A005D049E /* Play.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Play.storyboard; sourceTree = "<group>"; };
 		9742B1201DE8813D005D049E /* Room.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Room.storyboard; sourceTree = "<group>"; };
+		9742B1221DE88376005D049E /* Scores.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Scores.storyboard; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
 		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		974712E51D78495F00BB2AA9 /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Yamb/Resources/rules; sourceTree = "<group>"; };
@@ -697,6 +699,7 @@
 				9742B11E1DE8786A005D049E /* Play.storyboard */,
 				978687FD1DE73E5B00B26232 /* Player.storyboard */,
 				9742B1201DE8813D005D049E /* Room.storyboard */,
+				9742B1221DE88376005D049E /* Scores.storyboard */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
 				972498201D74EE9000CDC6B7 /* ViewControllers */,
 				97F16EC71D8A7A5700B8FB79 /* Model */,
@@ -1127,6 +1130,7 @@
 				9705CDED1DCA3753004109BC /* up.png in Resources */,
 				9747134B1D79AC5500BB2AA9 /* 5e_sel.png in Resources */,
 				978687D41DE6545B00B26232 /* 6j.png in Resources */,
+				9742B1231DE88376005D049E /* Scores.storyboard in Resources */,
 				978688381DE7691F00B26232 /* 2n.png in Resources */,
 				978688301DE7658800B26232 /* 6m_sel.png in Resources */,
 				974713241D796F8500BB2AA9 /* 6d_sel.png in Resources */,
