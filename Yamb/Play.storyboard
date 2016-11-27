@@ -197,6 +197,17 @@ bacanje</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zq-9M-9hN">
+                                <rect key="frame" x="8" y="545" width="46" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="UtU-FQ-slz"/>
+                                    <constraint firstAttribute="height" constant="44" id="wth-2F-BAW"/>
+                                </constraints>
+                                <state key="normal" title="💬"/>
+                                <connections>
+                                    <action selector="talk:" destination="hEj-q4-fG2" eventType="touchUpInside" id="cDT-LE-d3J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -245,24 +256,26 @@ bacanje</string>
                             <constraint firstItem="udN-Yx-7zr" firstAttribute="top" secondItem="5Hh-pE-Sig" secondAttribute="bottom" constant="1" id="nul-qd-qgI"/>
                             <constraint firstItem="1yx-LL-rrJ" firstAttribute="leading" secondItem="M8T-fJ-PNk" secondAttribute="trailing" constant="5" id="pWJ-es-oVU"/>
                             <constraint firstItem="jRU-tT-dwa" firstAttribute="top" secondItem="vP2-MD-m4d" secondAttribute="bottom" constant="3" id="pl8-YW-hq3"/>
+                            <constraint firstItem="haM-K6-eu9" firstAttribute="top" secondItem="2Zq-9M-9hN" secondAttribute="bottom" constant="10" id="q7d-dw-zLy"/>
                             <constraint firstItem="vP2-MD-m4d" firstAttribute="top" secondItem="M8T-fJ-PNk" secondAttribute="bottom" constant="-2" id="qah-OB-zNI"/>
                             <constraint firstItem="dz8-rz-W4t" firstAttribute="centerY" secondItem="vP2-MD-m4d" secondAttribute="centerY" constant="25" id="vp9-j1-Ia7"/>
                             <constraint firstItem="G2h-9J-34Y" firstAttribute="centerY" secondItem="vP2-MD-m4d" secondAttribute="centerY" constant="25" id="wyi-kc-Y0A"/>
                             <constraint firstItem="jRU-tT-dwa" firstAttribute="top" secondItem="bSq-bg-Bxm" secondAttribute="bottom" id="x3D-dE-jsY"/>
                             <constraint firstItem="gmu-gZ-Ke6" firstAttribute="leading" secondItem="V8H-fX-5No" secondAttribute="leading" id="yCR-12-EUE"/>
+                            <constraint firstItem="2Zq-9M-9hN" firstAttribute="centerX" secondItem="haM-K6-eu9" secondAttribute="centerX" id="zXO-hD-aG2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Gil-8u-Rgr"/>
                                 <exclude reference="iDm-uK-bN3"/>
-                                <exclude reference="qah-OB-zNI"/>
                                 <exclude reference="3jx-7s-7lz"/>
+                                <exclude reference="qah-OB-zNI"/>
                                 <exclude reference="dt9-Gf-Lbh"/>
                                 <exclude reference="S8c-Oh-Xq0"/>
                                 <exclude reference="IN4-A5-fqY"/>
                                 <exclude reference="3bm-rh-sva"/>
-                                <exclude reference="VQP-Ag-NHQ"/>
                                 <exclude reference="LuR-xo-zUq"/>
+                                <exclude reference="VQP-Ag-NHQ"/>
                                 <exclude reference="niX-Mb-KHT"/>
                             </mask>
                         </variation>

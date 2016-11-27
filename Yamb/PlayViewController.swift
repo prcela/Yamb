@@ -453,6 +453,18 @@ class PlayViewController: UIViewController {
         Match.shared.onDieTouched(UInt(sender.tag))
     }
     
+    @IBAction func talk(sender: AnyObject)
+    {
+        let messages = ["Proba", "Malo duži tekst u jednom redu", "Dovoljno"]
+        
+        let alert = UIAlertController(title: nil, message: lstr("Send Message"), preferredStyle: .ActionSheet)
+        for msg in messages
+        {
+            alert.addAction(UIAlertAction(title: msg, style: .Default, handler: nil))
+        }
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func onWsDidConnect()
     {
         connectingLbl?.hidden = true
