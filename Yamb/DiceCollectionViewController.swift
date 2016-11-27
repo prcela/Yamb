@@ -41,24 +41,15 @@ class DiceCollectionViewController: UICollectionViewController
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
     {
-        //1
-        switch kind {
-        //2
-        case UICollectionElementKindSectionHeader:
-            //3
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                                                                                   withReuseIdentifier: "DiceHeader",
-                                                                                   forIndexPath: indexPath) as! DiceHeader
-            let titles = ["Free",
-                          String(format: "Get for %d 💎", DiceMaterial.diamondsPrice()),
-                          "Extra"]
-            
-            headerView.lbl.text = titles[indexPath.section]
-            return headerView
-        default:
-            //4
-            assert(false, "Unexpected element kind")
-        }
+        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                                                                               withReuseIdentifier: "DiceHeader",
+                                                                               forIndexPath: indexPath) as! DiceHeader
+        let titles = [lstr("Dice"),
+                      String(format: "%d 💎", DiceMaterial.diamondsPrice()),
+                      "Extra"]
+        
+        headerView.lbl.text = titles[indexPath.section]
+        return headerView
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

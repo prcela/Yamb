@@ -87,9 +87,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QKm-Gg-NHL">
-                                                    <rect key="frame" x="18" y="19" width="42" height="21"/>
+                                                    <rect key="frame" x="18" y="8.5" width="42" height="42"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="9LG-Db-fP6"/>
+                                                        <constraint firstAttribute="height" constant="42" id="9LG-Db-fP6"/>
                                                         <constraint firstAttribute="width" constant="42" id="jma-ma-lpk"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>

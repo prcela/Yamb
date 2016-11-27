@@ -15,6 +15,14 @@ class ScoreCell: UITableViewCell {
     @IBOutlet weak var scoreLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        orderLbl.layer.cornerRadius = 21
+        orderLbl.layer.borderColor = UIColor.blackColor().CGColor
+        orderLbl.layer.borderWidth = 2
+    }
+    
     func updateWithPlayerInfo(playerInfo: PlayerInfo, order: Int)
     {
         var score: UInt = 0
@@ -82,12 +90,14 @@ class ScoreCell: UITableViewCell {
             nameLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
             scoreLbl.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
             orderLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            orderLbl.layer.borderColor = UIColor.blackColor().CGColor
         }
         else
         {
             nameLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightThin)
             scoreLbl.font = UIFont.systemFontOfSize(14, weight: UIFontWeightThin)
             orderLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightThin)
+            orderLbl.layer.borderColor = UIColor.clearColor().CGColor
         }
         
     }
