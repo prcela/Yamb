@@ -26,6 +26,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var connectingLbl: UILabel!
     @IBOutlet var messageView: UIView!
     @IBOutlet weak var messageTextLbl: UILabel!
+    @IBOutlet weak var chatBtn: UIButton?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -117,6 +118,7 @@ class PlayViewController: UIViewController {
         gameTableView?.setNeedsDisplay()
         sumLbl?.hidden = false
         sum1Lbl?.hidden = Match.shared.players.count == 1
+        chatBtn?.hidden = Match.shared.players.count == 1
         
         let playerOnTurn = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         

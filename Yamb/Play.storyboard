@@ -282,6 +282,7 @@ bacanje</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="chatBtn" destination="2Zq-9M-9hN" id="Ihw-81-8mT"/>
                         <outlet property="connectingLbl" destination="gmu-gZ-Ke6" id="DHx-bJ-wpN"/>
                         <outlet property="gameTableView" destination="5Hh-pE-Sig" id="6gY-p1-d6L"/>
                         <outlet property="messageTextLbl" destination="FMC-BV-XHN" id="lwM-m7-kpG"/>
