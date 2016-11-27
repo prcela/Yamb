@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.17:8080"
+private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
 let ipCurrent = ipHome
@@ -103,11 +103,11 @@ class WsAPI
         send(.IgnoreInvitation, json: json)
     }
     
-    func sendTextMessage(player: Player, text: String)
+    func sendTextMessage(recipient: Player, text: String)
     {
         let defaults = NSUserDefaults.standardUserDefaults()
         let playerId = defaults.stringForKey(Prefs.playerId)!
-        let json = JSON(["sender":playerId, "recipient":player.id!, "text": text])
+        let json = JSON(["sender":playerId, "recipient":recipient.id!, "text": text])
         send(.TextMessage, json: json)
     }
     

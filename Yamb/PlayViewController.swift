@@ -464,6 +464,8 @@ class PlayViewController: UIViewController {
     
     @IBAction func talk(sender: AnyObject)
     {
+        let customText = "..."
+        
         let messages = [
             lstr("Good luck!"),
             lstr("Hurry up!"),
@@ -471,25 +473,51 @@ class PlayViewController: UIViewController {
             lstr("Good game"),
             lstr("You are good"),
             lstr("Thanks"),
-            lstr("Sorry, I must leave the match")]
+            lstr("Sorry, I must leave the match"),
+            customText]
         
         let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
         
-        guard let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
+        guard let recipientPlayerIdx = Match.shared.players.indexOf({ (player) -> Bool in
             return player.id != localPlayerId
         }) else {return}
         
         
         
-        let player = Match.shared.players[playerIdx]
+        let recipient = Match.shared.players[recipientPlayerIdx]
         let alert = UIAlertController(title: nil, message: lstr("Send message to opponent"), preferredStyle: .ActionSheet)
         for msg in messages
         {
             alert.addAction(UIAlertAction(title: msg, style: .Default, handler: {action in
-                WsAPI.shared.sendTextMessage(player, text: msg)
+                if msg == customText
+                {
+                    self.inputCustomTextForRecipient(recipient)
+                }
+                else
+                {
+                    WsAPI.shared.sendTextMessage(recipient, text: msg)
+                }
+                
             }))
         }
         alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func inputCustomTextForRecipient(recipient: Player)
+    {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Send message to opponent"), preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.text = nil
+            textField.placeholder = lstr("Message")
+        }
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+            if let msg = alert.textFields?.first?.text
+            {
+                WsAPI.shared.sendTextMessage(recipient, text: msg)
+            }
+        }))
         presentViewController(alert, animated: true, completion: nil)
     }
     
