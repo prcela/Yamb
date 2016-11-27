@@ -284,6 +284,8 @@ bacanje</string>
                     <connections>
                         <outlet property="connectingLbl" destination="gmu-gZ-Ke6" id="DHx-bJ-wpN"/>
                         <outlet property="gameTableView" destination="5Hh-pE-Sig" id="6gY-p1-d6L"/>
+                        <outlet property="messageTextLbl" destination="FMC-BV-XHN" id="lwM-m7-kpG"/>
+                        <outlet property="messageView" destination="r0s-FD-xhJ" id="8TE-6A-ZqP"/>
                         <outlet property="nameLbl" destination="M8T-fJ-PNk" id="Zbu-2o-Wb7"/>
                         <outlet property="playLbl" destination="2be-xd-wfg" id="jeh-9Y-5kw"/>
                         <outlet property="progressView" destination="bSq-bg-Bxm" id="e81-MA-Muh"/>
@@ -296,6 +298,25 @@ bacanje</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ecs-in-sRw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="r0s-FD-xhJ">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="79"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Za probu jedan duži tekst poruke koju će primiti igrač" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FMC-BV-XHN">
+                            <rect key="frame" x="8" y="8" width="224" height="63"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="FMC-BV-XHN" secondAttribute="trailing" id="EJ8-7K-aec"/>
+                        <constraint firstItem="FMC-BV-XHN" firstAttribute="top" secondItem="r0s-FD-xhJ" secondAttribute="topMargin" id="JRB-4q-AUr"/>
+                        <constraint firstItem="FMC-BV-XHN" firstAttribute="leading" secondItem="r0s-FD-xhJ" secondAttribute="leadingMargin" id="Trv-0b-tNd"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="FMC-BV-XHN" secondAttribute="bottom" id="iC0-wa-Ozt"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="-894" y="1111"/>
         </scene>

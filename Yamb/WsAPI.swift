@@ -9,10 +9,10 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.10:8080"
+private let ipHome = "192.168.5.17:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipHome
 
 class WsAPI
 {
@@ -103,6 +103,14 @@ class WsAPI
         send(.IgnoreInvitation, json: json)
     }
     
+    func sendTextMessage(player: Player, text: String)
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let json = JSON(["sender":playerId, "recipient":player.id!, "text": text])
+        send(.TextMessage, json: json)
+    }
+    
     
     private func send(action: MessageFunc, json: JSON? = nil)
     {
@@ -171,6 +179,8 @@ extension WsAPI: WebSocketDelegate
             return
         }
         
+        let nc = NSNotificationCenter.defaultCenter()
+        
         switch msgFunc
         {
         
@@ -179,7 +189,7 @@ extension WsAPI: WebSocketDelegate
             
         case .Disconnected:
             print("someone disjoined")
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.disconnected, object: json["id"].stringValue)
+            nc.postNotificationName(NotificationName.disconnected, object: json["id"].stringValue)
         
         case .RoomInfo:
             
@@ -211,27 +221,31 @@ extension WsAPI: WebSocketDelegate
                 Room.main.matchesInfo.append(matchInfo)
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onRoomInfo, object: nil)
+            nc.postNotificationName(NotificationName.onRoomInfo, object: nil)
             
         case .CreateMatch:
             print("Match created")
             
         case .JoinMatch:
             let matchId = json["match_id"].uIntValue
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.joinedMatch, object: matchId)
+            nc.postNotificationName(NotificationName.joinedMatch, object: matchId)
             
         case .LeaveMatch:
             let matchId = json["match_id"].uIntValue
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentLeavedMatch, object: matchId)
+            nc.postNotificationName(NotificationName.opponentLeavedMatch, object: matchId)
             break
             
         case .InvitePlayer:
             let senderPlayerId = json["sender"].stringValue
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationArrived, object: senderPlayerId)
+            nc.postNotificationName(NotificationName.matchInvitationArrived, object: senderPlayerId)
             
         case .IgnoreInvitation:
             let recipientPlayerId = json["recipient"].stringValue
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchInvitationIgnored, object: recipientPlayerId)
+            nc.postNotificationName(NotificationName.matchInvitationIgnored, object: recipientPlayerId)
+            
+        case .TextMessage:
+            nc.postNotificationName(NotificationName.matchReceivedTextMessage, object: json.dictionaryObject!)
+            break
             
             
         case .Turn:
@@ -282,12 +296,12 @@ extension WsAPI: WebSocketDelegate
                     player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
                 }
             case .NewGame:
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.opponentNewGame, object: matchId)
+                nc.postNotificationName(NotificationName.opponentNewGame, object: matchId)
                 
             case .End:
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.multiplayerMatchEnded, object: matchId)
+                nc.postNotificationName(NotificationName.multiplayerMatchEnded, object: matchId)
             }
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+            nc.postNotificationName(NotificationName.matchStateChanged, object: nil)
             
         default:
             break

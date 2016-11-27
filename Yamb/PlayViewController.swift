@@ -24,6 +24,8 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var playLbl: UILabel?
     @IBOutlet weak var progressView: ProgressView?
     @IBOutlet weak var connectingLbl: UILabel!
+    @IBOutlet var messageView: UIView!
+    @IBOutlet weak var messageTextLbl: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,6 +39,7 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
+        nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: NotificationName.matchReceivedTextMessage, object: nil)
 
     }
     
@@ -60,6 +63,10 @@ class PlayViewController: UIViewController {
         rollBtn?.layer.borderWidth = 1
         rollBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
         rollBtn?.layer.cornerRadius = 5
+        
+        
+        messageView.layer.borderWidth = 1
+        messageView.layer.cornerRadius = 5
         
         refresh()
         DiceScene.shared.recreateMaterials()
@@ -455,13 +462,32 @@ class PlayViewController: UIViewController {
     
     @IBAction func talk(sender: AnyObject)
     {
-        let messages = ["Proba", "Malo duži tekst u jednom redu", "Dovoljno"]
+        let messages = [
+            lstr("Good luck!"),
+            lstr("Hurry up!"),
+            lstr("Nice move"),
+            lstr("Good game"),
+            lstr("You are good"),
+            lstr("Thanks"),
+            lstr("Sorry, I must leave the match")]
         
-        let alert = UIAlertController(title: nil, message: lstr("Send Message"), preferredStyle: .ActionSheet)
+        let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        
+        guard let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
+            return player.id != localPlayerId
+        }) else {return}
+        
+        
+        
+        let player = Match.shared.players[playerIdx]
+        let alert = UIAlertController(title: nil, message: lstr("Send message to opponent"), preferredStyle: .ActionSheet)
         for msg in messages
         {
-            alert.addAction(UIAlertAction(title: msg, style: .Default, handler: nil))
+            alert.addAction(UIAlertAction(title: msg, style: .Default, handler: {action in
+                WsAPI.shared.sendTextMessage(player, text: msg)
+            }))
         }
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -518,6 +544,52 @@ class PlayViewController: UIViewController {
                 Match.shared.nextPlayer()
             }
         }
+    }
+    
+    func onReceivedTextMessage(notification: NSNotification)
+    {
+        let dic = notification.object as! [String: AnyObject]
+        print(notification.object)
+        messageView.removeFromSuperview()
+        let frameHeight = CGRectGetHeight(messageView.frame)
+        let fullWidth = CGRectGetWidth(view.frame)
+        let margin:CGFloat = 10
+        messageView.frame = CGRectMake(margin, margin, fullWidth-2*margin, -frameHeight)
+
+        let text = dic["text"] as! String
+        let senderID = dic["sender"] as! String
+        
+        guard let idxSender = Match.shared.players.indexOf({ (p) -> Bool in
+            return p.id == senderID
+        }) else {return}
+        
+        let sender = Match.shared.players[idxSender]
+        
+        let skin = idxSender == 0 ? Skin.blue : Skin.red
+        messageView.layer.borderColor = skin.strokeColor.CGColor
+        messageView.layer.backgroundColor = skin.labelBackColor.CGColor
+        messageTextLbl.textColor = skin.strokeColor
+        
+        messageTextLbl.text = "\(sender.alias!): \(text)"
+        view.addSubview(messageView)
+        
+        UIView.animateWithDuration(0.5) {[weak self] in
+            if var frame = self?.messageView.frame
+            {
+                frame.origin.y = 3*margin
+                self!.messageView.frame = frame
+            }
+        }
+        
+        UIView.animateWithDuration(
+            0.5, delay: 5, options: [], animations: {[weak self] in
+                if var frame = self?.messageView.frame
+                {
+                    frame.origin.y = -frameHeight
+                    self?.messageView.frame = frame
+                }}, completion: {[weak self] finished in
+                    self?.messageView.removeFromSuperview()
+        })
     }
 
 }

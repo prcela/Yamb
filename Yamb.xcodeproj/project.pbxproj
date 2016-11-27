@@ -60,6 +60,8 @@
 		9742B1531DEB1291005D049E /* 3t_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1501DEB1291005D049E /* 3t_sel.png */; };
 		9742B1541DEB1291005D049E /* 4t_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1511DEB1291005D049E /* 4t_sel.png */; };
 		9742B1551DEB1291005D049E /* 5t_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1521DEB1291005D049E /* 5t_sel.png */; };
+		9742B1581DEB17E1005D049E /* 2t.png in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1561DEB17E1005D049E /* 2t.png */; };
+		9742B1591DEB17E1005D049E /* 6t.png in Resources */ = {isa = PBXBuildFile; fileRef = 9742B1571DEB17E1005D049E /* 6t.png */; };
 		974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974712E11D778CA500BB2AA9 /* GameFileManager.swift */; };
 		974712E41D781FCD00BB2AA9 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */; };
 		974712E61D78495F00BB2AA9 /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 974712E51D78495F00BB2AA9 /* rules */; };
@@ -386,6 +388,8 @@
 		9742B1501DEB1291005D049E /* 3t_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3t_sel.png; path = Yamb/Resources/3t_sel.png; sourceTree = "<group>"; };
 		9742B1511DEB1291005D049E /* 4t_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4t_sel.png; path = Yamb/Resources/4t_sel.png; sourceTree = "<group>"; };
 		9742B1521DEB1291005D049E /* 5t_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5t_sel.png; path = Yamb/Resources/5t_sel.png; sourceTree = "<group>"; };
+		9742B1561DEB17E1005D049E /* 2t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2t.png; path = Yamb/Resources/2t.png; sourceTree = "<group>"; };
+		9742B1571DEB17E1005D049E /* 6t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6t.png; path = Yamb/Resources/6t.png; sourceTree = "<group>"; };
 		974712E11D778CA500BB2AA9 /* GameFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFileManager.swift; sourceTree = "<group>"; };
 		974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		974712E51D78495F00BB2AA9 /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Yamb/Resources/rules; sourceTree = "<group>"; };
@@ -1017,6 +1021,8 @@
 				97A6E0241D71F7E2000ED49D /* 5.m4a */,
 				97C4EFA11D6DBBDC00A1E7CD /* menu.png */,
 				97C4EFA71D6DC55D00A1E7CD /* coin.png */,
+				9742B1561DEB17E1005D049E /* 2t.png */,
+				9742B1571DEB17E1005D049E /* 6t.png */,
 				974712E31D781FCD00BB2AA9 /* DefaultRemoteConfig.plist */,
 			);
 			name = Resources;
@@ -1254,6 +1260,7 @@
 				978687C81DE64F6100B26232 /* 4i_sel.png in Resources */,
 				978688461DE76C2400B26232 /* 4n_sel.png in Resources */,
 				978688701DE7813100B26232 /* 6r.png in Resources */,
+				9742B1591DEB17E1005D049E /* 6t.png in Resources */,
 				978687EF1DE6F1DC00B26232 /* 5k.png in Resources */,
 				978688541DE7725700B26232 /* 6o.png in Resources */,
 				978687B71DE6399700B26232 /* 3i.png in Resources */,
@@ -1379,6 +1386,7 @@
 				978688201DE763C800B26232 /* 2m.png in Resources */,
 				9742B12E1DE88A70005D049E /* 5s.png in Resources */,
 				9747133A1D79832300BB2AA9 /* 2e.png in Resources */,
+				9742B1581DEB17E1005D049E /* 2t.png in Resources */,
 				9786887A1DE7826A00B26232 /* 4r_sel.png in Resources */,
 				978687D21DE6545B00B26232 /* 4j.png in Resources */,
 				9786882D1DE7658800B26232 /* 3m_sel.png in Resources */,
