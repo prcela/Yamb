@@ -55,7 +55,7 @@ class ScoreCell: UITableViewCell {
             score = UInt(playerInfo.diamonds)
         }
         
-        let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)
+        let localPlayerId = PlayerStat.shared.id
         update(order, score: score, stars: stars, name: playerInfo.alias, selected: playerInfo.id == localPlayerId)
     }
     

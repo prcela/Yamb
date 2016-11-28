@@ -12,7 +12,7 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipHome
+let ipCurrent = ipWork
 
 class WsAPI
 {
@@ -38,9 +38,8 @@ class WsAPI
     
     func joinToRoom()
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
-        let playerAlias = defaults.stringForKey(Prefs.playerAlias)!
+        let playerId = PlayerStat.shared.id
+        let playerAlias = PlayerStat.shared.alias
         let avgScore6 = PlayerStat.avgScore(.Six)
         let diamonds = PlayerStat.shared.diamonds
         let json = JSON(["id":playerId,"alias":playerAlias,"avg_score_6":avgScore6,"diamonds":diamonds])
@@ -77,8 +76,7 @@ class WsAPI
     
     func turn(turn: Turn, matchId: UInt, params: JSON)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         var json = JSON(["match_id":matchId,"turn":turn.rawValue])
         json["params"] = params
         json["id"].string = playerId
@@ -87,8 +85,7 @@ class WsAPI
     
     func invitePlayer(player: Player)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         let json = JSON(["sender":playerId, "recipient":player.id!])
         send(.InvitePlayer, json: json)
         
@@ -97,16 +94,14 @@ class WsAPI
     
     func ignoreInvitation(senderPlayerId: String)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         let json = JSON(["recipient":playerId, "sender":senderPlayerId])
         send(.IgnoreInvitation, json: json)
     }
     
     func sendTextMessage(recipient: Player, text: String)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         let json = JSON(["sender":playerId, "recipient":recipient.id!, "text": text])
         send(.TextMessage, json: json)
     }

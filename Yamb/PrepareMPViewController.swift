@@ -122,7 +122,7 @@ class PrepareMPViewController: UIViewController {
     @IBAction func back(sender: AnyObject)
     {
         // TODO: leave all my matches
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         for matchInfo in Room.main.matchesInfo(playerId)
         {
             WsAPI.shared.leaveMatch(matchInfo.id)
@@ -198,7 +198,7 @@ extension PrepareMPViewController: UITableViewDataSource
 {
     func players() -> [Player]
     {
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         let players = Room.main.freePlayers().filter({ (player) -> Bool in
             return player.id != playerId && player.connected && !playersIgnoredInvitation.contains(player.id!)
         })

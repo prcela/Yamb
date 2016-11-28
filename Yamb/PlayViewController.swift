@@ -288,7 +288,7 @@ class PlayViewController: UIViewController {
             return
         }
         let id = notification.object as! String
-        let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let localPlayerId = PlayerStat.shared.id
         if let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
             return player.id == id
         }) {
@@ -346,7 +346,7 @@ class PlayViewController: UIViewController {
         
         let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
-            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+            let playerId = PlayerStat.shared.id
             
             if let idx = match.players.indexOf({ (player) -> Bool in
                 return player.id == playerId
@@ -373,6 +373,8 @@ class PlayViewController: UIViewController {
             let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
                 return player.state == .Start || player.state == .EndGame
             }
+            
+            let localPlayer = Match.shared.player(PlayerStat.shared.id)
             
             if matchJustStartedOrEnded
             {
@@ -468,6 +470,7 @@ class PlayViewController: UIViewController {
         
         let messages = [
             lstr("Good luck!"),
+            lstr("Lucky you!"),
             lstr("Hurry up!"),
             lstr("Nice move"),
             lstr("Good game"),
@@ -476,7 +479,7 @@ class PlayViewController: UIViewController {
             lstr("Sorry, I must leave the match"),
             customText]
         
-        let localPlayerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let localPlayerId = PlayerStat.shared.id
         
         guard let recipientPlayerIdx = Match.shared.players.indexOf({ (player) -> Bool in
             return player.id != localPlayerId
@@ -549,7 +552,7 @@ class PlayViewController: UIViewController {
             guard Match.shared.matchType == .OnlineMultiplayer && turnId == Match.shared.turnId else {return}
             
             print("uhvaćen na kraju")
-            let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+            let playerId = PlayerStat.shared.id
             guard let player = Match.shared.player(playerId) else {return}
             
             if player.inputPos == nil
@@ -600,7 +603,7 @@ class PlayViewController: UIViewController {
         messageView.layer.backgroundColor = skin.labelBackColor.CGColor
         messageTextLbl.textColor = skin.strokeColor
         
-        messageTextLbl.text = "\(sender.alias!): \(text)"
+        messageTextLbl.text = "\(sender.alias!):\n\(text)"
         view.addSubview(messageView)
         
         UIView.animateWithDuration(0.5) {[weak self] in

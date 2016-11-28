@@ -144,7 +144,7 @@ class Match: NSObject, NSCoding
     
     func isLocalPlayerTurn() -> Bool
     {
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)
+        let playerId = PlayerStat.shared.id
         let player = players[indexOfPlayerOnTurn]
         return player.id == playerId
     }

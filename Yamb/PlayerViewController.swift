@@ -36,7 +36,7 @@ class PlayerViewController: UIViewController {
         editBtn.layer.cornerRadius = 5
         editBtn.layer.borderColor = UIColor.lightTextColor().CGColor
         
-        playerNameLbl.text = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
+        playerNameLbl.text = PlayerStat.shared.alias
         editBtn.setTitle(lstr("Edit"), forState: .Normal)
         
         dieIcon.layer.borderWidth = 1
@@ -160,7 +160,7 @@ class PlayerViewController: UIViewController {
     {
         let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .Alert)
         alert.addTextFieldWithConfigurationHandler { (textField) in
-            let alias = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerAlias)
+            let alias = PlayerStat.shared.alias
             textField.text = alias
             textField.placeholder = lstr("Name")
         }
@@ -168,7 +168,7 @@ class PlayerViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
             if let newAlias = alert.textFields?.first?.text
             {
-                NSUserDefaults.standardUserDefaults().setObject(newAlias, forKey: Prefs.playerAlias)
+                PlayerStat.shared.alias = newAlias
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerAliasChanged, object: nil)
                 self.playerNameLbl.text = newAlias
                 ServerAPI.updatePlayer({ (_, _, _) in

@@ -24,24 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         helloSwift()
         
         let prefs: [String:AnyObject] = [
-            Prefs.firstRun: true,
             Prefs.lastPlayedGameType: LeaderboardId.dice6
         ]
         
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.registerDefaults(prefs)
-        
-        if defaults.boolForKey(Prefs.firstRun)
-        {
-            let rndPlayerId = String(arc4random())
-            let rndPlayerAlias = lstr("Player") + "_" + rndPlayerId
-            defaults.setBool(false, forKey: Prefs.firstRun)
-            defaults.setObject(rndPlayerId, forKey: Prefs.playerId)
-            defaults.setObject(rndPlayerAlias, forKey: Prefs.playerAlias)
-        }
                 
         FIRApp.configure()
-        FIRAnalytics.setUserID(defaults.stringForKey(Prefs.playerId)!)
+        
         
         let settings: UIUserNotificationSettings =
             UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
@@ -76,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         starsFormatter.minimumFractionDigits = 0
         
         PlayerStat.loadStat()
+        
+        FIRAnalytics.setUserID(PlayerStat.shared.id)
         
         SwiftyStoreKit.completeTransactions() { completedTransactions in
             

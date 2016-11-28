@@ -77,7 +77,7 @@ extension RoomViewController: UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         let isFreePlayer = Room.main.freePlayers().contains({ (player) -> Bool in
             return player.id == playerId
         })
@@ -113,7 +113,7 @@ extension RoomViewController: UITableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)!
+        let playerId = PlayerStat.shared.id
         
         if indexPath.section == 0
         {

@@ -50,8 +50,7 @@ class MainViewController: UIViewController
     
     func updatePlayerInfo()
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let name = defaults.stringForKey(Prefs.playerAlias)!
+        let name = PlayerStat.shared.alias
         let diamonds = PlayerStat.shared.diamonds
         let avgScore6 = PlayerStat.avgScore(.Six)
         
@@ -168,7 +167,7 @@ class MainViewController: UIViewController
         guard (notification.object as? UInt) == Match.shared.id  else {
             return
         }
-        let playerId = NSUserDefaults.standardUserDefaults().stringForKey(Prefs.playerId)
+        let playerId = PlayerStat.shared.id
         let playerIdx = Match.shared.players.indexOf { (p) -> Bool in
             return p.id == playerId
         }
@@ -218,7 +217,7 @@ class MainViewController: UIViewController
         PlayerStat.shared.diamonds = diamonds
         
         let statItem = StatItem(
-            playerId: playerId!,
+            playerId: playerId,
             matchType: Match.shared.matchType,
             diceNum: Match.shared.diceNum,
             score: score,

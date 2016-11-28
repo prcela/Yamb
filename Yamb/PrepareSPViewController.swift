@@ -94,9 +94,8 @@ class PrepareSPViewController: UIViewController {
     
     @IBAction func playNewGame(sender: AnyObject)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)
-        let playerAlias = defaults.stringForKey(Prefs.playerAlias)
+        let playerId = PlayerStat.shared.id
+        let playerAlias = PlayerStat.shared.alias
         let avgScore6 = PlayerStat.avgScore(.Six)
         let diceMat = PlayerStat.shared.ownedDiceMaterials()[diceMatSelected]
         Match.shared.start(.SinglePlayer,

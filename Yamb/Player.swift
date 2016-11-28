@@ -421,7 +421,6 @@ class Player: NSObject, NSCoding
         state = .EndGame
         print("kraj")
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let totalScore = table.totalScore()
         
         // if this is the last player in online match
@@ -448,7 +447,7 @@ class Player: NSObject, NSCoding
         }
         
         // score submit for local player only
-        if id == defaults.stringForKey(Prefs.playerId)
+        if id == PlayerStat.shared.id
         {
             if GameKitHelper.shared.authenticated
             {

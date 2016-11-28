@@ -41,9 +41,8 @@ class ServerAPI
     
     class func updatePlayer(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let playerId = defaults.stringForKey(Prefs.playerId)!
-        let alias = defaults.stringForKey(Prefs.playerAlias)!
+        let playerId = PlayerStat.shared.id
+        let alias = PlayerStat.shared.alias
         let diamonds = PlayerStat.shared.diamonds
         let avgScore5 = PlayerStat.avgScore(.Five)
         let avgScore6 = PlayerStat.avgScore(.Six)
