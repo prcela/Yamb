@@ -52,11 +52,12 @@ class WsAPI
         send(.RoomInfo)
     }
     
-    func createMatch(diceNum: DiceNum, diceMaterials: [DiceMaterial], bet: Int)
+    func createMatch(diceNum: DiceNum, isPrivate: Bool, diceMaterials: [DiceMaterial], bet: Int)
     {
         let json = JSON([
             "dice_num":diceNum.rawValue,
             "bet":bet,
+            "private":isPrivate,
             "dice_materials": diceMaterials.map({ (dm) -> String in
             return dm.rawValue
         })])
@@ -210,6 +211,7 @@ extension WsAPI: WebSocketDelegate
                 let matchInfo = MatchInfo()
                 matchInfo.id = m["id"].uIntValue
                 matchInfo.bet = m["bet"].int ?? 0
+                matchInfo.isPrivate = m["private"].bool ?? false
                 matchInfo.state = MatchState(rawValue: m["state"].stringValue)!
                 matchInfo.playerIds = m["players"].arrayObject as! [String]
                 matchInfo.diceNum = m["dice_num"].intValue

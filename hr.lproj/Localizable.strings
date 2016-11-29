@@ -38,6 +38,7 @@
 "Bet" = "Ulog";
 "Start match" = "Započni igru";
 "Waiting for opponent player..." = "Pričekajte dok se ne pridruži protivnik u igru...";
+"Only invited players can play" = "Samo pozvani igrači se mogu pridružiti";
 "Or invite someone" = "Ili pozovi nekoga";
 "Not enough diamonds, look reward" = "Nemate dovoljno dijamanata.\n\nPogledaj video za 5 💎 ?";
 "PlayerX has not enough" = "%@ nema dovoljno dijamanata za igru. Smanjite ulog ili pozovite drugog igrača u igru.";

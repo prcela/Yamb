@@ -57,6 +57,13 @@ class RoomViewController: UIViewController
 
 extension RoomViewController: UITableViewDataSource
 {
+    func freeMatches() -> [MatchInfo]
+    {
+        let filteredMatches = Room.main.matchesInfo.filter({ (match) -> Bool in
+            return match.state == .WaitingForPlayers && !match.isPrivate
+        })
+        return filteredMatches
+    }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         // create match
@@ -93,8 +100,7 @@ extension RoomViewController: UITableViewDataSource
         }
         else if section == 1
         {
-            let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
-            return waitingMatches.count
+            return freeMatches().count
         }
         else if section == 2
         {
@@ -125,8 +131,7 @@ extension RoomViewController: UITableViewDataSource
         else if indexPath.section == 1
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
-            let waitingMatches = Room.main.matchesInfo(.WaitingForPlayers)
-            let match = waitingMatches[indexPath.row]
+            let match = freeMatches()[indexPath.row]
             cell.updateWithWaitingMatch(match)
             return cell
         }
@@ -166,10 +171,8 @@ extension RoomViewController: UITableViewDelegate
         }
         else if indexPath.section == 1
         {
-            let filteredMatches = Room.main.matchesInfo.filter({ (match) -> Bool in
-                return match.state == .WaitingForPlayers
-            })
-            let match = filteredMatches[indexPath.row]
+            
+            let match = freeMatches()[indexPath.row]
             let available = PlayerStat.shared.diamonds
             if available >= match.bet
             {

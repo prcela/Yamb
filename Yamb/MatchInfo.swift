@@ -22,5 +22,6 @@ class MatchInfo
     var playerIds = [String]()
     var diceNum: Int = 6
     var diceMaterials = ["a","b"]
+    var isPrivate = false
     
 }

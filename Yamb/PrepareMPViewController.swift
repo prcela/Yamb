@@ -16,13 +16,16 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var decreaseBetBtn: UIButton!
     @IBOutlet weak var increaseBetBtn: UIButton!
     @IBOutlet weak var createMatchBtn: UIButton!
+    @IBOutlet weak var lockBtn: UIButton!
     @IBOutlet weak var waitingLbl: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var lockInfoLbl: UILabel?
     
     var diceNum: DiceNum = .Six
     var playersIgnoredInvitation = [String]()
     var bet = 5
+    var isPrivate = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,12 +48,19 @@ class PrepareMPViewController: UIViewController {
         bacBtn.setTitle(lstr("Back"), forState: .Normal)
         createMatchBtn.setTitle(lstr("Start match"), forState: .Normal)
         waitingLbl.text = lstr("Waiting for opponent player...")
+        lockInfoLbl?.text = lstr("Only invited players can play")
         
         tableView?.hidden = true
         
         updateBetBtn()
         updateDiceBtn()
+        updatePrivateBtn()
         updateFreePlayers()
+    }
+    
+    func updatePrivateBtn()
+    {
+        lockBtn.setTitle(isPrivate ? "🔒":"🔓", forState: .Normal)
     }
     
     func updateBetBtn()
@@ -107,15 +117,17 @@ class PrepareMPViewController: UIViewController {
     {
         createMatchBtn.hidden = true
         dice56Btn.enabled = false
-        waitingLbl.hidden = false
+        waitingLbl.hidden = isPrivate
         activityIndicator.startAnimating()
         tableView?.hidden = false
         betBtn.enabled = false
         decreaseBetBtn.enabled = false
         increaseBetBtn.enabled = false
+        lockBtn.hidden = true
+        lockInfoLbl?.hidden = true
         
         let favDiceMat = PlayerStat.shared.favDiceMat
-        WsAPI.shared.createMatch(diceNum, diceMaterials: [favDiceMat, .White], bet: bet)
+        WsAPI.shared.createMatch(diceNum, isPrivate: isPrivate, diceMaterials: [favDiceMat, .White], bet: bet)
     }
     
     
@@ -146,6 +158,15 @@ class PrepareMPViewController: UIViewController {
         {
             suggestRewardVideo()
         }
+    }
+    
+    
+    @IBAction func togglePrivate(sender: AnyObject)
+    {
+        isPrivate = !isPrivate
+        updatePrivateBtn()
+        
+        lockInfoLbl?.hidden = !isPrivate
     }
     
     @IBAction func changeBet(sender: AnyObject)
