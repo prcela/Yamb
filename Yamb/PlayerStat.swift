@@ -63,15 +63,17 @@ class PlayerStat: NSObject, NSCoding
         {
             shared = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath()) as! PlayerStat
             
-            // get the id and alias from prefs
+            // keep the old id and alias if still exist
             let def = NSUserDefaults.standardUserDefaults()
-            if let id = def.objectForKey(Prefs.playerId) as? String
+            if let id = def.objectForKey(Prefs.playerId_Deprecated) as? String
             {
                 shared.id = id
+                def.removeObjectForKey(Prefs.playerId_Deprecated)
             }
-            if let alias = def.objectForKey(Prefs.playerAlias) as? String
+            if let alias = def.objectForKey(Prefs.playerAlias_Deprecated) as? String
             {
                 shared.alias = alias
+                def.removeObjectForKey(Prefs.playerAlias_Deprecated)
             }
         }
         
@@ -81,9 +83,6 @@ class PlayerStat: NSObject, NSCoding
     class func saveStat()
     {
         NSKeyedArchiver.archiveRootObject(shared, toFile: filePath())
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(shared.id, forKey: Prefs.playerId)
-        defaults.setObject(shared.alias, forKey: Prefs.playerAlias)
         print("Saved stat")
     }
     
@@ -109,6 +108,8 @@ class PlayerStat: NSObject, NSCoding
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder)
     {
+        aCoder.encodeObject(id, forKey: "id")
+        aCoder.encodeObject(alias, forKey: "alias")
         aCoder.encodeInteger(diamonds, forKey: "diamonds")
         aCoder.encodeObject(items, forKey: "items")
         aCoder.encodeObject(favDiceMat.rawValue, forKey: "favDiceMat")
@@ -121,6 +122,24 @@ class PlayerStat: NSObject, NSCoding
     
     required init?(coder aDecoder: NSCoder)
     {
+        if aDecoder.containsValueForKey("id")
+        {
+            id = aDecoder.decodeObjectForKey("id") as! String
+        }
+        else
+        {
+            id = String(arc4random())
+        }
+        
+        if aDecoder.containsValueForKey("alias")
+        {
+            alias = aDecoder.decodeObjectForKey("alias") as! String
+        }
+        else
+        {
+            alias = lstr("Player") + "_" + id
+        }
+        
         diamonds = aDecoder.decodeIntegerForKey("diamonds")
         items = aDecoder.decodeObjectForKey("items") as! [StatItem]
         if aDecoder.containsValueForKey("favDiceMat")

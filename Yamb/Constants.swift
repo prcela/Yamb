@@ -11,9 +11,8 @@ import StoreKit
 
 struct Prefs
 {
-    static let firstRun = "PrefsFirstRun"
-    static let playerId = "PrefPlayerId"
-    static let playerAlias = "PrefPlayerAlias"
+    static let playerId_Deprecated = "PrefPlayerId"
+    static let playerAlias_Deprecated = "PrefPlayerAlias"
     static let lastPlayedGameType = "PrefLastPlayedGameType"
 }
 
