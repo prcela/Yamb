@@ -25,6 +25,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
         nc.addObserver(self, selector: #selector(mpMatchEnded(_:)), name: NotificationName.multiplayerMatchEnded, object: nil)
+        nc.addObserver(self, selector: #selector(onWsConnect), name: NotificationName.wsConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
@@ -255,6 +256,11 @@ class MainViewController: UIViewController
             presentViewController(alert, animated: true, completion: nil)
         }
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+    }
+    
+    func onWsConnect()
+    {
+        connectingLbl?.hidden = false
     }
         
     func onWsDidConnect()

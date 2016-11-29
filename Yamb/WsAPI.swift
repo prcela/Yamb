@@ -34,6 +34,7 @@ class WsAPI
     func connect()
     {
         socket.connect()
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsConnect, object: nil)
     }
     
     func joinToRoom()
@@ -258,6 +259,7 @@ extension WsAPI: WebSocketDelegate
                 let rounds = params["rounds"].arrayObject as! [[Int]]
                 guard let player = Match.shared.player(playerId) else {return}
                 player.activeRotationRounds = rounds
+                player.diceValues = values
                 DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
                 
             case .HoldDice:

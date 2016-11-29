@@ -23,6 +23,7 @@ struct NotificationName
     static let matchInvitationArrived = "Notification.matchInvitationArrived"
     static let matchInvitationIgnored = "Notification.matchInvitationIgnored"
     static let matchReceivedTextMessage = "Notification.matchReceivedTextMessage"
+    static let wsConnect = "Notification.wsConnect"
     static let wsDidConnect = "Notification.wsDidConnect"
     static let wsDidDisconnect = "Notification.DidDisconnect"
     static let playerDiamondsChanged = "Notification.playerDiamondsChanged"

@@ -96,6 +96,7 @@ class Match: NSObject, NSCoding
         DiceScene.shared.recreateMaterials()
         DiceScene.shared.updateDiceValues()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        print("Next player on turn: \(indexOfPlayerOnTurn)")
         
         if matchType == .OnlineMultiplayer
         {
