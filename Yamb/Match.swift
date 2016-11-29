@@ -94,6 +94,7 @@ class Match: NSObject, NSCoding
         indexOfPlayerOnTurn = (indexOfPlayerOnTurn+1)%players.count
         players[indexOfPlayerOnTurn].onTurn()
         DiceScene.shared.recreateMaterials()
+        DiceScene.shared.updateDiceValues()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         
         if matchType == .OnlineMultiplayer
