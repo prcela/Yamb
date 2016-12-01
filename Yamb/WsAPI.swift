@@ -12,13 +12,13 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipServer
+let ipCurrent = ipWork
 
 class WsAPI
 {
     static let shared = WsAPI()
     private var retryCount = 0
-    private var unsentMessages = [NSData]()
+    private var unsentMessages = [String]()
     
     var socket: WebSocket
     
@@ -114,17 +114,18 @@ class WsAPI
         var json = json ?? JSON([:])
         json["msg_func"].string = action.rawValue
         
-        let data = try! json.rawData()
-        
-        if socket.isConnected
+        if let text = json.rawString(NSUTF8StringEncoding, options: [])
         {
-            print("Sending:\n\(json)")
-            socket.writeData(data)
-        }
-        else
-        {
-            print("Keeping:\n\(json)")
-            unsentMessages.append(data)
+            if socket.isConnected
+            {
+                print("Sending:\n\(text)")
+                socket.writeString(text)
+            }
+            else
+            {
+                print("Keeping:\n\(text)")
+                unsentMessages.append(text)
+            }
         }
     }
     
@@ -133,9 +134,9 @@ class WsAPI
         guard socket.isConnected else {
             return
         }
-        for data in unsentMessages
+        for text in unsentMessages
         {
-            socket.writeData(data)
+            socket.writeString(text)
         }
         unsentMessages.removeAll()
     }
