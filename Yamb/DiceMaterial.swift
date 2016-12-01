@@ -49,12 +49,12 @@ enum DiceMaterial: String
     
     static func forDiamonds() -> [DiceMaterial]
     {
-        return [.Roman, .RedGlass, .Heart, .Dark, .Flower, .Moon, .Bombs, .Animal, .Soccer, .Xmass, .Cheese, .Mario, .Flourescent, .XO]
+        return [.Roman, .RedGlass, .Heart, .Dark, .Flower, .Moon, .Bombs, .Animal, .Soccer, .Xmass, .Cheese, .Flourescent, .XO]
     }
     
     static func forBuy() -> [DiceMaterial]
     {
-        return [.BlueGlass, .Numbers, .Apple, .Aurora]
+        return [.BlueGlass, .Numbers, .Apple, .Aurora, .Mario]
     }
     
     func iconForValue(value: Int, selected: Bool = false) -> UIImage?
