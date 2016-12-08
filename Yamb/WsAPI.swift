@@ -12,13 +12,14 @@ import GameKit
 private let ipHome = "192.168.5.11:8080"
 private let ipWork = "10.0.21.221:8080"
 private let ipServer = "139.59.142.160:80"
-let ipCurrent = ipWork
+let ipCurrent = ipServer
 
 class WsAPI
 {
     static let shared = WsAPI()
     private var retryCount = 0
     private var unsentMessages = [String]()
+    private var pingInterval: NSTimeInterval = 30
     
     var socket: WebSocket
     
@@ -29,12 +30,24 @@ class WsAPI
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
         
+        dispatchToMainQueue(delay: pingInterval) { 
+            self.ping()
+        }
     }
     
     func connect()
     {
         socket.connect()
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsConnect, object: nil)
+    }
+    
+    func ping()
+    {
+        print("ping")
+        socket.writePing(NSData())
+        dispatchToMainQueue(delay: pingInterval) {
+            self.ping()
+        }
     }
     
     func joinToRoom()
@@ -150,6 +163,7 @@ extension WsAPI: WebSocketDelegate
         retryCount = 0
         joinToRoom()
         sendUnsentMessages()
+        
     }
     
     func websocketDidReceiveData(socket: WebSocket, data: NSData) {
@@ -170,8 +184,13 @@ extension WsAPI: WebSocketDelegate
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         print("websocketDidReceiveMessage: \(text)")
         
-        guard let data = text.dataUsingEncoding(NSUTF8StringEncoding) else {return}
-        let json = JSON(data: data)
+        let json = JSON.parse(text)
+        
+        // if should acknowledge receiving
+        if let msgId = json["msg_id"].int
+        {
+            socket.writeString(JSON(["ack":msgId]).rawString()!)
+        }
         
         guard let msgFunc = MessageFunc(rawValue: json["msg_func"].stringValue) else {
             return
@@ -185,9 +204,21 @@ extension WsAPI: WebSocketDelegate
         case .Join:
             print("some player joined")
             
-        case .Disconnected:
-            print("someone disjoined")
-            nc.postNotificationName(NotificationName.disconnected, object: json["id"].stringValue)
+        case .MaybeSomeoneWillDump:
+            print("someone will be dumped")
+            let matchId = json["match_id"].uIntValue
+            guard matchId == Match.shared.id else {
+                return
+            }
+            nc.postNotificationName(NotificationName.maybeSomeoneWillDump, object: json["id"].stringValue)
+            
+        case .Dump:
+            print("someone dumped")
+            let matchId = json["match_id"].uIntValue
+            guard matchId == Match.shared.id else {
+                return
+            }
+            nc.postNotificationName(NotificationName.dumped, object: json["id"].stringValue)
         
         case .RoomInfo:
             

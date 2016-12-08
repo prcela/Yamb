@@ -20,8 +20,8 @@ class MenuViewController: UIViewController
     @IBOutlet weak var tellFriendsBtn: UIButton!
     
     var waitForLocalPlayerAuth = false
-    var currentVersionMP = 5
-    var minRequiredVersion = 5
+    var currentVersionMP = 6
+    var minRequiredVersion = 6
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,7 +31,7 @@ class MenuViewController: UIViewController
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
-//        nc.addObserver(self, selector: #selector(updateOnlinePlayersCount), name: NotificationName.disconnected, object: nil)
+
     }
     
     override func viewDidLoad() {

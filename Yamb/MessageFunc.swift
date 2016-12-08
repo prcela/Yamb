@@ -11,7 +11,6 @@ import Foundation
 enum MessageFunc: String
 {
     case Join = "join"
-    case Disconnected = "disconnected"
     case Match = "match"
     case Message = "message"
     case RoomInfo = "room_info"
@@ -23,4 +22,6 @@ enum MessageFunc: String
     case IgnoreInvitation = "ignore_invitation"
     case TextMessage = "text_message"
     case UpdatePlayer = "update_player"
+    case MaybeSomeoneWillDump = "maybe_someone_will_dump"
+    case Dump = "dump"
 }

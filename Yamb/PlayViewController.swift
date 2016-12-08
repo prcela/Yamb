@@ -23,9 +23,9 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var nameLbl: UILabel?
     @IBOutlet weak var playLbl: UILabel?
     @IBOutlet weak var progressView: ProgressView?
-    @IBOutlet weak var connectingLbl: UILabel!
-    @IBOutlet var messageView: UIView!
-    @IBOutlet weak var messageTextLbl: UILabel!
+    @IBOutlet weak var connectingLbl: UILabel?
+    @IBOutlet var messageView: UIView?
+    @IBOutlet weak var messageTextLbl: UILabel?
     @IBOutlet weak var chatBtn: UIButton?
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +36,8 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
         nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
-        nc.addObserver(self, selector: #selector(someoneDisconnected(_:)), name: NotificationName.disconnected, object: nil)
+        nc.addObserver(self, selector: #selector(maybeSomeoneWillDump(_:)), name: NotificationName.maybeSomeoneWillDump, object: nil)
+        nc.addObserver(self, selector: #selector(someoneDumped(_:)), name: NotificationName.dumped, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
@@ -66,8 +67,8 @@ class PlayViewController: UIViewController {
         rollBtn?.layer.cornerRadius = 5
         
         
-        messageView.layer.borderWidth = 1
-        messageView.layer.cornerRadius = 5
+        messageView?.layer.borderWidth = 1
+        messageView?.layer.cornerRadius = 5
         
         refresh()
         DiceScene.shared.recreateMaterials()
@@ -282,23 +283,34 @@ class PlayViewController: UIViewController {
         }
     }
     
-    func someoneDisconnected(notification: NSNotification)
+    func maybeSomeoneWillDump(notification: NSNotification)
     {
         guard Match.shared.matchType == .OnlineMultiplayer else {
             return
         }
-        let id = notification.object as! String
-        let localPlayerId = PlayerStat.shared.id
-        if let playerIdx = Match.shared.players.indexOf({ (player) -> Bool in
-            return player.id == id
-        }) {
-            // wait player for few seconds
-            let player = Match.shared.players[playerIdx]
-            if player.id != localPlayerId
-            {
-                performSegueWithIdentifier("waitPlayer", sender: player)
-            }
+        
+        let dumpingPlayerId = notification.object as! String
+        showPopup(dumpingPlayerId, text: lstr("has connection problems\nPlease wait few seconds..."))
+    }
+    
+    func someoneDumped(notification: NSNotification)
+    {
+        guard Match.shared.matchType == .OnlineMultiplayer else {
+            return
         }
+        
+        let dumpedPlayerId = notification.object as! String
+        
+        WsAPI.shared.leaveMatch(Match.shared.id)
+        if PlayerStat.shared.id != dumpedPlayerId
+        {
+            alertOnOpponentLeave()
+        }
+        else
+        {
+            dismiss()
+        }
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -583,45 +595,51 @@ class PlayViewController: UIViewController {
     {
         let dic = notification.object as! [String: AnyObject]
         print(notification.object)
-        messageView.removeFromSuperview()
-        let frameHeight = CGRectGetHeight(messageView.frame)
-        let fullWidth = CGRectGetWidth(view.frame)
-        let margin:CGFloat = 10
-        messageView.frame = CGRectMake(margin, margin, fullWidth-2*margin, -frameHeight)
-
+        
         let text = dic["text"] as! String
         let senderID = dic["sender"] as! String
         
+        showPopup(senderID, text: text)
+    }
+    
+    private func showPopup(senderId: String, text: String)
+    {
+        messageView?.removeFromSuperview()
+        let frameHeight = CGRectGetHeight(messageView!.frame)
+        let fullWidth = CGRectGetWidth(view.frame)
+        let margin:CGFloat = 10
+        messageView?.frame = CGRectMake(margin, margin, fullWidth-2*margin, -frameHeight)
+        
         guard let idxSender = Match.shared.players.indexOf({ (p) -> Bool in
-            return p.id == senderID
+            return p.id == senderId
         }) else {return}
         
         let sender = Match.shared.players[idxSender]
         
         let skin = idxSender == 0 ? Skin.blue : Skin.red
-        messageView.layer.borderColor = skin.strokeColor.CGColor
-        messageView.layer.backgroundColor = skin.labelBackColor.CGColor
-        messageTextLbl.textColor = skin.strokeColor
+        messageView?.layer.borderColor = skin.strokeColor.CGColor
+        messageView?.layer.backgroundColor = skin.labelBackColor.CGColor
+        messageTextLbl?.textColor = skin.strokeColor
         
-        messageTextLbl.text = "\(sender.alias!):\n\(text)"
-        view.addSubview(messageView)
+        messageTextLbl?.text = "\(sender.alias!):\n\(text)"
+        view.addSubview(messageView!)
         
         UIView.animateWithDuration(0.5) {[weak self] in
-            if var frame = self?.messageView.frame
+            if var frame = self?.messageView?.frame
             {
                 frame.origin.y = 3*margin
-                self!.messageView.frame = frame
+                self?.messageView?.frame = frame
             }
         }
         
         UIView.animateWithDuration(
             0.5, delay: 5, options: [], animations: {[weak self] in
-                if var frame = self?.messageView.frame
+                if var frame = self?.messageView?.frame
                 {
                     frame.origin.y = -frameHeight
-                    self?.messageView.frame = frame
+                    self?.messageView?.frame = frame
                 }}, completion: {[weak self] finished in
-                    self?.messageView.removeFromSuperview()
+                    self?.messageView?.removeFromSuperview()
         })
     }
 

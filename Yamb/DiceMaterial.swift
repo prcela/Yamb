@@ -17,7 +17,7 @@ enum DiceMaterial: String
     case Blue = "d"
     case Red = "e"
     case Yellow = "f"
-    case BlueGlass = "g"
+    case Elsa = "g"
     case Roman = "h"
     case RedGlass = "i"
     case Heart = "j"
@@ -54,7 +54,7 @@ enum DiceMaterial: String
     
     static func forBuy() -> [DiceMaterial]
     {
-        return [.BlueGlass, .Numbers, .Apple, .Aurora, .Mario]
+        return [.Elsa, .Numbers, .Apple, .Aurora, .Mario]
     }
     
     func iconForValue(value: Int, selected: Bool = false) -> UIImage?
