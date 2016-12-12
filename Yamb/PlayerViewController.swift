@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Crashlytics
 
 class PlayerViewController: UIViewController {
 
@@ -98,6 +99,7 @@ class PlayerViewController: UIViewController {
             let purchaseVC = segue.destinationViewController as! PurchaseViewController
             purchaseVC.descriptionText = lstr("Purchase description")
             purchaseVC.productId = purchaseNameId
+            purchaseVC.itemType = "Name"
             purchaseVC.onPurchaseSuccess = {
                 PlayerStat.shared.purchasedName = true
                 PlayerStat.saveStat()
@@ -110,6 +112,7 @@ class PlayerViewController: UIViewController {
             purchaseVC.descriptionText = lstr("Purchase dice description")
             purchaseVC.productId = "yamb.PurchaseDice." + diceMat.rawValue
             purchaseVC.iconName = "1\(diceMat.rawValue)"
+            purchaseVC.itemType = "Dice"
             purchaseVC.onPurchaseSuccess = {
                 if !PlayerStat.shared.boughtDiceMaterials.contains(diceMat)
                 {

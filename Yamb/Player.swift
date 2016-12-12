@@ -9,6 +9,7 @@
 import Foundation
 import GameKit
 import Firebase
+import Crashlytics
 
 private let keyId = "letKeyId"
 private let keyTable = "keyTable"
@@ -428,6 +429,7 @@ class Player: NSObject, NSCoding
         {
             WsAPI.shared.turn(.End, matchId: Match.shared.id, params: JSON([:]))
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.multiplayerMatchEnded, object: Match.shared.id)
+            Answers.logLevelEnd(Match.shared.matchType.rawValue, score: nil, success: nil, customAttributes: ["diceNum":Match.shared.diceNum.rawValue])
         }
         else if Match.shared.matchType == .SinglePlayer
         {
@@ -444,6 +446,7 @@ class Player: NSObject, NSCoding
             ServerAPI.statItem(statItem.json(), completionHandler: { (data, response, error) in
                 print(response)
             })
+            Answers.logLevelEnd(statItem.matchType.rawValue, score: statItem.score, success: nil, customAttributes: ["diceNum":statItem.diceNum.rawValue])
         }
         
         // score submit for local player only

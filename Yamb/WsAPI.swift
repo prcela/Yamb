@@ -9,8 +9,8 @@
 import Foundation
 import GameKit
 
-private let ipHome = "192.168.5.11:8080"
-private let ipWork = "10.0.21.221:8080"
+private let ipHome = "192.168.5.12:8181"
+private let ipWork = "10.0.21.221:8181"
 private let ipServer = "139.59.142.160:80"
 let ipCurrent = ipServer
 
@@ -18,6 +18,7 @@ class WsAPI
 {
     static let shared = WsAPI()
     private var retryCount = 0
+    private var lastReceivedMsgId: Int?
     private var unsentMessages = [String]()
     private var pingInterval: NSTimeInterval = 30
     
@@ -161,6 +162,7 @@ extension WsAPI: WebSocketDelegate
         print("didConnect to \(socket.currentURL)")
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsDidConnect, object: nil)
         retryCount = 0
+        lastReceivedMsgId = nil
         joinToRoom()
         sendUnsentMessages()
         
@@ -190,6 +192,14 @@ extension WsAPI: WebSocketDelegate
         if let msgId = json["msg_id"].int
         {
             socket.writeString(JSON(["ack":msgId]).rawString()!)
+            
+            if lastReceivedMsgId != nil && msgId <= lastReceivedMsgId!
+            {
+                // we already process this
+                return
+            }
+            
+            lastReceivedMsgId = msgId
         }
         
         guard let msgFunc = MessageFunc(rawValue: json["msg_func"].stringValue) else {

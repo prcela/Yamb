@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftyStoreKit
+import StoreKit
+import Crashlytics
 
 class PurchaseViewController: UIViewController {
 
@@ -21,8 +23,12 @@ class PurchaseViewController: UIViewController {
     
     var descriptionText: String?
     var productId: String!
+    private var product: SKProduct?
     var onPurchaseSuccess: (() -> Void)!
     var iconName: String?
+    var itemName: String?
+    var itemType: String?
+    private var currencyCode: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +60,13 @@ class PurchaseViewController: UIViewController {
         if let idx = retrievedProducts?.indexOf({product in
             return product.productIdentifier == productId
         }) {
-            let product = retrievedProducts![idx]
+            product = retrievedProducts![idx]
             let numberFormatter = NSNumberFormatter()
-            numberFormatter.locale = product.priceLocale
+            numberFormatter.locale = product!.priceLocale
             numberFormatter.numberStyle = .CurrencyStyle
-            let priceString = numberFormatter.stringFromNumber(product.price ?? 0) ?? ""
-            priceLbl?.text = "\(product.localizedTitle) \(priceString)"
+            let priceString = numberFormatter.stringFromNumber(product!.price ?? 0) ?? ""
+            priceLbl?.text = "\(product!.localizedTitle) \(priceString)"
+            currencyCode = numberFormatter.currencyCode
         }
         else
         {
@@ -81,6 +88,15 @@ class PurchaseViewController: UIViewController {
                     print("Purchase Success: \(productId)")
                     dispatch_async(dispatch_get_main_queue(), {
                         self.onPurchaseSuccess()
+                        
+                        guard self.product != nil else {return}
+                        Answers.logPurchaseWithPrice(self.product?.price,
+                            currency: self.currencyCode,
+                            success: true,
+                            itemName: self.itemName,
+                            itemType: self.itemType,
+                            itemId: productId,
+                            customAttributes: [:])
                     })
                     
                 case .Error(let error):

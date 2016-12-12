@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import GameKit
+import Crashlytics
 
 private let keyPlayers = "keyPlayers"
 private let keyIdxPlayer = "keyIdxPlayer"
@@ -79,6 +80,9 @@ class Match: NSObject, NSCoding
         NSUserDefaults.standardUserDefaults().setObject(diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        
+        Answers.logLevelStart(matchType.rawValue, customAttributes: ["diceNum" : diceNum.rawValue])
+        
         FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
     }
     

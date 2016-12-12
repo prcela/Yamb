@@ -9,6 +9,7 @@
 import UIKit
 import GameKit
 import MessageUI
+import Crashlytics
 
 class MenuViewController: UIViewController
 {
@@ -144,6 +145,8 @@ class MenuViewController: UIViewController
         
         let activityViewController = UIActivityViewController(activityItems: [string, URL], applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: nil)
+        
+        Answers.logShareWithMethod(nil, contentName: "Tell friends", contentType: nil, contentId: nil, customAttributes: nil)
     }
     
     @objc
