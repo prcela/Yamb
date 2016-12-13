@@ -37,6 +37,7 @@ enum DiceMaterial: String
     case Aurora = "x"
     case Flourescent = "y"
     case XO = "q"
+    case GrayGlitter = "gg"
     
     static func diamondsPrice() -> Int
     {
@@ -45,7 +46,7 @@ enum DiceMaterial: String
     
     static func forFree() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Green, .Violet]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Green, .Violet, .GrayGlitter]
     }
     
     static func forDiamonds() -> [DiceMaterial]
