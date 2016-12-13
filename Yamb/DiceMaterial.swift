@@ -17,6 +17,7 @@ enum DiceMaterial: String
     case Blue = "d"
     case Red = "e"
     case Yellow = "f"
+    case Violet = "vi"
     case Elsa = "g"
     case Roman = "h"
     case RedGlass = "i"
@@ -44,7 +45,7 @@ enum DiceMaterial: String
     
     static func forFree() -> [DiceMaterial]
     {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Green]
+        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Green, .Violet]
     }
     
     static func forDiamonds() -> [DiceMaterial]
