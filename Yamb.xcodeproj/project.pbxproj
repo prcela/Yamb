@@ -200,6 +200,7 @@
 		975FA4F41DEE2EE300F2B79C /* 4q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4EF1DEE2EE300F2B79C /* 4q_sel.png */; };
 		975FA4F51DEE2EE300F2B79C /* 5q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4F01DEE2EE300F2B79C /* 5q_sel.png */; };
 		975FA4F61DEE2EE300F2B79C /* 6q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4F11DEE2EE300F2B79C /* 6q_sel.png */; };
+		9774E7931E0423060018FD46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9774E7921E0423060018FD46 /* LoginViewController.swift */; };
 		977A1CA51D9BD84700FEA48D /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977A1CA41D9BD84700FEA48D /* ServerAPI.swift */; };
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
@@ -624,6 +625,7 @@
 		975FA4EF1DEE2EE300F2B79C /* 4q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4q_sel.png; path = Yamb/Resources/4q_sel.png; sourceTree = "<group>"; };
 		975FA4F01DEE2EE300F2B79C /* 5q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5q_sel.png; path = Yamb/Resources/5q_sel.png; sourceTree = "<group>"; };
 		975FA4F11DEE2EE300F2B79C /* 6q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6q_sel.png; path = Yamb/Resources/6q_sel.png; sourceTree = "<group>"; };
+		9774E7921E0423060018FD46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		977A1CA41D9BD84700FEA48D /* ServerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -898,6 +900,7 @@
 				97130EAA1DDAFDC7009C1CA0 /* ScorePickerViewController.swift */,
 				978687731DE5B96300B26232 /* DiceCollectionViewController.swift */,
 				9742B13C1DEAC4AA005D049E /* SpeechViewController.swift */,
+				9774E7921E0423060018FD46 /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1932,6 +1935,7 @@
 				97AA7DBC1DDDED3400B6AC55 /* LineView.swift in Sources */,
 				9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */,
 				974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */,
+				9774E7931E0423060018FD46 /* LoginViewController.swift in Sources */,
 				9705CDF51DCA3C26004109BC /* PlayerContainer.swift in Sources */,
 				97A50FFF1D874FAD0046AF34 /* MatchInfo.swift in Sources */,
 				97E7F0B81DD72239003D72F0 /* PurchaseViewController.swift in Sources */,
