@@ -16,19 +16,37 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var playerNameLbl: UILabel!
     @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var dice5StarsLbl: UILabel!
+    @IBOutlet weak var dice6StarsLbl: UILabel!
+    @IBOutlet weak var diamondsLbl: UILabel!
+    @IBOutlet weak var buyDiamondsBtn: UIButton!
+    @IBOutlet weak var logoutBtn: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        editBtn.layer.borderWidth = 1
-        editBtn.layer.cornerRadius = 5
-        editBtn.layer.borderColor = UIColor.lightTextColor().CGColor
+        for view in [editBtn, buyDiamondsBtn, logoutBtn]
+        {
+            view.layer.borderWidth = 1
+            view.layer.cornerRadius = 5
+            view.layer.borderColor = UIColor.lightTextColor().CGColor
+        }
         
         playerNameLbl.text = PlayerStat.shared.alias
-        editBtn.setTitle(lstr("Edit"), forState: .Normal)
+        editBtn.setTitle(lstr("Edit name"), forState: .Normal)
 
+        diamondsLbl.text = "\(PlayerStat.shared.diamonds) 💎"
+        
+        let myStars5 = stars5(PlayerStat.avgScore(.Five))
+        let myStars6 = stars6(PlayerStat.avgScore(.Six))
+        
+        dice5StarsLbl.text = String(format: "5 🎲 %@ ⭐️", starsFormatter.stringFromNumber(NSNumber(float: myStars5))!)
+        dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.stringFromNumber(NSNumber(float: myStars6))!)
+        
+        let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.integerValue
+        buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", forState: .Normal)
         
     }
     
@@ -69,6 +87,9 @@ class ProfileViewController: UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    @IBAction func buyDiamonds(sender: AnyObject)
+    {
+    }
 
     @IBAction func logout(sender: AnyObject)
     {
