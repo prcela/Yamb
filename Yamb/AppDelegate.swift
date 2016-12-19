@@ -70,6 +70,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRAnalytics.setUserID(PlayerStat.shared.id)
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        if let accessToken = FBSDKAccessToken.currentAccessToken(){
+            print(accessToken)
+        }else{
+            print("Not logged In.")
+        }
+        
         SwiftyStoreKit.completeTransactions() { completedTransactions in
             
             for completedTransaction in completedTransactions {

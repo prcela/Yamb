@@ -15,6 +15,20 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let _ = FBSDKAccessToken.currentAccessToken()
+        {
+            performSegueWithIdentifier("next", sender: self)
+        }
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func loginWithFacebook(sender: AnyObject)
+    {
         let fbLogin = FBSDKLoginManager()
         fbLogin.logInWithReadPermissions(["public_profile","email","user_friends"],
                                          fromViewController: self)
@@ -30,24 +44,15 @@ class LoginViewController: UIViewController {
             else
             {
                 print("Logged in")
+                self.performSegueWithIdentifier("next", sender: self)
             }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func playAsGuest(sender: AnyObject)
+    {
+        performSegueWithIdentifier("next", sender: self)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
