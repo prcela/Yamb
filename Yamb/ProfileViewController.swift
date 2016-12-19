@@ -10,6 +10,8 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseRemoteConfig
+import SwiftyStoreKit
+import Crashlytics
 
 class ProfileViewController: UIViewController {
 
@@ -21,6 +23,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var diamondsLbl: UILabel!
     @IBOutlet weak var buyDiamondsBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateDiamonds), name: NotificationName.playerDiamondsChanged, object: nil)
+    }
     
     
     override func viewDidLoad() {
@@ -46,8 +54,27 @@ class ProfileViewController: UIViewController {
         dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.stringFromNumber(NSNumber(float: myStars6))!)
         
         let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.integerValue
-        buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", forState: .Normal)
         
+        if let idx = retrievedProducts?.indexOf({product in
+            return product.productIdentifier == purchaseDiamondsId
+        }) {
+            let product = retrievedProducts![idx]
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.locale = product.priceLocale
+            numberFormatter.numberStyle = .CurrencyStyle
+            let priceString = numberFormatter.stringFromNumber(product.price ?? 0) ?? ""
+            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎 \(priceString)", forState: .Normal)
+        }
+        else
+        {
+            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", forState: .Normal)
+        }
+        
+    }
+    
+    func updateDiamonds()
+    {
+        diamondsLbl.text = "\(PlayerStat.shared.diamonds) 💎"
     }
     
     @IBAction func editName(sender: AnyObject)
@@ -89,13 +116,51 @@ class ProfileViewController: UIViewController {
     
     @IBAction func buyDiamonds(sender: AnyObject)
     {
+        SwiftyStoreKit.purchaseProduct(purchaseDiamondsId) { result in
+            switch result {
+            case .Success(let productId):
+                print("Purchase Success: \(productId)")
+                dispatch_async(dispatch_get_main_queue(), {
+        
+                    let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.integerValue
+                    PlayerStat.shared.diamonds += diamondsQuantity
+                    PlayerStat.saveStat()
+                    
+                    if let idx = retrievedProducts?.indexOf({product in
+                        return product.productIdentifier == productId
+                    }) {
+                        let product = retrievedProducts![idx]
+                        let numberFormatter = NSNumberFormatter()
+                        numberFormatter.locale = product.priceLocale
+                        numberFormatter.numberStyle = .CurrencyStyle
+                        let currencyCode = numberFormatter.currencyCode
+                    
+                    Answers.logPurchaseWithPrice(product.price,
+                        currency: currencyCode,
+                        success: true,
+                        itemName: "Diamonds",
+                        itemType: nil,
+                        itemId: productId,
+                        customAttributes: [:])
+                    }})
+                
+            case .Error(let error):
+                print("Purchase Failed: \(error)")
+                
+                dispatchToMainQueue(delay: 1) {
+                    let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchase failed"), preferredStyle: .Alert)
+                    alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                    (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
     @IBAction func logout(sender: AnyObject)
     {
         FBSDKLoginManager().logOut()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
