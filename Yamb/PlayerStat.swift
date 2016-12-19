@@ -21,7 +21,11 @@ class PlayerStat: NSObject, NSCoding
     
     var id: String = ""
     var alias: String = ""
-    var items = [StatItem]()
+    var items = [StatItem]() {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerStatItemsChanged, object: items)
+        }
+    }
     var purchasedName = false
     var diamonds = 100 {
         didSet {

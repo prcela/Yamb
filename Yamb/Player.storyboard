@@ -553,8 +553,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6r-lj-k2z">
-                                <rect key="frame" x="102" y="30" width="77" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <rect key="frame" x="102" y="30" width="127" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -564,25 +564,35 @@
                                     <constraint firstAttribute="width" constant="102" id="jPN-LQ-6NK"/>
                                     <constraint firstAttribute="height" constant="21" id="sl1-Pa-Jf6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 🎲⭐️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I69-fa-uiH">
+                                <rect key="frame" x="16" y="141" width="102" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="J1r-M3-HlJ"/>
+                                    <constraint firstAttribute="width" constant="102" id="Y08-pq-2Ce"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 💎" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n07-Ws-twn">
-                                <rect key="frame" x="102" y="66" width="34" height="21"/>
+                                <rect key="frame" x="102" y="62" width="77" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="34" id="Vkt-Y7-rwp"/>
                                     <constraint firstAttribute="height" constant="21" id="dyF-zZ-PGZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFy-MH-5ff">
-                                <rect key="frame" x="214" y="430" width="90" height="30"/>
+                                <rect key="frame" x="214" y="431" width="90" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="gHl-3n-gyD"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" red="0.74117647060000003" green="0.76862745099999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -591,37 +601,42 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtL-mt-4xz">
-                                <rect key="frame" x="184" y="25.5" width="120" height="30"/>
+                                <rect key="frame" x="234" y="24" width="70" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="XUr-aL-BJr"/>
-                                    <constraint firstAttribute="width" constant="120" id="pJK-Rw-fNb"/>
+                                    <constraint firstAttribute="width" constant="70" id="pJK-Rw-fNb"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
                                     <action selector="editName:" destination="Sgm-Gs-Ieh" eventType="touchUpInside" id="MJb-RP-fqY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2F-Ow-uaA">
-                                <rect key="frame" x="184" y="61.5" width="120" height="30"/>
+                                <rect key="frame" x="184" y="57.5" width="120" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CGB-Hk-D8M"/>
                                     <constraint firstAttribute="width" constant="120" id="VmH-xK-eO9"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="+500 💎"/>
                                 <connections>
                                     <action selector="buyDiamonds:" destination="Sgm-Gs-Ieh" eventType="touchUpInside" id="rUF-Wh-suh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 🎲⭐️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I69-fa-uiH">
-                                <rect key="frame" x="16" y="141" width="102" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHA-7D-ihE">
+                                <rect key="frame" x="16" y="432" width="160" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="J1r-M3-HlJ"/>
-                                    <constraint firstAttribute="width" constant="102" id="Y08-pq-2Ce"/>
+                                    <constraint firstAttribute="width" constant="160" id="OVu-Zs-ZlC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Connect with Facebook">
+                                    <color key="titleColor" red="0.74117647060000003" green="0.76862745099999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectFb:" destination="Sgm-Gs-Ieh" eventType="touchUpInside" id="0Ks-qj-W60"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.1608116611" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -630,14 +645,17 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vtL-mt-4xz" secondAttribute="trailing" id="6Db-4k-Eny"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Bsh-yX-vzV" secondAttribute="leading" id="6Vm-Cs-74W"/>
                             <constraint firstItem="vtL-mt-4xz" firstAttribute="centerY" secondItem="T6r-lj-k2z" secondAttribute="centerY" id="962-OV-2bM"/>
+                            <constraint firstItem="q2F-Ow-uaA" firstAttribute="leading" secondItem="n07-Ws-twn" secondAttribute="trailing" constant="5" id="AKG-U6-Aj3"/>
                             <constraint firstItem="T6r-lj-k2z" firstAttribute="leading" secondItem="cEv-Et-C3I" secondAttribute="trailing" constant="11" id="ISQ-5x-tKJ"/>
                             <constraint firstItem="n07-Ws-twn" firstAttribute="top" secondItem="T6r-lj-k2z" secondAttribute="bottom" constant="15" id="M9q-Os-ziq"/>
                             <constraint firstItem="T6r-lj-k2z" firstAttribute="top" secondItem="cEv-Et-C3I" secondAttribute="top" constant="10" id="NLK-KI-6Th"/>
                             <constraint firstItem="Bsh-yX-vzV" firstAttribute="top" secondItem="cEv-Et-C3I" secondAttribute="bottom" constant="13" id="On9-lh-yEh"/>
                             <constraint firstItem="n07-Ws-twn" firstAttribute="leading" secondItem="cEv-Et-C3I" secondAttribute="trailing" constant="11" id="Qdy-X0-bWs"/>
                             <constraint firstItem="vtL-mt-4xz" firstAttribute="leading" secondItem="T6r-lj-k2z" secondAttribute="trailing" constant="5" id="Ukf-bw-upY"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="EHA-7D-ihE" secondAttribute="leading" id="Um4-wm-DhF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="cEv-Et-C3I" secondAttribute="leading" id="Xv5-D0-iGv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="I69-fa-uiH" secondAttribute="leading" id="Yu7-B0-qMd"/>
+                            <constraint firstItem="Phs-6X-Tc3" firstAttribute="top" secondItem="EHA-7D-ihE" secondAttribute="bottom" constant="20" id="cyG-HM-QZn"/>
                             <constraint firstItem="Phs-6X-Tc3" firstAttribute="top" secondItem="SFy-MH-5ff" secondAttribute="bottom" constant="20" id="lu9-Cb-GuL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="q2F-Ow-uaA" secondAttribute="trailing" id="mGS-Et-YW6"/>
                             <constraint firstItem="cEv-Et-C3I" firstAttribute="top" secondItem="pGw-jV-r3b" secondAttribute="bottom" id="mqB-Tg-11Z"/>
@@ -646,6 +664,7 @@
                     </view>
                     <connections>
                         <outlet property="buyDiamondsBtn" destination="q2F-Ow-uaA" id="8al-Zl-nFs"/>
+                        <outlet property="connectFbBtn" destination="EHA-7D-ihE" id="cMK-DB-LoQ"/>
                         <outlet property="diamondsLbl" destination="n07-Ws-twn" id="SWl-bc-m5Y"/>
                         <outlet property="dice5StarsLbl" destination="Bsh-yX-vzV" id="gln-As-2Cg"/>
                         <outlet property="dice6StarsLbl" destination="I69-fa-uiH" id="8hL-Gc-BiS"/>

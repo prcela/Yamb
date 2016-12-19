@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var diamondsLbl: UILabel!
     @IBOutlet weak var buyDiamondsBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
+    @IBOutlet weak var connectFbBtn: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,7 +36,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        for view in [editBtn, buyDiamondsBtn, logoutBtn]
+        for view in [editBtn, buyDiamondsBtn, logoutBtn, connectFbBtn]
         {
             view.layer.borderWidth = 1
             view.layer.cornerRadius = 5
@@ -43,7 +44,9 @@ class ProfileViewController: UIViewController {
         }
         
         playerNameLbl.text = PlayerStat.shared.alias
-        editBtn.setTitle(lstr("Edit name"), forState: .Normal)
+        editBtn.setTitle(lstr("Edit"), forState: .Normal)
+        logoutBtn.setTitle(lstr("Logout"), forState: .Normal)
+        connectFbBtn.setTitle(lstr("Connect with Facebook"), forState: .Normal)
 
         diamondsLbl.text = "\(PlayerStat.shared.diamonds) 💎"
         
@@ -69,6 +72,11 @@ class ProfileViewController: UIViewController {
         {
             buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", forState: .Normal)
         }
+        
+        let fbToken = FBSDKAccessToken.currentAccessToken()
+        
+        connectFbBtn.hidden = (fbToken != nil)
+        logoutBtn.hidden = (fbToken == nil)
         
     }
     
@@ -156,25 +164,35 @@ class ProfileViewController: UIViewController {
         }
     }
 
+    @IBAction func connectFb(sender: AnyObject)
+    {
+        let fbLogin = FBSDKLoginManager()
+        fbLogin.logInWithReadPermissions(["public_profile","email","user_friends"],
+                                         fromViewController: self)
+        { [weak self] (result, error) in
+            if error != nil
+            {
+                print(error)
+            }
+            else if result.isCancelled
+            {
+                print("Cancelled")
+            }
+            else
+            {
+                print("Logged in")
+                self?.connectFbBtn.hidden = true
+                self?.logoutBtn.hidden = false
+            }
+        }
+    }
+    
     @IBAction func logout(sender: AnyObject)
     {
         FBSDKLoginManager().logOut()
+        connectFbBtn.hidden = false
+        logoutBtn.hidden = true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

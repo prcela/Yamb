@@ -54,6 +54,8 @@
 "Edit" = "Uredi";
 "Name" = "Ime";
 "Input your name" = "Unesi svoje ime";
+"Logout" = "Odjava";
+"Connect with Facebook" = "Spoji se sa Facebook-om";
 
 // Update
 "Update message" = "Za igranje preko interneta potrebno je ažurirati aplikaciju na zadnju verziju";

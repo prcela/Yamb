@@ -339,15 +339,24 @@ class PlayViewController: UIViewController {
         let match = Match.shared
         var message = lstr("Opponent has left the match.")
         
-        let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
-            return player.state == .Start || player.state == .EndGame
+        let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
+            return player.state == .Start
         }
         
-        if !matchJustStartedOrEnded
+        if matchJustStarted
         {
-            var diamonds = PlayerStat.shared.diamonds
-            diamonds += 2*Match.shared.bet
-            PlayerStat.shared.diamonds = diamonds
+            // return initial bet
+            PlayerStat.shared.diamonds += Match.shared.bet
+            
+            if match.bet > 0
+            {
+                message += "\n"
+                message += String(format: lstr("Bet of %@ diamonds is returned to you"), match.bet)
+            }
+        }
+        else
+        {
+            PlayerStat.shared.diamonds += 2*Match.shared.bet
             
             if match.bet > 0
             {
@@ -385,8 +394,6 @@ class PlayViewController: UIViewController {
             let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
                 return player.state == .Start || player.state == .EndGame
             }
-            
-            let localPlayer = Match.shared.player(PlayerStat.shared.id)
             
             if matchJustStartedOrEnded
             {
