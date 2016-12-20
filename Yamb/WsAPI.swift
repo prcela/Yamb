@@ -304,7 +304,7 @@ extension WsAPI: WebSocketDelegate
                 guard let player = Match.shared.player(playerId) else {return}
                 player.activeRotationRounds = rounds
                 player.diceValues = values
-                DiceScene.shared.rollToValues(values, ctMaxRounds: 3, completion: {})
+                PlayViewController.diceScene.rollToValues(values, ctMaxRounds: 3, activeRotationRounds: rounds, ctHeld: player.diceHeld.count, completion: {})
                 
             case .HoldDice:
                 let holdDice = params.arrayObject as! [UInt]

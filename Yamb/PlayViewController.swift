@@ -14,6 +14,7 @@ import Firebase
 class PlayViewController: UIViewController {
     
     static var isActive = false
+    static var diceScene = DiceScene()
     
     @IBOutlet weak var gameTableView: GameTableView?
     @IBOutlet weak var sceneView: SCNView?
@@ -44,7 +45,6 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: NotificationName.matchReceivedTextMessage, object: nil)
         
         PlayViewController.isActive = true
-
     }
     
     deinit {
@@ -56,7 +56,8 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        sceneView?.scene = DiceScene.shared
+        
+        sceneView?.scene = PlayViewController.diceScene
         
         sumLbl?.text = nil
         sumLbl?.layer.borderWidth = 1
@@ -77,7 +78,7 @@ class PlayViewController: UIViewController {
         messageView?.layer.cornerRadius = 5
         
         refresh()
-        DiceScene.shared.recreateMaterials()
+        PlayViewController.diceScene.recreateMaterials(Match.shared.players.first?.diceMaterial ?? .White)
         
         connectingLbl?.hidden = true
         connectingLbl?.text = lstr("Connecting...")
@@ -382,8 +383,12 @@ class PlayViewController: UIViewController {
                 match.indexOfPlayerOnTurn = 0
                 match.matchType = .SinglePlayer
                 
-                DiceScene.shared.updateDiceValues()
-                DiceScene.shared.updateDiceSelection()
+                let player = match.players[match.indexOfPlayerOnTurn]
+                if let values = player.diceValues
+                {
+                    PlayViewController.diceScene.updateDiceValues(values)
+                }
+                PlayViewController.diceScene.updateDiceSelection(player.diceHeld)
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             }
         }))

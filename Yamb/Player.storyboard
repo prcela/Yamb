@@ -579,7 +579,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 💎" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n07-Ws-twn">
-                                <rect key="frame" x="102" y="62" width="77" height="21"/>
+                                <rect key="frame" x="102" y="62" width="67" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="dyF-zZ-PGZ"/>
                                 </constraints>
@@ -613,10 +613,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2F-Ow-uaA">
-                                <rect key="frame" x="184" y="57.5" width="120" height="30"/>
+                                <rect key="frame" x="174" y="57.5" width="130" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CGB-Hk-D8M"/>
-                                    <constraint firstAttribute="width" constant="120" id="VmH-xK-eO9"/>
+                                    <constraint firstAttribute="width" constant="130" id="VmH-xK-eO9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="+500 💎"/>

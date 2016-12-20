@@ -40,7 +40,7 @@ class PlayerViewController: UIViewController {
         
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
         
-        showStats(statsBtn)
+        showProfile(profileBtn)
         
     }
     
