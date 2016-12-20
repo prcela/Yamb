@@ -34,6 +34,15 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You win x 💎" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kme-km-APq">
+                                        <rect key="frame" x="91" y="259" width="98.5" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="6pG-Xd-h9Y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day 2" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gks-AB-gDz">
                                         <rect key="frame" x="117.5" y="63" width="46.5" height="25"/>
                                         <constraints>
@@ -50,10 +59,24 @@
                                             <constraint firstAttribute="height" constant="128" id="qvG-IZ-buT"/>
                                         </constraints>
                                     </sceneKitView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xx2-VA-Gub">
-                                        <rect key="frame" x="90" y="302" width="100" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jr3-Hh-47w">
+                                        <rect key="frame" x="15" y="302" width="250" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="0I3-sz-oO2"/>
+                                            <constraint firstAttribute="height" constant="30" id="JIU-l6-Mbb"/>
+                                            <constraint firstAttribute="width" constant="250" id="zua-KB-q7H"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="done:" destination="Ptp-FR-fAU" eventType="touchUpInside" id="UEh-OY-mhy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xx2-VA-Gub">
+                                        <rect key="frame" x="15" y="302" width="250" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="0I3-sz-oO2"/>
                                             <constraint firstAttribute="height" constant="30" id="uJO-U8-SfX"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -64,20 +87,12 @@
                                             <action selector="roll:" destination="Ptp-FR-fAU" eventType="touchUpInside" id="khn-LH-CXg"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You win x 💎" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kme-km-APq">
-                                        <rect key="frame" x="91" y="259" width="98.5" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="6pG-Xd-h9Y"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Kme-km-APq" firstAttribute="top" secondItem="so9-mp-WJv" secondAttribute="bottom" constant="23" id="0BK-lC-TOe"/>
                                     <constraint firstAttribute="leadingMargin" secondItem="GJR-DE-nA7" secondAttribute="leading" constant="-10" id="39v-xf-SFk"/>
+                                    <constraint firstAttribute="bottom" secondItem="Jr3-Hh-47w" secondAttribute="bottom" constant="8" id="4mc-yA-dDa"/>
                                     <constraint firstItem="so9-mp-WJv" firstAttribute="top" secondItem="gks-AB-gDz" secondAttribute="bottom" constant="20" id="Bg6-s5-JEG"/>
                                     <constraint firstItem="gks-AB-gDz" firstAttribute="top" secondItem="GJR-DE-nA7" secondAttribute="bottom" constant="20" id="Cse-fU-Jfi"/>
                                     <constraint firstItem="Kme-km-APq" firstAttribute="centerX" secondItem="HTZ-PC-bhw" secondAttribute="centerX" id="Ey8-YN-FsX"/>
@@ -87,6 +102,7 @@
                                     <constraint firstItem="xx2-VA-Gub" firstAttribute="centerX" secondItem="HTZ-PC-bhw" secondAttribute="centerX" id="dWx-WA-93V"/>
                                     <constraint firstItem="gks-AB-gDz" firstAttribute="centerX" secondItem="HTZ-PC-bhw" secondAttribute="centerX" id="fMK-W2-Zb0"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="GJR-DE-nA7" secondAttribute="trailing" constant="10" id="nZK-ql-vQk"/>
+                                    <constraint firstItem="Jr3-Hh-47w" firstAttribute="centerX" secondItem="HTZ-PC-bhw" secondAttribute="centerX" id="oUM-gg-P93"/>
                                     <constraint firstAttribute="width" constant="280" id="vT2-x2-WqO"/>
                                     <constraint firstAttribute="bottom" secondItem="xx2-VA-Gub" secondAttribute="bottom" constant="8" id="xqW-jo-Q2V"/>
                                 </constraints>
@@ -99,9 +115,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="btn" destination="xx2-VA-Gub" id="5ep-s1-zId"/>
+                        <outlet property="dayLbl" destination="gks-AB-gDz" id="XxM-eL-ffZ"/>
+                        <outlet property="doneBtn" destination="Jr3-Hh-47w" id="4xM-As-YGW"/>
                         <outlet property="holderView" destination="HTZ-PC-bhw" id="Qlo-hj-vEV"/>
                         <outlet property="messageLbl" destination="GJR-DE-nA7" id="JUW-r6-xK6"/>
+                        <outlet property="rollBtn" destination="xx2-VA-Gub" id="cVf-f0-cx5"/>
                         <outlet property="scnView" destination="so9-mp-WJv" id="c0Y-dI-7Qd"/>
                         <outlet property="winLbl" destination="Kme-km-APq" id="trX-4E-wmd"/>
                     </connections>

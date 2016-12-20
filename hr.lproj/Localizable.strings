@@ -44,6 +44,7 @@
 "PlayerX has not enough" = "%@ nema dovoljno dijamanata za igru. Smanjite ulog ili pozovite drugog igrača u igru.";
 
 // Stats
+"Profile" = "Profil";
 "Total played" = "Ukupno odigrano";
 "Wins" = "Pobjede";
 "Loses" = "Porazi";
@@ -112,3 +113,9 @@
 "Sorry, I must leave the match" = "Žao mi je, moram napustiti igru";
 "Send message to opponent" = "Pošalji poruku protivniku";
 "has connection problems\nPlease wait few seconds..." = "ima problema sa povezivanjem na internet.\nPričekajte par sekundi...";
+
+// Retention
+"Day" = "Dan";
+"Reward for retention" = "Nagrada za povratak";
+"Roll" = "Baci";
+"You win %d 💎" = "Osvojili ste %d 💎";

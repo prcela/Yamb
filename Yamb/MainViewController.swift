@@ -49,11 +49,42 @@ class MainViewController: UIViewController
         
         updatePlayerInfo()
         
-        dispatchToMainQueue(delay: 1) { 
-            self.performSegueWithIdentifier("retention", sender: self)
-        }
+        dispatchToMainQueue(delay: 1, closure: evaluateRetention)
     }
     
+    func evaluateRetention()
+    {
+        let calendar = NSCalendar.currentCalendar()
+        let dateNow = NSDate()
+        let dayNow = calendar.ordinalityOfUnit(.Day, inUnit: .Era, forDate: dateNow)
+        
+        // PlayerStat.shared.retentions = [736315,736316,736317] // test
+        
+        if let lastRetention = PlayerStat.shared.retentions.last
+        {
+            if dayNow == lastRetention
+            {
+                // ignore it
+            }
+            else if dayNow == lastRetention + 1
+            {
+                // reward and add date to progress
+                print("reward")
+                PlayerStat.shared.retentions.append(dayNow)
+                self.performSegueWithIdentifier("retention", sender: self)
+            }
+            else
+            {
+                // remove complete progress, leave only current day
+                PlayerStat.shared.retentions = [dayNow]
+            }
+        }
+        else
+        {
+            // remove complete progress, leave only current day
+            PlayerStat.shared.retentions = [dayNow]
+        }
+    }
     
     func updatePlayerInfo()
     {

@@ -33,6 +33,9 @@ class PlayerStat: NSObject, NSCoding
         }
     }
     
+    // retention days in era
+    var retentions = [Int]()
+    
     override init() {
         id = String(arc4random())
         alias = lstr("Player") + "_" + id
@@ -122,6 +125,7 @@ class PlayerStat: NSObject, NSCoding
         aCoder.encodeObject(boughtDiceMaterials.map({ (diceMat) -> String in
             return diceMat.rawValue
         }), forKey: "boughtDiceMaterials")
+        aCoder.encodeObject(retentions, forKey: "retentions")
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -159,6 +163,10 @@ class PlayerStat: NSObject, NSCoding
             boughtDiceMaterials = (aDecoder.decodeObjectForKey("boughtDiceMaterials") as! [String]).map({ (rawName) -> DiceMaterial in
                 return DiceMaterial(rawValue: rawName)!
             })
+        }
+        if aDecoder.containsValueForKey("retentions")
+        {
+            retentions = aDecoder.decodeObjectForKey("retentions") as! [Int]
         }
         super.init()
     }

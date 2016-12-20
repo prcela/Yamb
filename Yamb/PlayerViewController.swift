@@ -39,6 +39,7 @@ class PlayerViewController: UIViewController {
         dieIcon.clipsToBounds = true
         
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
+        profileBtn.setTitle(lstr("Profile"), forState: .Normal)
         
         showProfile(profileBtn)
         
