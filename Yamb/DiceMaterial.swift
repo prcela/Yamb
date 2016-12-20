@@ -44,20 +44,10 @@ enum DiceMaterial: String
         return FIRRemoteConfig.remoteConfig()["dice_price_diamonds"].numberValue!.integerValue
     }
     
-    static func forFree() -> [DiceMaterial]
-    {
-        return [.White, .Black, .Blue, .Rose, .Red, .Yellow, .Green, .Violet, .GrayGlitter]
-    }
-    
-    static func forDiamonds() -> [DiceMaterial]
-    {
-        return [.Roman, .RedGlass, .Heart, .Dark, .Flower, .Moon, .Bombs, .Animal, .Soccer, .Xmass, .Cheese, .Flourescent, .XO]
-    }
-    
-    static func forBuy() -> [DiceMaterial]
-    {
-        return [.Elsa, .Numbers, .Apple, .Aurora, .Mario]
-    }
+    static let all = [White,Black,Rose,Blue,Red,Yellow,Violet,Elsa,Roman,RedGlass,Heart,Dark,Apple,Moon,Flower,Bombs,Numbers,Animal,Soccer,Xmass,Cheese,Green,Mario,Aurora,Flourescent,XO,GrayGlitter]
+    static let forFree = [White, Black, Blue, Rose, Red, Yellow, Green, Violet, GrayGlitter]
+    static let forDiamonds = [Roman, RedGlass, Heart, Dark, Flower, Moon, Bombs, Animal, Soccer, Xmass, Cheese, Flourescent, XO]
+    static let forBuy = [Elsa, Numbers, Apple, Aurora, Mario]
     
     func iconForValue(value: Int, selected: Bool = false) -> UIImage?
     {

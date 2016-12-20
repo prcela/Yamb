@@ -41,7 +41,7 @@ class PlayerStat: NSObject, NSCoding
     
     func ownsDiceMat(diceMat: DiceMaterial) -> Bool
     {
-        if DiceMaterial.forFree().contains(diceMat)
+        if DiceMaterial.forFree.contains(diceMat)
         {
             return true
         }
@@ -50,7 +50,7 @@ class PlayerStat: NSObject, NSCoding
     
     func ownedDiceMaterials() -> [DiceMaterial]
     {
-        let owned = DiceMaterial.forFree() + boughtDiceMaterials
+        let owned = DiceMaterial.forFree + boughtDiceMaterials
         return owned
     }
     

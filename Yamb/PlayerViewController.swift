@@ -52,11 +52,11 @@ class PlayerViewController: UIViewController {
     func onWantsNewDiceMat(notification: NSNotification)
     {
         let diceMat = DiceMaterial(rawValue: notification.object as! String)!
-        if DiceMaterial.forBuy().contains(diceMat)
+        if DiceMaterial.forBuy.contains(diceMat)
         {
             performSegueWithIdentifier("purchaseDice", sender: notification.object)
         }
-        else if DiceMaterial.forDiamonds().contains(diceMat)
+        else if DiceMaterial.forDiamonds.contains(diceMat)
         {
             if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice()
             {

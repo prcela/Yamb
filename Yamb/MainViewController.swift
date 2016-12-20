@@ -48,7 +48,12 @@ class MainViewController: UIViewController
         diceIcon?.clipsToBounds = true
         
         updatePlayerInfo()
+        
+        dispatchToMainQueue(delay: 1) { 
+            self.performSegueWithIdentifier("retention", sender: self)
+        }
     }
+    
     
     func updatePlayerInfo()
     {
