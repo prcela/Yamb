@@ -50,7 +50,7 @@ class InvitationViewController: UIViewController {
             message += String(format: lstr("Bet is n"), bet)
         }
         
-        if Match.shared.matchType == MatchType.SinglePlayer
+        if Match.shared.matchType == MatchType.SinglePlayer && PlayViewController.isActive
         {
             let spMatch = Match.shared
             if let player = spMatch.players.first

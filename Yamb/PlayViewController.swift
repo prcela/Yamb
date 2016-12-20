@@ -13,7 +13,7 @@ import Firebase
 
 class PlayViewController: UIViewController {
     
-    
+    static var isActive = false
     
     @IBOutlet weak var gameTableView: GameTableView?
     @IBOutlet weak var sceneView: SCNView?
@@ -42,7 +42,13 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
         nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: NotificationName.matchReceivedTextMessage, object: nil)
+        
+        PlayViewController.isActive = true
 
+    }
+    
+    deinit {
+        PlayViewController.isActive = false
     }
     
     

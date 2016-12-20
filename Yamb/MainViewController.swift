@@ -81,11 +81,14 @@ class MainViewController: UIViewController
             if let firstPlayer = Room.main.player(firstPlayerId),
                 let lastPlayer = Room.main.player(lastPlayerId)
             {
+                let firstDiceMat = DiceMaterial(rawValue: matchInfo.diceMaterials.first!) ?? .White
+                let lastDiceMat = DiceMaterial(rawValue: matchInfo.diceMaterials.last!) ?? .White
+                
                 Match.shared.start(.OnlineMultiplayer,
                                    diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
                                    playersDesc: [
-                                    (firstPlayerId,firstPlayer.alias,firstPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                    (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                                    (firstPlayerId,firstPlayer.alias,firstPlayer.avgScore6,firstDiceMat),
+                                    (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,lastDiceMat)],
                                    matchId: matchId,
                                    bet: matchInfo.bet)
             

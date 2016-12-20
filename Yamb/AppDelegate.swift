@@ -152,6 +152,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         PlayerStat.saveStat()
+        
+        let match = Match.shared
+        if match.matchType == .SinglePlayer && PlayViewController.isActive
+        {
+            if let player = match.players.first
+            {
+                if player.state != .Start && player.state != .EndGame
+                {
+                    GameFileManager.saveMatch(match)
+                }
+            }
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

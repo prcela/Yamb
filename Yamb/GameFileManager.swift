@@ -21,6 +21,7 @@ class GameFileManager
     {
         let matchName = match.matchType.rawValue
         NSKeyedArchiver.archiveRootObject(match, toFile: filePathForGameName(matchName))
+        print("Match saved")
     }
     
     class func existsSavedGame(gameName: String) -> Bool
@@ -35,6 +36,7 @@ class GameFileManager
         if NSFileManager.defaultManager().fileExistsAtPath(filePath)
         {
             let match = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? Match
+            print("Match loaded")
             return match
         }
         return nil
@@ -45,6 +47,7 @@ class GameFileManager
         let filePath = filePathForGameName(gameName)
         if let _ = try? NSFileManager.defaultManager().removeItemAtPath(filePath)
         {
+            print("Game deleted")
             return true
         }
         return false
