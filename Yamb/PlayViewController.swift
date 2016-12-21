@@ -13,7 +13,8 @@ import Firebase
 
 class PlayViewController: UIViewController {
     
-    
+    static var isActive = false
+    static var diceScene = DiceScene()
     
     @IBOutlet weak var gameTableView: GameTableView?
     @IBOutlet weak var sceneView: SCNView?
@@ -42,7 +43,12 @@ class PlayViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
         nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
         nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: NotificationName.matchReceivedTextMessage, object: nil)
-
+        
+        PlayViewController.isActive = true
+    }
+    
+    deinit {
+        PlayViewController.isActive = false
     }
     
     
@@ -50,7 +56,8 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        sceneView?.scene = DiceScene.shared
+        
+        sceneView?.scene = PlayViewController.diceScene
         
         sumLbl?.text = nil
         sumLbl?.layer.borderWidth = 1
@@ -71,7 +78,7 @@ class PlayViewController: UIViewController {
         messageView?.layer.cornerRadius = 5
         
         refresh()
-        DiceScene.shared.recreateMaterials()
+        PlayViewController.diceScene.recreateMaterials(Match.shared.players.first?.diceMaterial ?? .White)
         
         connectingLbl?.hidden = true
         connectingLbl?.text = lstr("Connecting...")
@@ -339,15 +346,24 @@ class PlayViewController: UIViewController {
         let match = Match.shared
         var message = lstr("Opponent has left the match.")
         
-        let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
-            return player.state == .Start || player.state == .EndGame
+        let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
+            return player.state == .Start
         }
         
-        if !matchJustStartedOrEnded
+        if matchJustStarted
         {
-            var diamonds = PlayerStat.shared.diamonds
-            diamonds += 2*Match.shared.bet
-            PlayerStat.shared.diamonds = diamonds
+            // return initial bet
+            PlayerStat.shared.diamonds += Match.shared.bet
+            
+            if match.bet > 0
+            {
+                message += "\n"
+                message += String(format: lstr("Bet of %d diamonds is returned to you"), match.bet)
+            }
+        }
+        else
+        {
+            PlayerStat.shared.diamonds += 2*Match.shared.bet
             
             if match.bet > 0
             {
@@ -367,8 +383,12 @@ class PlayViewController: UIViewController {
                 match.indexOfPlayerOnTurn = 0
                 match.matchType = .SinglePlayer
                 
-                DiceScene.shared.updateDiceValues()
-                DiceScene.shared.updateDiceSelection()
+                let player = match.players[match.indexOfPlayerOnTurn]
+                if let values = player.diceValues
+                {
+                    PlayViewController.diceScene.updateDiceValues(values)
+                }
+                PlayViewController.diceScene.updateDiceSelection(player.diceHeld)
                 NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             }
         }))
@@ -385,8 +405,6 @@ class PlayViewController: UIViewController {
             let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
                 return player.state == .Start || player.state == .EndGame
             }
-            
-            let localPlayer = Match.shared.player(PlayerStat.shared.id)
             
             if matchJustStartedOrEnded
             {

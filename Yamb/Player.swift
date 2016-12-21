@@ -66,7 +66,7 @@ class Player: NSObject, NSCoding
     var diceValues: [UInt]?
     var diceHeld = Set<UInt>() {
         didSet {
-            DiceScene.shared.updateDiceSelection()
+            PlayViewController.diceScene.updateDiceSelection(diceHeld)
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
             
             if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
@@ -217,7 +217,7 @@ class Player: NSObject, NSCoding
             WsAPI.shared.turn(.RollDice, matchId: Match.shared.id, params: params)
         }
         
-        DiceScene.shared.rollToValues(values, ctMaxRounds: ctMaxRounds) {
+        PlayViewController.diceScene.rollToValues(values, ctMaxRounds: ctMaxRounds, activeRotationRounds: activeRotationRounds, ctHeld: diceHeld.count) {
             self.rollState = .NotRolling
             self.diceValues = values
             self.afterRoll()

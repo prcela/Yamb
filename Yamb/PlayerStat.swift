@@ -21,13 +21,20 @@ class PlayerStat: NSObject, NSCoding
     
     var id: String = ""
     var alias: String = ""
-    var items = [StatItem]()
+    var items = [StatItem]() {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerStatItemsChanged, object: items)
+        }
+    }
     var purchasedName = false
     var diamonds = 100 {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
         }
     }
+    
+    // retention days in era
+    var retentions = [Int]()
     
     override init() {
         id = String(arc4random())
@@ -37,7 +44,7 @@ class PlayerStat: NSObject, NSCoding
     
     func ownsDiceMat(diceMat: DiceMaterial) -> Bool
     {
-        if DiceMaterial.forFree().contains(diceMat)
+        if DiceMaterial.forFree.contains(diceMat)
         {
             return true
         }
@@ -46,7 +53,7 @@ class PlayerStat: NSObject, NSCoding
     
     func ownedDiceMaterials() -> [DiceMaterial]
     {
-        let owned = DiceMaterial.forFree() + boughtDiceMaterials
+        let owned = DiceMaterial.forFree + boughtDiceMaterials
         return owned
     }
     
@@ -118,6 +125,7 @@ class PlayerStat: NSObject, NSCoding
         aCoder.encodeObject(boughtDiceMaterials.map({ (diceMat) -> String in
             return diceMat.rawValue
         }), forKey: "boughtDiceMaterials")
+        aCoder.encodeObject(retentions, forKey: "retentions")
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -155,6 +163,10 @@ class PlayerStat: NSObject, NSCoding
             boughtDiceMaterials = (aDecoder.decodeObjectForKey("boughtDiceMaterials") as! [String]).map({ (rawName) -> DiceMaterial in
                 return DiceMaterial(rawValue: rawName)!
             })
+        }
+        if aDecoder.containsValueForKey("retentions")
+        {
+            retentions = aDecoder.decodeObjectForKey("retentions") as! [Int]
         }
         super.init()
     }

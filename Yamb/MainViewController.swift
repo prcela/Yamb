@@ -31,6 +31,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerAliasChanged, object: nil)
         nc.addObserver(self, selector: #selector(onFavDiceChanged), name: NotificationName.playerFavDiceChanged, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerStatItemsChanged, object: nil)
         
         MainViewController.shared = self
 
@@ -47,6 +48,42 @@ class MainViewController: UIViewController
         diceIcon?.clipsToBounds = true
         
         updatePlayerInfo()
+        
+        dispatchToMainQueue(delay: 1, closure: evaluateRetention)
+    }
+    
+    func evaluateRetention()
+    {
+        let calendar = NSCalendar.currentCalendar()
+        let dateNow = NSDate()
+        let dayNow = calendar.ordinalityOfUnit(.Day, inUnit: .Era, forDate: dateNow)
+        
+        // PlayerStat.shared.retentions = [736315,736316,736317] // test
+        
+        if let lastRetention = PlayerStat.shared.retentions.last
+        {
+            if dayNow == lastRetention
+            {
+                // ignore it
+            }
+            else if dayNow == lastRetention + 1
+            {
+                // reward and add date to progress
+                print("reward")
+                PlayerStat.shared.retentions.append(dayNow)
+                self.performSegueWithIdentifier("retention", sender: self)
+            }
+            else
+            {
+                // remove complete progress, leave only current day
+                PlayerStat.shared.retentions = [dayNow]
+            }
+        }
+        else
+        {
+            // remove complete progress, leave only current day
+            PlayerStat.shared.retentions = [dayNow]
+        }
     }
     
     func updatePlayerInfo()
@@ -80,11 +117,14 @@ class MainViewController: UIViewController
             if let firstPlayer = Room.main.player(firstPlayerId),
                 let lastPlayer = Room.main.player(lastPlayerId)
             {
+                let firstDiceMat = DiceMaterial(rawValue: matchInfo.diceMaterials.first!) ?? .White
+                let lastDiceMat = DiceMaterial(rawValue: matchInfo.diceMaterials.last!) ?? .White
+                
                 Match.shared.start(.OnlineMultiplayer,
                                    diceNum: DiceNum(rawValue: matchInfo.diceNum)!,
                                    playersDesc: [
-                                    (firstPlayerId,firstPlayer.alias,firstPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.first!)!),
-                                    (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,DiceMaterial(rawValue: matchInfo.diceMaterials.last!)!)],
+                                    (firstPlayerId,firstPlayer.alias,firstPlayer.avgScore6,firstDiceMat),
+                                    (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,lastDiceMat)],
                                    matchId: matchId,
                                    bet: matchInfo.bet)
             

@@ -12,11 +12,10 @@ import Crashlytics
 
 class PlayerViewController: UIViewController {
 
+    @IBOutlet weak var profileBtn: UnderlineButton!
     @IBOutlet weak var statsBtn: UnderlineButton!
     @IBOutlet weak var diceBtn: UnderlineButton!
     @IBOutlet weak var dieIcon: UIImageView!
-    @IBOutlet weak var editBtn: UIButton!
-    @IBOutlet weak var playerNameLbl: UILabel!
 
     weak var playerContainer: PlayerContainer?
     
@@ -33,12 +32,6 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        editBtn.layer.borderWidth = 1
-        editBtn.layer.cornerRadius = 5
-        editBtn.layer.borderColor = UIColor.lightTextColor().CGColor
-        
-        playerNameLbl.text = PlayerStat.shared.alias
-        editBtn.setTitle(lstr("Edit"), forState: .Normal)
         
         dieIcon.layer.borderWidth = 1
         dieIcon.layer.cornerRadius = 5
@@ -46,8 +39,9 @@ class PlayerViewController: UIViewController {
         dieIcon.clipsToBounds = true
         
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
+        profileBtn.setTitle(lstr("Profile"), forState: .Normal)
         
-        showStats(statsBtn)
+        showProfile(profileBtn)
         
     }
     
@@ -59,11 +53,11 @@ class PlayerViewController: UIViewController {
     func onWantsNewDiceMat(notification: NSNotification)
     {
         let diceMat = DiceMaterial(rawValue: notification.object as! String)!
-        if DiceMaterial.forBuy().contains(diceMat)
+        if DiceMaterial.forBuy.contains(diceMat)
         {
             performSegueWithIdentifier("purchaseDice", sender: notification.object)
         }
-        else if DiceMaterial.forDiamonds().contains(diceMat)
+        else if DiceMaterial.forDiamonds.contains(diceMat)
         {
             if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice()
             {
@@ -123,16 +117,27 @@ class PlayerViewController: UIViewController {
         }
     }
 
+    @IBAction func showProfile(sender: AnyObject)
+    {
+        profileBtn.selected = true
+        statsBtn.selected = false
+        diceBtn.selected = false
+        dieIcon.alpha = 0.75
+        playerContainer?.selectByName("Profile", completion: nil)
+    }
+    
     @IBAction func showStats(sender: AnyObject)
     {
+        profileBtn.selected = false
         statsBtn.selected = true
         diceBtn.selected = false
-        dieIcon.alpha = 0.5
+        dieIcon.alpha = 0.75
         playerContainer?.selectByName("Stat", completion: nil)
     }
     
     @IBAction func showDice(sender: AnyObject)
     {
+        profileBtn.selected = false
         statsBtn.selected = false
         diceBtn.selected = true
         dieIcon.alpha = 1
@@ -142,43 +147,6 @@ class PlayerViewController: UIViewController {
     @IBAction func close(sender: AnyObject)
     {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func editName(sender: AnyObject)
-    {
-        let purchaseNameRequired = FIRRemoteConfig.remoteConfig()["purchase_name"].boolValue
-        
-        if PlayerStat.shared.purchasedName || !purchaseNameRequired
-        {
-            editNameInPopup()
-        }
-        else
-        {
-            performSegueWithIdentifier("purchaseName", sender: nil)
-        }
-        
-    }
-    
-    func editNameInPopup()
-    {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .Alert)
-        alert.addTextFieldWithConfigurationHandler { (textField) in
-            let alias = PlayerStat.shared.alias
-            textField.text = alias
-            textField.placeholder = lstr("Name")
-        }
-        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
-            if let newAlias = alert.textFields?.first?.text
-            {
-                PlayerStat.shared.alias = newAlias
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerAliasChanged, object: nil)
-                self.playerNameLbl.text = newAlias
-                ServerAPI.updatePlayer({ (_, _, _) in
-                })
-            }
-        }))
-        presentViewController(alert, animated: true, completion: nil)
     }
     
 }

@@ -23,7 +23,8 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var lockInfoLbl: UILabel?
     
     var diceNum: DiceNum = .Six
-    var playersIgnoredInvitation = [String]()
+    var invitedPlayers = Set<String>()
+    var playersIgnoredInvitation = Set<String>()
     var bet = 5
     var isPrivate = false
     
@@ -38,6 +39,7 @@ class PrepareMPViewController: UIViewController {
         let available = PlayerStat.shared.diamonds
         bet = min(bet, available)
         bet = max(5, bet)
+        
     }
     
     override func viewDidLoad() {
@@ -109,7 +111,7 @@ class PrepareMPViewController: UIViewController {
     func matchInvitationIgnored(notification: NSNotification)
     {
         let recipientPlayerId = notification.object as! String
-        playersIgnoredInvitation.append(recipientPlayerId)
+        playersIgnoredInvitation.insert(recipientPlayerId)
         tableView?.reloadData()
     }
     
@@ -202,6 +204,8 @@ extension PrepareMPViewController: UITableViewDelegate
         if player.diamonds >= bet
         {
             WsAPI.shared.invitePlayer(player)
+            invitedPlayers.insert(player.id!)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
         else
         {
@@ -210,8 +214,6 @@ extension PrepareMPViewController: UITableViewDelegate
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(alert, animated: true, completion: nil)
         }
-        
-        
     }
 }
 
@@ -240,6 +242,8 @@ extension PrepareMPViewController: UITableViewDataSource
         let player = players()[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! FreePlayerCell
         cell.nameLbl.text = String(format: "%@ ⭐️ %d 💎 %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!, player.diamonds, player.alias!)
+        tableView.tintColor = UIColor.darkGrayColor()
+        cell.accessoryType = invitedPlayers.contains(player.id!) ? .Checkmark : .None
         return cell
     }
     

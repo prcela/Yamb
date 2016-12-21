@@ -22,15 +22,15 @@ class DiceCollectionViewController: UICollectionViewController
         var diceMat = DiceMaterial.White
         if indexPath.section == 0
         {
-            diceMat = DiceMaterial.forFree()[indexPath.row]
+            diceMat = DiceMaterial.forFree[indexPath.row]
         }
         else if indexPath.section == 1
         {
-            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
+            diceMat = DiceMaterial.forDiamonds[indexPath.row]
         }
         else if indexPath.section == 2
         {
-            diceMat = DiceMaterial.forBuy()[indexPath.row]
+            diceMat = DiceMaterial.forBuy[indexPath.row]
         }
         return diceMat
     }
@@ -55,15 +55,15 @@ class DiceCollectionViewController: UICollectionViewController
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0
         {
-            return DiceMaterial.forFree().count
+            return DiceMaterial.forFree.count
         }
         else if section == 1
         {
-            return DiceMaterial.forDiamonds().count
+            return DiceMaterial.forDiamonds.count
         }
         else if section == 2
         {
-            return DiceMaterial.forBuy().count
+            return DiceMaterial.forBuy.count
         }
         return 0
     }
@@ -96,15 +96,15 @@ class DiceCollectionViewController: UICollectionViewController
         var diceMat: DiceMaterial?
         if indexPath.section == 0
         {
-            diceMat = DiceMaterial.forFree()[indexPath.row]
+            diceMat = DiceMaterial.forFree[indexPath.row]
         }
         else if indexPath.section == 1
         {
-            diceMat = DiceMaterial.forDiamonds()[indexPath.row]
+            diceMat = DiceMaterial.forDiamonds[indexPath.row]
         }
         else if indexPath.section == 2
         {
-            diceMat = DiceMaterial.forBuy()[indexPath.row]
+            diceMat = DiceMaterial.forBuy[indexPath.row]
         }
         
         if diceMat != nil

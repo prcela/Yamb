@@ -12,12 +12,8 @@ import AVFoundation
 
 class DiceScene: SCNScene
 {
-    static let shared = DiceScene()
-    
     var dieMaterialsDefault = [SCNMaterial]()
     var dieMaterialsSelected = [SCNMaterial]()
-    
-    
     var audioPlayers = [AVAudioPlayer]()
     
     override init() {
@@ -34,9 +30,9 @@ class DiceScene: SCNScene
         }
         
         
-        recreateMaterials()
+        recreateMaterials(.White)
         
-        for dieIdx in 0..<Match.shared.diceNum.rawValue
+        for dieIdx in 0..<6
         {
             let row = dieIdx / 3
             let col = dieIdx % 3
@@ -48,8 +44,6 @@ class DiceScene: SCNScene
             dieNode.name = String(dieIdx)
             dieNode.position = SCNVector3Make(Float(col)*(Float(side)+delta)+0.5*Float(side), Float(row)*(Float(side)+delta), 0)
             rootNode.addChildNode(dieNode)
-            
-            
         }
         
         let cameraNode = SCNNode()
@@ -77,27 +71,26 @@ class DiceScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    func recreateMaterials()
+    func recreateMaterials(diceMaterial: DiceMaterial)
     {
-        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
         
         for sideIdx in 1...6
         {
             let defaultMaterial = SCNMaterial()
-            defaultMaterial.diffuse.contents = player.diceMaterial.iconForValue(sideIdx)
+            defaultMaterial.diffuse.contents = diceMaterial.iconForValue(sideIdx)
             defaultMaterial.locksAmbientWithDiffuse = true
             dieMaterialsDefault.append(defaultMaterial)
             
             let selectedMaterial = SCNMaterial()
             
-            selectedMaterial.diffuse.contents = player.diceMaterial.iconForValue(sideIdx, selected: true)
+            selectedMaterial.diffuse.contents = diceMaterial.iconForValue(sideIdx, selected: true)
             selectedMaterial.locksAmbientWithDiffuse = true
             dieMaterialsSelected.append(selectedMaterial)
         }
         
-        for dieIdx in 0..<Match.shared.diceNum.rawValue
+        for dieIdx in 0..<6
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
             {
@@ -106,39 +99,30 @@ class DiceScene: SCNScene
         }
     }
     
-    func start()
+    func start(ctVisible: Int)
     {
-        let match = Match.shared
-        
         for idx in 0..<6
         {
             if let node = rootNode.childNodeWithName(String(idx), recursively: false)
             {
                 node.rotation = SCNVector4Zero
+                node.hidden = idx >= ctVisible
             }
         }
-        
-        if let node = rootNode.childNodeWithName("5", recursively: false)
-        {
-            node.hidden = match.diceNum == .Five
-        }
-        updateDiceSelection()
     }
 
-    func rollToValues(values: [UInt], ctMaxRounds: UInt32, completion: (Void) -> Void)
+    func rollToValues(values: [UInt], ctMaxRounds: UInt32, activeRotationRounds: [[Int]], ctHeld: Int, completion: (Void) -> Void)
     {
-        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
-        
         func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
         {
             return dst + CGFloat(rounds)*2*CGFloat(M_PI)
         }
         
-        for dieIdx in 0..<Match.shared.diceNum.rawValue
+        for dieIdx in 0..<values.count
         {
             let num = values[dieIdx]
             
-            let rounds = player.activeRotationRounds[dieIdx]
+            let rounds = activeRotationRounds[dieIdx]
             var rndX = rotateAngleToDst(0, rounds: rounds[0])
             var rndY = rotateAngleToDst(0, rounds: rounds[1])
             let rndZ = rotateAngleToDst(0, rounds: rounds[2])
@@ -177,7 +161,7 @@ class DiceScene: SCNScene
             }
         }
         
-        let ctRoll = Match.shared.diceNum.rawValue-player.diceHeld.count
+        let ctRoll = values.count-ctHeld
         audioPlayers[ctRoll-1].play()
         
         dispatchToMainQueue(delay: 1.1) { 
@@ -185,14 +169,13 @@ class DiceScene: SCNScene
         }
     }
     
-    func updateDiceSelection()
+    func updateDiceSelection(diceHeld: Set<UInt>)
     {
-        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
-        for dieIdx in 0..<Match.shared.diceNum.rawValue
+        for dieIdx in 0..<6
         {
             if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
             {
-                if player.diceHeld.contains(UInt(dieIdx))
+                if diceHeld.contains(UInt(dieIdx))
                 {
                     dieNode.geometry?.materials = dieMaterialsSelected
                 }
@@ -204,10 +187,8 @@ class DiceScene: SCNScene
         }
     }
     
-    func updateDiceValues()
+    func updateDiceValues(values: [UInt])
     {
-        let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
-        guard let values = player.diceValues else {return}
         
         for (idx,num) in values.enumerate()
         {

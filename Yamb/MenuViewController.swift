@@ -174,7 +174,11 @@ class MenuViewController: UIViewController
     @objc
     func goToMainMenu()
     {
-        navigationController?.popToRootViewControllerAnimated(false)
+        if let idxMenuVC = navigationController?.childViewControllers.indexOf({vc in
+            return vc is MenuViewController
+        }) {
+            navigationController?.popToViewController(navigationController!.childViewControllers[idxMenuVC], animated: true)
+        }
     }
     
     func onRoomInfo()

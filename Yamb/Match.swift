@@ -34,8 +34,14 @@ class Match: NSObject, NSCoding
     static var shared = Match() {
         didSet {
             print("Game did set")
-            DiceScene.shared.updateDiceValues()
-            DiceScene.shared.updateDiceSelection()
+            let player = shared.players[shared.indexOfPlayerOnTurn]
+            if let values = player.diceValues
+            {
+                let diceScene = PlayViewController.diceScene
+                diceScene.updateDiceValues(values)
+                diceScene.updateDiceSelection(player.diceHeld)
+            }
+            
         }
     }
     
@@ -75,7 +81,9 @@ class Match: NSObject, NSCoding
         }
         indexOfPlayerOnTurn = 0
         
-        DiceScene.shared.start()
+        let diceScene = PlayViewController.diceScene
+        diceScene.start(diceNum.rawValue)
+        diceScene.updateDiceSelection(players.first!.diceHeld)
         
         NSUserDefaults.standardUserDefaults().setObject(diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
         
@@ -96,9 +104,17 @@ class Match: NSObject, NSCoding
         
         players[indexOfPlayerOnTurn].next()
         indexOfPlayerOnTurn = (indexOfPlayerOnTurn+1)%players.count
-        players[indexOfPlayerOnTurn].onTurn()
-        DiceScene.shared.recreateMaterials()
-        DiceScene.shared.updateDiceValues()
+        
+        let player = players[indexOfPlayerOnTurn]
+        player.onTurn()
+        
+        let diceScene = PlayViewController.diceScene
+        diceScene.recreateMaterials(player.diceMaterial)
+        if let values = player.diceValues
+        {
+            diceScene.updateDiceValues(values)
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
         print("Next player on turn: \(indexOfPlayerOnTurn)")
         

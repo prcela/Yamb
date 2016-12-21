@@ -44,6 +44,8 @@
 		970F94471E008DE7006002E9 /* 6gg_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 970F94411E008DE7006002E9 /* 6gg_sel.png */; };
 		97130EA71DDA3951009C1CA0 /* DiceScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97130EA61DDA3951009C1CA0 /* DiceScore.swift */; };
 		97130EAB1DDAFDC7009C1CA0 /* ScorePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97130EAA1DDAFDC7009C1CA0 /* ScorePickerViewController.swift */; };
+		9713DFAB1E095FA6005FCA84 /* RetentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9713DFAA1E095FA6005FCA84 /* RetentionViewController.swift */; };
+		9713DFAD1E0967EC005FCA84 /* Retention.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9713DFAC1E0967EC005FCA84 /* Retention.storyboard */; };
 		9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9724980E1D72B84800CDC6B7 /* RulesViewController.swift */; };
 		972498131D72C81B00CDC6B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 972498151D72C81B00CDC6B7 /* Localizable.strings */; };
 		9724981B1D730F7C00CDC6B7 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9724981A1D730F7C00CDC6B7 /* play.png */; };
@@ -200,6 +202,8 @@
 		975FA4F41DEE2EE300F2B79C /* 4q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4EF1DEE2EE300F2B79C /* 4q_sel.png */; };
 		975FA4F51DEE2EE300F2B79C /* 5q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4F01DEE2EE300F2B79C /* 5q_sel.png */; };
 		975FA4F61DEE2EE300F2B79C /* 6q_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 975FA4F11DEE2EE300F2B79C /* 6q_sel.png */; };
+		9774E7931E0423060018FD46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9774E7921E0423060018FD46 /* LoginViewController.swift */; };
+		9774E7951E042DB50018FD46 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9774E7941E042DB50018FD46 /* ProfileViewController.swift */; };
 		977A1CA51D9BD84700FEA48D /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977A1CA41D9BD84700FEA48D /* ServerAPI.swift */; };
 		977D97F71CAEA35700AD9EF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */; };
 		977D97FE1CAEA35700AD9EF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 977D97FD1CAEA35700AD9EF8 /* Assets.xcassets */; };
@@ -467,6 +471,8 @@
 		970F94411E008DE7006002E9 /* 6gg_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6gg_sel.png; path = Yamb/Resources/6gg_sel.png; sourceTree = "<group>"; };
 		97130EA61DDA3951009C1CA0 /* DiceScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceScore.swift; sourceTree = "<group>"; };
 		97130EAA1DDAFDC7009C1CA0 /* ScorePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScorePickerViewController.swift; sourceTree = "<group>"; };
+		9713DFAA1E095FA6005FCA84 /* RetentionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetentionViewController.swift; sourceTree = "<group>"; };
+		9713DFAC1E0967EC005FCA84 /* Retention.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Retention.storyboard; sourceTree = "<group>"; };
 		9724980E1D72B84800CDC6B7 /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		972498161D72C85500CDC6B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		972498191D72C9B500CDC6B7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -624,6 +630,8 @@
 		975FA4EF1DEE2EE300F2B79C /* 4q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4q_sel.png; path = Yamb/Resources/4q_sel.png; sourceTree = "<group>"; };
 		975FA4F01DEE2EE300F2B79C /* 5q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5q_sel.png; path = Yamb/Resources/5q_sel.png; sourceTree = "<group>"; };
 		975FA4F11DEE2EE300F2B79C /* 6q_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6q_sel.png; path = Yamb/Resources/6q_sel.png; sourceTree = "<group>"; };
+		9774E7921E0423060018FD46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9774E7941E042DB50018FD46 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		977A1CA41D9BD84700FEA48D /* ServerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		977D97F31CAEA35700AD9EF8 /* Yamb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yamb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977D97F61CAEA35700AD9EF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -898,6 +906,9 @@
 				97130EAA1DDAFDC7009C1CA0 /* ScorePickerViewController.swift */,
 				978687731DE5B96300B26232 /* DiceCollectionViewController.swift */,
 				9742B13C1DEAC4AA005D049E /* SpeechViewController.swift */,
+				9774E7921E0423060018FD46 /* LoginViewController.swift */,
+				9774E7941E042DB50018FD46 /* ProfileViewController.swift */,
+				9713DFAA1E095FA6005FCA84 /* RetentionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -945,6 +956,7 @@
 				978687FB1DE73C2B00B26232 /* Invitation.storyboard */,
 				9742B11E1DE8786A005D049E /* Play.storyboard */,
 				978687FD1DE73E5B00B26232 /* Player.storyboard */,
+				9713DFAC1E0967EC005FCA84 /* Retention.storyboard */,
 				9742B1201DE8813D005D049E /* Room.storyboard */,
 				9742B1221DE88376005D049E /* Scores.storyboard */,
 				977D98021CAEA35700AD9EF8 /* Info.plist */,
@@ -1645,6 +1657,7 @@
 				970F94461E008DE7006002E9 /* 5gg_sel.png in Resources */,
 				974712FC1D787D5F00BB2AA9 /* 4b_sel.png in Resources */,
 				978688231DE763C800B26232 /* 5m.png in Resources */,
+				9713DFAD1E0967EC005FCA84 /* Retention.storyboard in Resources */,
 				970F94451E008DE7006002E9 /* 4gg_sel.png in Resources */,
 				9742B12F1DE88A70005D049E /* 6s.png in Resources */,
 				975FA4B91DEDCDC100F2B79C /* 5x.png in Resources */,
@@ -1932,8 +1945,10 @@
 				97AA7DBC1DDDED3400B6AC55 /* LineView.swift in Sources */,
 				9724980F1D72B84800CDC6B7 /* RulesViewController.swift in Sources */,
 				974712E21D778CA500BB2AA9 /* GameFileManager.swift in Sources */,
+				9774E7931E0423060018FD46 /* LoginViewController.swift in Sources */,
 				9705CDF51DCA3C26004109BC /* PlayerContainer.swift in Sources */,
 				97A50FFF1D874FAD0046AF34 /* MatchInfo.swift in Sources */,
+				9713DFAB1E095FA6005FCA84 /* RetentionViewController.swift in Sources */,
 				97E7F0B81DD72239003D72F0 /* PurchaseViewController.swift in Sources */,
 				97C4EF981D6B7D9D00A1E7CD /* TableCol.swift in Sources */,
 				97827CD01DD1BC1400ECD7A6 /* WaitPlayerViewController.swift in Sources */,
@@ -1947,6 +1962,7 @@
 				972B1B9A1D83C9B600010F5F /* SSLSecurity.swift in Sources */,
 				97C4EF581D67C8EE00A1E7CD /* GameTableView.swift in Sources */,
 				9705CDE51DC9E8BB004109BC /* PlayerStat.swift in Sources */,
+				9774E7951E042DB50018FD46 /* ProfileViewController.swift in Sources */,
 				978687741DE5B96300B26232 /* DiceCollectionViewController.swift in Sources */,
 				978687761DE5CACD00B26232 /* DiceCell.swift in Sources */,
 			);
