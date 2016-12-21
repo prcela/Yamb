@@ -10,24 +10,24 @@ import Foundation
 
 enum TableCol: Int
 {
-    case Down = 1
-    case Up
-    case UpDown
-    case N
-    case Sum
+    case down = 1
+    case up
+    case upDown
+    case n
+    case sum
     
     func name() -> String
     {
         switch self {
-        case .Down:
+        case .down:
             return "↓"
-        case .Up:
+        case .up:
             return "↑"
-        case .UpDown:
+        case .upDown:
             return "⇅"
-        case .N:
+        case .n:
             return "N"
-        case .Sum:
+        case .sum:
             return "∑"
         }
     }

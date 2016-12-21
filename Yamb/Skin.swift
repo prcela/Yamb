@@ -12,11 +12,11 @@ import UIKit
 struct Skin
 {
     static let blue = Skin()
-    static let red = Skin(strokeColor: UIColor.redColor(), labelBackColor: UIColor(netHex:0x88ff6666), tintColor: UIColor.redColor())
+    static let red = Skin(strokeColor: UIColor.red, labelBackColor: UIColor(netHex:0x88ff6666), tintColor: UIColor.red)
     
-    let lightGrayColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.1)
-    var strokeColor = UIColor.blueColor()
+    let lightGrayColor = UIColor.lightGray.withAlphaComponent(0.1)
+    var strokeColor = UIColor.blue
     var labelBackColor = UIColor(netHex:0xaaa6b5FF)
-    var tintColor = UIColor.blueColor()
+    var tintColor = UIColor.blue
     let defaultLightColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
 }

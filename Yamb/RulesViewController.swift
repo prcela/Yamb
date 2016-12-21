@@ -16,12 +16,12 @@ class RulesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backBtn?.setTitle(lstr("Back"), forState: .Normal)
+        backBtn?.setTitle(lstr("Back"), for: UIControlState())
 
         // Do any additional setup after loading the view.
         let lang = lstr("lang")
-        let url = NSBundle.mainBundle().URLForResource("index_\(lang)", withExtension: "html", subdirectory: "rules")!
-        webView.loadRequest(NSURLRequest(URL: url))
+        let url = Bundle.main.url(forResource: "index_\(lang)", withExtension: "html", subdirectory: "rules")!
+        webView.loadRequest(URLRequest(url: url))
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,9 +29,9 @@ class RulesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func back(sender: AnyObject)
+    @IBAction func back(_ sender: AnyObject)
     {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
 
     /*

@@ -23,38 +23,38 @@ class ContainerViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    private func displayContentController(contentVC: UIViewController, completion: (() -> Void)? = nil)
+    fileprivate func displayContentController(_ contentVC: UIViewController, completion: (() -> Void)? = nil)
     {
         addChildViewController(contentVC)
         contentVC.view.frame = view.frame
         view.addSubview(contentVC.view)
-        contentVC.didMoveToParentViewController(self)
+        contentVC.didMove(toParentViewController: self)
         completion?()
         onTransitionFinished(nil, toVC: contentVC)
     }
     
-    private func cycleFromVC(fromVC: UIViewController, toVC: UIViewController, completion: (() -> Void)? = nil)
+    fileprivate func cycleFromVC(_ fromVC: UIViewController, toVC: UIViewController, completion: (() -> Void)? = nil)
     {
-        fromVC.willMoveToParentViewController(toVC)
+        fromVC.willMove(toParentViewController: toVC)
         addChildViewController(toVC)
         
         toVC.view.frame = view.frame
         
-        transitionFromViewController(fromVC,
-                                     toViewController: toVC,
+        transition(from: fromVC,
+                                     to: toVC,
                                      duration: 0,
-                                     options: .TransitionNone,
+                                     options: UIViewAnimationOptions(),
                                      animations: nil,
                                      completion: {(finished) in
                                         fromVC.removeFromParentViewController()
-                                        toVC.didMoveToParentViewController(self)
+                                        toVC.didMove(toParentViewController: self)
                                         completion?()
                                         self.onTransitionFinished(fromVC, toVC: toVC)
             }
         )
     }
     
-    func selectByIndex(idx: Int, completion: (() -> Void)? = nil) -> UIViewController?
+    func selectByIndex(_ idx: Int, completion: (() -> Void)? = nil) -> UIViewController?
     {
         
         guard idx >= 0 && idx < items.count else {return nil}
@@ -65,7 +65,7 @@ class ContainerViewController: UIViewController {
         {
             displayContentController(newVC, completion: completion)
         }
-        else if let lastVC = childViewControllers.last where lastVC != newVC
+        else if let lastVC = childViewControllers.last, lastVC != newVC
         {
             cycleFromVC(lastVC, toVC: newVC, completion: completion)
         }
@@ -78,9 +78,9 @@ class ContainerViewController: UIViewController {
     }
     
     /// Selects the item and returns root view controller of item
-    func selectByName(itemName: String, completion: (() -> Void)?) -> UIViewController?
+    func selectByName(_ itemName: String, completion: (() -> Void)?) -> UIViewController?
     {
-        for (index, item) in items.enumerate()
+        for (index, item) in items.enumerated()
         {
             if item.name == itemName
             {
@@ -91,9 +91,9 @@ class ContainerViewController: UIViewController {
         return nil
     }
     
-    private func onTransitionFinished(fromVC: UIViewController?, toVC: UIViewController)
+    fileprivate func onTransitionFinished(_ fromVC: UIViewController?, toVC: UIViewController)
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.containerItemSelected, object: self)
+        NotificationCenter.default.post(name: NotificationName.containerItemSelected, object: self)
     }
     
     func selectedViewController() -> UIViewController?

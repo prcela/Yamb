@@ -9,21 +9,21 @@
 import UIKit
 
 private let ctRows = 16
-private let valueRows:[TableRow] = [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+private let valueRows:[TableRow] = [.one, .two, .three, .four, .five, .six, .max, .min, .skala, .full, .poker, .yamb]
 
 class GameTableView: UIView
 {
-    private func calculateCellSize() -> CGSize
+    fileprivate func calculateCellSize() -> CGSize
     {
         let ctColumns = Match.shared.ctColumns
-        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
-        let rowHeight = round(CGRectGetHeight(frame)/16-0.5)
+        let colWidth = round(frame.width/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(frame.height/16-0.5)
         return CGSize(width: colWidth, height: rowHeight)
     }
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
         
@@ -38,61 +38,61 @@ class GameTableView: UIView
         let height = cellSize.height*CGFloat(ctRows)
         
         // stroke lines
-        CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
+        ctx.setStrokeColor(UIColor.lightGray.cgColor)
         
-        CGContextBeginPath(ctx)
-        CGContextMoveToPoint(ctx, 0, 0)
-        CGContextAddLineToPoint(ctx, width, 0)
-        CGContextAddLineToPoint(ctx, width, height)
-        CGContextAddLineToPoint(ctx, 0, height)
-        CGContextClosePath(ctx)
+        ctx.beginPath()
+        ctx.move(to: CGPoint(x: 0, y: 0))
+        ctx.addLine(to: CGPoint(x: width, y: 0))
+        ctx.addLine(to: CGPoint(x: width, y: height))
+        ctx.addLine(to: CGPoint(x: 0, y: height))
+        ctx.closePath()
         
-        CGContextStrokePath(ctx)
+        ctx.strokePath()
         
         
         for colIdx in 1..<ctColumns
         {
             let x = CGFloat(colIdx)*cellSize.width
-            CGContextBeginPath(ctx)
-            CGContextMoveToPoint(ctx, x, 0)
-            CGContextAddLineToPoint(ctx, x, height)
-            CGContextStrokePath(ctx)
+            ctx.beginPath()
+            ctx.move(to: CGPoint(x: x, y: 0))
+            ctx.addLine(to: CGPoint(x: x, y: height))
+            ctx.strokePath()
         }
         
         let fullLines = [1,7,8,10,11,15]
         for rowIdx in 1..<16
         {
             let y = CGFloat(rowIdx)*cellSize.height
-            CGContextBeginPath(ctx)
-            CGContextMoveToPoint(ctx, 0, y)
+            ctx.beginPath()
+            ctx.move(to: CGPoint(x: 0, y: y))
             if fullLines.contains(rowIdx)
             {
-                CGContextAddLineToPoint(ctx, width, y)
+                ctx.addLine(to: CGPoint(x: width, y: y))
             }
             else
             {
-                CGContextAddLineToPoint(ctx, width-cellSize.width, y)
+                ctx.addLine(to: CGPoint(x: width-cellSize.width, y: y))
             }
-            CGContextStrokePath(ctx)
+            ctx.strokePath()
         }
         
         let player = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         if let pos = player.inputPos
         {
-            CGContextSetStrokeColorWithColor(ctx, skin.strokeColor.CGColor)
-            CGContextSetLineWidth(ctx, 1.25)
+            ctx.setStrokeColor(skin.strokeColor.cgColor)
+            ctx.setLineWidth(1.25)
             
-            CGContextBeginPath(ctx)
+            ctx.beginPath()
             let x = CGFloat(pos.colIdx)*cellSize.width
             let y = CGFloat(pos.rowIdx)*cellSize.height
-            CGContextMoveToPoint(ctx, x, y)
-            CGContextAddLineToPoint(ctx, x+cellSize.width, y)
-            CGContextAddLineToPoint(ctx, x+cellSize.width, y+cellSize.height)
-            CGContextAddLineToPoint(ctx, x, y+cellSize.height)
-            CGContextClosePath(ctx)
-            CGContextStrokePath(ctx)
-            CGContextSetLineWidth(ctx, 1)
+            ctx.move(to: CGPoint(x: x, y: y))
+            ctx.addLine(to: CGPoint(x: x+cellSize.width, y: y))
+            ctx.addLine(to: CGPoint(x: x+cellSize.width, y: y+cellSize.height))
+            ctx.addLine(to: CGPoint(x: x, y: y+cellSize.height))
+            ctx.closePath()
+            ctx.strokePath()
+            ctx.setLineWidth(1)
         }
         
     }
@@ -122,15 +122,15 @@ class GameTableView: UIView
         let ctColumns = Match.shared.ctColumns
         let cellSize = calculateCellSize()
         
-        func createLabelAt(rowIdx: Int, colIdx: Int, text: String?) -> UILabel
+        func createLabelAt(_ rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height))
             lbl.backgroundColor = Skin.blue.labelBackColor
             lbl.text = text
-            lbl.textColor = UIColor.whiteColor()
-            lbl.textAlignment = .Center
+            lbl.textColor = UIColor.white
+            lbl.textAlignment = .center
             lbl.tag = tag(rowIdx, colIdx)
-            lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 15 : 20)
+            lbl.font = UIFont.systemFont(ofSize: isSmallScreen() ? 15 : 20)
             lbl.adjustsFontSizeToFitWidth = true
             lbl.minimumScaleFactor = 0.5
             
@@ -138,19 +138,19 @@ class GameTableView: UIView
             return lbl
         }
         
-        func createBtnAt(rowIdx: Int, colIdx: Int, text: String?) -> UIButton
+        func createBtnAt(_ rowIdx: Int, colIdx: Int, text: String?) -> UIButton
         {
-            let btn = UIButton(type: .Custom)
+            let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
             
-            btn.setTitle(text, forState: .Normal)
-            btn.setTitleColor(Skin.blue.tintColor, forState: .Normal)
-            btn.setTitleColor(Skin.blue.tintColor, forState: .Disabled)
+            btn.setTitle(text, for: UIControlState())
+            btn.setTitleColor(Skin.blue.tintColor, for: UIControlState())
+            btn.setTitleColor(Skin.blue.tintColor, for: .disabled)
             btn.tag = rowIdx*ctColumns + colIdx
             btn.titleLabel?.font = UIFont(name: "Noteworthy", size: isSmallScreen() ? 15:18)
-            btn.addTarget(self, action: #selector(onBtnPressed(_:)), forControlEvents: .TouchUpInside)
-            btn.setBackgroundImage(UIImage.fromColor(Skin.blue.lightGrayColor), forState: .Normal)
-            btn.setBackgroundImage(UIImage.fromColor(UIColor.whiteColor().colorWithAlphaComponent(0)), forState: .Disabled)
+            btn.addTarget(self, action: #selector(onBtnPressed(_:)), for: .touchUpInside)
+            btn.setBackgroundImage(UIImage.fromColor(Skin.blue.lightGrayColor), for: UIControlState())
+            btn.setBackgroundImage(UIImage.fromColor(UIColor.white.withAlphaComponent(0)), for: .disabled)
             addSubview(btn)
             return btn
         }
@@ -159,9 +159,9 @@ class GameTableView: UIView
         if Match.shared.matchType == .OnlineMultiplayer && Match.shared.bet > 0
         {
             let betLbl = createLabelAt(0, colIdx: 0, text: "\(Match.shared.bet) 💎")
-            betLbl.font = UIFont.systemFontOfSize(10)
-            betLbl.backgroundColor = UIColor.clearColor()
-            betLbl.textColor = UIColor.darkTextColor()
+            betLbl.font = UIFont.systemFont(ofSize: 10)
+            betLbl.backgroundColor = UIColor.clear
+            betLbl.textColor = UIColor.darkText
         }
         
         // header
@@ -184,7 +184,7 @@ class GameTableView: UIView
             }
         }
         
-        let sumRows:[TableRow] = [.SumNumbers, .SumMaxMin, .SumSFPY]
+        let sumRows:[TableRow] = [.sumNumbers, .sumMaxMin, .sumSFPY]
         for row in sumRows
         {
             for colIdx in 1..<ctColumns
@@ -227,45 +227,45 @@ class GameTableView: UIView
             {
                 guard let btn = viewWithTag(tag(row.rawValue, colIdx)) as? UIButton else {continue}
                 
-                btn.setTitleColor(skin.tintColor, forState: .Normal)
-                btn.setTitleColor(skin.tintColor, forState: .Disabled)
+                btn.setTitleColor(skin.tintColor, for: UIControlState())
+                btn.setTitleColor(skin.tintColor, for: .disabled)
                 
                 let value = tableValues[colIdx][row.rawValue]
                 let pos = TablePos(rowIdx: row.rawValue, colIdx: colIdx)
                 
                 if value != nil
                 {
-                    if colIdx == TableCol.N.rawValue && inputPos == pos && gameState != .AfterN3 && gameState != .EndGame
+                    if colIdx == TableCol.n.rawValue && inputPos == pos && gameState != .afterN3 && gameState != .endGame
                     {
-                        btn.setTitle(String(value!) + " ?", forState: .Normal)
+                        btn.setTitle(String(value!) + " ?", for: UIControlState())
                     }
                     else
                     {
-                        btn.setTitle(String(value!), forState: .Normal)
+                        btn.setTitle(String(value!), for: UIControlState())
                     }
                 }
                 else
                 {
-                    btn.setTitle(nil, forState: .Normal)
+                    btn.setTitle(nil, for: UIControlState())
                 }
                 
             }
         }
         
         // down col
-        let downColIdx = TableCol.Down.rawValue
-        for (idx,row) in valueRows.enumerate() {
+        let downColIdx = TableCol.down.rawValue
+        for (idx,row) in valueRows.enumerated() {
             guard let btn = viewWithTag(tag(row.rawValue, downColIdx)) as? UIButton else {continue}
             
             let value = tableValues[downColIdx][row.rawValue]
             
             // in most cases button is disabled, find only cases when it should be enabled
-            btn.enabled = false
-            if inputState != .NotAllowed
+            btn.isEnabled = false
+            if inputState != .notAllowed
             {
-                if row == .One
+                if row == .one
                 {
-                    btn.enabled = (value == nil) || inputPos == TablePos(rowIdx: 1, colIdx: downColIdx)
+                    btn.isEnabled = (value == nil) || inputPos == TablePos(rowIdx: 1, colIdx: downColIdx)
                 }
                 else
                 {
@@ -275,38 +275,38 @@ class GameTableView: UIView
                         let prevValue = tableValues[downColIdx][prevRow.rawValue]
                         if  prevValue != nil
                         {
-                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: downColIdx)
+                            if let inputPos = inputPos, inputPos == TablePos(rowIdx: prevRow.rawValue,colIdx: downColIdx)
                             {
-                                btn.enabled = false
+                                btn.isEnabled = false
                             }
                             else
                             {
-                                btn.enabled = true
+                                btn.isEnabled = true
                             }
                         }
                     }
                     else
                     {
-                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: downColIdx)
+                        btn.isEnabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: downColIdx)
                     }
                 }
             }
         }
         
         // up col
-        let upColIdx = TableCol.Up.rawValue
-        for (idx,row) in valueRows.enumerate() {
+        let upColIdx = TableCol.up.rawValue
+        for (idx,row) in valueRows.enumerated() {
             guard let btn = viewWithTag(tag(row.rawValue, upColIdx)) as? UIButton else {continue}
             
             let value = tableValues[upColIdx][row.rawValue]
             
             // in most cases button is disabled, find only cases when it should be enabled
-            btn.enabled = false
-            if inputState != .NotAllowed
+            btn.isEnabled = false
+            if inputState != .notAllowed
             {
-                if row == .Yamb
+                if row == .yamb
                 {
-                    btn.enabled = (value == nil) || inputPos == TablePos(rowIdx: TableRow.Yamb.rawValue, colIdx: upColIdx)
+                    btn.isEnabled = (value == nil) || inputPos == TablePos(rowIdx: TableRow.yamb.rawValue, colIdx: upColIdx)
                 }
                 else
                 {
@@ -316,19 +316,19 @@ class GameTableView: UIView
                         let nextValue = tableValues[upColIdx][nextRow.rawValue]
                         if nextValue != nil
                         {
-                            if let inputPos = inputPos where inputPos == TablePos(rowIdx: nextRow.rawValue,colIdx: upColIdx)
+                            if let inputPos = inputPos, inputPos == TablePos(rowIdx: nextRow.rawValue,colIdx: upColIdx)
                             {
-                                btn.enabled = false
+                                btn.isEnabled = false
                             }
                             else
                             {
-                                btn.enabled = true
+                                btn.isEnabled = true
                             }
                         }
                     }
                     else
                     {
-                        btn.enabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: upColIdx)
+                        btn.isEnabled = inputPos == TablePos(rowIdx: row.rawValue, colIdx: upColIdx)
                     }
                 }
             }
@@ -336,34 +336,34 @@ class GameTableView: UIView
         
     
         // up down col
-        let upDownColIdx = TableCol.UpDown.rawValue
-        for (_,row) in valueRows.enumerate()
+        let upDownColIdx = TableCol.upDown.rawValue
+        for (_,row) in valueRows.enumerated()
         {
             guard let btn = viewWithTag(tag(row.rawValue, upDownColIdx)) as? UIButton else {continue}
-            btn.enabled = false
-            if inputState != .NotAllowed
+            btn.isEnabled = false
+            if inputState != .notAllowed
             {
                 let value = tableValues[upDownColIdx][row.rawValue]
                 let pos = TablePos(rowIdx: row.rawValue, colIdx: upDownColIdx)
-                btn.enabled = value == nil || inputPos == pos
+                btn.isEnabled = value == nil || inputPos == pos
             }
         }
         
         // N column
-        let nColIdx = TableCol.N.rawValue
-        for (_,row) in valueRows.enumerate()
+        let nColIdx = TableCol.n.rawValue
+        for (_,row) in valueRows.enumerated()
         {
             guard let btn = viewWithTag(tag(row.rawValue, nColIdx)) as? UIButton else {continue}
-            btn.enabled = false
+            btn.isEnabled = false
             let pos = TablePos(rowIdx: row.rawValue, colIdx: nColIdx)
-            if inputState != .NotAllowed && player.state == .After1
+            if inputState != .notAllowed && player.state == .after1
             {
                 let value = tableValues[nColIdx][row.rawValue]
-                btn.enabled = value == nil || inputPos == pos
+                btn.isEnabled = value == nil || inputPos == pos
             }
-            else if inputState == .NotAllowed && player.state == .AfterN2
+            else if inputState == .notAllowed && player.state == .afterN2
             {
-                btn.enabled = (inputPos == pos)
+                btn.isEnabled = (inputPos == pos)
             }
         }
         
@@ -371,9 +371,9 @@ class GameTableView: UIView
         for colIdx in 1..<Match.shared.ctColumns
         {
             for rowIdx in [
-                TableRow.SumNumbers.rawValue,
-                TableRow.SumMaxMin.rawValue,
-                TableRow.SumSFPY.rawValue]
+                TableRow.sumNumbers.rawValue,
+                TableRow.sumMaxMin.rawValue,
+                TableRow.sumSFPY.rawValue]
             {
                 guard let lbl = viewWithTag(tag(rowIdx, colIdx)) as? UILabel else {continue}
                 if let value = tableValues[colIdx][rowIdx]
@@ -392,7 +392,7 @@ class GameTableView: UIView
     }
 
     @objc
-    func onBtnPressed(sender: UIButton)
+    func onBtnPressed(_ sender: UIButton)
     {
         if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
         {
@@ -408,7 +408,7 @@ class GameTableView: UIView
         Match.shared.didSelectCellAtPos(pos)
     }
     
-    func tag(rowIdx: Int, _ colIdx: Int) -> Int
+    func tag(_ rowIdx: Int, _ colIdx: Int) -> Int
     {
         return rowIdx*Match.shared.ctColumns + colIdx
     }

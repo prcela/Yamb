@@ -14,7 +14,7 @@ class Room
     var players = [Player]()
     var matchesInfo = [MatchInfo]()
     
-    func matchInfo(id: UInt) -> MatchInfo?
+    func matchInfo(_ id: UInt) -> MatchInfo?
     {
         for m in matchesInfo
         {
@@ -26,23 +26,23 @@ class Room
         return nil
     }
     
-    func matchesInfo(state: MatchState) -> [MatchInfo]
+    func matchesInfo(_ state: MatchState) -> [MatchInfo]
     {
         return matchesInfo.filter({ (match) -> Bool in
             return match.state == state
         })
     }
     
-    func matchesInfo(playerId: String) -> [MatchInfo]
+    func matchesInfo(_ playerId: String) -> [MatchInfo]
     {
         return matchesInfo.filter({ (match) -> Bool in
             return match.playerIds.contains(playerId)
         })
     }
     
-    func player(id: String) -> Player?
+    func player(_ id: String) -> Player?
     {
-        if let idx = players.indexOf ({ (p) -> Bool in
+        if let idx = players.index (where: { (p) -> Bool in
             return p.id == id
         }) {
             return players[idx]
@@ -55,7 +55,7 @@ class Room
         var free = [Player]()
         for player in players
         {
-            if matchesInfo.indexOf({ (m) -> Bool in
+            if matchesInfo.index(where: { (m) -> Bool in
                 return m.playerIds.contains(player.id!)
             }) == nil
             {

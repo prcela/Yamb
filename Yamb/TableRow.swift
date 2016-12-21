@@ -9,40 +9,40 @@
 import Foundation
 
 enum TableRow: Int {
-    case Header = 0
-    case One
-    case Two
-    case Three
-    case Four
-    case Five
-    case Six
-    case SumNumbers
-    case Max
-    case Min
-    case SumMaxMin
-    case Skala
-    case Full
-    case Poker
-    case Yamb
-    case SumSFPY
+    case header = 0
+    case one
+    case two
+    case three
+    case four
+    case five
+    case six
+    case sumNumbers
+    case max
+    case min
+    case sumMaxMin
+    case skala
+    case full
+    case poker
+    case yamb
+    case sumSFPY
     
     func name() -> String {
         switch self {
-        case .One,.Two,.Three,.Four,.Five,.Six:
+        case .one,.two,.three,.four,.five,.six:
             return String(rawValue)
-        case .SumNumbers, .SumMaxMin, .SumSFPY:
+        case .sumNumbers, .sumMaxMin, .sumSFPY:
             return "∑"
-        case .Max:
+        case .max:
             return "Max"
-        case .Min:
+        case .min:
             return "Min"
-        case .Skala:
+        case .skala:
             return lstr("Straight")
-        case .Full:
+        case .full:
             return "Full"
-        case .Poker:
+        case .poker:
             return "Poker"
-        case .Yamb:
+        case .yamb:
             return "Yamb"
         default:
             return ""

@@ -10,22 +10,22 @@ import UIKit
 
 class UnderlineButton: UIButton {
 
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         // Drawing code
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
         
         // pixel size
-        let sortaPixel = 1.0/UIScreen.mainScreen().scale
+        let sortaPixel = 1.0/UIScreen.main.scale
         
-        CGContextSetStrokeColorWithColor(ctx, selected ? UIColor.redColor().CGColor : UIColor.darkGrayColor().CGColor)
-        CGContextSetLineWidth(ctx, 3)
+        ctx.setStrokeColor(isSelected ? UIColor.red.cgColor : UIColor.darkGray.cgColor)
+        ctx.setLineWidth(3)
         
         // middle line
-        CGContextMoveToPoint(ctx, 0, rect.size.height-sortaPixel/2)
-        CGContextAddLineToPoint(ctx, rect.size.width, rect.size.height-sortaPixel/2)
-        CGContextStrokePath(ctx)
+        ctx.move(to: CGPoint(x: 0, y: rect.size.height-sortaPixel/2))
+        ctx.addLine(to: CGPoint(x: rect.size.width, y: rect.size.height-sortaPixel/2))
+        ctx.strokePath()
         
-        CGContextStrokePath(ctx)
+        ctx.strokePath()
     }
 }

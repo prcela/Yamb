@@ -23,19 +23,19 @@ class PrepareSPViewController: UIViewController {
         super.viewDidLoad()
         
         // localization
-        backBtn?.setTitle(lstr("Back"), forState: .Normal)
-        resumeBtn?.setTitle(lstr("Resume game"), forState: .Normal)
-        newGameBtn?.setTitle(lstr("New game"), forState: .Normal)
-        playBtn?.setTitle(lstr("Play"), forState: .Normal)
+        backBtn?.setTitle(lstr("Back"), for: UIControlState())
+        resumeBtn?.setTitle(lstr("Resume game"), for: UIControlState())
+        newGameBtn?.setTitle(lstr("New game"), for: UIControlState())
+        playBtn?.setTitle(lstr("Play"), for: UIControlState())
 
         // Do any additional setup after loading the view.
         
         diceTextureBtn?.layer.cornerRadius = 5
-        diceTextureBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        diceTextureBtn?.layer.borderColor = UIColor.lightGray.cgColor
         diceTextureBtn?.layer.borderWidth = 1
         diceTextureBtn?.clipsToBounds = true
         
-        diceMatSelected = PlayerStat.shared.ownedDiceMaterials().indexOf(PlayerStat.shared.favDiceMat)!
+        diceMatSelected = PlayerStat.shared.ownedDiceMaterials().index(of: PlayerStat.shared.favDiceMat)!
         updateDiceBtn()
         
     }
@@ -43,70 +43,70 @@ class PrepareSPViewController: UIViewController {
     func updateDiceBtn()
     {
         let title = lstr("Dice 5/6")
-        let thinFont = UIFont.systemFontOfSize(30, weight: UIFontWeightThin)
-        let defaultFont = UIFont.systemFontOfSize(30)
+        let thinFont = UIFont.systemFont(ofSize: 30, weight: UIFontWeightThin)
+        let defaultFont = UIFont.systemFont(ofSize: 30)
         
         let attrString = NSMutableAttributedString(string: title, attributes: [
             NSFontAttributeName:thinFont,
-            NSForegroundColorAttributeName:UIColor.blackColor()
+            NSForegroundColorAttributeName:UIColor.black
             ])
         
-        let loc = title.characters.indexOf(Match.shared.diceNum == .Five ? "5":"6")!
-        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
+        let loc = title.characters.index(of: Match.shared.diceNum == .five ? "5":"6")!
+        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.characters.distance(from: title.startIndex, to: loc), 1))
         
         
-        dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
+        dice56Btn?.setAttributedTitle(attrString, for: UIControlState())
         
         let current = PlayerStat.shared.ownedDiceMaterials()[diceMatSelected]
-        diceTextureBtn?.setImage(current.iconForValue(1), forState: .Normal)
+        diceTextureBtn?.setImage(current.iconForValue(1), for: UIControlState())
         
     }
     
-    @IBAction func toggleDiceCount(sender: AnyObject)
+    @IBAction func toggleDiceCount(_ sender: AnyObject)
     {
         let old = Match.shared.diceNum
-        Match.shared.diceNum = (old == .Five) ? .Six : .Five
+        Match.shared.diceNum = (old == .five) ? .six : .five
         updateDiceBtn()
     }
 
-    @IBAction func newGame(sender: AnyObject)
+    @IBAction func newGame(_ sender: AnyObject)
     {
-        performSegueWithIdentifier("newId", sender: self)
+        performSegue(withIdentifier: "newId", sender: self)
     }
     
-    @IBAction func resumeGame(sender: AnyObject)
+    @IBAction func resumeGame(_ sender: AnyObject)
     {
         if let match = GameFileManager.loadMatch(.SinglePlayer)
         {
             Match.shared = match
             GameFileManager.deleteGame("singlePlayer")
         }
-        MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
+        MainViewController.shared?.performSegue(withIdentifier: "playIdentifier", sender: nil)
     }
     
-    @IBAction func changeDiceMaterial(sender: AnyObject)
+    @IBAction func changeDiceMaterial(_ sender: AnyObject)
     {
         let diceMats = PlayerStat.shared.ownedDiceMaterials()
         diceMatSelected = (diceMatSelected+1)%diceMats.count
         let diceMat = diceMats[diceMatSelected]
-        diceTextureBtn?.setImage(diceMat.iconForValue(1), forState: .Normal)
+        diceTextureBtn?.setImage(diceMat.iconForValue(1), for: UIControlState())
     }
     
-    @IBAction func playNewGame(sender: AnyObject)
+    @IBAction func playNewGame(_ sender: AnyObject)
     {
         let playerId = PlayerStat.shared.id
         let playerAlias = PlayerStat.shared.alias
-        let avgScore6 = PlayerStat.avgScore(.Six)
+        let avgScore6 = PlayerStat.avgScore(.six)
         let diceMat = PlayerStat.shared.ownedDiceMaterials()[diceMatSelected]
         Match.shared.start(.SinglePlayer,
                            diceNum: Match.shared.diceNum,
                            playersDesc: [(playerId,playerAlias,avgScore6,diceMat)],
                            matchId: 0,
                            bet: 0)
-        MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
+        MainViewController.shared?.performSegue(withIdentifier: "playIdentifier", sender: nil)
     }
 
-    @IBAction func back(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func back(_ sender: AnyObject) {
+        navigationController?.popViewController(animated: true)
     }
 }

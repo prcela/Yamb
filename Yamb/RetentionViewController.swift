@@ -31,19 +31,19 @@ class RetentionViewController: UIViewController {
         diceScene.recreateMaterials(DiceMaterial.all[randomIndex])
         diceScene.start(ctDice)
         holderView.layer.cornerRadius = 10
-        winLbl.hidden = true
-        doneBtn.hidden = true
+        winLbl.isHidden = true
+        doneBtn.isHidden = true
         
-        rollBtn.setTitle(lstr("Roll"), forState: .Normal)
-        doneBtn.setTitle(lstr("Done"), forState: .Normal)
+        rollBtn.setTitle(lstr("Roll"), for: UIControlState())
+        doneBtn.setTitle(lstr("Done"), for: UIControlState())
         messageLbl.text = lstr("Reward for retention")
         dayLbl.text = "\(lstr("Day")) \(PlayerStat.shared.retentions.count)"
     }
 
-    @IBAction func roll(sender: AnyObject)
+    @IBAction func roll(_ sender: AnyObject)
     {
         let diceScene = scnView.scene as! DiceScene
-        var activeRotationRounds = [[Int]](count: 6, repeatedValue: [0,0,0])
+        var activeRotationRounds = [[Int]](repeating: [0,0,0], count: 6)
         let ctMaxRounds:UInt32 = 5
         var values = [UInt]()
         for dieIdx in 0..<ctDice
@@ -56,7 +56,7 @@ class RetentionViewController: UIViewController {
                              Int(1+arc4random_uniform(ctMaxRounds))]
             
             
-            for (idx,_) in newRounds.enumerate()
+            for (idx,_) in newRounds.enumerated()
             {
                 while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
                     let dir = arc4random_uniform(2) == 0 ? -1:1
@@ -66,18 +66,18 @@ class RetentionViewController: UIViewController {
             }
         }
         diceScene.rollToValues(values, ctMaxRounds: ctMaxRounds, activeRotationRounds: activeRotationRounds, ctHeld: 0) {
-            let sum = values.reduce(0, combine: { (sum, val) -> UInt in
+            let sum = values.reduce(0, { (sum, val) -> UInt in
                 return sum + val
             })
-            self.winLbl.hidden = false
+            self.winLbl.isHidden = false
             self.winLbl.text = String(format: lstr("You win %d 💎"), sum)
-            self.rollBtn.hidden = true
-            self.doneBtn.hidden = false
+            self.rollBtn.isHidden = true
+            self.doneBtn.isHidden = false
             PlayerStat.shared.diamonds += Int(sum)
             PlayerStat.saveStat()
         }
     }
-    @IBAction func done(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func done(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
 }

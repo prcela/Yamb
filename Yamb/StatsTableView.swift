@@ -15,22 +15,22 @@ class StatsTableView: UIView
 {
     var playerStat: PlayerStat?
 
-    private func calculateCellSize() -> CGSize {
-        let colWidth = round(CGRectGetWidth(frame)/CGFloat(ctColumns)-0.5)
-        let rowHeight = round(min(400,CGRectGetHeight(frame))/CGFloat(ctRows)-0.5)
+    fileprivate func calculateCellSize() -> CGSize {
+        let colWidth = round(frame.width/CGFloat(ctColumns)-0.5)
+        let rowHeight = round(min(400,frame.height)/CGFloat(ctRows)-0.5)
         return CGSize(width: colWidth, height: rowHeight)
     }
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
         
         let cellSize = calculateCellSize()
         
-        CGContextSetStrokeColorWithColor(ctx, UIColor.lightGrayColor().CGColor)
+        ctx.setStrokeColor(UIColor.lightGray.cgColor)
         
         let connectedLines = [
             [TablePos(rowIdx: 0,colIdx: 2),TablePos(rowIdx: 0,colIdx: 5),TablePos(rowIdx:9, colIdx:5),TablePos(rowIdx:9,colIdx: 0),TablePos(rowIdx: 1,colIdx: 0)],
@@ -50,37 +50,37 @@ class StatsTableView: UIView
         
         for lines in connectedLines
         {
-            for (idx,p) in lines.enumerate()
+            for (idx,p) in lines.enumerated()
             {
                 let x = CGFloat(p.colIdx)*cellSize.width
                 let y = CGFloat(p.rowIdx)*cellSize.height
                 
                 if idx == 0
                 {
-                    CGContextBeginPath(ctx)
-                    CGContextMoveToPoint(ctx, x, y)
+                    ctx.beginPath()
+                    ctx.move(to: CGPoint(x: x, y: y))
                 }
                 else
                 {
-                    CGContextAddLineToPoint(ctx, x, y)
+                    ctx.addLine(to: CGPoint(x: x, y: y))
                 }
             }
             
-            CGContextStrokePath(ctx)
+            ctx.strokePath()
         }
     }
     
     override func awakeFromNib() {
         let cellSize = calculateCellSize()
         
-        func createLabelAt(rowIdx: Int, colIdx: Int, text: String?, cells: Int = 1) -> UILabel
+        func createLabelAt(_ rowIdx: Int, colIdx: Int, text: String?, cells: Int = 1) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width*CGFloat(cells), height: cellSize.height))
-            lbl.backgroundColor = UIColor.clearColor()
+            lbl.backgroundColor = UIColor.clear
             lbl.text = text
-            lbl.textColor = UIColor.whiteColor()
-            lbl.textAlignment = .Center
-            lbl.font = UIFont.systemFontOfSize(isSmallScreen() ? 12 : 15, weight: UIFontWeightThin)
+            lbl.textColor = UIColor.white
+            lbl.textAlignment = .center
+            lbl.font = UIFont.systemFont(ofSize: isSmallScreen() ? 12 : 15, weight: UIFontWeightThin)
             lbl.adjustsFontSizeToFitWidth = true
             lbl.minimumScaleFactor = 0.5
             lbl.numberOfLines = 0
@@ -128,7 +128,7 @@ class StatsTableView: UIView
         {
             for colIdx in 0..<ctColumns
             {
-                if let subview = viewWithTag(rowIdx*ctColumns + colIdx) where subview !== self
+                if let subview = viewWithTag(rowIdx*ctColumns + colIdx), subview !== self
                 {
                     var cells = 1
                     if colIdx == 0 && rowIdx <= 3
@@ -145,7 +145,7 @@ class StatsTableView: UIView
         }
     }
     
-    func tag(rowIdx: Int, _ colIdx: Int) -> Int
+    func tag(_ rowIdx: Int, _ colIdx: Int) -> Int
     {
         return rowIdx*ctColumns + colIdx
     }
@@ -190,16 +190,16 @@ class StatsTableView: UIView
                 if item.matchType == .SinglePlayer
                 {
                     playedSP += 1
-                    if item.result == .Winner
+                    if item.result == .winner
                     {
                         winSP += 1
                     }
-                    else if item.result == .Loser
+                    else if item.result == .loser
                     {
                         loseSP += 1
                     }
                 
-                    if item.diceNum == .Five
+                    if item.diceNum == .five
                     {
                         best5sp = max(best5sp, item.score)
                         sum5sp += item.score
@@ -216,18 +216,18 @@ class StatsTableView: UIView
                 else
                 {
                     playedMP += 1
-                    if item.result == .Winner
+                    if item.result == .winner
                     {
                         winMP += 1
                         winD += item.bet
                     }
-                    else if item.result == .Loser
+                    else if item.result == .loser
                     {
                         loseMP += 1
                         loseD += item.bet
                     }
                     
-                    if item.diceNum == .Five
+                    if item.diceNum == .five
                     {
                         best5mp = max(best5mp, item.score)
                         sum5mp += item.score
@@ -240,9 +240,9 @@ class StatsTableView: UIView
                         ct6mp += 1
                     }
                     
-                    if item.result == .Winner
+                    if item.result == .winner
                     {
-                        if item.diceNum == .Five
+                        if item.diceNum == .five
                         {
                             best5d = max(best5d, item.bet)
                         }
@@ -275,7 +275,7 @@ class StatsTableView: UIView
             avg6mpLbl.text = ct6mp != 0 ? String(sum6mp/ct6mp) : "-"
             best5dLbl.text = String(best5d)
             best6dLbl.text = String(best6d)
-            starsLbl.text = starsFormatter.stringFromNumber(NSNumber(float: stars6(PlayerStat.avgScore(.Six))))
+            starsLbl.text = starsFormatter.string(from: NSNumber(value: stars6(PlayerStat.avgScore(.six)) as Float))
         }
     }
 

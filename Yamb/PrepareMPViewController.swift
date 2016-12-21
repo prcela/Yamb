@@ -22,7 +22,7 @@ class PrepareMPViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var lockInfoLbl: UILabel?
     
-    var diceNum: DiceNum = .Six
+    var diceNum: DiceNum = .six
     var invitedPlayers = Set<String>()
     var playersIgnoredInvitation = Set<String>()
     var bet = 5
@@ -31,7 +31,7 @@ class PrepareMPViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         
         nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
@@ -47,12 +47,12 @@ class PrepareMPViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        bacBtn.setTitle(lstr("Back"), forState: .Normal)
-        createMatchBtn.setTitle(lstr("Start match"), forState: .Normal)
+        bacBtn.setTitle(lstr("Back"), for: UIControlState())
+        createMatchBtn.setTitle(lstr("Start match"), for: UIControlState())
         waitingLbl.text = lstr("Waiting for opponent player...")
         lockInfoLbl?.text = lstr("Only invited players can play")
         
-        tableView?.hidden = true
+        tableView?.isHidden = true
         
         updateBetBtn()
         updateDiceBtn()
@@ -62,39 +62,39 @@ class PrepareMPViewController: UIViewController {
     
     func updatePrivateBtn()
     {
-        lockBtn.setTitle(isPrivate ? "🔒":"🔓", forState: .Normal)
+        lockBtn.setTitle(isPrivate ? "🔒":"🔓", for: UIControlState())
     }
     
     func updateBetBtn()
     {
-        betBtn.setTitle(String(format: "%@ 💎 \(bet) ", lstr("Bet")), forState: .Normal)
+        betBtn.setTitle(String(format: "%@ 💎 \(bet) ", lstr("Bet")), for: UIControlState())
     }
     
     func updateDiceBtn()
     {
         let title = lstr("Dice 5/6")
-        let thinFont = UIFont.systemFontOfSize(30, weight: UIFontWeightThin)
-        let defaultFont = UIFont.systemFontOfSize(30)
+        let thinFont = UIFont.systemFont(ofSize: 30, weight: UIFontWeightThin)
+        let defaultFont = UIFont.systemFont(ofSize: 30)
         
         let attrString = NSMutableAttributedString(string: title, attributes: [
             NSFontAttributeName:thinFont,
-            NSForegroundColorAttributeName:UIColor.blackColor()
+            NSForegroundColorAttributeName:UIColor.black
             ])
         
         let attrStringDisabled = NSMutableAttributedString(string: title, attributes: [
             NSFontAttributeName:thinFont,
-            NSForegroundColorAttributeName:UIColor.grayColor()
+            NSForegroundColorAttributeName:UIColor.gray
             ])
         
-        let loc = title.characters.indexOf(diceNum == .Five ? "5":"6")!
+        let loc = title.characters.index(of: diceNum == .five ? "5":"6")!
         
-        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
+        attrString.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.characters.distance(from: title.startIndex, to: loc), 1))
         
-        attrStringDisabled.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.startIndex.distanceTo(loc), 1))
+        attrStringDisabled.addAttribute(NSFontAttributeName, value:defaultFont, range: NSMakeRange(title.characters.distance(from: title.startIndex, to: loc), 1))
         
-        dice56Btn?.setAttributedTitle(attrString, forState: .Normal)
+        dice56Btn?.setAttributedTitle(attrString, for: UIControlState())
         
-        dice56Btn.setAttributedTitle(attrStringDisabled, forState: .Disabled)
+        dice56Btn.setAttributedTitle(attrStringDisabled, for: .disabled)
         
     }
     
@@ -108,7 +108,7 @@ class PrepareMPViewController: UIViewController {
         tableView?.reloadData()
     }
     
-    func matchInvitationIgnored(notification: NSNotification)
+    func matchInvitationIgnored(_ notification: Notification)
     {
         let recipientPlayerId = notification.object as! String
         playersIgnoredInvitation.insert(recipientPlayerId)
@@ -117,23 +117,23 @@ class PrepareMPViewController: UIViewController {
     
     func createMatch()
     {
-        createMatchBtn.hidden = true
-        dice56Btn.enabled = false
-        waitingLbl.hidden = isPrivate
+        createMatchBtn.isHidden = true
+        dice56Btn.isEnabled = false
+        waitingLbl.isHidden = isPrivate
         activityIndicator.startAnimating()
-        tableView?.hidden = false
-        betBtn.enabled = false
-        decreaseBetBtn.enabled = false
-        increaseBetBtn.enabled = false
-        lockBtn.hidden = true
-        lockInfoLbl?.hidden = true
+        tableView?.isHidden = false
+        betBtn.isEnabled = false
+        decreaseBetBtn.isEnabled = false
+        increaseBetBtn.isEnabled = false
+        lockBtn.isHidden = true
+        lockInfoLbl?.isHidden = true
         
         let favDiceMat = PlayerStat.shared.favDiceMat
         WsAPI.shared.createMatch(diceNum, isPrivate: isPrivate, diceMaterials: [favDiceMat, .White], bet: bet)
     }
     
     
-    @IBAction func back(sender: AnyObject)
+    @IBAction func back(_ sender: AnyObject)
     {
         // TODO: leave all my matches
         let playerId = PlayerStat.shared.id
@@ -141,15 +141,15 @@ class PrepareMPViewController: UIViewController {
         {
             WsAPI.shared.leaveMatch(matchInfo.id)
         }
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func toggleDiceCount(sender: UIButton) {
-        diceNum = diceNum == .Five ? .Six : .Five
+    @IBAction func toggleDiceCount(_ sender: UIButton) {
+        diceNum = diceNum == .five ? .six : .five
         updateDiceBtn()
     }
     
-    @IBAction func createMatch(sender: UIButton)
+    @IBAction func createMatch(_ sender: UIButton)
     {
         let available = PlayerStat.shared.diamonds
         if available >= bet
@@ -163,25 +163,25 @@ class PrepareMPViewController: UIViewController {
     }
     
     
-    @IBAction func togglePrivate(sender: AnyObject)
+    @IBAction func togglePrivate(_ sender: AnyObject)
     {
         isPrivate = !isPrivate
         updatePrivateBtn()
         
-        lockInfoLbl?.hidden = !isPrivate
+        lockInfoLbl?.isHidden = !isPrivate
     }
     
-    @IBAction func changeBet(sender: AnyObject)
+    @IBAction func changeBet(_ sender: AnyObject)
     {
         increaseBet(sender)
     }
     
-    @IBAction func decreaseBet(sender: AnyObject) {
+    @IBAction func decreaseBet(_ sender: AnyObject) {
         bet = max(5, bet-5)
         updateBetBtn()
     }
     
-    @IBAction func increaseBet(sender: AnyObject) {
+    @IBAction func increaseBet(_ sender: AnyObject) {
         let available = PlayerStat.shared.diamonds
         if bet + 5 <= available
         {
@@ -197,22 +197,22 @@ class PrepareMPViewController: UIViewController {
 
 extension PrepareMPViewController: UITableViewDelegate
 {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         let player = players()[indexPath.row]
         if player.diamonds >= bet
         {
             WsAPI.shared.invitePlayer(player)
             invitedPlayers.insert(player.id!)
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
         else
         {
             let message = String(format: lstr("PlayerX has not enough"), player.alias!)
-            let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -228,22 +228,22 @@ extension PrepareMPViewController: UITableViewDataSource
         return players
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return players().count
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return lstr("Or invite someone")
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let player = players()[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! FreePlayerCell
-        cell.nameLbl.text = String(format: "%@ ⭐️ %d 💎 %@", starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!, player.diamonds, player.alias!)
-        tableView.tintColor = UIColor.darkGrayColor()
-        cell.accessoryType = invitedPlayers.contains(player.id!) ? .Checkmark : .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath) as! FreePlayerCell
+        cell.nameLbl.text = String(format: "%@ ⭐️ %d 💎 %@", starsFormatter.string(from: NSNumber(value: stars6(player.avgScore6) as Float))!, player.diamonds, player.alias!)
+        tableView.tintColor = UIColor.darkGray
+        cell.accessoryType = invitedPlayers.contains(player.id!) ? .checkmark : .none
         return cell
     }
     

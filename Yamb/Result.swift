@@ -9,7 +9,7 @@
 import Foundation
 
 enum Result: Int {
-    case Loser = -1
-    case Drawn
-    case Winner
+    case loser = -1
+    case drawn
+    case winner
 }

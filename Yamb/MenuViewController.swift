@@ -10,6 +10,7 @@ import UIKit
 import GameKit
 import MessageUI
 import Crashlytics
+import SwiftyJSON
 
 class MenuViewController: UIViewController
 {
@@ -27,7 +28,7 @@ class MenuViewController: UIViewController
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         
         nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
         nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
@@ -39,11 +40,11 @@ class MenuViewController: UIViewController
         super.viewDidLoad()
         
         // localization
-        trainingBtn.setTitle(lstr("Single player"), forState: .Normal)
-        mpBtn.setTitle(lstr("Multiplayer"), forState: .Normal)
-        leaderboardBtn.setTitle(lstr("Leaderboard"), forState: .Normal)
-        rulesBtn.setTitle(lstr("Rules"), forState: .Normal)
-        tellFriendsBtn.setTitle(lstr("Tell friends"), forState: .Normal)
+        trainingBtn.setTitle(lstr("Single player"), for: UIControlState())
+        mpBtn.setTitle(lstr("Multiplayer"), for: UIControlState())
+        leaderboardBtn.setTitle(lstr("Leaderboard"), for: UIControlState())
+        rulesBtn.setTitle(lstr("Rules"), for: UIControlState())
+        tellFriendsBtn.setTitle(lstr("Tell friends"), for: UIControlState())
         
         
         // authenticate player, but dont present auth controller yet
@@ -51,7 +52,7 @@ class MenuViewController: UIViewController
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         updateOnlinePlayersCount()
@@ -64,8 +65,8 @@ class MenuViewController: UIViewController
             {
                 let json = JSON(data: data!)
                 let ct = json["room_main_ct"].intValue
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.onlinePlayersLbl.hidden = (ct == 0)
+                DispatchQueue.main.async(execute: {
+                    self.onlinePlayersLbl.isHidden = (ct == 0)
                     self.onlinePlayersLbl.text = String(format: "%@: %d", lstr("Online"), ct)
                     self.minRequiredVersion = json["min_required_version"].intValue
                 })
@@ -74,8 +75,8 @@ class MenuViewController: UIViewController
             }
             else
             {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.onlinePlayersLbl.hidden = true
+                DispatchQueue.main.async(execute: {
+                    self.onlinePlayersLbl.isHidden = true
                 })
                 print(error)
             }
@@ -85,46 +86,46 @@ class MenuViewController: UIViewController
     
     
     
-    @IBAction func singlePlayer(sender: AnyObject)
+    @IBAction func singlePlayer(_ sender: AnyObject)
     {
         if GameFileManager.existsSavedGame(MatchType.SinglePlayer.rawValue)
         {
-            performSegueWithIdentifier("resumeOrNewId", sender: self)
+            performSegue(withIdentifier: "resumeOrNewId", sender: self)
         }
         else
         {
-            performSegueWithIdentifier("newId", sender: self)
+            performSegue(withIdentifier: "newId", sender: self)
         }
     }
         
-    @IBAction func multiPlayer(sender: AnyObject)
+    @IBAction func multiPlayer(_ sender: AnyObject)
     {
         if currentVersionMP >= minRequiredVersion
         {
-            performSegueWithIdentifier("showRoom", sender: sender)
+            performSegue(withIdentifier: "showRoom", sender: sender)
         }
         else
         {
             let alertController = UIAlertController(title: "Yamb",
                                                     message: lstr("Update message"),
-                                                    preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: lstr("Cancel"), style: .Destructive, handler: { (action) in
-                self.dismissViewControllerAnimated(true, completion: nil)
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: lstr("Cancel"), style: .destructive, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
             }))
             
-            alertController.addAction(UIAlertAction(title: lstr("Update"), style: .Default, handler: { (action) in
-                let url = NSURL(string: "https://itunes.apple.com/hr/app/yamb/id354188615?mt=8")!
-                UIApplication.sharedApplication().openURL(url)
+            alertController.addAction(UIAlertAction(title: lstr("Update"), style: .default, handler: { (action) in
+                let url = URL(string: "https://itunes.apple.com/hr/app/yamb/id354188615?mt=8")!
+                UIApplication.shared.openURL(url)
             }))
-            presentViewController(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
     }
     
-    @IBAction func onGameCenter(sender: AnyObject)
+    @IBAction func onGameCenter(_ sender: AnyObject)
     {
         if let gcAuthController = GameKitHelper.shared.authController
         {
-            navigationController?.presentViewController(gcAuthController, animated: true, completion: {
+            navigationController?.present(gcAuthController, animated: true, completion: {
             })
         }
         else if GameKitHelper.shared.authenticated
@@ -138,15 +139,15 @@ class MenuViewController: UIViewController
     }
     
     
-    @IBAction func tellFriends(sender: AnyObject)
+    @IBAction func tellFriends(_ sender: AnyObject)
     {
         let string: String = lstr("Check out this dice game for iPhone")
-        let URL: NSURL = NSURL(string: "http://apple.co/2byvskU")!
+        let URL: Foundation.URL = Foundation.URL(string: "http://apple.co/2byvskU")!
         
         let activityViewController = UIActivityViewController(activityItems: [string, URL], applicationActivities: nil)
-        presentViewController(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true, completion: nil)
         
-        Answers.logShareWithMethod(nil, contentName: "Tell friends", contentType: nil, contentId: nil, customAttributes: nil)
+        Answers.logShare(withMethod: nil, contentName: "Tell friends", contentType: nil, contentId: nil, customAttributes: nil)
     }
     
     @objc
@@ -162,19 +163,19 @@ class MenuViewController: UIViewController
     
     func showLeaderboard()
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         let leaderboardVC = GKGameCenterViewController()
         leaderboardVC.gameCenterDelegate = self
-        leaderboardVC.viewState = .Leaderboards
-        leaderboardVC.leaderboardIdentifier = defaults.objectForKey(Prefs.lastPlayedGameType) as? String
+        leaderboardVC.viewState = .leaderboards
+        leaderboardVC.leaderboardIdentifier = defaults.object(forKey: Prefs.lastPlayedGameType) as? String
         
-        navigationController?.presentViewController(leaderboardVC, animated: true, completion: nil)
+        navigationController?.present(leaderboardVC, animated: true, completion: nil)
     }
     
     @objc
     func goToMainMenu()
     {
-        if let idxMenuVC = navigationController?.childViewControllers.indexOf({vc in
+        if let idxMenuVC = navigationController?.childViewControllers.index(where: {vc in
             return vc is MenuViewController
         }) {
             navigationController?.popToViewController(navigationController!.childViewControllers[idxMenuVC], animated: true)
@@ -186,7 +187,7 @@ class MenuViewController: UIViewController
         let ctConnected = Room.main.players.filter({ (p) -> Bool in
             return p.connected
         }).count
-        self.onlinePlayersLbl.hidden = (ctConnected == 0)
+        self.onlinePlayersLbl.isHidden = (ctConnected == 0)
         self.onlinePlayersLbl.text = String(format: "%@: %d", lstr("Online"), ctConnected)
     }
     
@@ -194,8 +195,8 @@ class MenuViewController: UIViewController
 
 extension MenuViewController: GKGameCenterControllerDelegate
 {
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 }
 

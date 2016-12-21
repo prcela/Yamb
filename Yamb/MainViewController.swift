@@ -19,7 +19,7 @@ class MainViewController: UIViewController
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         
         nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
         nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
@@ -41,7 +41,7 @@ class MainViewController: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        connectingLbl?.hidden = true
+        connectingLbl?.isHidden = true
         connectingLbl?.text = lstr("Connecting...")
         
         diceIcon?.layer.cornerRadius = 3
@@ -54,9 +54,9 @@ class MainViewController: UIViewController
     
     func evaluateRetention()
     {
-        let calendar = NSCalendar.currentCalendar()
-        let dateNow = NSDate()
-        let dayNow = calendar.ordinalityOfUnit(.Day, inUnit: .Era, forDate: dateNow)
+        let calendar = Calendar.current
+        let dateNow = Date()
+        let dayNow = (calendar as NSCalendar).ordinality(of: .day, in: .era, for: dateNow)
         
         // PlayerStat.shared.retentions = [736315,736316,736317] // test
         
@@ -71,7 +71,7 @@ class MainViewController: UIViewController
                 // reward and add date to progress
                 print("reward")
                 PlayerStat.shared.retentions.append(dayNow)
-                self.performSegueWithIdentifier("retention", sender: self)
+                self.performSegue(withIdentifier: "retention", sender: self)
             }
             else
             {
@@ -90,11 +90,11 @@ class MainViewController: UIViewController
     {
         let name = PlayerStat.shared.alias
         let diamonds = PlayerStat.shared.diamonds
-        let avgScore6 = PlayerStat.avgScore(.Six)
+        let avgScore6 = PlayerStat.avgScore(.six)
         
         let stars = stars6(avgScore6)
-        let playerTitle = String(format: "%@  💎 \(diamonds)  ⭐️ %@", name, starsFormatter.stringFromNumber(NSNumber(float: stars))!)
-        playerBtn?.setTitle(playerTitle, forState: .Normal)
+        let playerTitle = String(format: "%@  💎 \(diamonds)  ⭐️ %@", name, starsFormatter.string(from: NSNumber(value: stars as Float))!)
+        playerBtn?.setTitle(playerTitle, for: UIControlState())
         diceIcon?.image = PlayerStat.shared.favDiceMat.iconForValue(1)
         
         ServerAPI.updatePlayer {_,_,_ in }
@@ -105,10 +105,10 @@ class MainViewController: UIViewController
         diceIcon?.image = PlayerStat.shared.favDiceMat.iconForValue(1)
     }
 
-    func joinedMatch(notification: NSNotification)
+    func joinedMatch(_ notification: Notification)
     {
         let matchId = notification.object as! UInt
-        if let idx = Room.main.matchesInfo.indexOf ({ (m) -> Bool in
+        if let idx = Room.main.matchesInfo.index (where: { (m) -> Bool in
             return m.id == matchId
         }) {
             let matchInfo = Room.main.matchesInfo[idx]
@@ -136,12 +136,12 @@ class MainViewController: UIViewController
             
                 updatePlayerInfo()
             
-                performSegueWithIdentifier("playIdentifier", sender: nil)
+                performSegue(withIdentifier: "playIdentifier", sender: nil)
             }
         }
     }
     
-    func matchInvitationArrived(notification: NSNotification)
+    func matchInvitationArrived(_ notification: Notification)
     {
         let senderPlayerId = notification.object as! String
         var matchInfo: MatchInfo?
@@ -163,24 +163,24 @@ class MainViewController: UIViewController
         {
             if presentedVC is PlayerViewController || presentedVC is PlayViewController
             {
-                presentedVC.performSegueWithIdentifier("invitation", sender: senderPlayer)
+                presentedVC.performSegue(withIdentifier: "invitation", sender: senderPlayer)
             }
         }
         else
         {
-            performSegueWithIdentifier("invitation", sender: senderPlayer)
+            performSegue(withIdentifier: "invitation", sender: senderPlayer)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "invitation"
         {
-            let invitationVC = segue.destinationViewController as! InvitationViewController
+            let invitationVC = segue.destination as! InvitationViewController
             invitationVC.senderPlayer = sender as? Player
         }
     }
     
-    func matchInvitationIgnored(notification: NSNotification)
+    func matchInvitationIgnored(_ notification: Notification)
     {
         let recipientPlayerId = notification.object as! String
         
@@ -188,48 +188,48 @@ class MainViewController: UIViewController
         
         let alert = UIAlertController(title: "Yamb",
                                       message: String(format: lstr("Invitation ignored"), recipientPlayer.alias!),
-                                      preferredStyle: .Alert)
+                                      preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         if let presentedVC = presentedViewController
         {
-            presentedVC.presentViewController(alert, animated: true, completion: nil)
+            presentedVC.present(alert, animated: true, completion: nil)
         }
         else
         {
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         
     }
     
-    func mpMatchEnded(notification: NSNotification)
+    func mpMatchEnded(_ notification: Notification)
     {
         guard (notification.object as? UInt) == Match.shared.id  else {
             return
         }
         let playerId = PlayerStat.shared.id
-        let playerIdx = Match.shared.players.indexOf { (p) -> Bool in
+        let playerIdx = Match.shared.players.index { (p) -> Bool in
             return p.id == playerId
         }
         let player = Match.shared.players[playerIdx!]
         guard let score = player.table.totalScore() else {return}
         
-        var result:Result = .Winner
+        var result:Result = .winner
         for p in Match.shared.players
         {
-            p.state = .EndGame
+            p.state = .endGame
             if p.id != playerId
             {
                 if let pScore = p.table.totalScore()
                 {
                     if pScore > score
                     {
-                        result = .Loser
+                        result = .loser
                     }
                     else if pScore == score
                     {
-                        result = .Drawn
+                        result = .drawn
                     }
                 }
             }
@@ -240,18 +240,18 @@ class MainViewController: UIViewController
         var message: String
         switch result {
             
-        case .Winner:
+        case .winner:
             message = String(format: lstr("You win n diamonds"), Match.shared.bet*2)
             message += "\n\n"
             message += lstr("Extra reward")
             diamonds += Match.shared.bet*2
             
             
-        case .Drawn:
+        case .drawn:
             message = lstr("Drawn")
             diamonds += Match.shared.bet
             
-        case .Loser:
+        case .loser:
             message = lstr("You lose")
         }
         
@@ -264,7 +264,7 @@ class MainViewController: UIViewController
             score: score,
             result: result,
             bet: Match.shared.bet,
-            timestamp: NSDate())
+            timestamp: Date())
         
         PlayerStat.shared.items.append(statItem)
         ServerAPI.statItem(statItem.json()) { (data, response, error) in
@@ -273,44 +273,44 @@ class MainViewController: UIViewController
         
         let alert = UIAlertController(title: lstr("Match over"),
                                       message: message,
-                                      preferredStyle: .Alert)
+                                      preferredStyle: .alert)
         
-        if result == .Winner
+        if result == .winner
         {
-            alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: lstr("No"), style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: lstr("Yes"), style: .default, handler: { (action) in
                 Chartboost.showRewardedVideo(CBLocationGameOver)
             }))
         }
         else
         {
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }
         
         if let presentedVC = presentedViewController
         {
-            presentedVC.presentViewController(alert, animated: true, completion: nil)
+            presentedVC.present(alert, animated: true, completion: nil)
         }
         else
         {
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
     }
     
     func onWsConnect()
     {
-        connectingLbl?.hidden = false
+        connectingLbl?.isHidden = false
     }
         
     func onWsDidConnect()
     {
-        connectingLbl?.hidden = true
+        connectingLbl?.isHidden = true
     }
     
     func onWsDidDisconnect()
     {
-        connectingLbl?.hidden = false
+        connectingLbl?.isHidden = false
     }
 
 }

@@ -10,6 +10,7 @@ import UIKit
 import SceneKit
 import GameKit
 import Firebase
+import SwiftyJSON
 
 class PlayViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var gameTableView: GameTableView?
     @IBOutlet weak var sceneView: SCNView?
-    @IBOutlet private weak var rollBtn: UIButton?
+    @IBOutlet fileprivate weak var rollBtn: UIButton?
     @IBOutlet weak var sumLbl: UILabel?
     @IBOutlet weak var sum1Lbl: UILabel?
     @IBOutlet weak var nameLbl: UILabel?
@@ -32,7 +33,7 @@ class PlayViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.matchStateChanged, object: nil)
         nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
         nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
@@ -61,16 +62,16 @@ class PlayViewController: UIViewController {
         
         sumLbl?.text = nil
         sumLbl?.layer.borderWidth = 1
-        sumLbl?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sumLbl?.layer.borderColor = UIColor.lightGray.cgColor
         sumLbl?.backgroundColor = Skin.blue.labelBackColor
         
         sum1Lbl?.text = nil
         sum1Lbl?.layer.borderWidth = 1
-        sum1Lbl?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        sum1Lbl?.layer.borderColor = UIColor.lightGray.cgColor
         sum1Lbl?.backgroundColor = Skin.red.labelBackColor
         
         rollBtn?.layer.borderWidth = 1
-        rollBtn?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        rollBtn?.layer.borderColor = UIColor.lightGray.cgColor
         rollBtn?.layer.cornerRadius = 5
         
         
@@ -80,7 +81,7 @@ class PlayViewController: UIViewController {
         refresh()
         PlayViewController.diceScene.recreateMaterials(Match.shared.players.first?.diceMaterial ?? .White)
         
-        connectingLbl?.hidden = true
+        connectingLbl?.isHidden = true
         connectingLbl?.text = lstr("Connecting...")
         
         let chartboostAllowed = FIRRemoteConfig.remoteConfig()["allow_chartboost"].boolValue
@@ -89,7 +90,7 @@ class PlayViewController: UIViewController {
         
         if chartboostAllowed && finishedOnce
         {
-            if Match.shared.players.first?.state == .Start
+            if Match.shared.players.first?.state == .start
             {
                 dispatchToMainQueue(delay: 45, closure: {[weak self] in
                     guard self != nil else {return}
@@ -97,13 +98,13 @@ class PlayViewController: UIViewController {
                     {
                         print("Chartboost.showInterstitial(CBLocationLevelStart)")
                         Chartboost.showInterstitial(CBLocationLevelStart)
-                        FIRAnalytics.logEventWithName("show_interstitial", parameters: nil)
+                        FIRAnalytics.logEvent(withName: "show_interstitial", parameters: nil)
                     }
                     else
                     {
                         print("Chartboost.cacheInterstitial(CBLocationLevelStart)")
                         Chartboost.cacheInterstitial(CBLocationLevelStart)
-                        FIRAnalytics.logEventWithName("cache_interstitial", parameters: nil)
+                        FIRAnalytics.logEvent(withName: "cache_interstitial", parameters: nil)
                     }
                 })
             }
@@ -115,7 +116,7 @@ class PlayViewController: UIViewController {
         gameTableView?.updateFrames()
     }
     
-    func onGameStateChanged(notification: NSNotification)
+    func onGameStateChanged(_ notification: Notification)
     {
         refresh()
     }
@@ -124,21 +125,21 @@ class PlayViewController: UIViewController {
     {
         gameTableView?.updateValuesAndStates()
         gameTableView?.setNeedsDisplay()
-        sumLbl?.hidden = false
-        sum1Lbl?.hidden = Match.shared.players.count == 1
-        chatBtn?.hidden = Match.shared.players.count == 1
+        sumLbl?.isHidden = false
+        sum1Lbl?.isHidden = Match.shared.players.count == 1
+        chatBtn?.isHidden = Match.shared.players.count == 1
         
         let playerOnTurn = Match.shared.players[Match.shared.indexOfPlayerOnTurn]
         
         let skin = (Match.shared.indexOfPlayerOnTurn == 0) ? Skin.blue : Skin.red
-        progressView?.animShapeLayer.strokeColor = skin.strokeColor.CGColor
+        progressView?.animShapeLayer.strokeColor = skin.strokeColor.cgColor
         
         
         let isWaitingForTurn = (Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn())
         
-        rollBtn?.hidden = isWaitingForTurn
-        playLbl?.hidden = isWaitingForTurn
-        progressView?.hidden = Match.shared.matchType != .OnlineMultiplayer
+        rollBtn?.isHidden = isWaitingForTurn
+        playLbl?.isHidden = isWaitingForTurn
+        progressView?.isHidden = Match.shared.matchType != .OnlineMultiplayer
         
         let inputPos = playerOnTurn.inputPos
         
@@ -159,11 +160,11 @@ class PlayViewController: UIViewController {
         
         switch playerOnTurn.state {
         
-        case .Start:
+        case .start:
             playLbl?.text = lstr("1. roll")
         
-        case .After1:
-            if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
+        case .after1:
+            if inputPos == nil || inputPos!.colIdx == TableCol.n.rawValue
             {
                 playLbl?.text = lstr("2. roll")
             }
@@ -173,8 +174,8 @@ class PlayViewController: UIViewController {
                 playLbl?.text = endOfTurnText()
             }
         
-        case .After2:
-            if inputPos == nil || inputPos!.colIdx == TableCol.N.rawValue
+        case .after2:
+            if inputPos == nil || inputPos!.colIdx == TableCol.n.rawValue
             {
                 playLbl?.text = lstr("3. roll")
             }
@@ -183,16 +184,16 @@ class PlayViewController: UIViewController {
                 endOfTurn = true
                 playLbl?.text = endOfTurnText()
             }
-        case .After3, .AfterN3:
+        case .after3, .afterN3:
             playLbl?.text = endOfTurnText()
             
-        case .AfterN2:
+        case .afterN2:
             playLbl?.text = lstr("3. roll")
             
-        case .WaitTurn:
+        case .waitTurn:
             playLbl?.text = lstr("1. roll")
             
-        case .EndGame:
+        case .endGame:
             if Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn == 0
             {
                 playLbl?.text = lstr("Next player")
@@ -205,10 +206,10 @@ class PlayViewController: UIViewController {
         }
         
         // ako su sve kockice odabrane nije dozvoljen roll ali je dozvoljen "next player"
-        rollBtn?.enabled = Match.shared.isRollEnabled() || endOfTurn
+        rollBtn?.isEnabled = Match.shared.isRollEnabled() || endOfTurn
         if let alias = playerOnTurn.alias
         {
-            let starsFormatted = starsFormatter.stringFromNumber(NSNumber(float:stars6(playerOnTurn.avgScore6)))!
+            let starsFormatted = starsFormatter.string(from: NSNumber(value: stars6(playerOnTurn.avgScore6) as Float))!
             nameLbl?.text = String(format: "%@ ⭐️ %@", starsFormatted, alias)
         }
         else
@@ -219,7 +220,7 @@ class PlayViewController: UIViewController {
         
         let sumLbls = [sumLbl,sum1Lbl]
         
-        for (idx,lbl) in sumLbls.enumerate()
+        for (idx,lbl) in sumLbls.enumerated()
         {
             if idx < Match.shared.players.count
             {
@@ -244,18 +245,18 @@ class PlayViewController: UIViewController {
         let value = player.table.values[pos.colIdx][pos.rowIdx]!
         
         let message = String(format: lstr("Confirm input"), String(value))
-        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: lstr("Confirm"), style: .Default, handler: { (action) in
+        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: lstr("Confirm"), style: .default, handler: { (action) in
             print("Confirmed")
             player.confirmInputPos()
         }))
-        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .cancel, handler: { (action) in
             print("Canceled")
         }))
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
-    func opponentLeavedMatch(notification: NSNotification)
+    func opponentLeavedMatch(_ notification: Notification)
     {
         
         let matchId = notification.object as! UInt
@@ -269,28 +270,28 @@ class PlayViewController: UIViewController {
     
     
     
-    func opponentStartedNewGame(notification: NSNotification)
+    func opponentStartedNewGame(_ notification: Notification)
     {
         let matchId = notification.object as! UInt
         if let match = Room.main.matchInfo(matchId)
         {
-            let alert = UIAlertController(title: "Yamb", message: lstr("Opponent invites you to reply the game"), preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Accept", style: .Default, handler: { (action) in
+            let alert = UIAlertController(title: "Yamb", message: lstr("Opponent invites you to reply the game"), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { (action) in
                 let desc = match.playerIds.map({ (playerId) -> (id: String?, alias: String?, avgScore6:Float, diceMat: DiceMaterial) in
                     let player = Room.main.player(playerId)!
                     return (id: player.id, alias: player.alias, avgScore6: player.avgScore6, diceMat: player.diceMaterial)
                 })
                 Match.shared.start(.OnlineMultiplayer, diceNum: DiceNum(rawValue: match.diceNum)!, playersDesc: desc, matchId: matchId, bet: match.bet)
             }))
-            alert.addAction(UIAlertAction(title: "No", style: .Destructive, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (action) in
                 WsAPI.shared.leaveMatch(matchId)
                 self.dismiss()
             }))
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
     
-    func maybeSomeoneWillDump(notification: NSNotification)
+    func maybeSomeoneWillDump(_ notification: Notification)
     {
         guard Match.shared.matchType == .OnlineMultiplayer else {
             return
@@ -300,7 +301,7 @@ class PlayViewController: UIViewController {
         showPopup(dumpingPlayerId, text: lstr("has connection problems\nPlease wait few seconds..."))
     }
     
-    func someoneDumped(notification: NSNotification)
+    func someoneDumped(_ notification: Notification)
     {
         guard Match.shared.matchType == .OnlineMultiplayer else {
             return
@@ -320,11 +321,11 @@ class PlayViewController: UIViewController {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "waitPlayer"
         {
-            let waitPlayerVC = segue.destinationViewController as! WaitPlayerViewController
+            let waitPlayerVC = segue.destination as! WaitPlayerViewController
             waitPlayerVC.waitPlayer = sender as! Player
             
             waitPlayerVC.timout = {[weak self] in
@@ -334,7 +335,7 @@ class PlayViewController: UIViewController {
         }
         else if segue.identifier == "invitation"
         {
-            let invitationVC = segue.destinationViewController as! InvitationViewController
+            let invitationVC = segue.destination as! InvitationViewController
             invitationVC.senderPlayer = sender as? Player
         }
 
@@ -347,7 +348,7 @@ class PlayViewController: UIViewController {
         var message = lstr("Opponent has left the match.")
         
         let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
-            return player.state == .Start
+            return player.state == .start
         }
         
         if matchJustStarted
@@ -372,14 +373,14 @@ class PlayViewController: UIViewController {
             }
         }
         
-        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .Default, handler: { (action) in
+        let alert = UIAlertController(title: "Yamb", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: lstr("Continue alone"), style: .default, handler: { (action) in
             let playerId = PlayerStat.shared.id
             
-            if let idx = match.players.indexOf({ (player) -> Bool in
+            if let idx = match.players.index(where: { (player) -> Bool in
                 return player.id == playerId
-            }) where match.players.count == 2 {
-                match.players.removeAtIndex((idx+1)%2)
+            }), match.players.count == 2 {
+                match.players.remove(at: (idx+1)%2)
                 match.indexOfPlayerOnTurn = 0
                 match.matchType = .SinglePlayer
                 
@@ -389,21 +390,21 @@ class PlayViewController: UIViewController {
                     PlayViewController.diceScene.updateDiceValues(values)
                 }
                 PlayViewController.diceScene.updateDiceSelection(player.diceHeld)
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+                NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
             }
         }))
-        alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+        alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .destructive, handler: { (action) in
             self.dismiss()
         }))
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func back(sender: AnyObject)
+    @IBAction func back(_ sender: AnyObject)
     {
         if Match.shared.matchType == .OnlineMultiplayer
         {
             let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
-                return player.state == .Start || player.state == .EndGame
+                return player.state == .start || player.state == .endGame
             }
             
             if matchJustStartedOrEnded
@@ -414,14 +415,14 @@ class PlayViewController: UIViewController {
             }
             else
             {
-                let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .Destructive, handler: { (action) in
+                let alert = UIAlertController(title: "Yamb", message: lstr("Do you want to leave current match?"), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .destructive, handler: { (action) in
                     
                     WsAPI.shared.leaveMatch(Match.shared.id)
                     self.dismiss()
                 }))
-                alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .Default, handler: nil))
-                presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: lstr("Continue match"), style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
             }
         }
         else
@@ -432,16 +433,15 @@ class PlayViewController: UIViewController {
     
     func dismiss()
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
         let match = Match.shared
         if match.matchType == .SinglePlayer
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainMenu, object: nil)
-        
+            NotificationCenter.default.post(name: NotificationName.goToMainMenu, object: nil)
             if let player = match.players.first
             {
-                if player.state != .Start && player.state != .EndGame
+                if player.state != .start && player.state != .endGame
                 {
                     GameFileManager.saveMatch(match)
                 }
@@ -449,11 +449,11 @@ class PlayViewController: UIViewController {
         }
         else
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.goToMainRoom, object: nil)
+            NotificationCenter.default.post(name: NotificationName.goToMainRoom, object: nil)
         }
     }
     
-    @IBAction func roll(sender: UIButton)
+    @IBAction func roll(_ sender: UIButton)
     {
         if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
         {
@@ -471,7 +471,7 @@ class PlayViewController: UIViewController {
             
             if Match.shared.matchType == .OnlineMultiplayer
             {
-                WsAPI.shared.turn(.NewGame, matchId: Match.shared.id, params: JSON([:]))
+                WsAPI.shared.turn(.newGame, matchId: Match.shared.id, params: JSON([:]))
             }
         }
         else if playLbl!.text == lstr("Next player")
@@ -484,7 +484,7 @@ class PlayViewController: UIViewController {
         }
     }
     
-    @IBAction func onDiceTouched(sender: UIButton)
+    @IBAction func onDiceTouched(_ sender: UIButton)
     {
         print("Touched: \(sender.tag)")
         if Match.shared.matchType == .OnlineMultiplayer && !Match.shared.isLocalPlayerTurn()
@@ -494,7 +494,7 @@ class PlayViewController: UIViewController {
         Match.shared.onDieTouched(UInt(sender.tag))
     }
     
-    @IBAction func talk(sender: AnyObject)
+    @IBAction func talk(_ sender: AnyObject)
     {
         let customText = "..."
         
@@ -511,17 +511,17 @@ class PlayViewController: UIViewController {
         
         let localPlayerId = PlayerStat.shared.id
         
-        guard let recipientPlayerIdx = Match.shared.players.indexOf({ (player) -> Bool in
+        guard let recipientPlayerIdx = Match.shared.players.index(where: { (player) -> Bool in
             return player.id != localPlayerId
         }) else {return}
         
         
         
         let recipient = Match.shared.players[recipientPlayerIdx]
-        let alert = UIAlertController(title: nil, message: lstr("Send message to opponent"), preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: nil, message: lstr("Send message to opponent"), preferredStyle: .actionSheet)
         for msg in messages
         {
-            alert.addAction(UIAlertAction(title: msg, style: .Default, handler: {action in
+            alert.addAction(UIAlertAction(title: msg, style: .default, handler: {action in
                 if msg == customText
                 {
                     self.inputCustomTextForRecipient(recipient)
@@ -533,51 +533,51 @@ class PlayViewController: UIViewController {
                 
             }))
         }
-        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
-    func inputCustomTextForRecipient(recipient: Player)
+    func inputCustomTextForRecipient(_ recipient: Player)
     {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Send message to opponent"), preferredStyle: .Alert)
-        alert.addTextFieldWithConfigurationHandler { (textField) in
+        let alert = UIAlertController(title: "Yamb", message: lstr("Send message to opponent"), preferredStyle: .alert)
+        alert.addTextField { (textField) in
             textField.text = nil
             textField.placeholder = lstr("Message")
         }
-        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             if let msg = alert.textFields?.first?.text
             {
                 WsAPI.shared.sendTextMessage(recipient, text: msg)
             }
         }))
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func onWsDidConnect()
     {
-        connectingLbl?.hidden = true
+        connectingLbl?.isHidden = true
     }
     
     func onWsDidDisconnect()
     {
         if Match.shared.matchType == .OnlineMultiplayer
         {
-            connectingLbl?.hidden = false
+            connectingLbl?.isHidden = false
         }
     }
     
-    func onPlayerTurnInMultiplayer(notification: NSNotification)
+    func onPlayerTurnInMultiplayer(_ notification: Notification)
     {
         progressView?.removeAnimation()
         progressView?.animateShape(Match.shared.turnDuration)
         let turnId = notification.object as! Int
-        print(NSDate())
+        print(Date())
         
         guard Match.shared.isLocalPlayerTurn() else {return}
         
         dispatchToMainQueue(delay: Match.shared.turnDuration) {[weak self] in
-            print(NSDate())
+            print(Date())
             // if still on turn
             guard Match.shared.matchType == .OnlineMultiplayer && turnId == Match.shared.turnId else {return}
             
@@ -609,7 +609,7 @@ class PlayViewController: UIViewController {
         }
     }
     
-    func onReceivedTextMessage(notification: NSNotification)
+    func onReceivedTextMessage(_ notification: Notification)
     {
         let dic = notification.object as! [String: AnyObject]
         print(notification.object)
@@ -620,38 +620,38 @@ class PlayViewController: UIViewController {
         showPopup(senderID, text: text)
     }
     
-    private func showPopup(senderId: String, text: String)
+    fileprivate func showPopup(_ senderId: String, text: String)
     {
         messageView?.removeFromSuperview()
-        let frameHeight = CGRectGetHeight(messageView!.frame)
-        let fullWidth = CGRectGetWidth(view.frame)
+        let frameHeight = messageView!.frame.height
+        let fullWidth = view.frame.width
         let margin:CGFloat = 10
-        messageView?.frame = CGRectMake(margin, margin, fullWidth-2*margin, -frameHeight)
+        messageView?.frame = CGRect(x: margin, y: margin, width: fullWidth-2*margin, height: -frameHeight)
         
-        guard let idxSender = Match.shared.players.indexOf({ (p) -> Bool in
+        guard let idxSender = Match.shared.players.index(where: { (p) -> Bool in
             return p.id == senderId
         }) else {return}
         
         let sender = Match.shared.players[idxSender]
         
         let skin = idxSender == 0 ? Skin.blue : Skin.red
-        messageView?.layer.borderColor = skin.strokeColor.CGColor
-        messageView?.layer.backgroundColor = skin.labelBackColor.CGColor
+        messageView?.layer.borderColor = skin.strokeColor.cgColor
+        messageView?.layer.backgroundColor = skin.labelBackColor.cgColor
         messageTextLbl?.textColor = skin.strokeColor
         
         messageTextLbl?.text = "\(sender.alias!):\n\(text)"
         view.addSubview(messageView!)
         
-        UIView.animateWithDuration(0.5) {[weak self] in
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
             if var frame = self?.messageView?.frame
             {
                 frame.origin.y = 3*margin
                 self?.messageView?.frame = frame
             }
-        }
+        }) 
         
-        UIView.animateWithDuration(
-            0.5, delay: 5, options: [], animations: {[weak self] in
+        UIView.animate(
+            withDuration: 0.5, delay: 5, options: [], animations: {[weak self] in
                 if var frame = self?.messageView?.frame
                 {
                     frame.origin.y = -frameHeight

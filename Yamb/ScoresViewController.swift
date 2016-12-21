@@ -8,20 +8,21 @@
 
 import UIKit
 import GameKit
+import SwiftyJSON
 
 var scoreSelekcija = ScorePickerSelekcija()
 
 class ScoresViewController: UIViewController
 {
     
-    private var allPlayers: [String:PlayerInfo]?
-    private var allStatItems: [StatItem]?
-    private var sortedPlayers = [PlayerInfo]()
-    private var filteredItems = [StatItem]()
-    private var gcLeaderboard6 = GKLeaderboard()
-    private var gcLeaderboard5 = GKLeaderboard()
-    private var gcScores5 = [GKScore]()
-    private var gcScores6 = [GKScore]()
+    fileprivate var allPlayers: [String:PlayerInfo]?
+    fileprivate var allStatItems: [StatItem]?
+    fileprivate var sortedPlayers = [PlayerInfo]()
+    fileprivate var filteredItems = [StatItem]()
+    fileprivate var gcLeaderboard6 = GKLeaderboard()
+    fileprivate var gcLeaderboard5 = GKLeaderboard()
+    fileprivate var gcScores5 = [GKScore]()
+    fileprivate var gcScores6 = [GKScore]()
 
     @IBOutlet weak var backBtn: UIButton?
     @IBOutlet weak var selectBtn: UIButton?
@@ -33,8 +34,8 @@ class ScoresViewController: UIViewController
 
         // Do any additional setup after loading the view.
         
-        backBtn?.setTitle(lstr("Back"), forState: .Normal)
-        selectBtn?.setTitle(scoreSelekcija.title(), forState: .Normal)
+        backBtn?.setTitle(lstr("Back"), for: UIControlState())
+        selectBtn?.setTitle(scoreSelekcija.title(), for: UIControlState())
         
         // get all players
         ServerAPI.players { [weak self] (data, response, error) in
@@ -49,7 +50,7 @@ class ScoresViewController: UIViewController
                 let playerInfo = PlayerInfo(json: json)
                 self?.allPlayers![playerInfo.id] = playerInfo
             }
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self?.evaluateBestScores()
                 self?.reload(true)
             })
@@ -68,53 +69,53 @@ class ScoresViewController: UIViewController
             {
                 self?.allStatItems?.append(StatItem(json: json))
             }
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self?.evaluateBestScores()
                 self?.reload(true)
             })
         }
         
         // get leaderboard 6 from GC
-        gcLeaderboard6.timeScope = GKLeaderboardTimeScope.AllTime
+        gcLeaderboard6.timeScope = GKLeaderboardTimeScope.allTime
         gcLeaderboard6.identifier = LeaderboardId.dice6
         gcLeaderboard6.range = NSMakeRange(1, 100)
-        gcLeaderboard6.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+        gcLeaderboard6.loadScores { [weak self] (scores, error) in
             if error != nil
             {
                 print(error)
             }
             else
             {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self?.gcScores6.appendContentsOf(scores!)
+                DispatchQueue.main.async(execute: {
+                    self?.gcScores6.append(contentsOf: scores!)
                     self?.reload(true)
                 })
             }
         }
         
         // get leaderboard 5 from GC
-        gcLeaderboard5.timeScope = GKLeaderboardTimeScope.AllTime
+        gcLeaderboard5.timeScope = GKLeaderboardTimeScope.allTime
         gcLeaderboard5.identifier = LeaderboardId.dice5
         gcLeaderboard5.range = NSMakeRange(1, 100)
-        gcLeaderboard5.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+        gcLeaderboard5.loadScores { [weak self] (scores, error) in
             if error != nil
             {
                 print(error)
             }
             else
             {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self?.gcScores5.appendContentsOf(scores!)
+                DispatchQueue.main.async(execute: {
+                    self?.gcScores5.append(contentsOf: scores!)
                     self?.reload(true)
                 })
             }
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedPicker"
         {
-            let scorePickerVC = segue.destinationViewController as! ScorePickerViewController
+            let scorePickerVC = segue.destination as! ScorePickerViewController
             scorePickerVC.scorePickerDelegate = self
             
         }
@@ -133,20 +134,20 @@ class ScoresViewController: UIViewController
             p.maxScore6 = 0
         }
         
-        let day: NSTimeInterval = 24*60*60
+        let day: TimeInterval = 24*60*60
         for statItem in allStatItems!
         {
-            let timeInterval = NSDate().timeIntervalSinceDate(statItem.timestamp)
+            let timeInterval = Date().timeIntervalSince(statItem.timestamp as Date)
             
             switch scoreSelekcija.timeRange
             {
-            case .Week:
+            case .week:
                 if timeInterval > 7*day
                 {
                     continue
                 }
             
-            case .Today:
+            case .today:
                 if timeInterval > day
                 {
                     continue
@@ -157,14 +158,14 @@ class ScoresViewController: UIViewController
             
             if let playerInfo = allPlayers![statItem.playerId]
             {
-                if statItem.diceNum == .Five
+                if statItem.diceNum == .five
                 {
                     if playerInfo.maxScore5 < statItem.score
                     {
                         playerInfo.maxScore5 = statItem.score
                     }
                 }
-                else if statItem.diceNum == .Six
+                else if statItem.diceNum == .six
                 {
                     if playerInfo.maxScore6 < statItem.score
                     {
@@ -178,29 +179,29 @@ class ScoresViewController: UIViewController
         })
     }
     
-    func reload(scrollToTop: Bool)
+    func reload(_ scrollToTop: Bool)
     {
-        sortedPlayers.sortInPlace({ (p0, p1) -> Bool in
+        sortedPlayers.sort(by: { (p0, p1) -> Bool in
             switch scoreSelekcija.scoreType
             {
-            case .FiveDice:
+            case .fiveDice:
                 switch scoreSelekcija.scoreValue
                 {
-                case .Score:
-                    return p0.maxScore5 > p1.maxScore5
-                case .Stars:
-                    return p0.avgScore5 > p1.avgScore5
+                case .score:
+                    return (p0.maxScore5 ?? 0) > (p1.maxScore5 ?? 0)
+                case .stars:
+                    return (p0.avgScore5 ?? 0) > (p1.avgScore5 ?? 0)
                 default:
                     return false
                 }
                 
-            case .SixDice:
+            case .sixDice:
                 switch scoreSelekcija.scoreValue
                 {
-                case .Score:
+                case .score:
                     return p0.maxScore6 > p1.maxScore6
-                case .Stars:
-                    return p0.avgScore6 > p1.avgScore6
+                case .stars:
+                    return (p0.avgScore6 ?? 0) > (p1.avgScore6 ?? 0)
                 default:
                     return false
                 }
@@ -211,21 +212,21 @@ class ScoresViewController: UIViewController
         tableView?.reloadData()
         if scrollToTop
         {
-            tableView?.setContentOffset(CGPointZero, animated:false)
+            tableView?.setContentOffset(CGPoint.zero, animated:false)
         }
     }
 
     
-    @IBAction func back(sender: AnyObject)
+    @IBAction func back(_ sender: AnyObject)
     {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func showPicker(sender: AnyObject)
+    @IBAction func showPicker(_ sender: AnyObject)
     {
-        pickerContainerView?.hidden = false
-        selectBtn?.hidden = true
-        view.bringSubviewToFront(pickerContainerView!)
+        pickerContainerView?.isHidden = false
+        selectBtn?.isHidden = true
+        view.bringSubview(toFront: pickerContainerView!)
     }
     
 
@@ -233,14 +234,14 @@ class ScoresViewController: UIViewController
 
 extension ScoresViewController: UITableViewDataSource
 {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if scoreSelekcija.scoreValue == .Gc
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if scoreSelekcija.scoreValue == .gc
         {
-            if scoreSelekcija.scoreType == .SixDice
+            if scoreSelekcija.scoreType == .sixDice
             {
                 return gcScores6.count
             }
-            else if scoreSelekcija.scoreType == .FiveDice
+            else if scoreSelekcija.scoreType == .fiveDice
             {
                 return gcScores5.count
             }
@@ -252,13 +253,13 @@ extension ScoresViewController: UITableViewDataSource
         return 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CellId", forIndexPath: indexPath) as! ScoreCell
-        if scoreSelekcija.scoreValue == .Gc
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath) as! ScoreCell
+        if scoreSelekcija.scoreValue == .gc
         {
             var gkScore: GKScore
-            if scoreSelekcija.scoreType == .SixDice
+            if scoreSelekcija.scoreType == .sixDice
             {
                 gkScore = gcScores6[indexPath.row]
             }
@@ -280,46 +281,46 @@ extension ScoresViewController: UITableViewDataSource
 
 extension ScoresViewController: UITableViewDelegate
 {
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        if scoreSelekcija.scoreValue == .Gc
+        if scoreSelekcija.scoreValue == .gc
         {
-            if scoreSelekcija.scoreType == .SixDice
+            if scoreSelekcija.scoreType == .sixDice
             {
                 let count = gcScores6.count
                 if count == indexPath.row+1 && count < gcLeaderboard6.maxRange
                 {
                     gcLeaderboard6.range = NSMakeRange(count+1,100)
-                    gcLeaderboard6.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+                    gcLeaderboard6.loadScores { [weak self] (scores, error) in
                         if error != nil
                         {
                             print(error)
                         }
                         else
                         {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self?.gcScores6.appendContentsOf(scores!)
+                            DispatchQueue.main.async(execute: {
+                                self?.gcScores6.append(contentsOf: scores!)
                                 self?.reload(false)
                             })
                         }
                     }
                 }
             }
-            else if scoreSelekcija.scoreType == .FiveDice
+            else if scoreSelekcija.scoreType == .fiveDice
             {
                 let count = gcScores5.count
                 if count == indexPath.row+1 && count < gcLeaderboard5.maxRange
                 {
                     gcLeaderboard5.range = NSMakeRange(count+1,100)
-                    gcLeaderboard5.loadScoresWithCompletionHandler { [weak self] (scores, error) in
+                    gcLeaderboard5.loadScores { [weak self] (scores, error) in
                         if error != nil
                         {
                             print(error)
                         }
                         else
                         {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self?.gcScores5.appendContentsOf(scores!)
+                            DispatchQueue.main.async(execute: {
+                                self?.gcScores5.append(contentsOf: scores!)
                                 self?.reload(false)
                             })
                         }
@@ -333,9 +334,9 @@ extension ScoresViewController: UITableViewDelegate
 extension ScoresViewController: ScorePickerDelegate
 {
     func doneWithSelekcija() {
-        pickerContainerView?.hidden = true
-        selectBtn?.hidden = false
-        selectBtn?.setTitle(scoreSelekcija.title(), forState: .Normal)
+        pickerContainerView?.isHidden = true
+        selectBtn?.isHidden = false
+        selectBtn?.setTitle(scoreSelekcija.title(), for: UIControlState())
         evaluateBestScores()
         reload(true)
     }

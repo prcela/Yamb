@@ -19,39 +19,39 @@ class ScoreCell: UITableViewCell {
         super.awakeFromNib()
         
         orderLbl.layer.cornerRadius = 21
-        orderLbl.layer.borderColor = UIColor.blackColor().CGColor
+        orderLbl.layer.borderColor = UIColor.black.cgColor
         orderLbl.layer.borderWidth = 2
     }
     
-    func updateWithPlayerInfo(playerInfo: PlayerInfo, order: Int)
+    func updateWithPlayerInfo(_ playerInfo: PlayerInfo, order: Int)
     {
         var score: UInt = 0
         var stars: Float = 0
         switch scoreSelekcija.scoreType
         {
-        case .SixDice:
+        case .sixDice:
             switch scoreSelekcija.scoreValue
             {
-            case .Score:
+            case .score:
                 score = playerInfo.maxScore6
-            case .Stars:
+            case .stars:
                 stars = (playerInfo.avgScore6 != nil) ? stars6(playerInfo.avgScore6!) : 0
-            case .Gc:
+            case .gc:
                 break
             }
             
-        case .FiveDice:
+        case .fiveDice:
             switch scoreSelekcija.scoreValue
             {
-            case .Score:
+            case .score:
                 score = playerInfo.maxScore5
-            case .Stars:
+            case .stars:
                 stars = (playerInfo.avgScore5 != nil) ? stars5(playerInfo.avgScore5!) : 0
             default:
                 break
             }
             
-        case .Diamonds:
+        case .diamonds:
             score = UInt(playerInfo.diamonds)
         }
         
@@ -59,26 +59,26 @@ class ScoreCell: UITableViewCell {
         update(order, score: score, stars: stars, name: playerInfo.alias, selected: playerInfo.id == localPlayerId)
     }
     
-    func updateWithGkScore(gkScore: GKScore, order: Int)
+    func updateWithGkScore(_ gkScore: GKScore, order: Int)
     {
         let selected = gkScore.player?.playerID == GameKitHelper.shared.localPlayerId
         update(order, score: UInt(gkScore.value), stars: 0, name: gkScore.player!.alias!, selected: selected)
     }
     
     
-    func update(order: Int, score: UInt, stars: Float, name: String, selected: Bool)
+    func update(_ order: Int, score: UInt, stars: Float, name: String, selected: Bool)
     {
         orderLbl.text = String(order)
         nameLbl.text = name
         
         
-        if scoreSelekcija.scoreType == .Diamonds
+        if scoreSelekcija.scoreType == .diamonds
         {
             scoreLbl.text = " 💎\(score)"
         }
-        else if scoreSelekcija.scoreValue == .Stars
+        else if scoreSelekcija.scoreValue == .stars
         {
-            scoreLbl.text = String(format: "⭐️ %@", starsFormatter.stringFromNumber(NSNumber(float:stars))!)
+            scoreLbl.text = String(format: "⭐️ %@", starsFormatter.string(from: NSNumber(value: stars as Float))!)
         }
         else
         {
@@ -87,17 +87,17 @@ class ScoreCell: UITableViewCell {
         
         if selected
         {
-            nameLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-            scoreLbl.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
-            orderLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-            orderLbl.layer.borderColor = UIColor.blackColor().CGColor
+            nameLbl.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium)
+            scoreLbl.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+            orderLbl.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium)
+            orderLbl.layer.borderColor = UIColor.black.cgColor
         }
         else
         {
-            nameLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightThin)
-            scoreLbl.font = UIFont.systemFontOfSize(14, weight: UIFontWeightThin)
-            orderLbl.font = UIFont.systemFontOfSize(17, weight: UIFontWeightThin)
-            orderLbl.layer.borderColor = UIColor.clearColor().CGColor
+            nameLbl.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
+            scoreLbl.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
+            orderLbl.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
+            orderLbl.layer.borderColor = UIColor.clear.cgColor
         }
         
     }

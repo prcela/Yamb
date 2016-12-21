@@ -16,20 +16,20 @@ class RoomViewController: UIViewController
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         
         nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
         nc.addObserver(self, selector: #selector(popToHere), name: NotificationName.goToMainRoom, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backBtn?.setTitle(lstr("Back"), forState: .Normal)
+        backBtn?.setTitle(lstr("Back"), for: UIControlState())
         // Do any additional setup after loading the view.
         WsAPI.shared.connect()
     }
@@ -48,9 +48,9 @@ class RoomViewController: UIViewController
     }
     
     
-    @IBAction func back(sender: AnyObject)
+    @IBAction func back(_ sender: AnyObject)
     {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -64,7 +64,7 @@ extension RoomViewController: UITableViewDataSource
         })
         return filteredMatches
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSections(in tableView: UITableView) -> Int
     {
         // create match
         // waiting matches
@@ -73,7 +73,7 @@ extension RoomViewController: UITableViewDataSource
         return 4
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let titles:[String?] = [
             nil,
             lstr("Free matches"),
@@ -82,10 +82,10 @@ extension RoomViewController: UITableViewDataSource
         return titles[section]
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let playerId = PlayerStat.shared.id
-        let isFreePlayer = Room.main.freePlayers().contains({ (player) -> Bool in
+        let isFreePlayer = Room.main.freePlayers().contains(where: { (player) -> Bool in
             return player.id == playerId
         })
         
@@ -116,39 +116,39 @@ extension RoomViewController: UITableViewDataSource
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
         let playerId = PlayerStat.shared.id
         
         if indexPath.section == 0
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId")!
             cell.textLabel?.text = lstr("Create new match")
-            cell.accessoryType = .DisclosureIndicator
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
         else if indexPath.section == 1
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MatchCellId") as! MatchCell
             let match = freeMatches()[indexPath.row]
             cell.updateWithWaitingMatch(match)
             return cell
         }
         else if indexPath.section == 2
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("CellId")!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId")!
             let player = Room.main.freePlayers().filter({ (player) -> Bool in
                 return player.id != playerId && player.connected
             })[indexPath.row]
-            let stars = starsFormatter.stringFromNumber(NSNumber(float: stars6(player.avgScore6)))!
+            let stars = starsFormatter.string(from: NSNumber(value: stars6(player.avgScore6) as Float))!
             cell.textLabel?.text = String(format: "%@ ⭐️  %@", stars, player.alias!)
-            cell.accessoryType = .None
+            cell.accessoryType = .none
             return cell
         }
         else
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("MatchCellId") as! MatchCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MatchCellId") as! MatchCell
             let playingMatches = Room.main.matchesInfo(.Playing)
             let match = playingMatches[indexPath.row]
             cell.updateWithPlayingMatch(match)
@@ -162,12 +162,12 @@ extension RoomViewController: UITableViewDataSource
 
 extension RoomViewController: UITableViewDelegate
 {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 0
         {
-            performSegueWithIdentifier("prepareMP", sender: self)
+            performSegue(withIdentifier: "prepareMP", sender: self)
         }
         else if indexPath.section == 1
         {
@@ -185,7 +185,7 @@ extension RoomViewController: UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if [1,3].contains(indexPath.section)
         {
             return 70
@@ -199,13 +199,13 @@ extension UIViewController
 {
     func suggestRewardVideo()
     {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: lstr("No"), style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: lstr("Yes"), style: .Default, handler: { (action) in
-            dispatch_async(dispatch_get_main_queue(), {
+        let alert = UIAlertController(title: "Yamb", message: lstr("Not enough diamonds, look reward"), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: lstr("No"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: lstr("Yes"), style: .default, handler: { (action) in
+            DispatchQueue.main.async(execute: {
                 Chartboost.showRewardedVideo(CBLocationMainMenu)
             })
         }))
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -27,7 +27,7 @@ class GameKitHelper: NSObject
         
         localPlayer.authenticateHandler = {(viewController, error) in
             //handle authentication
-            self.lastError = error
+            self.lastError = error as NSError?
             if let vc = viewController
             {
                 self.authController = vc
@@ -35,11 +35,11 @@ class GameKitHelper: NSObject
             else
             {
                 let localPlayer = GKLocalPlayer.localPlayer()
-                self.authenticated = localPlayer.authenticated
+                self.authenticated = localPlayer.isAuthenticated
                 self.localPlayerId = localPlayer.playerID
                 self.authController = nil
                 
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.authenticatedLocalPlayer, object: nil)
+                NotificationCenter.default.post(name: NotificationName.authenticatedLocalPlayer, object: nil)
                 FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")
             }
         }

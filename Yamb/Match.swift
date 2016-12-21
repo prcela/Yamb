@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import GameKit
 import Crashlytics
+import SwiftyJSON
 
 private let keyPlayers = "keyPlayers"
 private let keyIdxPlayer = "keyIdxPlayer"
@@ -18,8 +19,8 @@ private let keyCtColumns = "keyCtColumns"
 
 enum DiceNum: Int
 {
-    case Five = 5
-    case Six = 6
+    case five = 5
+    case six = 6
 }
 
 enum MatchType: String
@@ -49,9 +50,9 @@ class Match: NSObject, NSCoding
     var id: UInt = 0
     var players = [Player]()
     var indexOfPlayerOnTurn: Int = 0
-    var diceNum = DiceNum.Six
+    var diceNum = DiceNum.six
     var bet = 5
-    var turnDuration: NSTimeInterval = 60
+    var turnDuration: TimeInterval = 60
     var turnId = 0
     
     var ctColumns = 6
@@ -60,7 +61,7 @@ class Match: NSObject, NSCoding
         super.init()
     }
     
-    func start(matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?, alias: String?, avgScore6: Float, diceMat: DiceMaterial)], matchId: UInt, bet: Int)
+    func start(_ matchType: MatchType, diceNum: DiceNum, playersDesc: [(id: String?, alias: String?, avgScore6: Float, diceMat: DiceMaterial)], matchId: UInt, bet: Int)
     {
         self.matchType = matchType
         self.diceNum = diceNum
@@ -85,13 +86,13 @@ class Match: NSObject, NSCoding
         diceScene.start(diceNum.rawValue)
         diceScene.updateDiceSelection(players.first!.diceHeld)
         
-        NSUserDefaults.standardUserDefaults().setObject(diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
+        UserDefaults.standard.set(diceNum == .five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
         
         Answers.logLevelStart(matchType.rawValue, customAttributes: ["diceNum" : diceNum.rawValue])
         
-        FIRAnalytics.logEventWithName("game_start", parameters: ["dice_num": diceNum.rawValue])
+        FIRAnalytics.logEvent(withName: "game_start", parameters: ["dice_num": diceNum.rawValue as NSObject])
     }
     
     func nextPlayer()
@@ -99,7 +100,7 @@ class Match: NSObject, NSCoding
         if matchType == .OnlineMultiplayer && isLocalPlayerTurn()
         {
             let params = JSON([:])
-            WsAPI.shared.turn(.NextPlayer, matchId: id, params: params)
+            WsAPI.shared.turn(.nextPlayer, matchId: id, params: params)
         }
         
         players[indexOfPlayerOnTurn].next()
@@ -115,20 +116,20 @@ class Match: NSObject, NSCoding
             diceScene.updateDiceValues(values)
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
         print("Next player on turn: \(indexOfPlayerOnTurn)")
         
         if matchType == .OnlineMultiplayer
         {
             // start the expiration timer
             turnId += 1
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.onPlayerTurnInMultiplayer, object: turnId)
+            NotificationCenter.default.post(name: NotificationName.onPlayerTurnInMultiplayer, object: turnId)
         }
     }
     
-    func player(id: String) -> Player?
+    func player(_ id: String) -> Player?
     {
-        if let idx = players.indexOf({$0.id == id})
+        if let idx = players.index(where: {$0.id == id})
         {
             return players[idx]
         }
@@ -141,17 +142,17 @@ class Match: NSObject, NSCoding
     }
     
     
-    func didSelectCellAtPos(pos: TablePos)
+    func didSelectCellAtPos(_ pos: TablePos)
     {
         let player = players[indexOfPlayerOnTurn]
         player.didSelectCellAtPos(pos)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
     }
     
     
     
-    func onDieTouched(dieIdx: UInt)
+    func onDieTouched(_ dieIdx: UInt)
     {
         let player = players[indexOfPlayerOnTurn]
         player.onDieTouched(dieIdx)        
@@ -172,23 +173,23 @@ class Match: NSObject, NSCoding
     }
     
     // MARK: NSCoding
-    func encodeWithCoder(aCoder: NSCoder)
+    func encode(with aCoder: NSCoder)
     {
-        aCoder.encodeObject(players, forKey: keyPlayers)
-        aCoder.encodeInteger(indexOfPlayerOnTurn, forKey: keyIdxPlayer)
-        aCoder.encodeInteger(diceNum.rawValue, forKey: keyDiceNum)
+        aCoder.encode(players, forKey: keyPlayers)
+        aCoder.encode(indexOfPlayerOnTurn, forKey: keyIdxPlayer)
+        aCoder.encode(diceNum.rawValue, forKey: keyDiceNum)
         
-        aCoder.encodeInteger(ctColumns, forKey: keyCtColumns)
+        aCoder.encode(ctColumns, forKey: keyCtColumns)
 
     }
     
     required init?(coder aDecoder: NSCoder)
     {
-        players = aDecoder.decodeObjectForKey(keyPlayers) as! [Player]
-        indexOfPlayerOnTurn = aDecoder.decodeIntegerForKey(keyIdxPlayer)
-        diceNum = DiceNum(rawValue: aDecoder.decodeIntegerForKey(keyDiceNum))!
+        players = aDecoder.decodeObject(forKey: keyPlayers) as! [Player]
+        indexOfPlayerOnTurn = aDecoder.decodeInteger(forKey: keyIdxPlayer)
+        diceNum = DiceNum(rawValue: aDecoder.decodeInteger(forKey: keyDiceNum))!
         
-        ctColumns = aDecoder.decodeIntegerForKey(keyCtColumns)
+        ctColumns = aDecoder.decodeInteger(forKey: keyCtColumns)
         super.init()
     }
 }

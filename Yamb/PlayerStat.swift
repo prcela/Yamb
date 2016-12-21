@@ -14,7 +14,7 @@ class PlayerStat: NSObject, NSCoding
 
     var favDiceMat:DiceMaterial = .White {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerFavDiceChanged, object: diamonds)
+            NotificationCenter.default.post(name: NotificationName.playerFavDiceChanged, object: diamonds)
         }
     }
     var boughtDiceMaterials = [DiceMaterial]()
@@ -23,13 +23,13 @@ class PlayerStat: NSObject, NSCoding
     var alias: String = ""
     var items = [StatItem]() {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerStatItemsChanged, object: items)
+            NotificationCenter.default.post(name: NotificationName.playerStatItemsChanged, object: items)
         }
     }
     var purchasedName = false
     var diamonds = 100 {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerDiamondsChanged, object: diamonds)
+            NotificationCenter.default.post(name: NotificationName.playerDiamondsChanged, object: diamonds)
         }
     }
     
@@ -42,7 +42,7 @@ class PlayerStat: NSObject, NSCoding
         super.init()
     }
     
-    func ownsDiceMat(diceMat: DiceMaterial) -> Bool
+    func ownsDiceMat(_ diceMat: DiceMaterial) -> Bool
     {
         if DiceMaterial.forFree.contains(diceMat)
         {
@@ -57,30 +57,30 @@ class PlayerStat: NSObject, NSCoding
         return owned
     }
     
-    private class func filePath() -> String
+    fileprivate class func filePath() -> String
     {
-        let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: [.UserDomainMask]).first!
-        let filePath = docURL.URLByAppendingPathComponent("PlayerStat")!.path!
+        let docURL = FileManager.default.urls(for: .documentDirectory, in: [.userDomainMask]).first!
+        let filePath = docURL.appendingPathComponent("PlayerStat").path
         return filePath
     }
     
     class func loadStat()
     {
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath())
+        if FileManager.default.fileExists(atPath: filePath())
         {
-            shared = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath()) as! PlayerStat
+            shared = NSKeyedUnarchiver.unarchiveObject(withFile: filePath()) as! PlayerStat
             
             // keep the old id and alias if still exist
-            let def = NSUserDefaults.standardUserDefaults()
-            if let id = def.objectForKey(Prefs.playerId_Deprecated) as? String
+            let def = UserDefaults.standard
+            if let id = def.object(forKey: Prefs.playerId_Deprecated) as? String
             {
                 shared.id = id
-                def.removeObjectForKey(Prefs.playerId_Deprecated)
+                def.removeObject(forKey: Prefs.playerId_Deprecated)
             }
-            if let alias = def.objectForKey(Prefs.playerAlias_Deprecated) as? String
+            if let alias = def.object(forKey: Prefs.playerAlias_Deprecated) as? String
             {
                 shared.alias = alias
-                def.removeObjectForKey(Prefs.playerAlias_Deprecated)
+                def.removeObject(forKey: Prefs.playerAlias_Deprecated)
             }
         }
         
@@ -93,7 +93,7 @@ class PlayerStat: NSObject, NSCoding
         print("Saved stat")
     }
     
-    class func avgScore(diceNum: DiceNum) -> Float
+    class func avgScore(_ diceNum: DiceNum) -> Float
     {
         var sum:Float = 0
         var ct = 0
@@ -113,60 +113,60 @@ class PlayerStat: NSObject, NSCoding
     }
     
     // MARK: NSCoding
-    func encodeWithCoder(aCoder: NSCoder)
+    func encode(with aCoder: NSCoder)
     {
-        aCoder.encodeObject(id, forKey: "id")
-        aCoder.encodeObject(alias, forKey: "alias")
-        aCoder.encodeInteger(diamonds, forKey: "diamonds")
-        aCoder.encodeObject(items, forKey: "items")
-        aCoder.encodeObject(favDiceMat.rawValue, forKey: "favDiceMat")
-        aCoder.encodeBool(purchasedName, forKey: "purchasedName")
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(alias, forKey: "alias")
+        aCoder.encode(diamonds, forKey: "diamonds")
+        aCoder.encode(items, forKey: "items")
+        aCoder.encode(favDiceMat.rawValue, forKey: "favDiceMat")
+        aCoder.encode(purchasedName, forKey: "purchasedName")
         
-        aCoder.encodeObject(boughtDiceMaterials.map({ (diceMat) -> String in
+        aCoder.encode(boughtDiceMaterials.map({ (diceMat) -> String in
             return diceMat.rawValue
         }), forKey: "boughtDiceMaterials")
-        aCoder.encodeObject(retentions, forKey: "retentions")
+        aCoder.encode(retentions, forKey: "retentions")
     }
     
     required init?(coder aDecoder: NSCoder)
     {
-        if aDecoder.containsValueForKey("id")
+        if aDecoder.containsValue(forKey: "id")
         {
-            id = aDecoder.decodeObjectForKey("id") as! String
+            id = aDecoder.decodeObject(forKey: "id") as! String
         }
         else
         {
             id = String(arc4random())
         }
         
-        if aDecoder.containsValueForKey("alias")
+        if aDecoder.containsValue(forKey: "alias")
         {
-            alias = aDecoder.decodeObjectForKey("alias") as! String
+            alias = aDecoder.decodeObject(forKey: "alias") as! String
         }
         else
         {
             alias = lstr("Player") + "_" + id
         }
         
-        diamonds = aDecoder.decodeIntegerForKey("diamonds")
-        items = aDecoder.decodeObjectForKey("items") as! [StatItem]
-        if aDecoder.containsValueForKey("favDiceMat")
+        diamonds = aDecoder.decodeInteger(forKey: "diamonds")
+        items = aDecoder.decodeObject(forKey: "items") as! [StatItem]
+        if aDecoder.containsValue(forKey: "favDiceMat")
         {
-            favDiceMat = DiceMaterial(rawValue: aDecoder.decodeObjectForKey("favDiceMat") as! String)!
+            favDiceMat = DiceMaterial(rawValue: aDecoder.decodeObject(forKey: "favDiceMat") as! String)!
         }
-        if aDecoder.containsValueForKey("purchasedName")
+        if aDecoder.containsValue(forKey: "purchasedName")
         {
-            purchasedName = aDecoder.decodeBoolForKey("purchasedName")
+            purchasedName = aDecoder.decodeBool(forKey: "purchasedName")
         }
-        if aDecoder.containsValueForKey("boughtDiceMaterials")
+        if aDecoder.containsValue(forKey: "boughtDiceMaterials")
         {
-            boughtDiceMaterials = (aDecoder.decodeObjectForKey("boughtDiceMaterials") as! [String]).map({ (rawName) -> DiceMaterial in
+            boughtDiceMaterials = (aDecoder.decodeObject(forKey: "boughtDiceMaterials") as! [String]).map({ (rawName) -> DiceMaterial in
                 return DiceMaterial(rawValue: rawName)!
             })
         }
-        if aDecoder.containsValueForKey("retentions")
+        if aDecoder.containsValue(forKey: "retentions")
         {
-            retentions = aDecoder.decodeObjectForKey("retentions") as! [Int]
+            retentions = aDecoder.decodeObject(forKey: "retentions") as! [Int]
         }
         super.init()
     }

@@ -15,9 +15,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let _ = FBSDKAccessToken.currentAccessToken()
+        if let _ = FBSDKAccessToken.current()
         {
-            performSegueWithIdentifier("next", sender: self)
+            performSegue(withIdentifier: "next", sender: self)
         }
         
     }
@@ -27,31 +27,31 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func loginWithFacebook(sender: AnyObject)
+    @IBAction func loginWithFacebook(_ sender: AnyObject)
     {
         let fbLogin = FBSDKLoginManager()
-        fbLogin.logInWithReadPermissions(["public_profile","email","user_friends"],
-                                         fromViewController: self)
+        fbLogin.logIn(withReadPermissions: ["public_profile","email","user_friends"],
+                                         from: self)
         { (result, error) in
             if error != nil
             {
                 print(error)
             }
-            else if result.isCancelled
+            else if (result?.isCancelled)!
             {
                 print("Cancelled")
             }
             else
             {
                 print("Logged in")
-                self.performSegueWithIdentifier("next", sender: self)
+                self.performSegue(withIdentifier: "next", sender: self)
             }
         }
     }
 
-    @IBAction func playAsGuest(sender: AnyObject)
+    @IBAction func playAsGuest(_ sender: AnyObject)
     {
-        performSegueWithIdentifier("next", sender: self)
+        performSegue(withIdentifier: "next", sender: self)
     }
     
 

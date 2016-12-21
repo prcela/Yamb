@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class DiceScore
 {
     var score: Int32
-    var timestamp: NSDate
+    var timestamp: Date
     var stars: Double
     var avg_score: Double
     
@@ -21,7 +22,7 @@ class DiceScore
             return nil
         }
         score = json["score"].int32Value
-        timestamp = NSDate(timeIntervalSince1970: json["timestamp"].doubleValue)
+        timestamp = Date(timeIntervalSince1970: json["timestamp"].doubleValue)
         stars = json["stars"].doubleValue
         avg_score = json["avg_score"].doubleValue
     }

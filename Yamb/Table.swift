@@ -7,23 +7,49 @@
 //
 
 import Foundation
+import SwiftyJSON
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 private let keyValue = "keyValue"
 
 class Table: NSObject, NSCoding
 {
     // table ordered with colIdx, rowIdx
-    var values = [[UInt?]](count: 6, repeatedValue: [UInt?](count: 16, repeatedValue: nil))
+    var values = [[UInt?]](repeating: [UInt?](repeating: nil, count: 16), count: 6)
     
-    func encodeWithCoder(aCoder: NSCoder)
+    func encode(with aCoder: NSCoder)
     {
-        for (idxCol,col) in values.enumerate()
+        for (idxCol,col) in values.enumerated()
         {
-            for (idxRow,row) in col.enumerate()
+            for (idxRow,row) in col.enumerated()
             {
                 if row != nil
                 {
-                    aCoder.encodeInteger(Int(row!), forKey:"\(keyValue) \(idxCol) \(idxRow)")
+                    aCoder.encode(Int(row!), forKey:"\(keyValue) \(idxCol) \(idxRow)")
                 }
             }
         }
@@ -40,9 +66,9 @@ class Table: NSObject, NSCoding
             for idxRow in 0..<16
             {
                 let key = "\(keyValue) \(idxCol) \(idxRow)"
-                if aDecoder.containsValueForKey(key)
+                if aDecoder.containsValue(forKey: key)
                 {
-                    values[idxCol][idxRow] = UInt(aDecoder.decodeIntegerForKey(key))
+                    values[idxCol][idxRow] = UInt(aDecoder.decodeInteger(forKey: key))
                 }
             }
         }
@@ -52,10 +78,10 @@ class Table: NSObject, NSCoding
     
     func resetValues()
     {
-        values = [[UInt?]](count: 6, repeatedValue: [UInt?](count: 16, repeatedValue: nil))
+        values = [[UInt?]](repeating: [UInt?](repeating: nil, count: 16), count: 6)
     }
     
-    func updateValue(pos: TablePos, diceValues: [UInt]?) -> UInt?
+    func updateValue(_ pos: TablePos, diceValues: [UInt]?) -> UInt?
     {
         let newValue = calculateValueForPos(pos, diceValues: diceValues)
         values[pos.colIdx][pos.rowIdx] = newValue
@@ -64,13 +90,13 @@ class Table: NSObject, NSCoding
         {
             var params = JSON(["posColIdx":pos.colIdx, "posRowIdx":pos.rowIdx])
             params["value"].uInt = newValue
-            WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
+            WsAPI.shared.turn(.setValueAtTablePos, matchId: Match.shared.id, params: params)
         }
         
         return newValue
     }
     
-    func calculateValueForPos(pos: TablePos, diceValues: [UInt]?) -> UInt?
+    func calculateValueForPos(_ pos: TablePos, diceValues: [UInt]?) -> UInt?
     {
         guard let diceValues = diceValues else {return nil}
         
@@ -78,7 +104,7 @@ class Table: NSObject, NSCoding
         
         switch row
         {
-        case .One, .Two, .Three, .Four, .Five, .Six:
+        case .one, .two, .three, .four, .five, .six:
             var ct:UInt = 0
             for value in diceValues
             {
@@ -89,12 +115,12 @@ class Table: NSObject, NSCoding
             }
             return min(5, ct) * UInt(pos.rowIdx)
             
-        case .SumNumbers:
+        case .sumNumbers:
             
             var sum: UInt?
-            if pos.colIdx == TableCol.Sum.rawValue
+            if pos.colIdx == TableCol.sum.rawValue
             {
-                for col:TableCol in [.Down,.Up,.UpDown,.N]
+                for col:TableCol in [.down,.up,.upDown,.n]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
@@ -127,12 +153,12 @@ class Table: NSObject, NSCoding
             return sum
             
             
-        case .Max, .Min:
+        case .max, .min:
             
-            let numMax = diceValues.reduce(UInt.min, combine: { max($0, $1) })
-            let numMin = diceValues.reduce(UInt.max, combine: { min($0, $1) })
+            let numMax = diceValues.reduce(UInt.min, { max($0, $1) })
+            let numMin = diceValues.reduce(UInt.max, { min($0, $1) })
             
-            let sum = diceValues.reduce(0, combine: { (sum, value) -> UInt in
+            let sum = diceValues.reduce(0, { (sum, value) -> UInt in
                 return sum + value
             })
             
@@ -140,7 +166,7 @@ class Table: NSObject, NSCoding
             {
                 return sum
             }
-            else if row == .Max
+            else if row == .max
             {
                 return sum - numMin
             }
@@ -149,12 +175,12 @@ class Table: NSObject, NSCoding
                 return sum - numMax
             }
             
-        case .SumMaxMin:
-            if pos.colIdx == TableCol.Sum.rawValue
+        case .sumMaxMin:
+            if pos.colIdx == TableCol.sum.rawValue
             {
                 var sum:UInt?
                 
-                for col:TableCol in [.Down,.Up,.UpDown,.N]
+                for col:TableCol in [.down,.up,.upDown,.n]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
@@ -169,29 +195,29 @@ class Table: NSObject, NSCoding
             else
             {
                 if let
-                    maxValue = values[pos.colIdx][TableRow.Max.rawValue],
-                    let minValue = values[pos.colIdx][TableRow.Min.rawValue],
-                    let oneValue = values[pos.colIdx][TableRow.One.rawValue]
+                    maxValue = values[pos.colIdx][TableRow.max.rawValue],
+                    let minValue = values[pos.colIdx][TableRow.min.rawValue],
+                    let oneValue = values[pos.colIdx][TableRow.one.rawValue]
                 {
                     return (maxValue-minValue)*oneValue
                 }
             }
             return nil
             
-        case .Skala:
+        case .skala:
             let set = Set(diceValues)
             
-            if set.intersect([2,3,4,5,6]).count == 5
+            if set.intersection([2,3,4,5,6]).count == 5
             {
                 return 40
             }
-            else if set.intersect([1,2,3,4,5]).count == 5
+            else if set.intersection([1,2,3,4,5]).count == 5
             {
                 return 30
             }
             return 0
             
-        case .Full:
+        case .full:
             
             var sum = [UInt:UInt]()
             var atLeastPairs = [UInt]()
@@ -214,7 +240,7 @@ class Table: NSObject, NSCoding
             
             if atLeastPairs.count == 2 && (sum[atLeastPairs[0]] >= 3 || sum[atLeastPairs[1]] >= 3)
             {
-                atLeastPairs.sortInPlace()
+                atLeastPairs.sort()
                 if sum[atLeastPairs[1]] >= 3
                 {
                     return 30 + atLeastPairs[0]*2 + atLeastPairs[1]*3
@@ -232,7 +258,7 @@ class Table: NSObject, NSCoding
             
             return 0
             
-        case .Poker, .Yamb:
+        case .poker, .yamb:
             
             var sum = [UInt:UInt]()
             for value in diceValues
@@ -242,14 +268,14 @@ class Table: NSObject, NSCoding
                     sum[value] = 0
                 }
                 sum[value]! += 1
-                if row == .Poker
+                if row == .poker
                 {
                     if sum[value] == 4
                     {
                         return 40 + 4*value
                     }
                 }
-                else if row == .Yamb
+                else if row == .yamb
                 {
                     if sum[value] == 5
                     {
@@ -260,11 +286,11 @@ class Table: NSObject, NSCoding
             
             return 0
             
-        case .SumSFPY:
+        case .sumSFPY:
             var sum:UInt?
-            if pos.colIdx == TableCol.Sum.rawValue
+            if pos.colIdx == TableCol.sum.rawValue
             {
-                for col:TableCol in [.Down,.Up,.UpDown,.N]
+                for col:TableCol in [.down,.up,.upDown,.n]
                 {
                     if let value = values[col.rawValue][pos.rowIdx]
                     {
@@ -278,7 +304,7 @@ class Table: NSObject, NSCoding
             }
             else
             {
-                for row:TableRow in [.Skala,.Full,.Poker,.Yamb]
+                for row:TableRow in [.skala,.full,.poker,.yamb]
                 {
                     if let value = values[pos.colIdx][row.rawValue]
                     {
@@ -297,34 +323,34 @@ class Table: NSObject, NSCoding
         }
     }
     
-    func isQualityValueFor(pos: TablePos, diceValues: [UInt]?) -> Bool
+    func isQualityValueFor(_ pos: TablePos, diceValues: [UInt]?) -> Bool
     {
         guard let value = values[pos.colIdx][pos.rowIdx] else {return false}
         
         switch TableRow(rawValue: pos.rowIdx)! {
-        case .One,.Two,.Three,.Four,.Five,.Six:
+        case .one,.two,.three,.four,.five,.six:
             return value == 5*UInt(pos.rowIdx)
-        case .Max:
+        case .max:
             return value == 5*6
-        case .Min:
+        case .min:
             return value == 5
-        case .Skala:
+        case .skala:
             return value == 40
-        case .Full:
+        case .full:
             return value >= 58 || (diceValues != nil && diceValues!.count == 5 && value > 0)
-        case .Poker:
+        case .poker:
             return value > 0
-        case .Yamb:
+        case .yamb:
             return value > 0
         default:
             return false
         }
     }
     
-    func recalculateSumsForColumn(colIdx: Int, diceValues: [UInt]?)
+    func recalculateSumsForColumn(_ colIdx: Int, diceValues: [UInt]?)
     {
-        let sumRows:[TableRow] = [.SumNumbers,.SumMaxMin,.SumSFPY]
-        let sumColIdx = TableCol.Sum.rawValue
+        let sumRows:[TableRow] = [.sumNumbers,.sumMaxMin,.sumSFPY]
+        let sumColIdx = TableCol.sum.rawValue
         for row in sumRows
         {
             updateValue(TablePos(rowIdx: row.rawValue, colIdx: colIdx), diceValues: diceValues)
@@ -334,9 +360,9 @@ class Table: NSObject, NSCoding
     
     func fakeFill()
     {
-        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        for row:TableRow in [.one, .two, .three, .four, .five, .six, .max, .min, .skala, .full, .poker, .yamb]
         {
-            for col:TableCol in [.Down, .Up, .UpDown, .N]
+            for col:TableCol in [.down, .up, .upDown, .n]
             {
                 values[col.rawValue][row.rawValue] = 1
             }
@@ -345,9 +371,9 @@ class Table: NSObject, NSCoding
         values[4][1] = nil
     }
     
-    func areFulfilled(cols:[TableCol]) -> Bool
+    func areFulfilled(_ cols:[TableCol]) -> Bool
     {
-        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        for row:TableRow in [.one, .two, .three, .four, .five, .six, .max, .min, .skala, .full, .poker, .yamb]
         {
             for col in cols
             {
@@ -363,8 +389,8 @@ class Table: NSObject, NSCoding
     func totalScore() -> UInt?
     {
         var sum: UInt?
-        let sumColIdx = TableCol.Sum.rawValue
-        for row:TableRow in [.SumNumbers,.SumMaxMin,.SumSFPY]
+        let sumColIdx = TableCol.sum.rawValue
+        for row:TableRow in [.sumNumbers,.sumMaxMin,.sumSFPY]
         {
             if let value = values[sumColIdx][row.rawValue]
             {
@@ -380,15 +406,15 @@ class Table: NSObject, NSCoding
     
     func fillAnyEmptyPos() -> Bool
     {
-        for row:TableRow in [.One, .Two, .Three, .Four, .Five, .Six, .Max, .Min, .Skala, .Full, .Poker, .Yamb]
+        for row:TableRow in [.one, .two, .three, .four, .five, .six, .max, .min, .skala, .full, .poker, .yamb]
         {
-            for col:TableCol in [.Down,.Up,.UpDown,.N]
+            for col:TableCol in [.down,.up,.upDown,.n]
             {
                 if values[col.rawValue][row.rawValue] == nil
                 {
                     // worse value
                     var newValue:UInt = 0
-                    if row == .Min
+                    if row == .min
                     {
                         newValue = 30
                     }
@@ -398,7 +424,7 @@ class Table: NSObject, NSCoding
                     {
                         var params = JSON(["posColIdx":col.rawValue, "posRowIdx":row.rawValue])
                         params["value"].uInt = newValue
-                        WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
+                        WsAPI.shared.turn(.setValueAtTablePos, matchId: Match.shared.id, params: params)
                     }
                     return true
                 }

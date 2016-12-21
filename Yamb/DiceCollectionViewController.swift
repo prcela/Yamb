@@ -17,7 +17,7 @@ class DiceCollectionViewController: UICollectionViewController
         // Do any additional setup after loading the view.
     }
     
-    func diceMaterial(indexPath: NSIndexPath) -> DiceMaterial
+    func diceMaterial(_ indexPath: IndexPath) -> DiceMaterial
     {
         var diceMat = DiceMaterial.White
         if indexPath.section == 0
@@ -35,15 +35,15 @@ class DiceCollectionViewController: UICollectionViewController
         return diceMat
     }
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
                                                                                withReuseIdentifier: "DiceHeader",
-                                                                               forIndexPath: indexPath) as! DiceHeader
+                                                                               for: indexPath) as! DiceHeader
         let titles = [lstr("Dice"),
                       String(format: "%d 💎", DiceMaterial.diamondsPrice()),
                       "Extra"]
@@ -52,7 +52,7 @@ class DiceCollectionViewController: UICollectionViewController
         return headerView
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0
         {
             return DiceMaterial.forFree.count
@@ -68,15 +68,15 @@ class DiceCollectionViewController: UICollectionViewController
         return 0
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DiceCell", forIndexPath: indexPath) as! DiceCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DiceCell", for: indexPath) as! DiceCell
         
         let diceMat = diceMaterial(indexPath)
         cell.update(diceMat)
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool
     {
         let diceMat = diceMaterial(indexPath)
         if PlayerStat.shared.ownsDiceMat(diceMat)
@@ -85,13 +85,13 @@ class DiceCollectionViewController: UICollectionViewController
         }
         else
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wantsUnownedDiceMaterial, object: diceMat.rawValue)
+            NotificationCenter.default.post(name: NotificationName.wantsUnownedDiceMaterial, object: diceMat.rawValue)
             return false
         }
         
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         var diceMat: DiceMaterial?
         if indexPath.section == 0

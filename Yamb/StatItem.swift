@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class StatItem: NSObject,NSCoding
 {
@@ -16,9 +17,9 @@ class StatItem: NSObject,NSCoding
     let score: UInt
     let result: Result
     let bet: Int
-    let timestamp: NSDate
+    let timestamp: Date
     
-    init(playerId: String, matchType: MatchType, diceNum: DiceNum, score: UInt, result: Result, bet: Int, timestamp: NSDate)
+    init(playerId: String, matchType: MatchType, diceNum: DiceNum, score: UInt, result: Result, bet: Int, timestamp: Date)
     {
         self.playerId = playerId
         self.matchType = matchType
@@ -37,7 +38,7 @@ class StatItem: NSObject,NSCoding
         score = json["score"].uIntValue
         result = Result(rawValue: json["result"].intValue)!
         bet = json["bet"].intValue
-        timestamp = NSDate(timeIntervalSince1970: json["timestamp"].doubleValue)
+        timestamp = Date(timeIntervalSince1970: json["timestamp"].doubleValue)
     }
     
     func json() -> JSON
@@ -54,26 +55,26 @@ class StatItem: NSObject,NSCoding
     }
     
     // MARK: NSCoding
-    func encodeWithCoder(aCoder: NSCoder)
+    func encode(with aCoder: NSCoder)
     {
-        aCoder.encodeObject(playerId, forKey: "playerId")
-        aCoder.encodeObject(matchType.rawValue, forKey: "matchType")
-        aCoder.encodeInteger(diceNum.rawValue, forKey: "diceNum")
-        aCoder.encodeInteger(Int(score), forKey: "score")
-        aCoder.encodeInteger(result.rawValue, forKey: "result")
-        aCoder.encodeInteger(bet, forKey: "bet")
-        aCoder.encodeObject(timestamp, forKey: "timestamp")
+        aCoder.encode(playerId, forKey: "playerId")
+        aCoder.encode(matchType.rawValue, forKey: "matchType")
+        aCoder.encode(diceNum.rawValue, forKey: "diceNum")
+        aCoder.encode(Int(score), forKey: "score")
+        aCoder.encode(result.rawValue, forKey: "result")
+        aCoder.encode(bet, forKey: "bet")
+        aCoder.encode(timestamp, forKey: "timestamp")
     }
     
     required init?(coder aDecoder: NSCoder)
     {
-        playerId = aDecoder.containsValueForKey("playerId") ? aDecoder.decodeObjectForKey("playerId") as! String : ""
-        matchType = MatchType(rawValue: aDecoder.decodeObjectForKey("matchType") as! String)!
-        diceNum = DiceNum(rawValue: aDecoder.decodeIntegerForKey("diceNum"))!
-        score = UInt(aDecoder.decodeIntegerForKey("score"))
-        result = Result(rawValue: aDecoder.decodeIntegerForKey("result"))!
-        bet = aDecoder.decodeIntegerForKey("bet")
-        timestamp = aDecoder.decodeObjectForKey("timestamp") as! NSDate
+        playerId = aDecoder.containsValue(forKey: "playerId") ? aDecoder.decodeObject(forKey: "playerId") as! String : ""
+        matchType = MatchType(rawValue: aDecoder.decodeObject(forKey: "matchType") as! String)!
+        diceNum = DiceNum(rawValue: aDecoder.decodeInteger(forKey: "diceNum"))!
+        score = UInt(aDecoder.decodeInteger(forKey: "score"))
+        result = Result(rawValue: aDecoder.decodeInteger(forKey: "result"))!
+        bet = aDecoder.decodeInteger(forKey: "bet")
+        timestamp = aDecoder.decodeObject(forKey: "timestamp") as! Date
         super.init()
     }
 }

@@ -16,19 +16,19 @@ class WaitPlayerViewController: UIViewController {
     
     var waitPlayer: Player!
     var ctSecs = 10
-    var timer: NSTimer?
+    var timer: Timer?
     var timout: (() -> Void)?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -51,7 +51,7 @@ class WaitPlayerViewController: UIViewController {
         {
             timer?.invalidate()
             timer = nil
-            dismissViewControllerAnimated(true, completion: timout)
+            dismiss(animated: true, completion: timout)
         }
     }
     
@@ -61,7 +61,7 @@ class WaitPlayerViewController: UIViewController {
         {
             if player.connected
             {
-                dismissViewControllerAnimated(true, completion: nil)
+                dismiss(animated: true, completion: nil)
             }
         }
         else
@@ -69,7 +69,7 @@ class WaitPlayerViewController: UIViewController {
             // nema igrača, isto kao i timeout
             timer?.invalidate()
             timer = nil
-            dismissViewControllerAnimated(true, completion: timout)
+            dismiss(animated: true, completion: timout)
         }
         
     }

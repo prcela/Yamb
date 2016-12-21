@@ -7,45 +7,46 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class ServerAPI
 {
-    class func info(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func info(_ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/info")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        let url = URL(string: "http://\(ipCurrent)/info")
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: completionHandler)
         
         task.resume()
     }
     
-    private class func jsonRequest(json:JSON, url: NSURL) -> NSMutableURLRequest
+    fileprivate class func jsonRequest(_ json:JSON, url: URL) -> URLRequest
     {
         let jsonData = try! json.rawData()
-        let request = NSMutableURLRequest(URL: url)
+        var request = URLRequest(url: url)
         
-        request.HTTPMethod = "POST"
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:"Accept")
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
-        request.setValue("\(jsonData.length)", forHTTPHeaderField:"Content-Length")
-        request.HTTPBody = jsonData
+        request.setValue("\(jsonData.count)", forHTTPHeaderField:"Content-Length")
+        request.httpBody = jsonData
         return request
     }
     
-    class func statItem(json:JSON, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func statItem(_ json:JSON, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/statItem")!
+        let url = URL(string: "http://\(ipCurrent)/statItem")!
         let request = jsonRequest(json, url: url)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: completionHandler)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completionHandler)
         task.resume()
     }
     
-    class func updatePlayer(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func updatePlayer(_ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
         let playerId = PlayerStat.shared.id
         let alias = PlayerStat.shared.alias
         let diamonds = PlayerStat.shared.diamonds
-        let avgScore5 = PlayerStat.avgScore(.Five)
-        let avgScore6 = PlayerStat.avgScore(.Six)
+        let avgScore5 = PlayerStat.avgScore(.five)
+        let avgScore6 = PlayerStat.avgScore(.six)
         
         let json = JSON([
             "id": playerId,
@@ -54,38 +55,38 @@ class ServerAPI
             "avg_score_5": avgScore5,
             "avg_score_6": avgScore6])
         
-        let url = NSURL(string: "http://\(ipCurrent)/updatePlayer")!
+        let url = URL(string: "http://\(ipCurrent)/updatePlayer")!
         let request = jsonRequest(json, url: url)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: completionHandler)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completionHandler)
         task.resume()
     }
     
-    class func score(json:JSON, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func score(_ json:JSON, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/score")!
+        let url = URL(string: "http://\(ipCurrent)/score")!
         let request = jsonRequest(json, url: url)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: completionHandler)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completionHandler)
         task.resume()
     }
     
-    class func scores(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func scores(_ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/scores")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        let url = URL(string: "http://\(ipCurrent)/scores")
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: completionHandler)
         task.resume()
     }
     
-    class func players(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func players(_ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/players")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        let url = URL(string: "http://\(ipCurrent)/players")
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: completionHandler)
         task.resume()
     }
     
-    class func statItems(completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    class func statItems(_ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let url = NSURL(string: "http://\(ipCurrent)/statItems")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: completionHandler)
+        let url = URL(string: "http://\(ipCurrent)/statItems")
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: completionHandler)
         task.resume()
     }
     

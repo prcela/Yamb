@@ -10,18 +10,18 @@ import UIKit
 
 enum ScoreType: Int
 {
-    case FiveDice = 0
-    case SixDice
-    case Diamonds
+    case fiveDice = 0
+    case sixDice
+    case diamonds
     
     func title() -> String
     {
         switch self {
-        case .FiveDice:
+        case .fiveDice:
             return "5 🎲"
-        case .SixDice:
+        case .sixDice:
             return "6 🎲"
-        case .Diamonds:
+        case .diamonds:
             return "💎"
         }
     }
@@ -29,18 +29,18 @@ enum ScoreType: Int
 
 enum ScoreValue: Int
 {
-    case Score = 0
-    case Stars
-    case Gc
+    case score = 0
+    case stars
+    case gc
     
     func title() -> String
     {
         switch self {
-        case .Score:
+        case .score:
             return lstr("Score")
-        case .Stars:
+        case .stars:
             return "⭐️"
-        case .Gc:
+        case .gc:
             return "Game center"
         }
     }
@@ -48,21 +48,21 @@ enum ScoreValue: Int
 
 enum ScoreTimeRange: Int
 {
-    case Now = -1
-    case Ever = 0
-    case Week
-    case Today
+    case now = -1
+    case ever = 0
+    case week
+    case today
 }
 
 struct ScorePickerSelekcija
 {
-    var scoreType: ScoreType = .SixDice
-    var scoreValue: ScoreValue = .Score
-    var timeRange: ScoreTimeRange = .Ever
+    var scoreType: ScoreType = .sixDice
+    var scoreValue: ScoreValue = .score
+    var timeRange: ScoreTimeRange = .ever
     
     func title() -> String
     {
-        if scoreType == .Diamonds
+        if scoreType == .diamonds
         {
             return "\(scoreType.title()) \(lstr("Now"))"
         }
@@ -85,16 +85,16 @@ class ScorePickerViewController: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        doneBtn.setTitle(lstr("Done"), forState: .Normal)
+        doneBtn.setTitle(lstr("Done"), for: UIControlState())
         // select current
         pickerView.selectRow(scoreSelekcija.scoreType.rawValue, inComponent: 0, animated: false)
-        if scoreSelekcija.scoreType != .Diamonds
+        if scoreSelekcija.scoreType != .diamonds
         {
             pickerView.selectRow(scoreSelekcija.scoreValue.rawValue, inComponent: 1, animated: false)
         }
     }
 
-    @IBAction func done(sender: AnyObject)
+    @IBAction func done(_ sender: AnyObject)
     {
         scorePickerDelegate?.doneWithSelekcija()
     }
@@ -102,18 +102,18 @@ class ScorePickerViewController: UIViewController
 
 extension ScorePickerViewController: UIPickerViewDataSource
 {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0
         {
             return 3
         }
         else
         {
-            if scoreSelekcija.scoreType == .Diamonds
+            if scoreSelekcija.scoreType == .diamonds
             {
                 return 1
             }
@@ -127,14 +127,14 @@ extension ScorePickerViewController: UIPickerViewDataSource
 
 extension ScorePickerViewController: UIPickerViewDelegate
 {
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0
         {
             return ScoreType(rawValue: row)!.title()
         }
         else
         {
-            if scoreSelekcija.scoreType == .Diamonds
+            if scoreSelekcija.scoreType == .diamonds
             {
                 return lstr("Now")
             }
@@ -145,40 +145,40 @@ extension ScorePickerViewController: UIPickerViewDelegate
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print("\(row) \(component)")
         if component == 0
         {
             // resetiraj ostale komponente
             let scoreTypeBefore = scoreSelekcija.scoreType
             scoreSelekcija.scoreType = ScoreType(rawValue: row)!
-            if scoreSelekcija.scoreType == .Diamonds
+            if scoreSelekcija.scoreType == .diamonds
             {
-                scoreSelekcija.scoreValue = .Score
-                scoreSelekcija.timeRange = .Now
+                scoreSelekcija.scoreValue = .score
+                scoreSelekcija.timeRange = .now
             }
-            else if scoreSelekcija.timeRange == .Now
+            else if scoreSelekcija.timeRange == .now
             {
-                scoreSelekcija.timeRange = .Ever
+                scoreSelekcija.timeRange = .ever
             }
             
-            if scoreTypeBefore == .Diamonds
+            if scoreTypeBefore == .diamonds
             {
-                scoreSelekcija.scoreValue = .Score
+                scoreSelekcija.scoreValue = .score
             }
             pickerView.reloadComponent(1)
         }
         else
         {
             scoreSelekcija.scoreValue = ScoreValue(rawValue: row)!
-            if scoreSelekcija.scoreType == .Diamonds
+            if scoreSelekcija.scoreType == .diamonds
             {
-                scoreSelekcija.timeRange = .Now
+                scoreSelekcija.timeRange = .now
             }
             else
             {
                 scoreSelekcija.scoreValue = ScoreValue(rawValue: row)!
-                scoreSelekcija.timeRange = .Ever
+                scoreSelekcija.timeRange = .ever
             }
             
         }

@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class BorderedView: UIView {
 
-    @IBInspectable var lineColor:UIColor = UIColor.blackColor()
+    @IBInspectable var lineColor:UIColor = UIColor.black
     @IBInspectable var top:Bool = true
     @IBInspectable var bottom:Bool = true
     @IBInspectable var left:Bool = true
@@ -25,41 +25,41 @@ class BorderedView: UIView {
         super.init(frame: frame)
     }
     
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         // Drawing code
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
         
         // pixel size
-        let sortaPixel = 1.0/UIScreen.mainScreen().scale
-        CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor)
+        let sortaPixel = 1.0/UIScreen.main.scale
+        ctx.setStrokeColor(lineColor.cgColor)
         
         if top
         {
-            CGContextMoveToPoint(ctx, 0, sortaPixel/2)
-            CGContextAddLineToPoint(ctx, rect.size.width, sortaPixel/2)
-            CGContextStrokePath(ctx)
+            ctx.move(to: CGPoint(x: 0, y: sortaPixel/2))
+            ctx.addLine(to: CGPoint(x: rect.size.width, y: sortaPixel/2))
+            ctx.strokePath()
         }
         
         if bottom
         {
-            CGContextMoveToPoint(ctx, 0, rect.size.height-sortaPixel/2)
-            CGContextAddLineToPoint(ctx, rect.size.width, rect.size.height-sortaPixel/2)
-            CGContextStrokePath(ctx)
+            ctx.move(to: CGPoint(x: 0, y: rect.size.height-sortaPixel/2))
+            ctx.addLine(to: CGPoint(x: rect.size.width, y: rect.size.height-sortaPixel/2))
+            ctx.strokePath()
         }
         
         if left
         {
-            CGContextMoveToPoint(ctx, sortaPixel/2, 0)
-            CGContextAddLineToPoint(ctx, sortaPixel/2, rect.size.height)
-            CGContextStrokePath(ctx)
+            ctx.move(to: CGPoint(x: sortaPixel/2, y: 0))
+            ctx.addLine(to: CGPoint(x: sortaPixel/2, y: rect.size.height))
+            ctx.strokePath()
         }
         
         if right
         {
-            CGContextMoveToPoint(ctx, rect.size.width-sortaPixel/2, 0)
-            CGContextAddLineToPoint(ctx, rect.size.width-sortaPixel/2, rect.size.height)
-            CGContextStrokePath(ctx)
+            ctx.move(to: CGPoint(x: rect.size.width-sortaPixel/2, y: 0))
+            ctx.addLine(to: CGPoint(x: rect.size.width-sortaPixel/2, y: rect.size.height))
+            ctx.strokePath()
         }
         
     }

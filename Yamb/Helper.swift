@@ -9,22 +9,18 @@
 import Foundation
 import UIKit
 
-func dispatchToMainQueue(delay delay:NSTimeInterval, closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
+func dispatchToMainQueue(delay:TimeInterval, closure:@escaping ()->()) {
+    DispatchQueue.main.asyncAfter(
+        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
 
 func isSmallScreen() -> Bool
 {
-    return CGRectGetHeight(UIScreen.mainScreen().bounds) <= 568
+    return UIScreen.main.bounds.height <= 568
 }
 
-func lstr(key: String) -> String
+func lstr(_ key: String) -> String
 {
     return NSLocalizedString(key, comment: "")
 }

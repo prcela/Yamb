@@ -24,8 +24,8 @@ class DiceScene: SCNScene
         
         for idx in 1...6
         {
-            let soundURL = NSBundle.mainBundle().URLForResource(String(idx), withExtension: "m4a")!
-            let audioPlayer = try! AVAudioPlayer(contentsOfURL: soundURL)
+            let soundURL = Bundle.main.url(forResource: String(idx), withExtension: "m4a")!
+            let audioPlayer = try! AVAudioPlayer(contentsOf: soundURL)
             audioPlayers.append(audioPlayer)
         }
         
@@ -56,7 +56,7 @@ class DiceScene: SCNScene
         rootNode.addChildNode(cameraNode)
         
         let light = SCNLight()
-        light.type = SCNLightTypeSpot
+        light.type = SCNLight.LightType.spot
         light.color = Skin.blue.defaultLightColor
         
         let lightNode = SCNNode()
@@ -71,7 +71,7 @@ class DiceScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    func recreateMaterials(diceMaterial: DiceMaterial)
+    func recreateMaterials(_ diceMaterial: DiceMaterial)
     {
         dieMaterialsDefault.removeAll()
         dieMaterialsSelected.removeAll()
@@ -92,28 +92,28 @@ class DiceScene: SCNScene
         
         for dieIdx in 0..<6
         {
-            if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            if let dieNode = rootNode.childNode(withName: String(dieIdx), recursively: false)
             {
                 dieNode.geometry?.materials = dieMaterialsDefault
             }
         }
     }
     
-    func start(ctVisible: Int)
+    func start(_ ctVisible: Int)
     {
         for idx in 0..<6
         {
-            if let node = rootNode.childNodeWithName(String(idx), recursively: false)
+            if let node = rootNode.childNode(withName: String(idx), recursively: false)
             {
                 node.rotation = SCNVector4Zero
-                node.hidden = idx >= ctVisible
+                node.isHidden = idx >= ctVisible
             }
         }
     }
 
-    func rollToValues(values: [UInt], ctMaxRounds: UInt32, activeRotationRounds: [[Int]], ctHeld: Int, completion: (Void) -> Void)
+    func rollToValues(_ values: [UInt], ctMaxRounds: UInt32, activeRotationRounds: [[Int]], ctHeld: Int, completion: @escaping (Void) -> Void)
     {
-        func rotateAngleToDst(dst:CGFloat, rounds: Int) -> CGFloat
+        func rotateAngleToDst(_ dst:CGFloat, rounds: Int) -> CGFloat
         {
             return dst + CGFloat(rounds)*2*CGFloat(M_PI)
         }
@@ -152,10 +152,10 @@ class DiceScene: SCNScene
                 rndX = rotateAngleToDst(-CGFloat(M_PI_2), rounds: rounds[0])
             }
             
-            let duration: NSTimeInterval = 0.5 + 0.5*Double(max(rounds[0],rounds[1],rounds[2]))/Double(ctMaxRounds)
-            let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: duration)
-            action.timingMode = .EaseOut
-            if let node = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            let duration: TimeInterval = 0.5 + 0.5*Double(max(rounds[0],rounds[1],rounds[2]))/Double(ctMaxRounds)
+            let action = SCNAction.rotateTo(x: rndX, y: rndY, z: rndZ, duration: duration)
+            action.timingMode = .easeOut
+            if let node = rootNode.childNode(withName: String(dieIdx), recursively: false)
             {
                 node.runAction(action)
             }
@@ -169,11 +169,11 @@ class DiceScene: SCNScene
         }
     }
     
-    func updateDiceSelection(diceHeld: Set<UInt>)
+    func updateDiceSelection(_ diceHeld: Set<UInt>)
     {
         for dieIdx in 0..<6
         {
-            if let dieNode = rootNode.childNodeWithName(String(dieIdx), recursively: false)
+            if let dieNode = rootNode.childNode(withName: String(dieIdx), recursively: false)
             {
                 if diceHeld.contains(UInt(dieIdx))
                 {
@@ -187,10 +187,10 @@ class DiceScene: SCNScene
         }
     }
     
-    func updateDiceValues(values: [UInt])
+    func updateDiceValues(_ values: [UInt])
     {
         
-        for (idx,num) in values.enumerate()
+        for (idx,num) in values.enumerated()
         {
             var rndX:CGFloat = 0
             var rndY:CGFloat = 0
@@ -220,8 +220,8 @@ class DiceScene: SCNScene
             {
                 rndX = -CGFloat(M_PI_2)
             }
-            let action = SCNAction.rotateToX(rndX, y: rndY, z: rndZ, duration: 0)
-            if let node = rootNode.childNodeWithName(String(idx), recursively: false)
+            let action = SCNAction.rotateTo(x: rndX, y: rndY, z: rndZ, duration: 0)
+            if let node = rootNode.childNode(withName: String(idx), recursively: false)
             {
                 node.runAction(action)
             }

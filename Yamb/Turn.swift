@@ -10,11 +10,11 @@ import Foundation
 
 enum Turn: Int
 {
-    case RollDice = 0
-    case HoldDice
-    case SetValueAtTablePos
-    case InputPos
-    case NextPlayer
-    case NewGame
-    case End
+    case rollDice = 0
+    case holdDice
+    case setValueAtTablePos
+    case inputPos
+    case nextPlayer
+    case newGame
+    case end
 }

@@ -21,11 +21,11 @@ class InvitationViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class InvitationViewController: UIViewController {
         
         var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
         
-        if let bet = matchInfo?.bet where bet > 0
+        if let bet = matchInfo?.bet, bet > 0
         {
             message += "\n\n"
             message += String(format: lstr("Bet is n"), bet)
@@ -55,7 +55,7 @@ class InvitationViewController: UIViewController {
             let spMatch = Match.shared
             if let player = spMatch.players.first
             {
-                if player.state != .Start && player.state != .EndGame
+                if player.state != .start && player.state != .endGame
                 {
                     shouldSaveSP = true
                     message += "\n\n"
@@ -66,19 +66,19 @@ class InvitationViewController: UIViewController {
         
         messageLbl.text = message
         
-        ignoreBtn.setTitle(lstr("Ignore"), forState: .Normal)
-        acceptBtn.setTitle(lstr("Accept"), forState: .Normal)
+        ignoreBtn.setTitle(lstr("Ignore"), for: UIControlState())
+        acceptBtn.setTitle(lstr("Accept"), for: UIControlState())
         
     }
     
     
-    @IBAction func ignore(sender: AnyObject)
+    @IBAction func ignore(_ sender: AnyObject)
     {
         WsAPI.shared.ignoreInvitation(senderPlayer.id!)
-        dismissViewControllerAnimated(false, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
     
-    @IBAction func accept(sender: AnyObject)
+    @IBAction func accept(_ sender: AnyObject)
     {
         if shouldSaveSP
         {
@@ -90,12 +90,12 @@ class InvitationViewController: UIViewController {
             if matchInfo.playerIds.count == 1
             {
                 // OK
-                MainViewController.shared?.dismissViewControllerAnimated(false, completion: nil)
+                MainViewController.shared?.dismiss(animated: false, completion: nil)
                 WsAPI.shared.joinToMatch(matchInfo.id, ownDiceMat: PlayerStat.shared.favDiceMat)
                 return
             }
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func onRoomInfo()
@@ -109,7 +109,7 @@ class InvitationViewController: UIViewController {
             }
         }
 
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
         
     }
     

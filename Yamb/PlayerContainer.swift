@@ -14,9 +14,9 @@ class PlayerContainer: ContainerViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let profileViewController = storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController")
-        let statTableViewController = storyboard!.instantiateViewControllerWithIdentifier("StatTableViewController")
-        let diceContainer = storyboard!.instantiateViewControllerWithIdentifier("DiceCollectionViewController")
+        let profileViewController = storyboard!.instantiateViewController(withIdentifier: "ProfileViewController")
+        let statTableViewController = storyboard!.instantiateViewController(withIdentifier: "StatTableViewController")
+        let diceContainer = storyboard!.instantiateViewController(withIdentifier: "DiceCollectionViewController")
         
         items = [
             ContainerItem(vc:profileViewController, name: "Profile"),

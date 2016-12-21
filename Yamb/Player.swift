@@ -10,6 +10,7 @@ import Foundation
 import GameKit
 import Firebase
 import Crashlytics
+import SwiftyJSON
 
 private let keyId = "letKeyId"
 private let keyTable = "keyTable"
@@ -24,29 +25,29 @@ private let keyDiceMaterial = "keyDiceMaterial"
 
 enum PlayerState: Int
 {
-    case Start = 0
-    case After1
-    case After2
-    case After3
-    case AfterN2
-    case AfterN3
-    case WaitTurn
-    case EndGame
+    case start = 0
+    case after1
+    case after2
+    case after3
+    case afterN2
+    case afterN3
+    case waitTurn
+    case endGame
 }
 
 
 
 enum RollState: Int {
-    case Rolling = 0
-    case NotRolling
+    case rolling = 0
+    case notRolling
 }
 
 
 enum InputState: Int
 {
-    case NotAllowed = 0
-    case Allowed
-    case Must
+    case notAllowed = 0
+    case allowed
+    case must
 }
 
 
@@ -60,23 +61,23 @@ class Player: NSObject, NSCoding
     var connected = false
     var diceMaterial = DiceMaterial.White
     var table = Table()
-    var inputState = InputState.NotAllowed
-    var state = PlayerState.Start
-    var rollState = RollState.NotRolling
+    var inputState = InputState.notAllowed
+    var state = PlayerState.start
+    var rollState = RollState.notRolling
     var diceValues: [UInt]?
     var diceHeld = Set<UInt>() {
         didSet {
             PlayViewController.diceScene.updateDiceSelection(diceHeld)
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+            NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
             
             if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
             {
                 let params = JSON(Array(diceHeld))
-                WsAPI.shared.turn(.HoldDice, matchId: Match.shared.id, params: params)
+                WsAPI.shared.turn(.holdDice, matchId: Match.shared.id, params: params)
             }
         }
     }
-    var activeRotationRounds = [[Int]](count: 6, repeatedValue: [0,0,0])
+    var activeRotationRounds = [[Int]](repeating: [0,0,0], count: 6)
     
     var inputPos: TablePos? {
         didSet {
@@ -88,7 +89,7 @@ class Player: NSObject, NSCoding
                     params["colIdx"].intValue = inputPos!.colIdx
                     params["rowIdx"].intValue = inputPos!.rowIdx
                 }
-                WsAPI.shared.turn(.InputPos, matchId: Match.shared.id, params: params)
+                WsAPI.shared.turn(.inputPos, matchId: Match.shared.id, params: params)
             }
         }
     }
@@ -98,71 +99,71 @@ class Player: NSObject, NSCoding
     }
     
     required init?(coder aDecoder: NSCoder) {
-        id = aDecoder.decodeObjectForKey(keyId) as? String
-        table = aDecoder.decodeObjectForKey(keyTable) as! Table
-        inputState = InputState(rawValue: aDecoder.decodeIntegerForKey(keyInputState))!
-        state = PlayerState(rawValue: aDecoder.decodeIntegerForKey(keyState))!
-        rollState = RollState(rawValue: aDecoder.decodeIntegerForKey(keyRollState))!
-        diceValues = aDecoder.decodeObjectForKey(keyDiceValues) as? [UInt]
-        diceHeld = (aDecoder.decodeObjectForKey(keyDiceHeld) as? Set<UInt>)!
+        id = aDecoder.decodeObject(forKey: keyId) as? String
+        table = aDecoder.decodeObject(forKey: keyTable) as! Table
+        inputState = InputState(rawValue: aDecoder.decodeInteger(forKey: keyInputState))!
+        state = PlayerState(rawValue: aDecoder.decodeInteger(forKey: keyState))!
+        rollState = RollState(rawValue: aDecoder.decodeInteger(forKey: keyRollState))!
+        diceValues = aDecoder.decodeObject(forKey: keyDiceValues) as? [UInt]
+        diceHeld = (aDecoder.decodeObject(forKey: keyDiceHeld) as? Set<UInt>)!
         
-        if aDecoder.containsValueForKey(keyInputPosRow)
+        if aDecoder.containsValue(forKey: keyInputPosRow)
         {
-            let row = aDecoder.decodeIntegerForKey(keyInputPosRow)
-            let col = aDecoder.decodeIntegerForKey(keyInputPosCol)
+            let row = aDecoder.decodeInteger(forKey: keyInputPosRow)
+            let col = aDecoder.decodeInteger(forKey: keyInputPosCol)
             inputPos = TablePos(rowIdx: row, colIdx: col)
         }
-        diceMaterial = DiceMaterial(rawValue: aDecoder.decodeObjectForKey(keyDiceMaterial) as? String ?? "a")!
+        diceMaterial = DiceMaterial(rawValue: aDecoder.decodeObject(forKey: keyDiceMaterial) as? String ?? "a")!
 
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder)
+    func encode(with aCoder: NSCoder)
     {
-        aCoder.encodeObject(id, forKey: keyId)
-        aCoder.encodeObject(table, forKey: keyTable)
-        aCoder.encodeInteger(inputState.rawValue, forKey: keyInputState)
-        aCoder.encodeInteger(state.rawValue, forKey: keyState)
-        aCoder.encodeInteger(rollState.rawValue, forKey: keyRollState)
-        aCoder.encodeObject(diceValues, forKey: keyDiceValues)
-        aCoder.encodeObject(diceHeld, forKey: keyDiceHeld)
+        aCoder.encode(id, forKey: keyId)
+        aCoder.encode(table, forKey: keyTable)
+        aCoder.encode(inputState.rawValue, forKey: keyInputState)
+        aCoder.encode(state.rawValue, forKey: keyState)
+        aCoder.encode(rollState.rawValue, forKey: keyRollState)
+        aCoder.encode(diceValues, forKey: keyDiceValues)
+        aCoder.encode(diceHeld, forKey: keyDiceHeld)
         
         if let pos = inputPos
         {
-            aCoder.encodeInteger(pos.rowIdx, forKey: keyInputPosRow)
-            aCoder.encodeInteger(pos.colIdx, forKey: keyInputPosCol)
+            aCoder.encode(pos.rowIdx, forKey: keyInputPosRow)
+            aCoder.encode(pos.colIdx, forKey: keyInputPosCol)
         }
-        aCoder.encodeObject(diceMaterial.rawValue, forKey: keyDiceMaterial)
+        aCoder.encode(diceMaterial.rawValue, forKey: keyDiceMaterial)
 
     }
     
     func next()
     {
-        state = .WaitTurn
+        state = .waitTurn
         inputPos = nil
         diceHeld.removeAll()
-        inputState = .NotAllowed
+        inputState = .notAllowed
     }
     
     func onTurn()
     {
         inputPos = nil
         diceHeld.removeAll()
-        inputState = .NotAllowed
+        inputState = .notAllowed
     }
     
     func roll()
     {
-        guard !(inputState == .Must && inputPos == nil) else {return}
+        guard !(inputState == .must && inputPos == nil) else {return}
         
         if inputPos != nil
         {
-            if inputPos!.colIdx != TableCol.N.rawValue
+            if inputPos!.colIdx != TableCol.n.rawValue
             {
                 switch state
                 {
-                case .After1, .After2, .After3, .AfterN3, .WaitTurn:
-                    state = .Start
+                case .after1, .after2, .after3, .afterN3, .waitTurn:
+                    state = .start
                     diceHeld.removeAll()
                     inputPos = nil
                 default:
@@ -170,15 +171,15 @@ class Player: NSObject, NSCoding
                 }
             }
             
-            if state == .AfterN3 || state == .After3
+            if state == .afterN3 || state == .after3
             {
                 diceHeld.removeAll()
                 inputPos = nil
             }
         }
         
-        rollState = .Rolling
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        rollState = .rolling
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
         
         let ctMaxRounds: UInt32 = 3
         var oldValues = diceValues
@@ -201,7 +202,7 @@ class Player: NSObject, NSCoding
                              Int(1+arc4random_uniform(ctMaxRounds))]
             
             
-            for (idx,_) in newRounds.enumerate()
+            for (idx,_) in newRounds.enumerated()
             {
                 while newRounds[idx] == activeRotationRounds[dieIdx][idx] {
                     let dir = arc4random_uniform(2) == 0 ? -1:1
@@ -214,11 +215,11 @@ class Player: NSObject, NSCoding
         if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
         {
             let params = JSON(["values":values,"rounds":activeRotationRounds])
-            WsAPI.shared.turn(.RollDice, matchId: Match.shared.id, params: params)
+            WsAPI.shared.turn(.rollDice, matchId: Match.shared.id, params: params)
         }
         
         PlayViewController.diceScene.rollToValues(values, ctMaxRounds: ctMaxRounds, activeRotationRounds: activeRotationRounds, ctHeld: diceHeld.count) {
-            self.rollState = .NotRolling
+            self.rollState = .notRolling
             self.diceValues = values
             self.afterRoll()
         }
@@ -228,47 +229,47 @@ class Player: NSObject, NSCoding
     {
         switch state
         {
-        case .Start, .WaitTurn:
-            state = .After1
-            inputState = .Allowed
+        case .start, .waitTurn:
+            state = .after1
+            inputState = .allowed
             inputPos = nil
             
-        case .After1:
+        case .after1:
             if inputPos == nil
             {
-                state = .After2
-                inputState = .Allowed
+                state = .after2
+                inputState = .allowed
             }
-            else if inputPos!.colIdx == TableCol.N.rawValue
+            else if inputPos!.colIdx == TableCol.n.rawValue
             {
-                state = .AfterN2
-                inputState = .NotAllowed
+                state = .afterN2
+                inputState = .notAllowed
                 updateNajavaValue()
             }
             
-        case .After2:
+        case .after2:
             if inputPos == nil
             {
-                state = .After3
-                inputState = .Must
+                state = .after3
+                inputState = .must
                 diceHeld.removeAll()
             }
             else
             {
-                state = .After1
-                inputState = .Allowed
+                state = .after1
+                inputState = .allowed
                 inputPos = nil
             }
             
-        case .After3:
-            state = .After1
-            inputState = .Allowed
+        case .after3:
+            state = .after1
+            inputState = .allowed
             inputPos = nil
             diceHeld.removeAll()
             
-        case .AfterN2:
-            state = .AfterN3
-            inputState = .NotAllowed
+        case .afterN2:
+            state = .afterN3
+            inputState = .notAllowed
             updateNajavaValue()
             diceHeld.removeAll()
             if shouldEnd()
@@ -276,19 +277,19 @@ class Player: NSObject, NSCoding
                 end()
             }
             
-        case .AfterN3:
+        case .afterN3:
             updateNajavaValue()
-            state = .After1
-            inputState = .Allowed
+            state = .after1
+            inputState = .allowed
             inputPos = nil
             diceHeld.removeAll()
             
-        case .EndGame:
+        case .endGame:
             break
         }
         
         printStatus()
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
     }
     
     func updateNajavaValue()
@@ -299,22 +300,22 @@ class Player: NSObject, NSCoding
             table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
             if table.isQualityValueFor(pos, diceValues: diceValues)
             {
-                state = .AfterN3
-                inputState = .NotAllowed
+                state = .afterN3
+                inputState = .notAllowed
                 diceHeld.removeAll()
             }
         }
     }
     
-    func didSelectCellAtPos(pos: TablePos)
+    func didSelectCellAtPos(_ pos: TablePos)
     {
         var oldValue: UInt?
         if let oldPos = inputPos
         {
             oldValue = table.values[oldPos.colIdx][oldPos.rowIdx]
-            if state == .AfterN2
+            if state == .afterN2
             {
-                state = .AfterN3
+                state = .afterN3
             }
             else
             {
@@ -325,7 +326,7 @@ class Player: NSObject, NSCoding
                 {
                     var params = JSON(["posColIdx":oldPos.colIdx, "posRowIdx":oldPos.rowIdx])
                     params["value"].uInt = nil
-                    WsAPI.shared.turn(.SetValueAtTablePos, matchId: Match.shared.id, params: params)
+                    WsAPI.shared.turn(.setValueAtTablePos, matchId: Match.shared.id, params: params)
                 }
             }
         }
@@ -347,12 +348,12 @@ class Player: NSObject, NSCoding
         
         table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
         
-        if state == .After3 || state == .AfterN3
+        if state == .after3 || state == .afterN3
         {
             diceHeld.removeAll()
         }
         
-        if pos.colIdx == TableCol.N.rawValue
+        if pos.colIdx == TableCol.n.rawValue
         {
             updateNajavaValue()
         }
@@ -373,29 +374,29 @@ class Player: NSObject, NSCoding
     
     func shouldEnd() -> Bool
     {
-        if state == .EndGame
+        if state == .endGame
         {
             // already finished
             return false
         }
         
-        if !table.areFulfilled([.Down, .Up, .UpDown, .N])
+        if !table.areFulfilled([.down, .up, .upDown, .n])
         {
             return false
         }
         
-        if state == .AfterN3
+        if state == .afterN3
         {
             return true
         }
         
         if inputPos != nil
         {
-            if state == .After2 || state == .After3
+            if state == .after2 || state == .after3
             {
                 return true
             }
-            else if state == .After1 && inputPos?.colIdx != TableCol.N.rawValue
+            else if state == .after1 && inputPos?.colIdx != TableCol.n.rawValue
             {
                 return true
             }
@@ -407,8 +408,8 @@ class Player: NSObject, NSCoding
     
     func confirmInputPos()
     {
-        state = .AfterN3
-        inputState = .NotAllowed
+        state = .afterN3
+        inputState = .notAllowed
         updateNajavaValue()
         diceHeld.removeAll()
         if shouldEnd()
@@ -419,7 +420,7 @@ class Player: NSObject, NSCoding
     
     func end()
     {
-        state = .EndGame
+        state = .endGame
         print("kraj")
         
         let totalScore = table.totalScore()
@@ -427,8 +428,8 @@ class Player: NSObject, NSCoding
         // if this is the last player in online match
         if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
         {
-            WsAPI.shared.turn(.End, matchId: Match.shared.id, params: JSON([:]))
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.multiplayerMatchEnded, object: Match.shared.id)
+            WsAPI.shared.turn(.end, matchId: Match.shared.id, params: JSON([:]))
+            NotificationCenter.default.post(name: NotificationName.multiplayerMatchEnded, object: Match.shared.id)
             Answers.logLevelEnd(Match.shared.matchType.rawValue, score: nil, success: nil, customAttributes: ["diceNum":Match.shared.diceNum.rawValue])
         }
         else if Match.shared.matchType == .SinglePlayer
@@ -438,15 +439,18 @@ class Player: NSObject, NSCoding
                 matchType: .SinglePlayer,
                 diceNum: Match.shared.diceNum,
                 score: totalScore ?? 0,
-                result: .Drawn,
+                result: .drawn,
                 bet: 0,
-                timestamp: NSDate())
+                timestamp: Date())
             
             PlayerStat.shared.items.append(statItem)
             ServerAPI.statItem(statItem.json(), completionHandler: { (data, response, error) in
                 print(response)
             })
-            Answers.logLevelEnd(statItem.matchType.rawValue, score: statItem.score, success: nil, customAttributes: ["diceNum":statItem.diceNum.rawValue])
+            Answers.logLevelEnd(statItem.matchType.rawValue,
+                                score: NSNumber(value: statItem.score),
+                                success: nil,
+                                customAttributes: ["diceNum":statItem.diceNum.rawValue])
         }
         
         // score submit for local player only
@@ -454,23 +458,23 @@ class Player: NSObject, NSCoding
         {
             if GameKitHelper.shared.authenticated
             {
-                let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .Five ? LeaderboardId.dice5 : LeaderboardId.dice6)
+                let score = GKScore(leaderboardIdentifier: Match.shared.diceNum == .five ? LeaderboardId.dice5 : LeaderboardId.dice6)
                 
                 if totalScore != nil
                 {
                     score.value = Int64(totalScore!)
                     
-                    GKScore.reportScores([score]) { (error) in
+                    GKScore.report([score], withCompletionHandler: { (error) in
                         if error == nil
                         {
                             print("score reported")
                         }
-                    }
+                    }) 
                 }
             }            
         }
         
-        FIRAnalytics.logEventWithName("game_end", parameters: nil)
+        FIRAnalytics.logEvent(withName: "game_end", parameters: nil)
     }
     
     func printStatus()
@@ -478,14 +482,14 @@ class Player: NSObject, NSCoding
         print(state,rollState,inputState,(inputPos != nil ? "\(inputPos!.colIdx) \(inputPos!.rowIdx)" : ""))
     }
     
-    func onDieTouched(dieIdx: UInt)
+    func onDieTouched(_ dieIdx: UInt)
     {
-        if inputState == .Must
+        if inputState == .must
         {
             return
         }
         
-        if state == .Start || state == .EndGame || state == .After3 || state == .AfterN3 || state == .WaitTurn
+        if state == .start || state == .endGame || state == .after3 || state == .afterN3 || state == .waitTurn
         {
             return
         }
@@ -499,20 +503,20 @@ class Player: NSObject, NSCoding
             diceHeld.insert(dieIdx)
         }
         
-        if diceHeld.count == Match.shared.diceNum.rawValue && inputPos?.colIdx == TableCol.N.rawValue
+        if diceHeld.count == Match.shared.diceNum.rawValue && inputPos?.colIdx == TableCol.n.rawValue
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.alertForInput, object: nil)
+            NotificationCenter.default.post(name: NotificationName.alertForInput, object: nil)
         }
     }
     
     func isRollEnabled() -> Bool
     {
-        if inputState == .Must && inputPos == nil
+        if inputState == .must && inputPos == nil
         {
             return false
         }
         
-        if rollState == .Rolling
+        if rollState == .rolling
         {
             return false
         }
@@ -522,9 +526,9 @@ class Player: NSObject, NSCoding
             return false
         }
         
-        if state == .After1 && inputPos == nil
+        if state == .after1 && inputPos == nil
         {
-            if table.areFulfilled([.Down,.Up,.UpDown])
+            if table.areFulfilled([.down,.up,.upDown])
             {
                 return false
             }

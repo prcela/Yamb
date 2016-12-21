@@ -26,20 +26,20 @@ struct LeaderboardId
 
 let avgScoreMax6: Float = 1400
 let avgScoreMin6: Float = 700
-func stars6(avgScore:Float) -> Float
+func stars6(_ avgScore:Float) -> Float
 {
     return max(0, 10 * (avgScore-avgScoreMin6)/(avgScoreMax6-avgScoreMin6))
 }
 
 let avgScoreMax5: Float = 1200
 let avgScoreMin5: Float = 400
-func stars5(avgScore:Float) -> Float
+func stars5(_ avgScore:Float) -> Float
 {
     return max(0, 10 * (avgScore-avgScoreMin5)/(avgScoreMax5-avgScoreMin5))
 }
 
 
-let starsFormatter = NSNumberFormatter()
+let starsFormatter = NumberFormatter()
 
 func helloSwift()
 {

@@ -8,6 +8,8 @@
 
 import Foundation
 import GameKit
+import Starscream
+import SwiftyJSON
 
 private let ipHome = "192.168.5.12:8181"
 private let ipWork = "10.0.21.221:8181"
@@ -17,17 +19,17 @@ let ipCurrent = ipServer
 class WsAPI
 {
     static let shared = WsAPI()
-    private var retryCount = 0
-    private var lastReceivedMsgId: Int?
-    private var unsentMessages = [String]()
-    private var pingInterval: NSTimeInterval = 30
+    fileprivate var retryCount = 0
+    fileprivate var lastReceivedMsgId: Int?
+    fileprivate var unsentMessages = [String]()
+    fileprivate var pingInterval: TimeInterval = 30
     
     var socket: WebSocket
     
     init() {
         
         let strURL = "ws://\(ipCurrent)/chat/"
-        socket = WebSocket(url: NSURL(string: strURL)!)
+        socket = WebSocket(url: URL(string: strURL)!)
         socket.headers["Sec-WebSocket-Protocol"] = "no-body"
         socket.delegate = self
         
@@ -39,13 +41,13 @@ class WsAPI
     func connect()
     {
         socket.connect()
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsConnect, object: nil)
+        NotificationCenter.default.post(name: NotificationName.wsConnect, object: nil)
     }
     
     func ping()
     {
         print("ping")
-        socket.writePing(NSData())
+        socket.write(ping:Data())
         dispatchToMainQueue(delay: pingInterval) {
             self.ping()
         }
@@ -55,7 +57,7 @@ class WsAPI
     {
         let playerId = PlayerStat.shared.id
         let playerAlias = PlayerStat.shared.alias
-        let avgScore6 = PlayerStat.avgScore(.Six)
+        let avgScore6 = PlayerStat.avgScore(.six)
         let diamonds = PlayerStat.shared.diamonds
         let json = JSON(["id":playerId,"alias":playerAlias,"avg_score_6":avgScore6,"diamonds":diamonds])
         send(.Join, json:json)
@@ -66,7 +68,7 @@ class WsAPI
         send(.RoomInfo)
     }
     
-    func createMatch(diceNum: DiceNum, isPrivate: Bool, diceMaterials: [DiceMaterial], bet: Int)
+    func createMatch(_ diceNum: DiceNum, isPrivate: Bool, diceMaterials: [DiceMaterial], bet: Int)
     {
         let json = JSON([
             "dice_num":diceNum.rawValue,
@@ -78,19 +80,19 @@ class WsAPI
         send(.CreateMatch, json: json)
     }
     
-    func joinToMatch(matchId: UInt, ownDiceMat: DiceMaterial)
+    func joinToMatch(_ matchId: UInt, ownDiceMat: DiceMaterial)
     {
         let json = JSON(["match_id":matchId, "dice_mat":ownDiceMat.rawValue])
         send(.JoinMatch, json: json)
     }
     
-    func leaveMatch(matchId: UInt)
+    func leaveMatch(_ matchId: UInt)
     {
         let json = JSON(["match_id":matchId])
         send(.LeaveMatch, json: json)
     }
     
-    func turn(turn: Turn, matchId: UInt, params: JSON)
+    func turn(_ turn: Turn, matchId: UInt, params: JSON)
     {
         let playerId = PlayerStat.shared.id
         var json = JSON(["match_id":matchId,"turn":turn.rawValue])
@@ -99,7 +101,7 @@ class WsAPI
         send(.Turn, json: json)
     }
     
-    func invitePlayer(player: Player)
+    func invitePlayer(_ player: Player)
     {
         let playerId = PlayerStat.shared.id
         let json = JSON(["sender":playerId, "recipient":player.id!])
@@ -108,14 +110,14 @@ class WsAPI
         // TODO: Show invited popup ...
     }
     
-    func ignoreInvitation(senderPlayerId: String)
+    func ignoreInvitation(_ senderPlayerId: String)
     {
         let playerId = PlayerStat.shared.id
         let json = JSON(["recipient":playerId, "sender":senderPlayerId])
         send(.IgnoreInvitation, json: json)
     }
     
-    func sendTextMessage(recipient: Player, text: String)
+    func sendTextMessage(_ recipient: Player, text: String)
     {
         let playerId = PlayerStat.shared.id
         let json = JSON(["sender":playerId, "recipient":recipient.id!, "text": text])
@@ -123,17 +125,17 @@ class WsAPI
     }
     
     
-    private func send(action: MessageFunc, json: JSON? = nil)
+    fileprivate func send(_ action: MessageFunc, json: JSON? = nil)
     {
         var json = json ?? JSON([:])
         json["msg_func"].string = action.rawValue
         
-        if let text = json.rawString(NSUTF8StringEncoding, options: [])
+        if let text = json.rawString(String.Encoding.utf8, options: [])
         {
             if socket.isConnected
             {
                 print("Sending:\n\(text)")
-                socket.writeString(text)
+                socket.write(string:text)
             }
             else
             {
@@ -143,14 +145,14 @@ class WsAPI
         }
     }
     
-    private func sendUnsentMessages()
+    fileprivate func sendUnsentMessages()
     {
         guard socket.isConnected else {
             return
         }
         for text in unsentMessages
         {
-            socket.writeString(text)
+            socket.write(string:text)
         }
         unsentMessages.removeAll()
     }
@@ -160,7 +162,7 @@ extension WsAPI: WebSocketDelegate
 {
     func websocketDidConnect(socket: WebSocket) {
         print("didConnect to \(socket.currentURL)")
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsDidConnect, object: nil)
+        NotificationCenter.default.post(name: NotificationName.wsDidConnect, object: nil)
         retryCount = 0
         lastReceivedMsgId = nil
         joinToRoom()
@@ -168,13 +170,13 @@ extension WsAPI: WebSocketDelegate
         
     }
     
-    func websocketDidReceiveData(socket: WebSocket, data: NSData) {
+    func websocketDidReceiveData(socket: WebSocket, data: Data) {
         print("websocketDidReceiveData")
     }
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         print("websocketDidDisconnect")
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.wsDidDisconnect, object: nil)
+        NotificationCenter.default.post(name: NotificationName.wsDidDisconnect, object: nil)
         
         dispatchToMainQueue(delay: min(Double(retryCount), 5)) {
             print("retry connect")
@@ -191,7 +193,7 @@ extension WsAPI: WebSocketDelegate
         // if should acknowledge receiving
         if let msgId = json["msg_id"].int
         {
-            socket.writeString(JSON(["ack":msgId]).rawString()!)
+            socket.write(string: JSON(["ack":msgId]).rawString()!)
             
             if lastReceivedMsgId != nil && msgId <= lastReceivedMsgId!
             {
@@ -206,7 +208,7 @@ extension WsAPI: WebSocketDelegate
             return
         }
         
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         
         switch msgFunc
         {
@@ -220,7 +222,7 @@ extension WsAPI: WebSocketDelegate
             guard matchId == Match.shared.id else {
                 return
             }
-            nc.postNotificationName(NotificationName.maybeSomeoneWillDump, object: json["id"].stringValue)
+            nc.post(name: NotificationName.maybeSomeoneWillDump, object: json["id"].stringValue)
             
         case .Dump:
             print("someone dumped")
@@ -228,7 +230,7 @@ extension WsAPI: WebSocketDelegate
             guard matchId == Match.shared.id else {
                 return
             }
-            nc.postNotificationName(NotificationName.dumped, object: json["id"].stringValue)
+            nc.post(name: NotificationName.dumped, object: json["id"].stringValue)
         
         case .RoomInfo:
             
@@ -261,30 +263,30 @@ extension WsAPI: WebSocketDelegate
                 Room.main.matchesInfo.append(matchInfo)
             }
             
-            nc.postNotificationName(NotificationName.onRoomInfo, object: nil)
+            nc.post(name: NotificationName.onRoomInfo, object: nil)
             
         case .CreateMatch:
             print("Match created")
             
         case .JoinMatch:
             let matchId = json["match_id"].uIntValue
-            nc.postNotificationName(NotificationName.joinedMatch, object: matchId)
+            nc.post(name: NotificationName.joinedMatch, object: matchId)
             
         case .LeaveMatch:
             let matchId = json["match_id"].uIntValue
-            nc.postNotificationName(NotificationName.opponentLeavedMatch, object: matchId)
+            nc.post(name: NotificationName.opponentLeavedMatch, object: matchId)
             break
             
         case .InvitePlayer:
             let senderPlayerId = json["sender"].stringValue
-            nc.postNotificationName(NotificationName.matchInvitationArrived, object: senderPlayerId)
+            nc.post(name: NotificationName.matchInvitationArrived, object: senderPlayerId)
             
         case .IgnoreInvitation:
             let recipientPlayerId = json["recipient"].stringValue
-            nc.postNotificationName(NotificationName.matchInvitationIgnored, object: recipientPlayerId)
+            nc.post(name: NotificationName.matchInvitationIgnored, object: recipientPlayerId)
             
         case .TextMessage:
-            nc.postNotificationName(NotificationName.matchReceivedTextMessage, object: json.dictionaryObject!)
+            nc.post(name: NotificationName.matchReceivedTextMessage, object: json.dictionaryObject!)
             break
             
             
@@ -297,7 +299,7 @@ extension WsAPI: WebSocketDelegate
             let turn = Turn(rawValue: json["turn"].intValue)!
             switch turn
             {
-            case .RollDice:
+            case .rollDice:
                 let playerId = json["id"].stringValue
                 let values = params["values"].arrayObject as! [UInt]
                 let rounds = params["rounds"].arrayObject as! [[Int]]
@@ -306,16 +308,16 @@ extension WsAPI: WebSocketDelegate
                 player.diceValues = values
                 PlayViewController.diceScene.rollToValues(values, ctMaxRounds: 3, activeRotationRounds: rounds, ctHeld: player.diceHeld.count, completion: {})
                 
-            case .HoldDice:
+            case .holdDice:
                 let holdDice = params.arrayObject as! [UInt]
                 let playerId = json["id"].stringValue
                 guard let player = Match.shared.player(playerId) else {return}
                 player.diceHeld = Set(holdDice)
                 
-            case .NextPlayer:
+            case .nextPlayer:
                 Match.shared.nextPlayer()
                 
-            case .SetValueAtTablePos:
+            case .setValueAtTablePos:
                 let playerId = json["id"].stringValue
                 let posColIdx = params["posColIdx"].intValue
                 let posRowIdx = params["posRowIdx"].intValue
@@ -323,7 +325,7 @@ extension WsAPI: WebSocketDelegate
                 guard let player = Match.shared.player(playerId) else {return}
                 player.table.values[posColIdx][posRowIdx] = value
                 
-            case .InputPos:
+            case .inputPos:
                 let playerId = json["id"].stringValue
                 guard let player = Match.shared.player(playerId) else {return}
                 if params.dictionary!.isEmpty
@@ -336,13 +338,13 @@ extension WsAPI: WebSocketDelegate
                     let rowIdx = params["rowIdx"].intValue
                     player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
                 }
-            case .NewGame:
-                nc.postNotificationName(NotificationName.opponentNewGame, object: matchId)
+            case .newGame:
+                nc.post(name: NotificationName.opponentNewGame, object: matchId)
                 
-            case .End:
-                nc.postNotificationName(NotificationName.multiplayerMatchEnded, object: matchId)
+            case .end:
+                nc.post(name: NotificationName.multiplayerMatchEnded, object: matchId)
             }
-            nc.postNotificationName(NotificationName.matchStateChanged, object: nil)
+            nc.post(name: NotificationName.matchStateChanged, object: nil)
             
         default:
             break

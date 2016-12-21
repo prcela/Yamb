@@ -41,7 +41,7 @@ enum DiceMaterial: String
     
     static func diamondsPrice() -> Int
     {
-        return FIRRemoteConfig.remoteConfig()["dice_price_diamonds"].numberValue!.integerValue
+        return FIRRemoteConfig.remoteConfig()["dice_price_diamonds"].numberValue!.intValue
     }
     
     static let all = [White,Black,Rose,Blue,Red,Yellow,Violet,Elsa,Roman,RedGlass,Heart,Dark,Apple,Moon,Flower,Bombs,Numbers,Animal,Soccer,Xmass,Cheese,Green,Mario,Aurora,Flourescent,XO,GrayGlitter]
@@ -49,7 +49,7 @@ enum DiceMaterial: String
     static let forDiamonds = [Roman, RedGlass, Heart, Dark, Flower, Moon, Bombs, Animal, Soccer, Xmass, Cheese, Flourescent, XO]
     static let forBuy = [Elsa, Numbers, Apple, Aurora, Mario]
     
-    func iconForValue(value: Int, selected: Bool = false) -> UIImage?
+    func iconForValue(_ value: Int, selected: Bool = false) -> UIImage?
     {
         var name = "\(value)\(rawValue)"
         if selected
@@ -61,7 +61,7 @@ enum DiceMaterial: String
 
 }
 
-func diceIcon(materialName: String, value: Int, selected: Bool = false) -> UIImage?
+func diceIcon(_ materialName: String, value: Int, selected: Bool = false) -> UIImage?
 {
     var diceMat = DiceMaterial(rawValue: materialName)
     if diceMat == nil

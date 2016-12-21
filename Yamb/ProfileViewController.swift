@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateDiamonds), name: NotificationName.playerDiamondsChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDiamonds), name: NotificationName.playerDiamondsChanged, object: nil)
     }
     
     
@@ -38,45 +38,45 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         for view in [editBtn, buyDiamondsBtn, logoutBtn, connectFbBtn]
         {
-            view.layer.borderWidth = 1
-            view.layer.cornerRadius = 5
-            view.layer.borderColor = UIColor.lightTextColor().CGColor
+            view?.layer.borderWidth = 1
+            view?.layer.cornerRadius = 5
+            view?.layer.borderColor = UIColor.lightText.cgColor
         }
         
         playerNameLbl.text = PlayerStat.shared.alias
-        editBtn.setTitle(lstr("Edit"), forState: .Normal)
-        logoutBtn.setTitle(lstr("Logout"), forState: .Normal)
-        connectFbBtn.setTitle(lstr("Connect with Facebook"), forState: .Normal)
+        editBtn.setTitle(lstr("Edit"), for: UIControlState())
+        logoutBtn.setTitle(lstr("Logout"), for: UIControlState())
+        connectFbBtn.setTitle(lstr("Connect with Facebook"), for: UIControlState())
 
         diamondsLbl.text = "\(PlayerStat.shared.diamonds) 💎"
         
-        let myStars5 = stars5(PlayerStat.avgScore(.Five))
-        let myStars6 = stars6(PlayerStat.avgScore(.Six))
+        let myStars5 = stars5(PlayerStat.avgScore(.five))
+        let myStars6 = stars6(PlayerStat.avgScore(.six))
         
-        dice5StarsLbl.text = String(format: "5 🎲 %@ ⭐️", starsFormatter.stringFromNumber(NSNumber(float: myStars5))!)
-        dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.stringFromNumber(NSNumber(float: myStars6))!)
+        dice5StarsLbl.text = String(format: "5 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars5 as Float))!)
+        dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars6 as Float))!)
         
-        let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.integerValue
+        let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.intValue
         
-        if let idx = retrievedProducts?.indexOf({product in
+        if let idx = retrievedProducts?.index(where: {product in
             return product.productIdentifier == purchaseDiamondsId
         }) {
             let product = retrievedProducts![idx]
-            let numberFormatter = NSNumberFormatter()
+            let numberFormatter = NumberFormatter()
             numberFormatter.locale = product.priceLocale
-            numberFormatter.numberStyle = .CurrencyStyle
-            let priceString = numberFormatter.stringFromNumber(product.price ?? 0) ?? ""
-            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎 \(priceString)", forState: .Normal)
+            numberFormatter.numberStyle = .currency
+            let priceString = numberFormatter.string(from: product.price ?? 0) ?? ""
+            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎 \(priceString)", for: UIControlState())
         }
         else
         {
-            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", forState: .Normal)
+            buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎", for: UIControlState())
         }
         
-        let fbToken = FBSDKAccessToken.currentAccessToken()
+        let fbToken = FBSDKAccessToken.current()
         
-        connectFbBtn.hidden = (fbToken != nil)
-        logoutBtn.hidden = (fbToken == nil)
+        connectFbBtn.isHidden = (fbToken != nil)
+        logoutBtn.isHidden = (fbToken == nil)
         
     }
     
@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController {
         diamondsLbl.text = "\(PlayerStat.shared.diamonds) 💎"
     }
     
-    @IBAction func editName(sender: AnyObject)
+    @IBAction func editName(_ sender: AnyObject)
     {
         let purchaseNameRequired = FIRRemoteConfig.remoteConfig()["purchase_name"].boolValue
         
@@ -95,103 +95,103 @@ class ProfileViewController: UIViewController {
         }
         else
         {
-            performSegueWithIdentifier("purchaseName", sender: nil)
+            performSegue(withIdentifier: "purchaseName", sender: nil)
         }
         
     }
     
     func editNameInPopup()
     {
-        let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .Alert)
-        alert.addTextFieldWithConfigurationHandler { (textField) in
+        let alert = UIAlertController(title: "Yamb", message: lstr("Input your name"), preferredStyle: .alert)
+        alert.addTextField { (textField) in
             let alias = PlayerStat.shared.alias
             textField.text = alias
             textField.placeholder = lstr("Name")
         }
-        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             if let newAlias = alert.textFields?.first?.text
             {
                 PlayerStat.shared.alias = newAlias
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationName.playerAliasChanged, object: nil)
+                NotificationCenter.default.post(name: NotificationName.playerAliasChanged, object: nil)
                 self.playerNameLbl.text = newAlias
                 ServerAPI.updatePlayer({ (_, _, _) in
                 })
             }
         }))
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func buyDiamonds(sender: AnyObject)
+    @IBAction func buyDiamonds(_ sender: AnyObject)
     {
         SwiftyStoreKit.purchaseProduct(purchaseDiamondsId) { result in
             switch result {
-            case .Success(let productId):
-                print("Purchase Success: \(productId)")
-                dispatch_async(dispatch_get_main_queue(), {
+            case .success(let product):
+                print("Purchase Success: \(product.productId)")
+                DispatchQueue.main.async (execute: {
         
-                    let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.integerValue
+                    let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.intValue
                     PlayerStat.shared.diamonds += diamondsQuantity
                     PlayerStat.saveStat()
                     
-                    if let idx = retrievedProducts?.indexOf({product in
-                        return product.productIdentifier == productId
+                    if let idx = retrievedProducts?.index(where: {retProduct in
+                        return retProduct.productIdentifier == product.productId
                     }) {
                         let product = retrievedProducts![idx]
-                        let numberFormatter = NSNumberFormatter()
+                        let numberFormatter = NumberFormatter()
                         numberFormatter.locale = product.priceLocale
-                        numberFormatter.numberStyle = .CurrencyStyle
+                        numberFormatter.numberStyle = .currency
                         let currencyCode = numberFormatter.currencyCode
                     
-                    Answers.logPurchaseWithPrice(product.price,
-                        currency: currencyCode,
-                        success: true,
-                        itemName: "Diamonds",
-                        itemType: nil,
-                        itemId: productId,
-                        customAttributes: [:])
+                        Answers.logPurchase(withPrice: product.price,
+                                            currency: currencyCode,
+                                            success: true,
+                                            itemName: "Diamonds",
+                                            itemType: nil,
+                                            itemId: product.productIdentifier,
+                                            customAttributes: [:])
                     }})
                 
-            case .Error(let error):
+            case .error(let error):
                 print("Purchase Failed: \(error)")
                 
                 dispatchToMainQueue(delay: 1) {
-                    let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchase failed"), preferredStyle: .Alert)
-                    alertInfo.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.presentViewController(alertInfo, animated: true, completion: nil)
+                    let alertInfo = UIAlertController(title: "Yamb", message: lstr("Purchase failed"), preferredStyle: .alert)
+                    alertInfo.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    (MainViewController.shared?.presentedViewController ?? MainViewController.shared)?.present(alertInfo, animated: true, completion: nil)
                 }
             }
         }
     }
 
-    @IBAction func connectFb(sender: AnyObject)
+    @IBAction func connectFb(_ sender: AnyObject)
     {
         let fbLogin = FBSDKLoginManager()
-        fbLogin.logInWithReadPermissions(["public_profile","email","user_friends"],
-                                         fromViewController: self)
+        fbLogin.logIn(withReadPermissions: ["public_profile","email","user_friends"],
+                                         from: self)
         { [weak self] (result, error) in
             if error != nil
             {
                 print(error)
             }
-            else if result.isCancelled
+            else if (result?.isCancelled)!
             {
                 print("Cancelled")
             }
             else
             {
                 print("Logged in")
-                self?.connectFbBtn.hidden = true
-                self?.logoutBtn.hidden = false
+                self?.connectFbBtn.isHidden = true
+                self?.logoutBtn.isHidden = false
             }
         }
     }
     
-    @IBAction func logout(sender: AnyObject)
+    @IBAction func logout(_ sender: AnyObject)
     {
         FBSDKLoginManager().logOut()
-        connectFbBtn.hidden = false
-        logoutBtn.hidden = true
+        connectFbBtn.isHidden = false
+        logoutBtn.isHidden = true
     }
 
 

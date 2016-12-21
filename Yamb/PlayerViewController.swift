@@ -22,7 +22,7 @@ class PlayerViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
      
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(onFavDieSet), name: NotificationName.playerFavDiceChanged, object: nil)
         nc.addObserver(self, selector: #selector(onWantsNewDiceMat(_:)), name: NotificationName.wantsUnownedDiceMaterial, object: nil)
     }
@@ -35,11 +35,11 @@ class PlayerViewController: UIViewController {
         
         dieIcon.layer.borderWidth = 1
         dieIcon.layer.cornerRadius = 5
-        dieIcon.layer.borderColor = UIColor.darkGrayColor().CGColor
+        dieIcon.layer.borderColor = UIColor.darkGray.cgColor
         dieIcon.clipsToBounds = true
         
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
-        profileBtn.setTitle(lstr("Profile"), forState: .Normal)
+        profileBtn.setTitle(lstr("Profile"), for: UIControlState())
         
         showProfile(profileBtn)
         
@@ -50,25 +50,25 @@ class PlayerViewController: UIViewController {
         dieIcon.image = PlayerStat.shared.favDiceMat.iconForValue(1)
     }
     
-    func onWantsNewDiceMat(notification: NSNotification)
+    func onWantsNewDiceMat(_ notification: Notification)
     {
         let diceMat = DiceMaterial(rawValue: notification.object as! String)!
         if DiceMaterial.forBuy.contains(diceMat)
         {
-            performSegueWithIdentifier("purchaseDice", sender: notification.object)
+            performSegue(withIdentifier: "purchaseDice", sender: notification.object)
         }
         else if DiceMaterial.forDiamonds.contains(diceMat)
         {
             if PlayerStat.shared.diamonds >= DiceMaterial.diamondsPrice()
             {
-                let alert = UIAlertController(title: "Yamb", message: String(format: lstr("Buy dice for 💎" ), DiceMaterial.diamondsPrice()), preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .Cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                let alert = UIAlertController(title: "Yamb", message: String(format: lstr("Buy dice for 💎" ), DiceMaterial.diamondsPrice()), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: lstr("Cancel"), style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     PlayerStat.shared.diamonds -= DiceMaterial.diamondsPrice()
                     PlayerStat.shared.boughtDiceMaterials.append(diceMat)
                     PlayerStat.saveStat()
                 }))
-                presentViewController(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
             }
             else
             {
@@ -77,20 +77,20 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "embed"
         {
-            playerContainer = segue.destinationViewController as? PlayerContainer
+            playerContainer = segue.destination as? PlayerContainer
         }
         else if segue.identifier == "invitation"
         {
-            let invitationVC = segue.destinationViewController as! InvitationViewController
+            let invitationVC = segue.destination as! InvitationViewController
             invitationVC.senderPlayer = sender as? Player
         }
         else if segue.identifier == "purchaseName"
         {
-            let purchaseVC = segue.destinationViewController as! PurchaseViewController
+            let purchaseVC = segue.destination as! PurchaseViewController
             purchaseVC.descriptionText = lstr("Purchase description")
             purchaseVC.productId = purchaseNameId
             purchaseVC.itemType = "Name"
@@ -102,7 +102,7 @@ class PlayerViewController: UIViewController {
         else if segue.identifier == "purchaseDice"
         {
             let diceMat = DiceMaterial(rawValue: sender as! String)!
-            let purchaseVC = segue.destinationViewController as! PurchaseViewController
+            let purchaseVC = segue.destination as! PurchaseViewController
             purchaseVC.descriptionText = lstr("Purchase dice description")
             purchaseVC.productId = "yamb.PurchaseDice." + diceMat.rawValue
             purchaseVC.iconName = "1\(diceMat.rawValue)"
@@ -117,36 +117,36 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    @IBAction func showProfile(sender: AnyObject)
+    @IBAction func showProfile(_ sender: AnyObject)
     {
-        profileBtn.selected = true
-        statsBtn.selected = false
-        diceBtn.selected = false
+        profileBtn.isSelected = true
+        statsBtn.isSelected = false
+        diceBtn.isSelected = false
         dieIcon.alpha = 0.75
         playerContainer?.selectByName("Profile", completion: nil)
     }
     
-    @IBAction func showStats(sender: AnyObject)
+    @IBAction func showStats(_ sender: AnyObject)
     {
-        profileBtn.selected = false
-        statsBtn.selected = true
-        diceBtn.selected = false
+        profileBtn.isSelected = false
+        statsBtn.isSelected = true
+        diceBtn.isSelected = false
         dieIcon.alpha = 0.75
         playerContainer?.selectByName("Stat", completion: nil)
     }
     
-    @IBAction func showDice(sender: AnyObject)
+    @IBAction func showDice(_ sender: AnyObject)
     {
-        profileBtn.selected = false
-        statsBtn.selected = false
-        diceBtn.selected = true
+        profileBtn.isSelected = false
+        statsBtn.isSelected = false
+        diceBtn.isSelected = true
         dieIcon.alpha = 1
         playerContainer?.selectByName("Dice", completion: nil)
     }
     
-    @IBAction func close(sender: AnyObject)
+    @IBAction func close(_ sender: AnyObject)
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
 }

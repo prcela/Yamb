@@ -38,14 +38,14 @@ class MultiPlayerViewController: UIViewController
     }
     */
 
-    @IBAction func back(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func back(_ sender: AnyObject) {
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func localMatch(sender: AnyObject)
+    @IBAction func localMatch(_ sender: AnyObject)
     {
         Match.shared.start(.LocalMultiplayer, diceNum: Match.shared.diceNum, playersDesc: [(nil,nil,0,DiceMaterial.Blue),(nil,nil,0,DiceMaterial.Red)], matchId: 0, bet: 0)
-        MainViewController.shared?.performSegueWithIdentifier("playIdentifier", sender: nil)
+        MainViewController.shared?.performSegue(withIdentifier: "playIdentifier", sender: nil)
     }
         
 }

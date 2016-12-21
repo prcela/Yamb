@@ -19,38 +19,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
  
         helloSwift()
         
         let prefs: [String:AnyObject] = [
-            Prefs.lastPlayedGameType: LeaderboardId.dice6
+            Prefs.lastPlayedGameType: LeaderboardId.dice6 as AnyObject
         ]
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.registerDefaults(prefs)
+        let defaults = UserDefaults.standard
+        defaults.register(defaults: prefs)
                 
         FIRApp.configure()
         
         
         let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
         Fabric.with([Crashlytics.self])
         
-        Chartboost.startWithAppId("57b7fc8704b0163534a45ef3", appSignature: "f2baf66f467982be8bfc24bdd3b93e9ef9372714", delegate: self)
+        Chartboost.start(withAppId: "57b7fc8704b0163534a45ef3", appSignature: "f2baf66f467982be8bfc24bdd3b93e9ef9372714", delegate: self)
         
         let firRemoteConfig = FIRRemoteConfig.remoteConfig()
         firRemoteConfig.setDefaultsFromPlistFileName("DefaultRemoteConfig")
         
         // 1 hour
-        let expirationDuration:NSTimeInterval = 3600
+        let expirationDuration:TimeInterval = 3600
         
-        firRemoteConfig.fetchWithExpirationDuration(expirationDuration) { (status, error) in
-            if status == .Success
+        firRemoteConfig.fetch(withExpirationDuration: expirationDuration) { (status, error) in
+            if status == .success
             {
                 print("fetched FB remote config")
                 firRemoteConfig.activateFetched()
@@ -72,31 +72,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        if let accessToken = FBSDKAccessToken.currentAccessToken(){
+        if let accessToken = FBSDKAccessToken.current(){
             print(accessToken)
         }else{
             print("Not logged In.")
         }
         
-        SwiftyStoreKit.completeTransactions() { completedTransactions in
+        SwiftyStoreKit.completeTransactions() { products in
             
-            for completedTransaction in completedTransactions {
+            for product in products {
                 
-                if completedTransaction.transactionState == .Purchased || completedTransaction.transactionState == .Restored {
+                if product.transaction.transactionState == .purchased || product.transaction.transactionState == .restored {
                     
-                    print("purchased: \(completedTransaction.productId)")
-                    
-                    if completedTransaction.productId == purchaseNameId
+                    if product.needsFinishTransaction
                     {
-                        dispatch_async(dispatch_get_main_queue(), { 
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(product.transaction)
+                    }
+                    
+                    print("purchased: \(product.productId)")
+                    
+                    if product.productId == purchaseNameId
+                    {
+                        DispatchQueue.main.async(execute: {
                             PlayerStat.shared.purchasedName = true
                             PlayerStat.saveStat()
                         })
                     }
-                    else if completedTransaction.productId.hasPrefix("yamb.PurchaseDice.")
+                    else if product.productId.hasPrefix("yamb.PurchaseDice.")
                     {
-                        let components = completedTransaction.productId.componentsSeparatedByString(".")
-                        dispatch_async(dispatch_get_main_queue(), {
+                        let components = product.productId.components(separatedBy: ".")
+                        DispatchQueue.main.async(execute: {
                             let diceMat = DiceMaterial(rawValue: components.last!)!
                             if !PlayerStat.shared.boughtDiceMaterials.contains(diceMat)
                             {
@@ -109,35 +115,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        print(NSBundle.mainBundle().bundleIdentifier!)
+        print(Bundle.main.bundleIdentifier!)
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         PlayerStat.saveStat()
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         SwiftyStoreKit.retrieveProductsInfo(allPurchaseIds) { result in
             retrievedProducts = result.retrievedProducts
             
             if let product = result.retrievedProducts.first {
-                let numberFormatter = NSNumberFormatter()
+                let numberFormatter = NumberFormatter()
                 numberFormatter.locale = product.priceLocale
-                numberFormatter.numberStyle = .CurrencyStyle
-                let priceString = numberFormatter.stringFromNumber(product.price ?? 0) ?? ""
+                numberFormatter.numberStyle = .currency
+                let priceString = numberFormatter.string(from: product.price ?? 0) ?? ""
                 print("Product: \(product.localizedDescription), price: \(priceString)")
             }
             else if let invalidProductId = result.invalidProductIDs.first {
@@ -149,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         PlayerStat.saveStat()
         
@@ -158,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             if let player = match.players.first
             {
-                if player.state != .Start && player.state != .EndGame
+                if player.state != .start && player.state != .endGame
                 {
                     GameFileManager.saveMatch(match)
                 }
@@ -166,8 +172,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
 
@@ -176,11 +182,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: ChartboostDelegate
 {
-    func didDisplayRewardedVideo(location: String!) {
+    func didDisplayRewardedVideo(_ location: String!) {
         print("did display rewarded video")
     }
     
-    func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
+    func didCompleteRewardedVideo(_ location: String!, withReward reward: Int32) {
         print("did complete rewarded video with reward \(reward)")
         
         var diamonds = PlayerStat.shared.diamonds
@@ -188,19 +194,19 @@ extension AppDelegate: ChartboostDelegate
         PlayerStat.shared.diamonds = diamonds
     }
     
-    func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
+    func didFail(toLoadRewardedVideo location: String!, withError error: CBLoadError) {
         print("didFailToLoadRewardedVideo \(error.rawValue)")
     }
     
-    func didDismissInterstitial(location: String!) {
+    func didDismissInterstitial(_ location: String!) {
         print("didDismissInterstitial")
     }
     
-    func didCloseInterstitial(location: String!) {
+    func didCloseInterstitial(_ location: String!) {
         print("didCloseInterstitial")
     }
     
-    func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
+    func didFail(toLoadInterstitial location: String!, withError error: CBLoadError) {
         print("didFailToLoadInterstitial \(error.rawValue)")
     }
 }

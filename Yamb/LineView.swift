@@ -14,24 +14,24 @@ class LineView: UIView
     
     override func awakeFromNib() {
         fillColor = backgroundColor
-        backgroundColor = UIColor.clearColor()
-        userInteractionEnabled = false
+        backgroundColor = UIColor.clear
+        isUserInteractionEnabled = false
     }
     
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         // Drawing code
         guard let ctx = UIGraphicsGetCurrentContext() else {return}
         
         // pixel size
-        let sortaPixel = 1.0/UIScreen.mainScreen().scale
+        let sortaPixel = 1.0/UIScreen.main.scale
         
         // middle line
-        CGContextSetStrokeColorWithColor(ctx, fillColor.CGColor)
-        CGContextMoveToPoint(ctx, 0, 1-sortaPixel/2)
-        CGContextAddLineToPoint(ctx, rect.size.width, 1-sortaPixel/2)
+        ctx.setStrokeColor(fillColor.cgColor)
+        ctx.move(to: CGPoint(x: 0, y: 1-sortaPixel/2))
+        ctx.addLine(to: CGPoint(x: rect.size.width, y: 1-sortaPixel/2))
         
-        CGContextStrokePath(ctx)
+        ctx.strokePath()
     }
     
 }

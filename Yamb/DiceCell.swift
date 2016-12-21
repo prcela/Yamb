@@ -13,9 +13,9 @@ class DiceCell: UICollectionViewCell {
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var icon: UIImageView!
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet {
-            holderView.layer.borderWidth = selected ? 2:0
+            holderView.layer.borderWidth = isSelected ? 2:0
         }
     }
     
@@ -24,16 +24,16 @@ class DiceCell: UICollectionViewCell {
         
         holderView.layer.borderWidth = 0
         holderView.layer.cornerRadius = 5
-        holderView.layer.borderColor = UIColor.whiteColor().CGColor
+        holderView.layer.borderColor = UIColor.white.cgColor
         holderView.clipsToBounds = true
         
         icon.layer.borderWidth = 0.5
         icon.layer.cornerRadius = 5
-        icon.layer.borderColor = UIColor.darkGrayColor().CGColor
+        icon.layer.borderColor = UIColor.darkGray.cgColor
         icon.clipsToBounds = true
     }
     
-    func update(diceMat: DiceMaterial)
+    func update(_ diceMat: DiceMaterial)
     {
         icon.image = diceIcon(diceMat.rawValue, value: 1)
     }

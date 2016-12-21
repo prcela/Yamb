@@ -11,9 +11,9 @@ import UIKit
 
 extension UIImage
 {
-    class func fromColor(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage
+    class func fromColor(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage
     {
-        let rect = CGRect(origin: CGPointZero, size: size)
+        let rect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         color.setFill()
         UIRectFill(rect)

@@ -19,14 +19,14 @@ class ProgressView: UIView
         
         animShapeLayer.removeFromSuperlayer()
         
-        let path = CGPathCreateMutable()
-        CGPathMoveToPoint(path, nil, 0, frame.size.height/2)
-        CGPathAddLineToPoint(path, nil, frame.size.width, frame.size.height/2)
-        CGPathCloseSubpath(path)
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 0, y: frame.size.height/2))
+        path.addLine(to: CGPoint(x: frame.size.width, y: frame.size.height/2))
+        path.closeSubpath()
         
         animShapeLayer.path = path
-        animShapeLayer.strokeColor = UIColor.redColor().CGColor
-        animShapeLayer.fillColor = UIColor.clearColor().CGColor
+        animShapeLayer.strokeColor = UIColor.red.cgColor
+        animShapeLayer.fillColor = UIColor.clear.cgColor
         animShapeLayer.lineWidth = 3
         
         layer.addSublayer(animShapeLayer)
@@ -34,7 +34,7 @@ class ProgressView: UIView
         print("layoutSubviews()")
     }
     
-    func animateShape(duration: NSTimeInterval)
+    func animateShape(_ duration: TimeInterval)
     {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = duration
@@ -45,9 +45,9 @@ class ProgressView: UIView
         animation.toValue = 1
         
         animation.fillMode = kCAFillModeRemoved
-        animation.removedOnCompletion = false
+        animation.isRemovedOnCompletion = false
         
-        animShapeLayer.addAnimation(animation, forKey: "drawAnimation")
+        animShapeLayer.add(animation, forKey: "drawAnimation")
     }
     
     func removeAnimation()

@@ -10,42 +10,42 @@ import Foundation
 
 class GameFileManager
 {
-    class func filePathForGameName(gameName: String) -> String
+    class func filePathForGameName(_ gameName: String) -> String
     {
-        let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: [.UserDomainMask]).first!
-        let filePath = docURL.URLByAppendingPathComponent(gameName)!.path!
+        let docURL = FileManager.default.urls(for: .documentDirectory, in: [.userDomainMask]).first!
+        let filePath = docURL.appendingPathComponent(gameName).path
         return filePath
     }
     
-    class func saveMatch(match: Match)
+    class func saveMatch(_ match: Match)
     {
         let matchName = match.matchType.rawValue
         NSKeyedArchiver.archiveRootObject(match, toFile: filePathForGameName(matchName))
         print("Match saved")
     }
     
-    class func existsSavedGame(gameName: String) -> Bool
+    class func existsSavedGame(_ gameName: String) -> Bool
     {
         let filePath = filePathForGameName(gameName)
-        return NSFileManager.defaultManager().fileExistsAtPath(filePath)
+        return FileManager.default.fileExists(atPath: filePath)
     }
     
-    class func loadMatch(matchType: MatchType) -> Match?
+    class func loadMatch(_ matchType: MatchType) -> Match?
     {
         let filePath = filePathForGameName(matchType.rawValue)
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath)
+        if FileManager.default.fileExists(atPath: filePath)
         {
-            let match = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? Match
+            let match = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? Match
             print("Match loaded")
             return match
         }
         return nil
     }
     
-    class func deleteGame(gameName: String) -> Bool
+    class func deleteGame(_ gameName: String) -> Bool
     {
         let filePath = filePathForGameName(gameName)
-        if let _ = try? NSFileManager.defaultManager().removeItemAtPath(filePath)
+        if let _ = try? FileManager.default.removeItem(atPath: filePath)
         {
             print("Game deleted")
             return true
