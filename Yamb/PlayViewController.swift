@@ -358,7 +358,7 @@ class PlayViewController: UIViewController {
             if match.bet > 0
             {
                 message += "\n"
-                message += String(format: lstr("Bet of %@ diamonds is returned to you"), match.bet)
+                message += String(format: lstr("Bet of %d diamonds is returned to you"), match.bet)
             }
         }
         else
