@@ -78,7 +78,7 @@ class MenuViewController: UIViewController
                 DispatchQueue.main.async(execute: {
                     self.onlinePlayersLbl.isHidden = true
                 })
-                print(error)
+                print(error!)
             }
         }
     }
@@ -178,7 +178,7 @@ class MenuViewController: UIViewController
         if let idxMenuVC = navigationController?.childViewControllers.index(where: {vc in
             return vc is MenuViewController
         }) {
-            navigationController?.popToViewController(navigationController!.childViewControllers[idxMenuVC], animated: true)
+            let _ = navigationController?.popToViewController(navigationController!.childViewControllers[idxMenuVC], animated: true)
         }
     }
     

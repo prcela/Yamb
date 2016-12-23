@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
         { (result, error) in
             if error != nil
             {
-                print(error)
+                print(error!)
             }
             else if (result?.isCancelled)!
             {

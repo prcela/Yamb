@@ -416,6 +416,7 @@
 		97D259B71DECE2080040FC48 /* 4u.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D259B11DECE2080040FC48 /* 4u.png */; };
 		97D259B81DECE2080040FC48 /* 5u.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D259B21DECE2080040FC48 /* 5u.png */; };
 		97D259B91DECE2080040FC48 /* 6u.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D259B31DECE2080040FC48 /* 6u.png */; };
+		97E6031C1E0D06E700DDCBA3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E6031B1E0D06E700DDCBA3 /* StoreKit.framework */; };
 		97E7F0B81DD72239003D72F0 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7F0B71DD72239003D72F0 /* PurchaseViewController.swift */; };
 		97E7F2941DD89D7E003D72F0 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7F2931DD89D7E003D72F0 /* ScoresViewController.swift */; };
 		97EC2F2D1DC375270077B9A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC2F2C1DC375270077B9A5 /* MainViewController.swift */; };
@@ -844,6 +845,7 @@
 		97D259B11DECE2080040FC48 /* 4u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4u.png; path = Yamb/Resources/4u.png; sourceTree = "<group>"; };
 		97D259B21DECE2080040FC48 /* 5u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5u.png; path = Yamb/Resources/5u.png; sourceTree = "<group>"; };
 		97D259B31DECE2080040FC48 /* 6u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6u.png; path = Yamb/Resources/6u.png; sourceTree = "<group>"; };
+		97E6031B1E0D06E700DDCBA3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		97E7F0B71DD72239003D72F0 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		97E7F2931DD89D7E003D72F0 /* ScoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
 		97EC2F2C1DC375270077B9A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97E6031C1E0D06E700DDCBA3 /* StoreKit.framework in Frameworks */,
 				6691119A7FF9737FEB53F298 /* Pods_Yamb.framework in Frameworks */,
 				97C4EF9C1D6C66B600A1E7CD /* GameKit.framework in Frameworks */,
 			);
@@ -1359,6 +1362,7 @@
 		E12D9E9DECD0CD02EBD5C2D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97E6031B1E0D06E700DDCBA3 /* StoreKit.framework */,
 				97C4EF9B1D6C66B600A1E7CD /* GameKit.framework */,
 				15B85DDCFC33AC69F1A59815 /* Pods_Yamb.framework */,
 			);
@@ -1418,6 +1422,9 @@
 								enabled = 0;
 							};
 							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {

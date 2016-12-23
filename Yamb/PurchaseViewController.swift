@@ -64,7 +64,7 @@ class PurchaseViewController: UIViewController {
             let numberFormatter = NumberFormatter()
             numberFormatter.locale = product!.priceLocale
             numberFormatter.numberStyle = .currency
-            let priceString = numberFormatter.string(from: product!.price ?? 0) ?? ""
+            let priceString = numberFormatter.string(from: product!.price ) ?? ""
             priceLbl?.text = "\(product!.localizedTitle) \(priceString)"
             currencyCode = numberFormatter.currencyCode
         }

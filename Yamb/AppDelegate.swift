@@ -143,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let numberFormatter = NumberFormatter()
                 numberFormatter.locale = product.priceLocale
                 numberFormatter.numberStyle = .currency
-                let priceString = numberFormatter.string(from: product.price ?? 0) ?? ""
+                let priceString = numberFormatter.string(from: product.price) ?? ""
                 print("Product: \(product.localizedDescription), price: \(priceString)")
             }
             else if let invalidProductId = result.invalidProductIDs.first {

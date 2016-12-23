@@ -122,7 +122,7 @@ class GameTableView: UIView
         let ctColumns = Match.shared.ctColumns
         let cellSize = calculateCellSize()
         
-        func createLabelAt(_ rowIdx: Int, colIdx: Int, text: String?) -> UILabel
+        func createLabel(at rowIdx: Int, colIdx: Int, text: String?) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height))
             lbl.backgroundColor = Skin.blue.labelBackColor
@@ -138,7 +138,7 @@ class GameTableView: UIView
             return lbl
         }
         
-        func createBtnAt(_ rowIdx: Int, colIdx: Int, text: String?) -> UIButton
+        func createBtn(atRowIdx rowIdx: Int, colIdx: Int, text: String?) -> UIButton
         {
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width, height: cellSize.height)
@@ -158,7 +158,7 @@ class GameTableView: UIView
         // bet
         if Match.shared.matchType == .OnlineMultiplayer && Match.shared.bet > 0
         {
-            let betLbl = createLabelAt(0, colIdx: 0, text: "\(Match.shared.bet) 💎")
+            let betLbl = createLabel(at: 0, colIdx: 0, text: "\(Match.shared.bet) 💎")
             betLbl.font = UIFont.systemFont(ofSize: 10)
             betLbl.backgroundColor = UIColor.clear
             betLbl.textColor = UIColor.darkText
@@ -167,12 +167,12 @@ class GameTableView: UIView
         // header
         for colIdx in 1..<ctColumns
         {
-            createLabelAt(0, colIdx: colIdx, text: TableCol(rawValue: colIdx)!.name())
+            let _ = createLabel(at: 0, colIdx: colIdx, text: TableCol(rawValue: colIdx)!.name())
         }
         
         // first column titles
         for rowIdx in 1..<ctRows {
-            createLabelAt(rowIdx, colIdx: 0, text: TableRow(rawValue: rowIdx)!.name())
+            let _ = createLabel(at: rowIdx, colIdx: 0, text: TableRow(rawValue: rowIdx)!.name())
         }
         
         // all buttons
@@ -180,7 +180,7 @@ class GameTableView: UIView
         {
             for colIdx in 1..<ctColumns-1
             {
-                createBtnAt(row.rawValue, colIdx: colIdx, text: "")
+                let _ = createBtn(atRowIdx: row.rawValue, colIdx: colIdx, text: "")
             }
         }
         
@@ -189,7 +189,7 @@ class GameTableView: UIView
         {
             for colIdx in 1..<ctColumns
             {
-                let sumLbl = createLabelAt(row.rawValue, colIdx: colIdx, text: "")
+                let sumLbl = createLabel(at: row.rawValue, colIdx: colIdx, text: "")
                 sumLbl.font = UIFont(name: "Noteworthy-Bold", size: isSmallScreen() ? 15 : 18)
                 sumLbl.textColor = Skin.blue.tintColor
             }

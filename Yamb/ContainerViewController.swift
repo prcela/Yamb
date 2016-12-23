@@ -84,8 +84,7 @@ class ContainerViewController: UIViewController {
         {
             if item.name == itemName
             {
-                selectByIndex(index, completion: completion)
-                return item.vc
+                return selectByIndex(index, completion: completion)
             }
         }
         return nil

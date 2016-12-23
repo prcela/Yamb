@@ -44,13 +44,13 @@ class RoomViewController: UIViewController
     
     func popToHere()
     {
-        navigationController?.popToViewController(self, animated: false)
+        let _ = navigationController?.popToViewController(self, animated: false)
     }
     
     
     @IBAction func back(_ sender: AnyObject)
     {
-        navigationController?.popViewController(animated: true)
+        let _ = navigationController?.popViewController(animated: true)
     }
     
 }

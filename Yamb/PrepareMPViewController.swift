@@ -141,11 +141,11 @@ class PrepareMPViewController: UIViewController {
         {
             WsAPI.shared.leaveMatch(matchInfo.id)
         }
-        navigationController?.popViewController(animated: true)
+        let _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func toggleDiceCount(_ sender: UIButton) {
-        diceNum = diceNum == .five ? .six : .five
+        diceNum = (diceNum == .five) ? .six : .five
         updateDiceBtn()
     }
     

@@ -79,7 +79,7 @@ class PrepareSPViewController: UIViewController {
         if let match = GameFileManager.loadMatch(.SinglePlayer)
         {
             Match.shared = match
-            GameFileManager.deleteGame("singlePlayer")
+            let _ = GameFileManager.deleteGame("singlePlayer")
         }
         MainViewController.shared?.performSegue(withIdentifier: "playIdentifier", sender: nil)
     }
@@ -107,6 +107,6 @@ class PrepareSPViewController: UIViewController {
     }
 
     @IBAction func back(_ sender: AnyObject) {
-        navigationController?.popViewController(animated: true)
+        let _ = navigationController?.popViewController(animated: true)
     }
 }

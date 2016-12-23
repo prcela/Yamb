@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController {
             let numberFormatter = NumberFormatter()
             numberFormatter.locale = product.priceLocale
             numberFormatter.numberStyle = .currency
-            let priceString = numberFormatter.string(from: product.price ?? 0) ?? ""
+            let priceString = numberFormatter.string(from: product.price ) ?? ""
             buyDiamondsBtn.setTitle("+\(diamondsQuantity) 💎 \(priceString)", for: UIControlState())
         }
         else
@@ -172,7 +172,7 @@ class ProfileViewController: UIViewController {
         { [weak self] (result, error) in
             if error != nil
             {
-                print(error)
+                print(error!)
             }
             else if (result?.isCancelled)!
             {

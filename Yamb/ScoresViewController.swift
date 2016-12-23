@@ -82,7 +82,7 @@ class ScoresViewController: UIViewController
         gcLeaderboard6.loadScores { [weak self] (scores, error) in
             if error != nil
             {
-                print(error)
+                print(error!)
             }
             else
             {
@@ -100,7 +100,7 @@ class ScoresViewController: UIViewController
         gcLeaderboard5.loadScores { [weak self] (scores, error) in
             if error != nil
             {
-                print(error)
+                print(error!)
             }
             else
             {
@@ -188,7 +188,7 @@ class ScoresViewController: UIViewController
                 switch scoreSelekcija.scoreValue
                 {
                 case .score:
-                    return (p0.maxScore5 ?? 0) > (p1.maxScore5 ?? 0)
+                    return p0.maxScore5 > p1.maxScore5
                 case .stars:
                     return (p0.avgScore5 ?? 0) > (p1.avgScore5 ?? 0)
                 default:
@@ -219,7 +219,7 @@ class ScoresViewController: UIViewController
     
     @IBAction func back(_ sender: AnyObject)
     {
-        navigationController?.popViewController(animated: true)
+        let _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func showPicker(_ sender: AnyObject)
@@ -294,7 +294,7 @@ extension ScoresViewController: UITableViewDelegate
                     gcLeaderboard6.loadScores { [weak self] (scores, error) in
                         if error != nil
                         {
-                            print(error)
+                            print(error!)
                         }
                         else
                         {
@@ -315,7 +315,7 @@ extension ScoresViewController: UITableViewDelegate
                     gcLeaderboard5.loadScores { [weak self] (scores, error) in
                         if error != nil
                         {
-                            print(error)
+                            print(error!)
                         }
                         else
                         {

@@ -23,7 +23,7 @@ class PlayerContainer: ContainerViewController {
             ContainerItem(vc:statTableViewController, name: "Stat"),
             ContainerItem(vc:diceContainer, name: "Dice")
         ]
-        selectByIndex(0)
+        let _ = selectByIndex(0)
     }
 
     override func didReceiveMemoryWarning() {

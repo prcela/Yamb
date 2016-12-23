@@ -123,7 +123,7 @@ class PlayerViewController: UIViewController {
         statsBtn.isSelected = false
         diceBtn.isSelected = false
         dieIcon.alpha = 0.75
-        playerContainer?.selectByName("Profile", completion: nil)
+        let _ = playerContainer?.selectByName("Profile", completion: nil)
     }
     
     @IBAction func showStats(_ sender: AnyObject)
@@ -132,7 +132,7 @@ class PlayerViewController: UIViewController {
         statsBtn.isSelected = true
         diceBtn.isSelected = false
         dieIcon.alpha = 0.75
-        playerContainer?.selectByName("Stat", completion: nil)
+        let _ = playerContainer?.selectByName("Stat", completion: nil)
     }
     
     @IBAction func showDice(_ sender: AnyObject)
@@ -141,7 +141,7 @@ class PlayerViewController: UIViewController {
         statsBtn.isSelected = false
         diceBtn.isSelected = true
         dieIcon.alpha = 1
-        playerContainer?.selectByName("Dice", completion: nil)
+        let _ = playerContainer?.selectByName("Dice", completion: nil)
     }
     
     @IBAction func close(_ sender: AnyObject)

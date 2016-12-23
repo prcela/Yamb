@@ -268,7 +268,7 @@ class MainViewController: UIViewController
         
         PlayerStat.shared.items.append(statItem)
         ServerAPI.statItem(statItem.json()) { (data, response, error) in
-            print(response)
+            print(response ?? "invalid response")
         }
         
         let alert = UIAlertController(title: lstr("Match over"),

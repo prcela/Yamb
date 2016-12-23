@@ -81,7 +81,7 @@ class Table: NSObject, NSCoding
         values = [[UInt?]](repeating: [UInt?](repeating: nil, count: 16), count: 6)
     }
     
-    func updateValue(_ pos: TablePos, diceValues: [UInt]?) -> UInt?
+    func updateValue(atPos pos: TablePos, diceValues: [UInt]?) -> UInt?
     {
         let newValue = calculateValueForPos(pos, diceValues: diceValues)
         values[pos.colIdx][pos.rowIdx] = newValue
@@ -347,14 +347,14 @@ class Table: NSObject, NSCoding
         }
     }
     
-    func recalculateSumsForColumn(_ colIdx: Int, diceValues: [UInt]?)
+    func recalculateSums(atCol colIdx: Int, diceValues: [UInt]?)
     {
         let sumRows:[TableRow] = [.sumNumbers,.sumMaxMin,.sumSFPY]
         let sumColIdx = TableCol.sum.rawValue
         for row in sumRows
         {
-            updateValue(TablePos(rowIdx: row.rawValue, colIdx: colIdx), diceValues: diceValues)
-            updateValue(TablePos(rowIdx: row.rawValue, colIdx: sumColIdx), diceValues: diceValues)
+            let _ = updateValue(atPos: TablePos(rowIdx: row.rawValue, colIdx: colIdx), diceValues: diceValues)
+            let _ = updateValue(atPos: TablePos(rowIdx: row.rawValue, colIdx: sumColIdx), diceValues: diceValues)
         }
     }
     

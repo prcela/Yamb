@@ -296,8 +296,8 @@ class Player: NSObject, NSCoding
     {
         if let pos = inputPos
         {
-            table.updateValue(pos, diceValues: diceValues)
-            table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
+            let _ = table.updateValue(atPos: pos, diceValues: diceValues)
+            table.recalculateSums(atCol: pos.colIdx, diceValues: diceValues)
             if table.isQualityValueFor(pos, diceValues: diceValues)
             {
                 state = .afterN3
@@ -320,7 +320,7 @@ class Player: NSObject, NSCoding
             else
             {
                 table.values[oldPos.colIdx][oldPos.rowIdx] = nil
-                table.recalculateSumsForColumn(oldPos.colIdx, diceValues: diceValues)
+                table.recalculateSums(atCol: oldPos.colIdx, diceValues: diceValues)
                 
                 if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
                 {
@@ -334,11 +334,11 @@ class Player: NSObject, NSCoding
         if pos != inputPos
         {
             inputPos = pos
-            table.updateValue(pos, diceValues: diceValues)
+            let _ = table.updateValue(atPos: pos, diceValues: diceValues)
         }
         else if oldValue == nil
         {
-            table.updateValue(pos, diceValues: diceValues)
+            let _ = table.updateValue(atPos: pos, diceValues: diceValues)
         }
         else
         {
@@ -346,7 +346,7 @@ class Player: NSObject, NSCoding
             inputPos = nil
         }
         
-        table.recalculateSumsForColumn(pos.colIdx, diceValues: diceValues)
+        table.recalculateSums(atCol: pos.colIdx, diceValues: diceValues)
         
         if state == .after3 || state == .afterN3
         {
@@ -367,9 +367,9 @@ class Player: NSObject, NSCoding
         printStatus()
     }
     
-    func forceAnyTurn() -> Bool
+    func forceAnyTurn()
     {
-        return table.fillAnyEmptyPos()
+        let _ = table.fillAnyEmptyPos()
     }
     
     func shouldEnd() -> Bool
@@ -445,7 +445,7 @@ class Player: NSObject, NSCoding
             
             PlayerStat.shared.items.append(statItem)
             ServerAPI.statItem(statItem.json(), completionHandler: { (data, response, error) in
-                print(response)
+                print(response ?? "invalid respose")
             })
             Answers.logLevelEnd(statItem.matchType.rawValue,
                                 score: NSNumber(value: statItem.score),

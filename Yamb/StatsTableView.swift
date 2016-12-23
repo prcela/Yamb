@@ -73,7 +73,7 @@ class StatsTableView: UIView
     override func awakeFromNib() {
         let cellSize = calculateCellSize()
         
-        func createLabelAt(_ rowIdx: Int, colIdx: Int, text: String?, cells: Int = 1) -> UILabel
+        func createLabel(atRowIdx rowIdx: Int, colIdx: Int, text: String?, cells: Int = 1) -> UILabel
         {
             let lbl = UILabel(frame: CGRect(x: CGFloat(colIdx)*cellSize.width, y: CGFloat(rowIdx)*cellSize.height, width: cellSize.width*CGFloat(cells), height: cellSize.height))
             lbl.backgroundColor = UIColor.clear
@@ -90,29 +90,29 @@ class StatsTableView: UIView
             return lbl
         }
         
-        createLabelAt(0, colIdx: 2, text: lstr("Single player"))
-        createLabelAt(0, colIdx: 3, text: lstr("Multiplayer"))
-        createLabelAt(0, colIdx: 4, text: lstr("💎"))
-        createLabelAt(4, colIdx: 1, text: lstr("Best score"))
-        createLabelAt(5, colIdx: 1, text: lstr("Average score"))
-        createLabelAt(6, colIdx: 1, text: lstr("Best score"))
-        createLabelAt(7, colIdx: 1, text: lstr("Average score"))
-        createLabelAt(1, colIdx: 0, text: lstr("Total played"), cells: 2)
-        createLabelAt(2, colIdx: 0, text: lstr("Wins"), cells: 2)
-        createLabelAt(3, colIdx: 0, text: lstr("Loses"), cells: 2)
-        createLabelAt(4, colIdx: 0, text: "5")
-        createLabelAt(5, colIdx: 0, text: "🎲")
-        createLabelAt(6, colIdx: 0, text: "6")
-        createLabelAt(7, colIdx: 0, text: "🎲")
-        createLabelAt(8, colIdx: 0, text: "⭐️")
-        createLabelAt(8, colIdx: 1, text: "-")
-        createLabelAt(8, colIdx: 2, text: lstr("Stars desc"), cells: 3)
+        let _ = createLabel(atRowIdx: 0, colIdx: 2, text: lstr("Single player"))
+        let _ = createLabel(atRowIdx: 0, colIdx: 3, text: lstr("Multiplayer"))
+        let _ = createLabel(atRowIdx: 0, colIdx: 4, text: lstr("💎"))
+        let _ = createLabel(atRowIdx: 4, colIdx: 1, text: lstr("Best score"))
+        let _ = createLabel(atRowIdx: 5, colIdx: 1, text: lstr("Average score"))
+        let _ = createLabel(atRowIdx: 6, colIdx: 1, text: lstr("Best score"))
+        let _ = createLabel(atRowIdx: 7, colIdx: 1, text: lstr("Average score"))
+        let _ = createLabel(atRowIdx: 1, colIdx: 0, text: lstr("Total played"), cells: 2)
+        let _ = createLabel(atRowIdx: 2, colIdx: 0, text: lstr("Wins"), cells: 2)
+        let _ = createLabel(atRowIdx: 3, colIdx: 0, text: lstr("Loses"), cells: 2)
+        let _ = createLabel(atRowIdx: 4, colIdx: 0, text: "5")
+        let _ = createLabel(atRowIdx: 5, colIdx: 0, text: "🎲")
+        let _ = createLabel(atRowIdx: 6, colIdx: 0, text: "6")
+        let _ = createLabel(atRowIdx: 7, colIdx: 0, text: "🎲")
+        let _ = createLabel(atRowIdx: 8, colIdx: 0, text: "⭐️")
+        let _ = createLabel(atRowIdx: 8, colIdx: 1, text: "-")
+        let _ = createLabel(atRowIdx: 8, colIdx: 2, text: lstr("Stars desc"), cells: 3)
         
         for colIdx in 2...4
         {
             for rowIdx in 1...7
             {
-                createLabelAt(rowIdx, colIdx: colIdx, text: "-")
+                let _ = createLabel(atRowIdx: rowIdx, colIdx: colIdx, text: "-")
             }
         }
         

@@ -612,7 +612,7 @@ class PlayViewController: UIViewController {
     func onReceivedTextMessage(_ notification: Notification)
     {
         let dic = notification.object as! [String: AnyObject]
-        print(notification.object)
+        print(notification.object!)
         
         let text = dic["text"] as! String
         let senderID = dic["sender"] as! String
