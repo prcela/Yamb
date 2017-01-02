@@ -32,6 +32,7 @@ class MainViewController: UIViewController
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerAliasChanged, object: nil)
         nc.addObserver(self, selector: #selector(onFavDiceChanged), name: NotificationName.playerFavDiceChanged, object: nil)
         nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerStatItemsChanged, object: nil)
+        nc.addObserver(self, selector: #selector(appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
         MainViewController.shared = self
 
@@ -49,7 +50,14 @@ class MainViewController: UIViewController
         
         updatePlayerInfo()
         
-        dispatchToMainQueue(delay: 1, closure: evaluateRetention)
+    }
+    
+    func appDidBecomeActive()
+    {
+        if isViewLoaded
+        {
+            dispatchToMainQueue(delay: 1, closure: evaluateRetention)
+        }
     }
     
     func evaluateRetention()
@@ -58,7 +66,7 @@ class MainViewController: UIViewController
         let dateNow = Date()
         let dayNow = (calendar as NSCalendar).ordinality(of: .day, in: .era, for: dateNow)
         
-        // PlayerStat.shared.retentions = [736315,736316,736317] // test
+//        PlayerStat.shared.retentions = [736330] // test
         
         if let lastRetention = PlayerStat.shared.retentions.last
         {

@@ -9,31 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
-}
-
-
 private let keyValue = "keyValue"
 
 class Table: NSObject, NSCoding
@@ -145,7 +120,7 @@ class Table: NSObject, NSCoding
                         sum! += value
                     }
                 }
-                if sum >= 60
+                if sum != nil && sum! >= 60
                 {
                     sum! += 30
                 }
@@ -238,10 +213,10 @@ class Table: NSObject, NSCoding
                 }
             }
             
-            if atLeastPairs.count == 2 && (sum[atLeastPairs[0]] >= 3 || sum[atLeastPairs[1]] >= 3)
+            if atLeastPairs.count == 2 && (sum[atLeastPairs[0]]! >= 3 || sum[atLeastPairs[1]]! >= 3)
             {
                 atLeastPairs.sort()
-                if sum[atLeastPairs[1]] >= 3
+                if sum[atLeastPairs[1]]! >= 3
                 {
                     return 30 + atLeastPairs[0]*2 + atLeastPairs[1]*3
                 }
@@ -250,7 +225,7 @@ class Table: NSObject, NSCoding
                     return 30 + atLeastPairs[0]*3 + atLeastPairs[1]*2
                 }
             }
-            else if atLeastPairs.count == 1 && sum[atLeastPairs[0]] >= 5
+            else if atLeastPairs.count == 1 && sum[atLeastPairs[0]]! >= 5
             {
                 // yamb može biti isto full
                 return 30 + 5*atLeastPairs[0]

@@ -27,8 +27,8 @@ class RetentionViewController: UIViewController {
         // Do any additional setup after loading the view.
         let diceScene = DiceScene()
         scnView.scene = diceScene
-        let randomIndex = Int(arc4random_uniform(UInt32(DiceMaterial.all.count)))
-        diceScene.recreateMaterials(DiceMaterial.all[randomIndex])
+        let randomIndex = Int(arc4random_uniform(UInt32(DiceMaterial.forBuy.count)))
+        diceScene.recreateMaterials(DiceMaterial.forBuy[randomIndex])
         diceScene.start(ctDice)
         holderView.layer.cornerRadius = 10
         winLbl.isHidden = true

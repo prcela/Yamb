@@ -44,7 +44,6 @@ enum DiceMaterial: String
         return FIRRemoteConfig.remoteConfig()["dice_price_diamonds"].numberValue!.intValue
     }
     
-    static let all = [White,Black,Rose,Blue,Red,Yellow,Violet,Elsa,Roman,RedGlass,Heart,Dark,Apple,Moon,Flower,Bombs,Numbers,Animal,Soccer,Xmass,Cheese,Green,Mario,Aurora,Flourescent,XO,GrayGlitter]
     static let forFree = [White, Black, Blue, Rose, Red, Yellow, Green, Violet, GrayGlitter]
     static let forDiamonds = [Roman, RedGlass, Heart, Dark, Flower, Moon, Bombs, Animal, Soccer, Xmass, Cheese, Flourescent, XO]
     static let forBuy = [Elsa, Numbers, Apple, Aurora, Mario]
