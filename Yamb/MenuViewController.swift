@@ -30,9 +30,9 @@ class MenuViewController: UIViewController
         
         let nc = NotificationCenter.default
         
-        nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: NotificationName.authenticatedLocalPlayer, object: nil)
-        nc.addObserver(self, selector: #selector(goToMainMenu), name: NotificationName.goToMainMenu, object: nil)
-        nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(localPlayerAuthenticated), name: .authenticatedLocalPlayer, object: nil)
+        nc.addObserver(self, selector: #selector(goToMainMenu), name: .goToMainMenu, object: nil)
+        nc.addObserver(self, selector: #selector(onRoomInfo), name: .onRoomInfo, object: nil)
 
     }
     

@@ -18,8 +18,8 @@ class RoomViewController: UIViewController
         
         let nc = NotificationCenter.default
         
-        nc.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
-        nc.addObserver(self, selector: #selector(popToHere), name: NotificationName.goToMainRoom, object: nil)
+        nc.addObserver(self, selector: #selector(onRoomInfo), name: .onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(popToHere), name: .goToMainRoom, object: nil)
     }
     
     deinit {

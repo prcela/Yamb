@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NotificationName
+extension NSNotification.Name
 {
     static let matchStateChanged = NSNotification.Name("Notification.GameStateChanged")
     static let authenticatedLocalPlayer = NSNotification.Name("Notification.AuthenticatedLocalPlayer")

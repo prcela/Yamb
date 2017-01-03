@@ -23,8 +23,8 @@ class PlayerViewController: UIViewController {
         super.init(coder: aDecoder)
      
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(onFavDieSet), name: NotificationName.playerFavDiceChanged, object: nil)
-        nc.addObserver(self, selector: #selector(onWantsNewDiceMat(_:)), name: NotificationName.wantsUnownedDiceMaterial, object: nil)
+        nc.addObserver(self, selector: #selector(onFavDieSet), name: .playerFavDiceChanged, object: nil)
+        nc.addObserver(self, selector: #selector(onWantsNewDiceMat(_:)), name: .wantsUnownedDiceMaterial, object: nil)
     }
     
     

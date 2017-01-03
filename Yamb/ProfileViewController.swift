@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDiamonds), name: NotificationName.playerDiamondsChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDiamonds), name: .playerDiamondsChanged, object: nil)
     }
     
     
@@ -113,7 +113,7 @@ class ProfileViewController: UIViewController {
             if let newAlias = alert.textFields?.first?.text
             {
                 PlayerStat.shared.alias = newAlias
-                NotificationCenter.default.post(name: NotificationName.playerAliasChanged, object: nil)
+                NotificationCenter.default.post(name: .playerAliasChanged, object: nil)
                 self.playerNameLbl.text = newAlias
                 ServerAPI.updatePlayer({ (_, _, _) in
                 })

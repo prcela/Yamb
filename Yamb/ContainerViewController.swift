@@ -92,7 +92,7 @@ class ContainerViewController: UIViewController {
     
     fileprivate func onTransitionFinished(_ fromVC: UIViewController?, toVC: UIViewController)
     {
-        NotificationCenter.default.post(name: NotificationName.containerItemSelected, object: self)
+        NotificationCenter.default.post(name: .containerItemSelected, object: self)
     }
     
     func selectedViewController() -> UIViewController?

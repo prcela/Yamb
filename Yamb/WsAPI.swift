@@ -41,7 +41,7 @@ class WsAPI
     func connect()
     {
         socket.connect()
-        NotificationCenter.default.post(name: NotificationName.wsConnect, object: nil)
+        NotificationCenter.default.post(name: .wsConnect, object: nil)
     }
     
     func ping()
@@ -162,7 +162,7 @@ extension WsAPI: WebSocketDelegate
 {
     func websocketDidConnect(socket: WebSocket) {
         print("didConnect to \(socket.currentURL)")
-        NotificationCenter.default.post(name: NotificationName.wsDidConnect, object: nil)
+        NotificationCenter.default.post(name: .wsDidConnect, object: nil)
         retryCount = 0
         lastReceivedMsgId = nil
         joinToRoom()
@@ -176,7 +176,7 @@ extension WsAPI: WebSocketDelegate
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         print("websocketDidDisconnect")
-        NotificationCenter.default.post(name: NotificationName.wsDidDisconnect, object: nil)
+        NotificationCenter.default.post(name: .wsDidDisconnect, object: nil)
         
         dispatchToMainQueue(delay: min(Double(retryCount), 5)) {
             print("retry connect")
@@ -222,7 +222,7 @@ extension WsAPI: WebSocketDelegate
             guard matchId == Match.shared.id else {
                 return
             }
-            nc.post(name: NotificationName.maybeSomeoneWillDump, object: json["id"].stringValue)
+            nc.post(name: .maybeSomeoneWillDump, object: json["id"].stringValue)
             
         case .Dump:
             print("someone dumped")
@@ -230,7 +230,7 @@ extension WsAPI: WebSocketDelegate
             guard matchId == Match.shared.id else {
                 return
             }
-            nc.post(name: NotificationName.dumped, object: json["id"].stringValue)
+            nc.post(name: .dumped, object: json["id"].stringValue)
         
         case .RoomInfo:
             
@@ -263,30 +263,30 @@ extension WsAPI: WebSocketDelegate
                 Room.main.matchesInfo.append(matchInfo)
             }
             
-            nc.post(name: NotificationName.onRoomInfo, object: nil)
+            nc.post(name: .onRoomInfo, object: nil)
             
         case .CreateMatch:
             print("Match created")
             
         case .JoinMatch:
             let matchId = json["match_id"].uIntValue
-            nc.post(name: NotificationName.joinedMatch, object: matchId)
+            nc.post(name: .joinedMatch, object: matchId)
             
         case .LeaveMatch:
             let matchId = json["match_id"].uIntValue
-            nc.post(name: NotificationName.opponentLeavedMatch, object: matchId)
+            nc.post(name: .opponentLeavedMatch, object: matchId)
             break
             
         case .InvitePlayer:
             let senderPlayerId = json["sender"].stringValue
-            nc.post(name: NotificationName.matchInvitationArrived, object: senderPlayerId)
+            nc.post(name: .matchInvitationArrived, object: senderPlayerId)
             
         case .IgnoreInvitation:
             let recipientPlayerId = json["recipient"].stringValue
-            nc.post(name: NotificationName.matchInvitationIgnored, object: recipientPlayerId)
+            nc.post(name: .matchInvitationIgnored, object: recipientPlayerId)
             
         case .TextMessage:
-            nc.post(name: NotificationName.matchReceivedTextMessage, object: json.dictionaryObject!)
+            nc.post(name: .matchReceivedTextMessage, object: json.dictionaryObject!)
             break
             
             
@@ -339,12 +339,12 @@ extension WsAPI: WebSocketDelegate
                     player.inputPos = TablePos(rowIdx: rowIdx, colIdx: colIdx)
                 }
             case .newGame:
-                nc.post(name: NotificationName.opponentNewGame, object: matchId)
+                nc.post(name: .opponentNewGame, object: matchId)
                 
             case .end:
-                nc.post(name: NotificationName.multiplayerMatchEnded, object: matchId)
+                nc.post(name: .multiplayerMatchEnded, object: matchId)
             }
-            nc.post(name: NotificationName.matchStateChanged, object: nil)
+            nc.post(name: .matchStateChanged, object: nil)
             
         default:
             break

@@ -34,16 +34,16 @@ class PlayViewController: UIViewController {
         super.init(coder: aDecoder)
         
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: NotificationName.matchStateChanged, object: nil)
-        nc.addObserver(self, selector: #selector(alertForInput), name: NotificationName.alertForInput, object: nil)
-        nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: NotificationName.opponentLeavedMatch, object: nil)
-        nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: NotificationName.opponentNewGame, object: nil)
-        nc.addObserver(self, selector: #selector(maybeSomeoneWillDump(_:)), name: NotificationName.maybeSomeoneWillDump, object: nil)
-        nc.addObserver(self, selector: #selector(someoneDumped(_:)), name: NotificationName.dumped, object: nil)
-        nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
-        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
-        nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: NotificationName.onPlayerTurnInMultiplayer, object: nil)
-        nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: NotificationName.matchReceivedTextMessage, object: nil)
+        nc.addObserver(self, selector: #selector(onGameStateChanged(_:)), name: .matchStateChanged, object: nil)
+        nc.addObserver(self, selector: #selector(alertForInput), name: .alertForInput, object: nil)
+        nc.addObserver(self, selector: #selector(opponentLeavedMatch(_:)), name: .opponentLeavedMatch, object: nil)
+        nc.addObserver(self, selector: #selector(opponentStartedNewGame(_:)), name: .opponentNewGame, object: nil)
+        nc.addObserver(self, selector: #selector(maybeSomeoneWillDump(_:)), name: .maybeSomeoneWillDump, object: nil)
+        nc.addObserver(self, selector: #selector(someoneDumped(_:)), name: .dumped, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidConnect), name: .wsDidConnect, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: .wsDidDisconnect, object: nil)
+        nc.addObserver(self, selector: #selector(onPlayerTurnInMultiplayer(_:)), name: .onPlayerTurnInMultiplayer, object: nil)
+        nc.addObserver(self, selector: #selector(onReceivedTextMessage(_:)), name: .matchReceivedTextMessage, object: nil)
         
         PlayViewController.isActive = true
     }
@@ -390,7 +390,7 @@ class PlayViewController: UIViewController {
                     PlayViewController.diceScene.updateDiceValues(values)
                 }
                 PlayViewController.diceScene.updateDiceSelection(player.diceHeld)
-                NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+                NotificationCenter.default.post(name: .matchStateChanged, object: nil)
             }
         }))
         alert.addAction(UIAlertAction(title: lstr("Leave match"), style: .destructive, handler: { (action) in
@@ -438,7 +438,7 @@ class PlayViewController: UIViewController {
         let match = Match.shared
         if match.matchType == .SinglePlayer
         {
-            NotificationCenter.default.post(name: NotificationName.goToMainMenu, object: nil)
+            NotificationCenter.default.post(name: .goToMainMenu, object: nil)
             if let player = match.players.first
             {
                 if player.state != .start && player.state != .endGame
@@ -449,7 +449,7 @@ class PlayViewController: UIViewController {
         }
         else
         {
-            NotificationCenter.default.post(name: NotificationName.goToMainRoom, object: nil)
+            NotificationCenter.default.post(name: .goToMainRoom, object: nil)
         }
     }
     

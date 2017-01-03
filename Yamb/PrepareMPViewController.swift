@@ -33,8 +33,8 @@ class PrepareMPViewController: UIViewController {
         
         let nc = NotificationCenter.default
         
-        nc.addObserver(self, selector: #selector(updateFreePlayers), name: NotificationName.onRoomInfo, object: nil)
-        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
+        nc.addObserver(self, selector: #selector(updateFreePlayers), name: .onRoomInfo, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: .matchInvitationIgnored, object: nil)
         
         let available = PlayerStat.shared.diamonds
         bet = min(bet, available)

@@ -14,7 +14,7 @@ class PlayerStat: NSObject, NSCoding
 
     var favDiceMat:DiceMaterial = .White {
         didSet {
-            NotificationCenter.default.post(name: NotificationName.playerFavDiceChanged, object: diamonds)
+            NotificationCenter.default.post(name: .playerFavDiceChanged, object: diamonds)
         }
     }
     var boughtDiceMaterials = [DiceMaterial]()
@@ -23,13 +23,13 @@ class PlayerStat: NSObject, NSCoding
     var alias: String = ""
     var items = [StatItem]() {
         didSet {
-            NotificationCenter.default.post(name: NotificationName.playerStatItemsChanged, object: items)
+            NotificationCenter.default.post(name: .playerStatItemsChanged, object: items)
         }
     }
     var purchasedName = false
     var diamonds = 100 {
         didSet {
-            NotificationCenter.default.post(name: NotificationName.playerDiamondsChanged, object: diamonds)
+            NotificationCenter.default.post(name: .playerDiamondsChanged, object: diamonds)
         }
     }
     

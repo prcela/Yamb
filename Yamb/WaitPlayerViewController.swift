@@ -24,7 +24,7 @@ class WaitPlayerViewController: UIViewController {
         
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: .onRoomInfo, object: nil)
     }
     
     deinit {

@@ -85,7 +85,7 @@ class DiceCollectionViewController: UICollectionViewController
         }
         else
         {
-            NotificationCenter.default.post(name: NotificationName.wantsUnownedDiceMaterial, object: diceMat.rawValue)
+            NotificationCenter.default.post(name: .wantsUnownedDiceMaterial, object: diceMat.rawValue)
             return false
         }
         

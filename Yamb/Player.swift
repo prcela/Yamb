@@ -68,7 +68,7 @@ class Player: NSObject, NSCoding
     var diceHeld = Set<UInt>() {
         didSet {
             PlayViewController.diceScene.updateDiceSelection(diceHeld)
-            NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+            NotificationCenter.default.post(name: .matchStateChanged, object: nil)
             
             if Match.shared.matchType == .OnlineMultiplayer && Match.shared.isLocalPlayerTurn()
             {
@@ -179,7 +179,7 @@ class Player: NSObject, NSCoding
         }
         
         rollState = .rolling
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
         
         let ctMaxRounds: UInt32 = 3
         var oldValues = diceValues
@@ -289,7 +289,7 @@ class Player: NSObject, NSCoding
         }
         
         printStatus()
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
     }
     
     func updateNajavaValue()
@@ -429,7 +429,7 @@ class Player: NSObject, NSCoding
         if Match.shared.matchType == .OnlineMultiplayer &&  Match.shared.players.count > 1 && Match.shared.indexOfPlayerOnTurn != 0
         {
             WsAPI.shared.turn(.end, matchId: Match.shared.id, params: JSON([:]))
-            NotificationCenter.default.post(name: NotificationName.multiplayerMatchEnded, object: Match.shared.id)
+            NotificationCenter.default.post(name: .multiplayerMatchEnded, object: Match.shared.id)
             Answers.logLevelEnd(Match.shared.matchType.rawValue, score: nil, success: nil, customAttributes: ["diceNum":Match.shared.diceNum.rawValue])
         }
         else if Match.shared.matchType == .SinglePlayer
@@ -505,7 +505,7 @@ class Player: NSObject, NSCoding
         
         if diceHeld.count == Match.shared.diceNum.rawValue && inputPos?.colIdx == TableCol.n.rawValue
         {
-            NotificationCenter.default.post(name: NotificationName.alertForInput, object: nil)
+            NotificationCenter.default.post(name: .alertForInput, object: nil)
         }
     }
     

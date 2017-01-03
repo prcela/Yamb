@@ -21,7 +21,7 @@ class InvitationViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: NotificationName.onRoomInfo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onRoomInfo), name: .onRoomInfo, object: nil)
     }
     
     deinit {

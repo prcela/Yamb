@@ -39,7 +39,7 @@ class GameKitHelper: NSObject
                 self.localPlayerId = localPlayer.playerID
                 self.authController = nil
                 
-                NotificationCenter.default.post(name: NotificationName.authenticatedLocalPlayer, object: nil)
+                NotificationCenter.default.post(name: .authenticatedLocalPlayer, object: nil)
                 FIRAnalytics.setUserPropertyString("gc_authenticated", forName: "gc")
             }
         }

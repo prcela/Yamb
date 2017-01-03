@@ -88,7 +88,7 @@ class Match: NSObject, NSCoding
         
         UserDefaults.standard.set(diceNum == .five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
         
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
         
         Answers.logLevelStart(matchType.rawValue, customAttributes: ["diceNum" : diceNum.rawValue])
         
@@ -116,14 +116,14 @@ class Match: NSObject, NSCoding
             diceScene.updateDiceValues(values)
         }
         
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
         print("Next player on turn: \(indexOfPlayerOnTurn)")
         
         if matchType == .OnlineMultiplayer
         {
             // start the expiration timer
             turnId += 1
-            NotificationCenter.default.post(name: NotificationName.onPlayerTurnInMultiplayer, object: turnId)
+            NotificationCenter.default.post(name: .onPlayerTurnInMultiplayer, object: turnId)
         }
     }
     
@@ -147,7 +147,7 @@ class Match: NSObject, NSCoding
         let player = players[indexOfPlayerOnTurn]
         player.didSelectCellAtPos(pos)
         
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
     }
     
     

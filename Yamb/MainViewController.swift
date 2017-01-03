@@ -21,18 +21,18 @@ class MainViewController: UIViewController
         
         let nc = NotificationCenter.default
         
-        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: NotificationName.joinedMatch, object: nil)
-        nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: NotificationName.matchInvitationArrived, object: nil)
-        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: NotificationName.matchInvitationIgnored, object: nil)
-        nc.addObserver(self, selector: #selector(mpMatchEnded(_:)), name: NotificationName.multiplayerMatchEnded, object: nil)
-        nc.addObserver(self, selector: #selector(onWsConnect), name: NotificationName.wsConnect, object: nil)
-        nc.addObserver(self, selector: #selector(onWsDidConnect), name: NotificationName.wsDidConnect, object: nil)
-        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: NotificationName.wsDidDisconnect, object: nil)
-        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerDiamondsChanged, object: nil)
-        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerAliasChanged, object: nil)
-        nc.addObserver(self, selector: #selector(onFavDiceChanged), name: NotificationName.playerFavDiceChanged, object: nil)
-        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: NotificationName.playerStatItemsChanged, object: nil)
-        nc.addObserver(self, selector: #selector(appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        nc.addObserver(self, selector: #selector(joinedMatch(_:)), name: .joinedMatch, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationArrived(_:)), name: .matchInvitationArrived, object: nil)
+        nc.addObserver(self, selector: #selector(matchInvitationIgnored(_:)), name: .matchInvitationIgnored, object: nil)
+        nc.addObserver(self, selector: #selector(mpMatchEnded(_:)), name: .multiplayerMatchEnded, object: nil)
+        nc.addObserver(self, selector: #selector(onWsConnect), name: .wsConnect, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidConnect), name: .wsDidConnect, object: nil)
+        nc.addObserver(self, selector: #selector(onWsDidDisconnect), name: .wsDidDisconnect, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: .playerDiamondsChanged, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: .playerAliasChanged, object: nil)
+        nc.addObserver(self, selector: #selector(onFavDiceChanged), name: .playerFavDiceChanged, object: nil)
+        nc.addObserver(self, selector: #selector(updatePlayerInfo), name: .playerStatItemsChanged, object: nil)
+        nc.addObserver(self, selector: #selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         
         MainViewController.shared = self
 
@@ -303,7 +303,7 @@ class MainViewController: UIViewController
         {
             present(alert, animated: true, completion: nil)
         }
-        NotificationCenter.default.post(name: NotificationName.matchStateChanged, object: nil)
+        NotificationCenter.default.post(name: .matchStateChanged, object: nil)
     }
     
     func onWsConnect()
