@@ -403,15 +403,26 @@ class PlayViewController: UIViewController {
     {
         if Match.shared.matchType == .OnlineMultiplayer
         {
-            let matchJustStartedOrEnded = Match.shared.players.contains { (player) -> Bool in
-                return player.state == .start || player.state == .endGame
+            let matchJustStarted = Match.shared.players.contains { (player) -> Bool in
+                return player.state == .start
             }
             
-            if matchJustStartedOrEnded
+            let matchEnded = Match.shared.players.contains { (player) -> Bool in
+                return player.state == .endGame
+            }
+            
+            if matchEnded
             {
                 // leave without alert
                 WsAPI.shared.leaveMatch(Match.shared.id)
                 dismiss()
+            }
+            else if matchJustStarted
+            {
+                // leave and return the bet
+                WsAPI.shared.leaveMatch(Match.shared.id)
+                dismiss()
+                PlayerStat.shared.diamonds += Match.shared.bet
             }
             else
             {
