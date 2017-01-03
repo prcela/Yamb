@@ -77,7 +77,7 @@ class Match: NSObject, NSCoding
             player.avgScore6 = avgScore6
             player.diceMaterial = diceMat
             players.append(player)
-             player.table.fakeFill()
+//             player.table.fakeFill()
             player.printStatus()
         }
         indexOfPlayerOnTurn = 0

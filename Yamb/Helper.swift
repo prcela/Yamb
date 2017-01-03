@@ -11,7 +11,7 @@ import UIKit
 
 func dispatchToMainQueue(delay:TimeInterval, closure:@escaping ()->()) {
     DispatchQueue.main.asyncAfter(
-        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+        deadline: DispatchTime.now() + delay, execute: closure)
 }
 
 

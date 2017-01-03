@@ -61,6 +61,6 @@ let purchaseDiceLId = "yamb.PurchaseDice.l"
 let purchaseDiceZId = "yamb.PurchaseDice.z"
 let purchaseDiceXId = "yamb.PurchaseDice.x"
 
-let purchaseDiamondsId = "yamb.PurchaseDiamondsNew"
+let purchaseDiamondsId = "yamb.PurchaseDiamondsNewOne"
 
 let allPurchaseIds: Set<String> = [purchaseNameId, purchaseDiamondsId, purchaseDiceGId, purchaseDiceLId, purchaseDicePId, purchaseDiceZId, purchaseDiceXId]

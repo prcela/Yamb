@@ -11,7 +11,7 @@ import GameKit
 import Starscream
 import SwiftyJSON
 
-private let ipHome = "192.168.5.12:8181"
+private let ipHome = "192.168.5.11:8181"
 private let ipWork = "10.0.21.221:8181"
 private let ipServer = "139.59.142.160:80"
 let ipCurrent = ipServer

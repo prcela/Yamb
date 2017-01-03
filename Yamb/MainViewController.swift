@@ -144,7 +144,37 @@ class MainViewController: UIViewController
             
                 updatePlayerInfo()
             
-                performSegue(withIdentifier: "playIdentifier", sender: nil)
+                // remove what is already presented on top
+                if let presented = presentedViewController
+                {
+                    if presented.isBeingDismissed
+                    {
+                        dispatchToMainQueue(delay: 1, closure: { 
+                            self.performSegue(withIdentifier: "playIdentifier", sender: nil)
+                        })
+                    }
+                    else if presented.isBeingPresented
+                    {
+                        dispatchToMainQueue(delay: 1, closure: {
+                            self.dismiss(animated: false, completion: nil)
+                        })
+                        dispatchToMainQueue(delay: 2, closure: {
+                            self.performSegue(withIdentifier: "playIdentifier", sender: nil)
+                        })
+                    }
+                    else
+                    {
+                        dismiss(animated: false, completion: nil)
+                        dispatchToMainQueue(delay: 1, closure: {
+                            self.performSegue(withIdentifier: "playIdentifier", sender: nil)
+                        })
+                    }
+                }
+                else
+                {
+                    performSegue(withIdentifier: "playIdentifier", sender: nil)
+                }
+                
             }
         }
     }

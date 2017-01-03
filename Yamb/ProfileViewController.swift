@@ -53,8 +53,8 @@ class ProfileViewController: UIViewController {
         let myStars5 = stars5(PlayerStat.avgScore(.five))
         let myStars6 = stars6(PlayerStat.avgScore(.six))
         
-        dice5StarsLbl.text = String(format: "5 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars5 as Float))!)
-        dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars6 as Float))!)
+        dice5StarsLbl.text = String(format: "5 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars5))!)
+        dice6StarsLbl.text = String(format: "6 🎲 %@ ⭐️", starsFormatter.string(from: NSNumber(value: myStars6))!)
         
         let diamondsQuantity = FIRRemoteConfig.remoteConfig()["purchase_diamonds_quantity"].numberValue!.intValue
         
