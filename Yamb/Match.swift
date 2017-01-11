@@ -87,6 +87,15 @@ class Match: NSObject, NSCoding
         diceScene.recreateMaterials(playersDesc.first!.diceMat)
         diceScene.updateDiceSelection(players.first!.diceHeld)
         
+        if matchType == .OnlineMultiplayer
+        {
+            // decrease coins for bet
+            
+            var diamonds = PlayerStat.shared.diamonds
+            diamonds = max(0, diamonds - bet)
+            PlayerStat.shared.diamonds = diamonds
+        }
+        
         UserDefaults.standard.set(diceNum == .five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
         
         NotificationCenter.default.post(name: .matchStateChanged, object: nil)

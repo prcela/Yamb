@@ -135,13 +135,7 @@ class MainViewController: UIViewController
                                     (lastPlayerId,lastPlayer.alias,lastPlayer.avgScore6,lastDiceMat)],
                                    matchId: matchId,
                                    bet: matchInfo.bet)
-            
-                // decrease coins for bet
-            
-                var diamonds = PlayerStat.shared.diamonds
-                diamonds = max(0, diamonds - matchInfo.bet)
-                PlayerStat.shared.diamonds = diamonds
-            
+                
                 updatePlayerInfo()
             
                 // remove what is already presented on top

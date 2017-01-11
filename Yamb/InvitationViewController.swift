@@ -42,7 +42,7 @@ class InvitationViewController: UIViewController {
                 return
         }
         
-        var message = String(format: lstr("Invitation message"), senderPlayer.alias!, matchInfo!.diceNum)
+        var message = String(format: lstr("Invitation message"), senderPlayer.alias!, starsFormatter.string(from: NSNumber(value: stars6(senderPlayer.avgScore6)))!, matchInfo!.diceNum)
         
         if let bet = matchInfo?.bet, bet > 0
         {
