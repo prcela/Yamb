@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSNotification.Name
+extension Notification.Name
 {
     static let matchStateChanged = NSNotification.Name("Notification.GameStateChanged")
     static let authenticatedLocalPlayer = NSNotification.Name("Notification.AuthenticatedLocalPlayer")
@@ -20,6 +20,7 @@ extension NSNotification.Name
     static let maybeSomeoneWillDump = NSNotification.Name("Notification.maybeSomeoneWillDump")
     static let dumped = NSNotification.Name("Notification.dumped")
     static let opponentLeavedMatch = NSNotification.Name("Notification.opponentLeavedMatch")
+    static let opponentLeavedMatchReplay = NSNotification.Name("Notification.opponentLeavedMatchReplay")
     static let opponentNewGame = NSNotification.Name("Notification.opponentNewGame")
     static let matchInvitationArrived = NSNotification.Name("Notification.matchInvitationArrived")
     static let matchInvitationIgnored = NSNotification.Name("Notification.matchInvitationIgnored")

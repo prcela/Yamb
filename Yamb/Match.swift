@@ -84,6 +84,7 @@ class Match: NSObject, NSCoding
         
         let diceScene = PlayViewController.diceScene
         diceScene.start(diceNum.rawValue)
+        diceScene.recreateMaterials(playersDesc.first!.diceMat)
         diceScene.updateDiceSelection(players.first!.diceHeld)
         
         UserDefaults.standard.set(diceNum == .five ? LeaderboardId.dice5 : LeaderboardId.dice6, forKey: Prefs.lastPlayedGameType)
@@ -117,7 +118,7 @@ class Match: NSObject, NSCoding
         }
         
         NotificationCenter.default.post(name: .matchStateChanged, object: nil)
-        print("Next player on turn: \(indexOfPlayerOnTurn)")
+        print("nextPlayer: index on turn = \(indexOfPlayerOnTurn)")
         
         if matchType == .OnlineMultiplayer
         {
@@ -170,6 +171,13 @@ class Match: NSObject, NSCoding
         let playerId = PlayerStat.shared.id
         let player = players[indexOfPlayerOnTurn]
         return player.id == playerId
+    }
+    
+    func allPlayersEnded() -> Bool
+    {
+        return !players.contains(where: { (p) -> Bool in
+            return p.state != .endGame
+        })
     }
     
     // MARK: NSCoding

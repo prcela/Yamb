@@ -29,6 +29,7 @@ class PlayerStat: NSObject, NSCoding
     var purchasedName = false
     var diamonds = 100 {
         didSet {
+            print("Diamonds didSet: \(diamonds)")
             NotificationCenter.default.post(name: .playerDiamondsChanged, object: diamonds)
         }
     }

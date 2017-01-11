@@ -11,7 +11,7 @@ import GameKit
 import Starscream
 import SwiftyJSON
 
-private let ipHome = "192.168.5.11:8181"
+private let ipHome = "192.168.5.10:8181"
 private let ipWork = "10.0.21.221:8181"
 private let ipServer = "139.59.142.160:80"
 let ipCurrent = ipServer
@@ -90,6 +90,12 @@ class WsAPI
     {
         let json = JSON(["match_id":matchId])
         send(.LeaveMatch, json: json)
+    }
+    
+    func leaveMatchReplay(_ matchId: UInt)
+    {
+        let json = JSON(["match_id":matchId])
+        send(.LeaveMatchReplay, json: json)
     }
     
     func turn(_ turn: Turn, matchId: UInt, params: JSON)
@@ -275,7 +281,10 @@ extension WsAPI: WebSocketDelegate
         case .LeaveMatch:
             let matchId = json["match_id"].uIntValue
             nc.post(name: .opponentLeavedMatch, object: matchId)
-            break
+            
+        case .LeaveMatchReplay:
+            let matchId = json["match_id"].uIntValue
+            nc.post(name: .opponentLeavedMatchReplay, object: matchId)
             
         case .InvitePlayer:
             let senderPlayerId = json["sender"].stringValue
