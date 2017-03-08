@@ -65,13 +65,13 @@ class RetentionViewController: UIViewController {
                 activeRotationRounds[dieIdx][idx] = newRounds[idx]
             }
         }
+        self.rollBtn.isHidden = true
         diceScene.rollToValues(values, ctMaxRounds: ctMaxRounds, activeRotationRounds: activeRotationRounds, ctHeld: 0) {
             let sum = values.reduce(0, { (sum, val) -> UInt in
                 return sum + val
             })
             self.winLbl.isHidden = false
             self.winLbl.text = String(format: lstr("You win %d 💎"), sum)
-            self.rollBtn.isHidden = true
             self.doneBtn.isHidden = false
             PlayerStat.shared.diamonds += Int(sum)
             PlayerStat.saveStat()

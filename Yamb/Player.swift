@@ -179,6 +179,7 @@ class Player: NSObject, NSCoding
         }
         
         rollState = .rolling
+        inputState = .notAllowed
         NotificationCenter.default.post(name: .matchStateChanged, object: nil)
         
         let ctMaxRounds: UInt32 = 3

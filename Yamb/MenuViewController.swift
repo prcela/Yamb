@@ -22,8 +22,8 @@ class MenuViewController: UIViewController
     @IBOutlet weak var tellFriendsBtn: UIButton!
     
     var waitForLocalPlayerAuth = false
-    var currentVersionMP = 8
-    var minRequiredVersion = 8
+    var currentVersionMP = 9
+    var minRequiredVersion = 9
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
